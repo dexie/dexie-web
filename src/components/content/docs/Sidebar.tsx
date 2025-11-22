@@ -49,10 +49,43 @@ const searchDocs = async (
   }
 
   const foundSections = await offlineDB.findDocuments(searchTerm);
-  return Object.fromEntries(foundSections.map(doc => [doc.title ?? doc.parentTitle ??  "Untitled", {
-    title: doc.parentTitle ?? doc.title ?? "Untitled",
+
+  let grouped = Object.groupBy(foundSections, doc => doc.parentTitle || doc.title);
+
+  const entries = Object.entries(grouped).sort(([,a], [,b]) => {
+    if (!a) return 1;
+    if (!b) return -1;
+    const scoreSumA = a.reduce((sum: number, doc: {score: number}) => sum + doc.score, 0);
+    const scoreSumB = b.reduce((sum: number, doc: {score: number}) => sum + doc.score, 0);
+    return scoreSumB - scoreSumA;
+  }).map(([parentTitle, docs]) => {
+    if (!docs) return null;
+    if (docs.length === 1) {
+      // Single document matches, return as NavItem
+      const doc = docs[0];
+      return [parentTitle, {
+        title: doc.title || doc.parentTitle || "Untitled",
+        slug: doc.url.replace(/^\/docs\//, ''),
+      }];
+    } else {
+      // Multiple documents match, return as NavStructure
+      const subStructure: NavStructure = {};
+      for (const doc of docs) {
+        subStructure[doc.title || doc.parentTitle || "Untitled"] = {
+          title: doc.title || doc.parentTitle || "Untitled",
+          slug: doc.url.replace(/^\/docs\//, ''),
+        };
+      }
+      return [parentTitle, subStructure];
+    }
+  });
+
+  return Object.fromEntries(entries as any[]);
+
+  /*return Object.fromEntries(foundSections.map(doc => [doc.title || doc.parentTitle ||  "Untitled", {
+    title: doc.parentTitle || doc.title || "Untitled",
     slug: doc.url.replace(/^\/docs\//, ''),
-  }]));
+  }]));*/
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
