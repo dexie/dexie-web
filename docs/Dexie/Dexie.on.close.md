@@ -11,6 +11,6 @@ db.on("close", () => console.log("db was closed"));
 
 ### Description
 
-The "close" event occurs if database is forcibly closed from external action. The event is not fired when calling db.close(). From dexie@4.1.0 (currently in alpha), this event is also fired as a CustomEvent when db.close() is called explicitely or implicitely and not just when forcibly closed from outside.
+The "close" event occurs if database is forcibly closed from external action. From dexie@4.1.0, this event is also fired as a CustomEvent when db.close() is called explicitely or implicitely and not just when forcibly closed from outside.
 
 See corresponding docs on MDN: https://developer.mozilla.org/en-US/docs/Web/API/IDBDatabase/close_event
