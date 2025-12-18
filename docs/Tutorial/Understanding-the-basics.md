@@ -71,7 +71,7 @@ db.version(1).stores({
     friends: 'id, name, age'
 });
 db.version(2).stores({
-    friends: 'id, name, firstName, lastName',
+    friends: 'id, firstName, lastName',
 }).upgrade(tx => {
     return tx.table("friends").toCollection().modify(friend => {
         const names = friend.name.split(' ');
