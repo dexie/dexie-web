@@ -167,7 +167,7 @@ export default function DexieCloudPage() {
           {
             text: "Get Started",
             link: {
-              url: "/docs/cloud/quickstart",
+              url: "#get-started",
               querystring: "",
               title: "Get Started with Dexie Cloud",
               target: "_self",
@@ -424,6 +424,7 @@ export default function DexieCloudPage() {
         >
           <Typography
             variant="h3"
+            id="get-started"
             component="h2"
             sx={{
               textAlign: "center",
