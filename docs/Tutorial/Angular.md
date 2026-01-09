@@ -57,10 +57,10 @@ export class AppDB extends Dexie {
   }
 
   async populate() {
-    const todoListId = await db.todoLists.add({
+    const todoListId = await this.todoLists.add({
       title: 'To Do Today',
     });
-    await db.todoItems.bulkAdd([
+    await this.todoItems.bulkAdd([
       {
         todoListId,
         title: 'Feed the birds',
