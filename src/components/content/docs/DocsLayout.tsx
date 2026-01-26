@@ -3,7 +3,6 @@ import Link from "next/link"
 import Sidebar from "./Sidebar"
 import EditOnGitHubButton from "./EditOnGitHubButton"
 import MDXContent from "./MDXContent"
-import MobileDrawer from "./MobileDrawer"
 import {
   Box,
   Container,
@@ -42,12 +41,6 @@ const DocsLayout: React.FC<DocsLayoutProps> = ({
 
   return (
     <Container maxWidth={false} sx={{ padding: 0, pt: "100px" }}>
-      <MobileDrawer 
-        navigation={navigation} 
-        currentSlug={currentSlug} 
-        drawerWidth={drawerWidth}
-      />
-      
       <Box sx={{ display: "flex", flexDirection: { xs: "column", md: "row" } }}>
         {/* Desktop Sidebar */}
         <Box

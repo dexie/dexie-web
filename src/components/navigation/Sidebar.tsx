@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React from "react"
 import {
   Box,
   Drawer,
@@ -10,14 +10,12 @@ import {
   ListItemText,
   Typography,
   Collapse,
-  IconButton,
   useMediaQuery,
   useTheme,
 } from "@mui/material"
 import {
   ExpandMore,
   ExpandLess,
-  Menu as MenuIcon,
   Description as DocumentIcon,
 } from "@mui/icons-material"
 import { usePathname } from "next/navigation"
@@ -136,14 +134,9 @@ const CategoryItem: React.FC<CategoryItemProps> = ({
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ navigation, basePath }) => {
-  const [mobileOpen, setMobileOpen] = useState(false)
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
   const currentPath = usePathname()
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen)
-  }
 
   const drawerContent = (
     <Box sx={{ width: 280, p: 2 }}>
@@ -163,40 +156,27 @@ export const Sidebar: React.FC<SidebarProps> = ({ navigation, basePath }) => {
     </Box>
   )
 
-  return (
-    <>
-      {isMobile && (
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          edge="start"
-          onClick={handleDrawerToggle}
-          sx={{ position: "fixed", top: 16, left: 16, zIndex: 1200 }}
-        >
-          <MenuIcon />
-        </IconButton>
-      )}
+  // On mobile, don't render the sidebar - users use the main drawer search instead
+  if (isMobile) {
+    return null
+  }
 
-      <Drawer
-        variant={isMobile ? "temporary" : "permanent"}
-        open={isMobile ? mobileOpen : true}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-        }}
-        sx={{
-          "& .MuiDrawer-paper": {
-            width: 280,
-            boxSizing: "border-box",
-            position: isMobile ? "fixed" : "sticky",
-            top: 0,
-            height: "100vh",
-            overflowY: "auto",
-          },
-        }}
-      >
-        {drawerContent}
-      </Drawer>
-    </>
+  return (
+    <Drawer
+      variant="permanent"
+      open={true}
+      sx={{
+        "& .MuiDrawer-paper": {
+          width: 280,
+          boxSizing: "border-box",
+          position: "sticky",
+          top: 0,
+          height: "100vh",
+          overflowY: "auto",
+        },
+      }}
+    >
+      {drawerContent}
+    </Drawer>
   )
 }

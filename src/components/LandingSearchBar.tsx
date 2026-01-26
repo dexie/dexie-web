@@ -15,7 +15,7 @@ import {
   CircularProgress,
 } from "@mui/material"
 import SearchIcon from "@mui/icons-material/Search"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { offlineDB, type SearchResult } from "@/db/offlineDB"
 import { useLiveQuery } from "dexie-react-hooks"
 import { useSetSessionStorage } from "@/utils/useSessionStorage"
@@ -26,8 +26,12 @@ export default function LandingSearchBar() {
   const [showDropdown, setShowDropdown] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
+  const pathname = usePathname()
   const theme = useTheme()
   const setDocsSearchText = useSetSessionStorage<string>("search")
+
+  // Hide on docs pages (they have their own search in sidebar)
+  const isDocsPage = pathname?.startsWith("/docs")
 
   // Detect macOS for keyboard shortcut display
   const [isMac, setIsMac] = useState(false)
@@ -128,6 +132,11 @@ export default function LandingSearchBar() {
 
   // Limit displayed results
   const displayedResults = searchResults.searchResults.slice(0, 6)
+
+  // Don't render on docs pages (they have their own search in sidebar)
+  if (isDocsPage) {
+    return null
+  }
 
   return (
     <ClickAwayListener onClickAway={() => setShowDropdown(false)}>

@@ -70,6 +70,10 @@ export default function Navbar() {
   }
 
   const handleMobileDrawerToggle = () => {
+    // Clear search when opening drawer (to reset highlighting on doc pages)
+    if (!mobileDrawerOpen) {
+      clearSearchText()
+    }
     setMobileDrawerOpen(!mobileDrawerOpen)
   }
 
