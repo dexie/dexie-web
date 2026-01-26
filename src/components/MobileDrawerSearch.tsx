@@ -68,8 +68,15 @@ export default function MobileDrawerSearch({ onNavigate }: MobileDrawerSearchPro
 
   const handleSearchSubmit = () => {
     if (searchText.trim()) {
-      setDocsSearchText(searchText)
-      router.push(`/docs`)
+      // Navigate to first result if available, otherwise to docs page
+      if (hasResults) {
+        const firstResult = searchResults.searchResults[0]
+        setDocsSearchText(searchText)
+        router.push(firstResult.url)
+      } else {
+        setDocsSearchText(searchText)
+        router.push(`/docs`)
+      }
       onNavigate()
     }
   }
@@ -82,6 +89,12 @@ export default function MobileDrawerSearch({ onNavigate }: MobileDrawerSearchPro
       setSearchText("")
       setIsSearchMode(false)
       inputRef.current?.blur()
+    }
+    if (e.key === "ArrowDown" && hasResults) {
+      e.preventDefault()
+      // Focus first result item
+      const firstItem = document.querySelector('[data-mobile-search-item]') as HTMLElement
+      firstItem?.focus()
     }
   }
 
@@ -173,16 +186,40 @@ export default function MobileDrawerSearch({ onNavigate }: MobileDrawerSearchPro
         <Box sx={{ mt: 1 }}>
           {hasResults ? (
             <List sx={{ py: 0 }}>
-              {displayedResults.map((result) => (
+              {displayedResults.map((result, index) => (
                 <ListItem key={result.url} disablePadding>
                   <ListItemButton
+                    data-mobile-search-item
+                    tabIndex={0}
                     onClick={() => handleItemClick(result)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleItemClick(result)
+                      }
+                      if (e.key === "ArrowDown") {
+                        e.preventDefault()
+                        const items = document.querySelectorAll('[data-mobile-search-item]')
+                        const nextItem = items[index + 1] as HTMLElement
+                        nextItem?.focus()
+                      }
+                      if (e.key === "ArrowUp") {
+                        e.preventDefault()
+                        if (index === 0) {
+                          inputRef.current?.focus()
+                        } else {
+                          const items = document.querySelectorAll('[data-mobile-search-item]')
+                          const prevItem = items[index - 1] as HTMLElement
+                          prevItem?.focus()
+                        }
+                      }
+                    }}
                     sx={{
                       py: 1.5,
                       px: 1,
                       borderRadius: "8px",
-                      "&:hover": {
+                      "&:hover, &:focus": {
                         backgroundColor: alpha(theme.palette.secondary.main, 0.1),
+                        outline: "none",
                       },
                     }}
                   >

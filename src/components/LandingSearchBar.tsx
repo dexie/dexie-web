@@ -80,10 +80,18 @@ export default function LandingSearchBar() {
   // Handle keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && searchText.trim()) {
-      // Navigate to docs with search query
-      setDocsSearchText(searchText)
-      router.push(`/docs`)
-      setShowDropdown(false)
+      // Navigate to first result if available, otherwise to docs page
+      if (hasResults) {
+        const firstResult = searchResults.searchResults[0]
+        setDocsSearchText(searchText)
+        router.push(firstResult.url)
+        setShowDropdown(false)
+        setSearchText("")
+      } else {
+        setDocsSearchText(searchText)
+        router.push(`/docs`)
+        setShowDropdown(false)
+      }
       inputRef.current?.blur()
     }
     if (e.key === "Escape") {
