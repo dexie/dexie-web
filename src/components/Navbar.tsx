@@ -31,6 +31,8 @@ import CloseIcon from "@mui/icons-material/Close"
 import ExpandLessIcon from "@mui/icons-material/ExpandLess"
 import { formatNumber } from "../utils/formatNumber"
 import { useClearSearchText } from "@/utils/useSearchText"
+import LandingSearchBar from "./LandingSearchBar"
+import MobileDrawerSearch from "./MobileDrawerSearch"
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -153,6 +155,11 @@ export default function Navbar() {
         </IconButton>
       </Box>
       <Divider />
+      
+      {/* Mobile Search */}
+      <MobileDrawerSearch onNavigate={() => setMobileDrawerOpen(false)} />
+      <Divider />
+      
       <List sx={{ pt: 0 }}>
         {menuItems.map((item) => {
           const isActive =
@@ -610,6 +617,11 @@ export default function Navbar() {
               </Button>
             )
           })}
+        </Box>
+
+        {/* Search Bar (Desktop only - large screens) */}
+        <Box sx={{ flex: "0 0 auto", marginRight: 2, display: "flex", alignItems: "center" }}>
+          <LandingSearchBar />
         </Box>
 
         {/* GitHub Stars Counter (Desktop only) */}

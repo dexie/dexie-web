@@ -26,6 +26,13 @@ export interface CacheMetadata {
 
 type CachingState = 'idle' | 'check' | 'updating-fts' | 'updating-cache';
 
+export interface SearchResult {
+  url: string;
+  title: string;
+  score: number;
+  parentTitle: string | undefined;
+}
+
 // Dedicated database for offline status (shared between SW and GUI)
 export class OfflineDB extends Dexie {
   status!: Table<OfflineStatus>; // DEPRECATED. TODO: Remove in future versions
@@ -166,17 +173,10 @@ export class OfflineDB extends Dexie {
 
   async findDocuments(
     searchText: string
-  ): Promise<
-    {
-      searchResults: {
-        url: string;
-        title: string;
-        score: number;
-        parentTitle: string | undefined;
-      }[],
-      totalResultCount: number;
-    }
-  > {
+  ): Promise<{
+    searchResults: SearchResult[];
+    totalResultCount: number;
+  }> {
     searchText = searchText.trim().toLowerCase();
     if (searchText.length === 0) {
       return { searchResults: [], totalResultCount: 0 };
