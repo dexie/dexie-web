@@ -29,6 +29,7 @@ interface MobileDrawerSearchProps {
 export default function MobileDrawerSearch({ onNavigate }: MobileDrawerSearchProps) {
   const [searchText, setSearchText] = useState("")
   const [isSearchMode, setIsSearchMode] = useState(false)
+  const [pendingEnter, setPendingEnter] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
   const theme = useTheme()
@@ -60,6 +61,22 @@ export default function MobileDrawerSearch({ onNavigate }: MobileDrawerSearchPro
   const isSearching = searchResults.totalResultCount === -1 && debouncedSearch.length >= 2
   const showResults = isSearchMode && searchText.length >= 2
 
+  // Handle pending Enter - wait for search results before navigating
+  useEffect(() => {
+    if (pendingEnter && !isSearching) {
+      setPendingEnter(false)
+      if (hasResults) {
+        const firstResult = searchResults.searchResults[0]
+        setDocsSearchText(searchText)
+        router.push(firstResult.url)
+      } else {
+        setDocsSearchText(searchText)
+        router.push(`/docs`)
+      }
+      onNavigate()
+    }
+  }, [pendingEnter, isSearching, hasResults, searchResults, searchText, setDocsSearchText, router, onNavigate])
+
   const handleItemClick = (result: SearchResult) => {
     setDocsSearchText(searchText)
     router.push(result.url)
@@ -68,6 +85,11 @@ export default function MobileDrawerSearch({ onNavigate }: MobileDrawerSearchPro
 
   const handleSearchSubmit = () => {
     if (searchText.trim()) {
+      // If still searching, wait for results
+      if (isSearching) {
+        setPendingEnter(true)
+        return
+      }
       // Navigate to first result if available, otherwise to docs page
       if (hasResults) {
         const firstResult = searchResults.searchResults[0]

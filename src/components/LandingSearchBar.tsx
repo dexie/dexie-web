@@ -24,6 +24,7 @@ export default function LandingSearchBar() {
   const [searchText, setSearchText] = useState("")
   const [isFocused, setIsFocused] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
+  const [pendingEnter, setPendingEnter] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
   const pathname = usePathname()
@@ -77,9 +78,33 @@ export default function LandingSearchBar() {
   const hasResults = searchResults.searchResults.length > 0
   const isSearching = searchResults.totalResultCount === -1 && debouncedSearch.length >= 2
 
+  // Handle pending Enter - wait for search results before navigating
+  useEffect(() => {
+    if (pendingEnter && !isSearching) {
+      setPendingEnter(false)
+      if (hasResults) {
+        const firstResult = searchResults.searchResults[0]
+        setDocsSearchText(searchText)
+        router.push(firstResult.url)
+        setShowDropdown(false)
+        setSearchText("")
+      } else {
+        setDocsSearchText(searchText)
+        router.push(`/docs`)
+        setShowDropdown(false)
+      }
+      inputRef.current?.blur()
+    }
+  }, [pendingEnter, isSearching, hasResults, searchResults, searchText, setDocsSearchText, router])
+
   // Handle keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && searchText.trim()) {
+      // If still searching, wait for results
+      if (isSearching) {
+        setPendingEnter(true)
+        return
+      }
       // Navigate to first result if available, otherwise to docs page
       if (hasResults) {
         const firstResult = searchResults.searchResults[0]

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef } from "react"
+import React, { useRef, useState, useEffect, useCallback } from "react"
 import {
   Box,
   List,
@@ -80,6 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onNavigate
 }) => {
   const [searchText, setSearchText] = useSessionStorage("search", "");
+  const [pendingEnter, setPendingEnter] = useState(false);
   //const [searchText, setSearchText] = useState(searchParams.get("search") || "");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -91,9 +92,10 @@ const Sidebar: React.FC<SidebarProps> = ({
     {searchResults: {} as NavStructure, resultCount: 0, totalResultCount: -1} // hack to show nothing while loading (below...)
   )
   const filteredNavigation = searchResults;
+  const isSearching = totalResultCount === -1 && searchText.trim().length >= 2;
 
   // Helper to get first result slug from filtered navigation
-  const getFirstResultSlug = (): string | null => {
+  const getFirstResultSlug = useCallback((): string | null => {
     for (const value of Object.values(filteredNavigation)) {
       if (isNavItem(value)) {
         return value.slug;
@@ -106,12 +108,29 @@ const Sidebar: React.FC<SidebarProps> = ({
       }
     }
     return null;
-  };
+  }, [filteredNavigation]);
+
+  // Handle pending Enter - wait for search results before navigating
+  useEffect(() => {
+    if (pendingEnter && !isSearching) {
+      setPendingEnter(false);
+      const firstSlug = getFirstResultSlug();
+      if (firstSlug) {
+        router.push(`${basePath}/${firstSlug}`);
+        onNavigate?.();
+      }
+    }
+  }, [pendingEnter, isSearching, basePath, router, onNavigate, getFirstResultSlug]);
 
   // Handle keyboard navigation in search field
   const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && searchText.trim()) {
       e.preventDefault()
+      // If still searching, wait for results
+      if (isSearching) {
+        setPendingEnter(true);
+        return;
+      }
       const firstSlug = getFirstResultSlug();
       if (firstSlug) {
         router.push(`${basePath}/${firstSlug}`);
