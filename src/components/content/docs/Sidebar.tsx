@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useRef } from "react"
+import React, { useRef, useEffect, useCallback } from "react"
 import {
   Box,
   List,
@@ -82,6 +82,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [searchText, setSearchText] = useSessionStorage("search", "");
   //const [searchText, setSearchText] = useState(searchParams.get("search") || "");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   // Filtered navigation based on search text
@@ -91,6 +92,20 @@ const Sidebar: React.FC<SidebarProps> = ({
     {searchResults: {} as NavStructure, resultCount: 0, totalResultCount: -1} // hack to show nothing while loading (below...)
   )
   const filteredNavigation = searchResults;
+
+  // Global keyboard shortcut handler (Cmd/Ctrl + K)
+  const handleGlobalKeyDown = useCallback((e: KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault()
+      searchInputRef.current?.focus()
+      searchInputRef.current?.select()
+    }
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleGlobalKeyDown)
+    return () => document.removeEventListener('keydown', handleGlobalKeyDown)
+  }, [handleGlobalKeyDown])
 
   // Helper to get first result slug from filtered navigation
   const getFirstResultSlug = (): string | null => {
@@ -245,6 +260,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         borderBottom: "1px solid rgba(255, 255, 255, 0.08)"
       }}>
         <TextField
+          inputRef={searchInputRef}
           size="small"
           placeholder="Search in documentation..."
           value={searchText}
