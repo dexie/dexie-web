@@ -5,18 +5,20 @@ title: 'Authentication in Dexie Cloud'
 
 <div class="shoutouts" style="text-align: left; margin: 20px 0 35px 0;">
    <p>Zero config, registrationless, passwordless</p>
+   <p>Social login with Google, GitHub, Microsoft, Apple</p>
    <p>Easy to replace with your own authentication</p>
    <p>Long-lived sessions & cryptographically protected tokens</p>
 </div>
 <hr/>
 
-This page describes the default authentication in Dexie Cloud, how to replace it with your own authentication and how we protect our access tokens using the latest security standards in web browsers.
+This page describes authentication in Dexie Cloud, including the default email OTP authentication, social login with OAuth providers, and how to replace authentication with your own solution. We also explain how access tokens are protected using the latest security standards in web browsers.
 
 If you are new to Dexie Cloud, please visit the [Dexie Cloud landing page](/cloud/).
 
 If you prefer to jump right in to samples, here some shortcuts:
 
 - [Example zero config setup](#zero-config-setup)
+- [Social Authentication (OAuth)](#social-authentication-oauth)
 - [Example customizing login GUI](#customizing-login-gui)
 - [Example auth integration](<db.cloud.configure()#example-integrate-custom-authentication>)
 - [Customizing email templates](custom-emails)
@@ -25,11 +27,202 @@ If you prefer to jump right in to samples, here some shortcuts:
 
 Dexie Cloud is for writing offline capable applications, which means that the typical use case is long-lived authentication sessions that lasts for months or until the user actively logs out from it.
 
-In the default setup, users will only need to authenticate the very first time they visit your app. There is no registration step for your users and they won't need to create any password, as authentication is performed over passwordless email OTP. The authentication step will result in a securely stored, non-exportable crypto key in your indexedDB that can reathenticate future sync calls automatically without having to require further user interaction.
+Dexie Cloud supports multiple authentication methods:
+
+1. **Email OTP (One-Time Password)** - The default zero-config authentication
+2. **Social/OAuth Authentication** - Login with Google, GitHub, Microsoft, Apple, or custom OAuth2 providers
+3. **Custom Authentication** - Integrate your own authentication solution
+
+In the default setup, users will only need to authenticate the very first time they visit your app. There is no registration step for your users and they won't need to create any password. The authentication step will result in a securely stored, non-exportable crypto key in IndexedDB that can reauthenticate future sync calls automatically without requiring further user interaction.
 
 ## Zero config setup
 
-If you just enable dexie-cloud-addon the way it is explained on [the landing page](/cloud/) you will be using the default authentication and you will not need your own server endpoint. Your app can be hosted on any site, such as a static site on GitHub Pages or similar and yet be able to authenticate users and sync data with your cloud database.
+If you just enable dexie-cloud-addon the way it is explained on [the landing page](/cloud/) you will be using the default email OTP authentication and you will not need your own server endpoint. Your app can be hosted on any site, such as a static site on GitHub Pages or similar and yet be able to authenticate users and sync data with your cloud database.
+
+## Social Authentication (OAuth)
+
+Dexie Cloud supports social login through OAuth 2.0 / OpenID Connect providers. This allows your users to authenticate using their existing accounts from:
+
+- **Google** - Login with Google accounts
+- **GitHub** - Login with GitHub accounts
+- **Microsoft** - Login with Microsoft/Azure AD accounts
+- **Apple** - Login with Apple ID
+- **Custom OAuth2** - Any OAuth 2.0 / OpenID Connect compliant provider (Okta, Auth0, Keycloak, etc.)
+
+### How It Works
+
+When using OAuth authentication, Dexie Cloud acts as an OAuth proxy between your application and the identity provider. This architecture provides several benefits:
+
+1. **Simplified redirect URLs** - You only need to configure Dexie Cloud's callback URL with the provider, not every page in your app
+2. **Enhanced security** - OAuth tokens from providers never reach your client; only Dexie Cloud tokens are issued
+3. **PKCE support** - All OAuth flows use PKCE (Proof Key for Code Exchange) for enhanced security
+4. **No dedicated callback route needed** - The dexie-cloud-addon handles the OAuth callback automatically
+
+### Configuring OAuth Providers
+
+OAuth providers are configured per-database through the [Dexie Cloud Manager](https://manager.dexie.cloud). Navigate to your database and find the **Authentication** section.
+
+For each provider you want to enable:
+
+1. **Create OAuth credentials** with the provider:
+   - [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+   - [GitHub Developer Settings](https://github.com/settings/developers)
+   - [Microsoft Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
+   - [Apple Developer Portal](https://developer.apple.com/account/resources/identifiers/list/serviceId)
+
+2. **Configure the redirect URI** in your OAuth provider settings:
+   ```
+   https://<your-db-id>.dexie.cloud/oauth/callback/<provider>
+   ```
+   For example: `https://z0lesejpr.dexie.cloud/oauth/callback/google`
+
+3. **Add the provider** in Dexie Cloud Manager with:
+   - Client ID
+   - Client Secret
+   - Scopes (optional, defaults are provided)
+
+### Custom OAuth2 Providers
+
+For enterprise SSO or custom identity providers, you can configure a custom OAuth2 provider:
+
+| Setting | Description |
+|---------|-------------|
+| Name | A unique identifier for the provider (e.g., `okta`, `auth0`) |
+| Display Name | User-friendly name shown in login UI |
+| Client ID | OAuth client ID from your provider |
+| Client Secret | OAuth client secret |
+| Authorization Endpoint | URL for user authorization |
+| Token Endpoint | URL for token exchange |
+| User Info Endpoint | URL to fetch user profile |
+| JWKS URI | (Optional) JSON Web Key Set URL for ID token verification |
+| User ID Field | Field name for the user identifier (e.g., `sub`, `id`) |
+| Use PKCE | Whether to use PKCE (recommended, default: true) |
+
+### Using OAuth in Your Application
+
+Once OAuth providers are configured, the default login GUI will automatically display them alongside email OTP. Users can choose their preferred login method.
+
+#### Programmatic OAuth Login
+
+You can initiate OAuth login programmatically using `db.cloud.login()` with a provider hint:
+
+```js
+// Initiate OAuth login with Google
+await db.cloud.login({ provider: 'google' });
+```
+
+This will redirect the user to the OAuth provider's login page. After successful authentication, the user is automatically redirected back to your app and logged in.
+
+Available built-in providers: `google`, `github`, `microsoft`, `apple`
+
+For custom OAuth2 providers, use the provider name you configured (e.g., `okta`, `auth0`).
+
+##### Login Options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `provider` | string | OAuth provider name to initiate OAuth flow |
+| `email` | string | Pre-fill email for OTP authentication |
+| `grant_type` | `'otp'` \| `'demo'` | Force specific authentication type |
+| `redirectPath` | string | Custom redirect path after OAuth (relative or absolute URL) |
+
+```js
+// Login with Microsoft and redirect to a specific page after auth
+await db.cloud.login({ 
+  provider: 'microsoft',
+  redirectPath: '/dashboard'
+});
+
+// Force OTP login even if OAuth providers are available
+await db.cloud.login({ grant_type: 'otp' });
+
+// Pre-fill email for OTP login
+await db.cloud.login({ email: 'user@example.com' });
+```
+
+#### Fetching Available Providers
+
+Use `db.cloud.getAuthProviders()` to fetch the list of enabled authentication methods:
+
+```js
+const { providers, otpEnabled } = await db.cloud.getAuthProviders();
+
+// providers: Array of available OAuth providers
+// [{ type: 'google', name: 'google', displayName: 'Google', iconUrl: '...' }, ...]
+
+// otpEnabled: boolean indicating if email OTP is available
+```
+
+This is useful for building custom login UIs that show provider-specific buttons:
+
+```tsx
+function LoginButtons() {
+  const [providers, setProviders] = useState([]);
+  const [otpEnabled, setOtpEnabled] = useState(true);
+
+  useEffect(() => {
+    db.cloud.getAuthProviders().then(({ providers, otpEnabled }) => {
+      setProviders(providers);
+      setOtpEnabled(otpEnabled);
+    });
+  }, []);
+
+  return (
+    <div>
+      {providers.map(provider => (
+        <button 
+          key={provider.name}
+          onClick={() => db.cloud.login({ provider: provider.name })}
+        >
+          <img src={provider.iconUrl} alt="" />
+          Sign in with {provider.displayName}
+        </button>
+      ))}
+      {otpEnabled && (
+        <button onClick={() => db.cloud.login({ grant_type: 'otp' })}>
+          Sign in with Email
+        </button>
+      )}
+    </div>
+  );
+}
+```
+
+### Capacitor / Native Apps
+
+For Capacitor or native mobile apps, use a custom URL scheme for the redirect:
+
+```js
+// Open OAuth login with custom scheme redirect
+await db.cloud.login({ 
+  provider: 'google',
+  redirectPath: 'myapp://'
+});
+```
+
+Register a deep link handler to complete the login:
+
+```js
+import { App } from '@capacitor/app';
+import { handleOAuthCallback } from 'dexie-cloud-addon';
+
+App.addListener('appUrlOpen', async ({ url }) => {
+  const callback = handleOAuthCallback(url);
+  if (callback) {
+    // Complete the OAuth flow
+    await db.cloud.login({ 
+      oauthCode: callback.code, 
+      provider: callback.provider 
+    });
+  }
+});
+```
+
+### User Identity with OAuth
+
+By default, Dexie Cloud uses the user's verified email address as the user ID (the `sub` claim in tokens). This ensures consistent identity across different authentication methods—a user who logs in with Google and later with email OTP will be recognized as the same user if they share the same email.
+
+For enhanced privacy, you can configure your database to use opaque user IDs instead. In this mode, the email is hashed to produce a non-reversible identifier. Configure this in Dexie Cloud Manager under Authentication Settings.
 
 ## Customizing login GUI
 

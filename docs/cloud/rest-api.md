@@ -11,6 +11,8 @@ This page documents the REST API that every database in Dexie Cloud has.
 | --------------------------------- | ------------------------- |
 | [/token](#token)                  | Token endpoint            |
 | [/token/validate](#token-validate) | Token validation endpoint |
+| [/auth-providers](#auth-providers) | List authentication providers |
+| [/oauth/login/:provider](#oauth-login) | Initiate OAuth login |
 | [/all/...](#all-endpoint)         | All data endpoint         |
 | [/my/...](#my-endpoint)           | My data endpoint          |
 | [/public/...](#public-endpoint)   | Public data endpoint      |
@@ -166,6 +168,100 @@ Content-Type: application/json
   }
 }
 ```
+
+### /auth-providers
+
+|               |                |
+| ------------- | -------------- |
+| Method        | GET            |
+| Authorization | None required  |
+
+Returns the list of enabled authentication providers for this database.
+
+```http
+GET /auth-providers HTTP/1.1
+Host: xxxx.dexie.cloud
+```
+
+Response:
+
+```json
+{
+  "providers": [
+    {
+      "type": "google",
+      "name": "google",
+      "displayName": "Google",
+      "iconUrl": "https://xxxx.dexie.cloud/icons/google.svg",
+      "scopes": ["openid", "email", "profile"]
+    },
+    {
+      "type": "github",
+      "name": "github",
+      "displayName": "GitHub",
+      "iconUrl": "https://xxxx.dexie.cloud/icons/github.svg",
+      "scopes": ["user:email", "read:user"]
+    }
+  ],
+  "otpEnabled": true
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| providers | Array of enabled OAuth providers |
+| providers[].type | Provider type: `google`, `github`, `microsoft`, `apple`, or `custom-oauth2` |
+| providers[].name | Provider identifier used in OAuth URLs |
+| providers[].displayName | User-friendly name for login UI |
+| providers[].iconUrl | URL to provider icon |
+| providers[].scopes | OAuth scopes configured for this provider |
+| otpEnabled | Whether email OTP authentication is enabled |
+
+### /oauth/login/:provider {#oauth-login}
+
+|               |                |
+| ------------- | -------------- |
+| Method        | GET            |
+| Authorization | None required  |
+
+Initiates an OAuth authentication flow by redirecting to the provider's authorization page.
+
+> **Note:** For client-side applications using dexie-cloud-addon, prefer using [db.cloud.login({ provider: 'google' })](<db.cloud.login()>) which handles the entire OAuth flow including callback processing.
+
+```http
+GET /oauth/login/google?redirect_uri=https://myapp.com HTTP/1.1
+Host: xxxx.dexie.cloud
+```
+
+| Parameter | Required | Description |
+|-----------|----------|-------------|
+| redirect_uri | Yes | Where to redirect after authentication. Can be an https URL or custom scheme (e.g., `myapp://`) |
+| scopes | No | Space-separated OAuth scopes to request (uses configured defaults if omitted) |
+
+**Flow:**
+
+1. User is redirected to the OAuth provider's authorization page
+2. After user grants consent, provider redirects to Dexie Cloud's callback
+3. Dexie Cloud exchanges the authorization code for tokens
+4. Dexie Cloud verifies the user's email is verified
+5. Dexie Cloud generates a single-use authorization code
+6. User is redirected to `redirect_uri` with a `dxc-auth` query parameter
+
+The `dxc-auth` parameter contains base64url-encoded JSON:
+
+```json
+{ "code": "DEXIE_AUTH_CODE", "provider": "google", "state": "..." }
+```
+
+Or in case of error:
+
+```json
+{ "error": "Error message", "provider": "google", "state": "..." }
+```
+
+The dexie-cloud-addon automatically detects and processes this parameter on page load.
+
+See [Authentication - Social Authentication](authentication#social-authentication-oauth) for more details.
 
 ### /all/... endpoint
 

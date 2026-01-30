@@ -46,13 +46,14 @@ db.cloud.configure({
 
 ### Methods
 
-| Method                                             | Description                                                                                                                                                                                 |
-| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [db.cloud.configure()](<db.cloud.configure()>)     | Connect your client to the cloud                                                                                                                                                            |
-| [db.cloud.login()](<db.cloud.login()>)             | Authenticate user. Useful in combination with option `{requireAuth: false}`                                                                                                                 |
-| [db.cloud.logout()](<db.cloud.logout()>)           | Logout current user.                                                                                                                                                                        |
-| [db.cloud.sync()](<db.cloud.sync()>)               | Force a sync. Useful in combination with option [{disableWebSocket: true}](<db.cloud.configure()#disablewebsocket>) and [{disableEagerSync: true}](<db.cloud.configure()#disableeagersync>) |
-| [db.cloud.permissions()](<db.cloud.permissions()>) | Observe access permissions for given object - see also [usePermission()](</docs/dexie-react-hooks/usePermissions()>)                                                                        |
+| Method                                                   | Description                                                                                                                                                                                 |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [db.cloud.configure()](<db.cloud.configure()>)           | Connect your client to the cloud                                                                                                                                                            |
+| [db.cloud.login()](<db.cloud.login()>)                   | Authenticate user. Supports OTP, OAuth, and demo users                                                                                                                                      |
+| [db.cloud.logout()](<db.cloud.logout()>)                 | Logout current user                                                                                                                                                                         |
+| [db.cloud.getAuthProviders()](<db.cloud.getAuthProviders()>) | Query available authentication providers (OAuth + OTP)                                                                                                                                  |
+| [db.cloud.sync()](<db.cloud.sync()>)                     | Force a sync. Useful in combination with option [{disableWebSocket: true}](<db.cloud.configure()#disablewebsocket>) and [{disableEagerSync: true}](<db.cloud.configure()#disableeagersync>) |
+| [db.cloud.permissions()](<db.cloud.permissions()>)       | Observe access permissions for given object - see also [usePermission()](</docs/dexie-react-hooks/usePermissions()>)                                                                        |
 
 <br>
 
