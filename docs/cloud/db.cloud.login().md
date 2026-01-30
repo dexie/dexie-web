@@ -44,9 +44,11 @@ await db.cloud.login({ grant_type: 'demo', email: 'alice@demo.local' });
 
 For OAuth-based authentication (Google, GitHub, Microsoft, Apple, or custom providers), use the `provider` parameter:
 
+> **Prerequisites:** OAuth providers must first be configured in [Dexie Cloud Manager](https://manager.dexie.cloud). Navigate to your database, go to the **Authentication** section, and add the OAuth providers you want to support. See [Configuring OAuth Providers](authentication#configuring-oauth-providers) for detailed setup instructions.
+
 ```ts
 // Initiate OAuth login with Google
-await db.cloud.login({ provider: 'google' });
+await db.cloud.login({ provider: 'google' }); // assuming google provider is configured
 
 // Login with Microsoft and redirect to a specific page after auth
 await db.cloud.login({ 

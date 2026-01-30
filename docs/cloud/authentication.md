@@ -241,6 +241,7 @@ import {
   resolveText,
   DXCInputField,
   DXCUserInteraction,
+  DXCOption,
 } from 'dexie-cloud-addon'
 import styled from 'styled-components'
 
@@ -257,10 +258,16 @@ import styled from 'styled-components'
  *       may be present in any type of dialog.
  *     * ui.fields = input fields to collect from user. This is an object where key is the field name and
  *       value is a field description (DXCInputField)
+ *     * ui.options = optional array of selectable options (e.g., OAuth providers). Each option has:
+ *       - name: field name for the result
+ *       - value: value to return when selected
+ *       - displayName: human-readable label
+ *       - iconUrl: optional URL to an icon image
+ *       - styleHint: optional hint like 'google', 'github', 'microsoft', 'apple', 'otp'
  *     * ui.submitLabel = A suggested text for the submit / OK button
  *     * ui.cancelLabel = undefined if no cancel button is appropriate, or a suggested text for the cancel button.
- *     * ui.onSubmit = callback to call when fields have been collected from user. Accepts an object where
- *       key is the field name and value is the collected value.
+ *     * ui.onSubmit = callback to call when fields have been collected from user OR when an option is selected.
+ *       Accepts an object where key is the field/option name and value is the collected/selected value.
  *     * ui.onCancel = callback to call if user clicks cancel button.
  */
 export function MyLoginGUI() {
@@ -272,6 +279,15 @@ export function MyLoginGUI() {
 export function MyLoginDialog({ ui }: { ui: DXCUserInteraction }) {
   const [params, setParams] = useState<{ [param: string]: string }>({})
 
+  const fieldEntries = Object.entries(ui.fields || {}) as [string, DXCInputField][]
+  const hasFields = fieldEntries.length > 0
+  const hasOptions = ui.options && ui.options.length > 0
+
+  // Handler for option clicks - calls onSubmit with { [option.name]: option.value }
+  const handleOptionClick = (option: DXCOption) => {
+    ui.onSubmit({ [option.name]: option.value })
+  }
+
   return (
     <MyDialogStyling>
       <div className="fullscreen darken" />
@@ -280,49 +296,85 @@ export function MyLoginDialog({ ui }: { ui: DXCUserInteraction }) {
           <h2>My Custom Login Prompt</h2>
           <h3>{ui.title}</h3>
           {ui.alerts?.map((alert, i) => (
-            <p key={i} className={`dxcdlg-alert-${alert.type}`}>
+            <p key={i} className={`alert-${alert.type}`}>
               {resolveText(alert)}
             </p>
           ))}
-          <form
-            onSubmit={(ev) => {
-              ev.preventDefault()
-              ui.onSubmit(params)
-            }}
-          >
-            {(Object.entries(ui.fields) as [string, DXCInputField][]).map(
-              ([fieldName, { type, label, placeholder }], idx) => (
-                <label key={idx}>
-                  {label ? `${label}: ` : ''}
-                  <input
-                    type={type}
-                    name={fieldName}
-                    autoFocus
-                    placeholder={placeholder}
-                    value={params[fieldName] || ''}
-                    onChange={(ev) => {
-                      const value = ev.target.value
-                      let updatedParams = {
-                        ...params,
-                        [fieldName]: value,
-                      }
-                      setParams(updatedParams)
-                    }}
-                  />
-                </label>
-              )
-            )}
-          </form>
-          <div className="dxc-buttons">
-            <>
-              <button type="submit" onClick={() => ui.onSubmit(params)}>
-                {ui.submitLabel}
-              </button>
-              {ui.cancelLabel && (
-                <button onClick={ui.onCancel}>{ui.cancelLabel}</button>
+
+          {/* Render OAuth provider options if present */}
+          {hasOptions && (
+            <div className="options-container">
+              {ui.options!.map((option) => (
+                <button
+                  key={`${option.name}-${option.value}`}
+                  type="button"
+                  className={`option-btn ${option.styleHint ? `option-${option.styleHint}` : ''}`}
+                  onClick={() => handleOptionClick(option)}
+                >
+                  {option.iconUrl && (
+                    <img src={option.iconUrl} alt="" className="option-icon" />
+                  )}
+                  <span>{option.displayName}</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Show divider if we have both options and fields */}
+          {hasOptions && hasFields && (
+            <div className="divider">
+              <span>or</span>
+            </div>
+          )}
+
+          {/* Render form fields if present */}
+          {hasFields && (
+            <form
+              onSubmit={(ev) => {
+                ev.preventDefault()
+                ui.onSubmit(params)
+              }}
+            >
+              {fieldEntries.map(
+                ([fieldName, { type, label, placeholder }], idx) => (
+                  <label key={idx}>
+                    {label ? `${label}: ` : ''}
+                    <input
+                      type={type}
+                      name={fieldName}
+                      autoFocus={idx === 0}
+                      placeholder={placeholder}
+                      value={params[fieldName] || ''}
+                      onChange={(ev) => {
+                        const value = ev.target.value
+                        setParams({
+                          ...params,
+                          [fieldName]: value,
+                        })
+                      }}
+                    />
+                  </label>
+                )
               )}
-            </>
-          </div>
+              <div className="dxc-buttons">
+                <button type="submit">{ui.submitLabel}</button>
+                {ui.cancelLabel && (
+                  <button type="button" onClick={ui.onCancel}>
+                    {ui.cancelLabel}
+                  </button>
+                )}
+              </div>
+            </form>
+          )}
+
+          {/* If no fields, just show cancel button */}
+          {!hasFields && ui.cancelLabel && (
+            <div className="dxc-buttons">
+              <button type="button" onClick={ui.onCancel}>
+                {ui.cancelLabel}
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </MyDialogStyling>
@@ -365,6 +417,51 @@ const MyDialogStyling = styled.div`
     box-shadow: 0 0 80px 10px #666;
     width: auto;
     font-family: sans-serif;
+  }
+  .options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .option-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
+  .option-btn:hover {
+    background-color: #f5f5f5;
+  }
+  .option-icon {
+    width: 20px;
+    height: 20px;
+  }
+  .option-google { border-color: #4285f4; }
+  .option-github { border-color: #333; }
+  .option-microsoft { border-color: #00a4ef; }
+  .option-apple { border-color: #000; }
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+  }
+  .divider::before,
+  .divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+  }
+  .divider span {
+    padding: 0 12px;
+    color: #888;
+    font-size: 14px;
   }
   .dlg-input {
     height: 35px;
