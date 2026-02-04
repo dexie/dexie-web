@@ -18,6 +18,72 @@ This page documents the REST API that every database in Dexie Cloud has.
 | [/public/...](#public-endpoint)   | Public data endpoint      |
 | [/users/...](#users-endpoint)     | Users data endpoint       |
 
+## JSON Format for Special Types
+
+The JSON responses from data endpoints (`/all`, `/my`, and `/public`) encapsulate special JavaScript types (Date, Blob, etc.) into JSON objects with a specific format. Instead of losing type information during JSON serialization, these types are preserved using a structured format.
+
+### Special Type Format
+
+Special types are represented as JSON objects with two properties:
+- `$t`: The type name (e.g., "Date", "Blob")  
+- `v`: The serialized value
+
+**Examples:**
+
+Date objects:
+```json
+{ "$t": "Date", "v": "2026-02-04T08:26:10.761Z" }
+```
+
+Blob objects:
+```json
+{ "$t": "Blob", "v": "<base64-encoded-data>" }
+```
+
+### Parsing Special Types
+
+To properly parse JSON responses that contain these special types, use the `TypesonSimplified` utility from the `dreambase-library`:
+
+```ts
+import { TypesonSimplified, builtInTypeDefs } from "dreambase-library";
+
+export const TSON = TypesonSimplified(builtInTypeDefs);
+
+// Parse JSON response with special types:
+const response = await fetch(`${databaseUrl}/my/table`, {
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+});
+const json = await response.text();
+const resolvedData = TSON.parse(json);
+```
+
+**Note:** In Node.js environments that lack the native Blob type, a substitute "FakeBlob" object will be returned instead.
+
+### Creating JSON with Special Types
+
+When sending data to POST endpoints, use `TSON.stringify()` instead of `JSON.stringify()` to properly serialize special types:
+
+```ts
+import { FakeBlob } from "dreambase-library";
+
+const data = {
+  name: "Example",
+  createdAt: new Date(),
+  attachment: new FakeBlob(Buffer.from("hello world", "utf8").buffer, { type: "text/plain" })
+};
+
+const response = await fetch(`${databaseUrl}/my/table`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
+  },
+  body: TSON.stringify([data])
+});
+```
+
 ### /token
 
 |                |                                                                  |
