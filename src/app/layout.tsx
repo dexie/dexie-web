@@ -119,6 +119,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={roboto.variable}>
       <head>
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Documentation Guide" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
