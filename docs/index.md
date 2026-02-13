@@ -4,8 +4,6 @@ title: Dexie.js Documentation
 description: Complete documentation for Dexie.js - the minimalistic IndexedDB wrapper, and Dexie Cloud for sync and collaboration.
 ---
 
-# Dexie.js Documentation
-
 **Dexie.js** is a minimalistic, high-performance wrapper for IndexedDB — the standard database in every browser. It's used by applications like WhatsApp Web, ChatGPT, GitHub Desktop, and [many more](/docs/Dexie.js#known-users).
 
 🤖 **AI/LLM?** For a structured documentation summary optimized for AI assistants, see [llms.txt](/llms.txt).
