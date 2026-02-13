@@ -8,7 +8,7 @@ description: Complete documentation for Dexie Cloud - sync, authentication, acce
 
 **Dexie Cloud** is an optional cloud service for Dexie.js that adds sync, authentication, access control, and real-time collaboration to your offline-first applications.
 
-> 🤖 **AI/LLM?** For a structured documentation summary optimized for AI assistants, see [llms.txt](/llms.txt).
+🤖 **AI/LLM?** For a structured documentation summary optimized for AI assistants, see [llms.txt](/llms.txt).
 
 ---
 
