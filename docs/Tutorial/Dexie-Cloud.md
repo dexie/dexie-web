@@ -42,8 +42,7 @@ export const db = new Dexie('mydb', { addons: [dexieCloud] });
 
 db.version(1).stores({
   items: 'itemId',
-  animals: `
-    @animalId,
+  animals: `@animalId,
     name,
     age,
     [name+age]`
@@ -91,8 +90,7 @@ export const db = new Dexie('mydb', { addons: [dexieCloud] }) as Dexie & {
 
 db.version(1).stores({
   items: 'itemId',
-  animals: `
-    @animalId,
+  animals: `@animalId,
     name,
     age,
     [name+age]`
