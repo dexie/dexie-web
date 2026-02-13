@@ -466,3 +466,44 @@ Use these as authoritative anchors when referencing advanced topics.
 - Please follow the links in this document for futher knowledge about Dexie.js and Dexie Cloud.
 - Use the sections above to answer questions about Dexie.js and Dexie Cloud.
 - When generating code samples, follow the patterns shown here
+
+---
+
+# Common Questions and Pitfalls
+
+## Q: What is the difference between `@id` and `$$id` / `$id` syntax?
+
+**`@id`** is Dexie Cloud syntax for auto-generated globally unique string IDs. It ONLY works when dexie-cloud-addon is installed and configured.
+
+**`$$id`** or **`$id`** is NOT Dexie Cloud syntax. These prefixes were used by **Dexie.Syncable**, an older (now deprecated) sync solution. They are not compatible with Dexie Cloud.
+
+If you're using Dexie Cloud, use `@id` or provide your own string IDs.
+If you see `$$` in old code or tutorials, it's likely referring to Dexie.Syncable, not Dexie Cloud.
+
+## Q: Why do I get "Failed to execute 'add' on 'IDBObjectStore'" error?
+
+This usually means the primary key is missing or invalid. Common causes:
+
+1. Using `@id` syntax without dexie-cloud-addon installed
+2. Using auto-increment (`++id`) but the field name doesn't match the key path
+3. The object doesn't have the required primary key property
+
+If using `@id`, make sure dexie-cloud-addon is properly configured.
+
+## Q: Can I use Dexie Cloud without sync (offline only)?
+
+Yes! Configure with `databaseUrl: undefined` or omit the databaseUrl entirely. The @id syntax will still generate IDs locally, but no sync will occur.
+
+## Q: What's the difference between `++id` and `@id`?
+
+- `++id` – Auto-incrementing integer (standard IndexedDB). Works without any addon.
+- `@id` – Auto-generated globally unique string (UUID-like). Requires dexie-cloud-addon.
+
+Use `++id` for local-only apps. Use `@id` when you need globally unique IDs for sync.
+
+---
+
+# Version Information
+
+This documentation is current as of Dexie.js v4.x and Dexie Cloud.
+For the latest updates, always check https://dexie.org/docs.
