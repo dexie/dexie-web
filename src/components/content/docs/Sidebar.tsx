@@ -160,14 +160,6 @@ const Sidebar: React.FC<SidebarProps> = ({
           data-search-result-link
           tabIndex={100}
           title={item.title}
-          onFocus={(e: React.FocusEvent<HTMLAnchorElement>) => {
-            e.currentTarget.style.backgroundColor = "rgba(199, 125, 255, 0.2)"
-            e.currentTarget.style.color = "#c77dff"
-          }}
-          onBlur={(e: React.FocusEvent<HTMLAnchorElement>) => {
-            e.currentTarget.style.backgroundColor = isActive ? "rgba(255,255,255,0.1)" : "transparent"
-            e.currentTarget.style.color = isActive ? "#c77dff" : "inherit"
-          }}
           onKeyDown={(e: React.KeyboardEvent<HTMLAnchorElement>) => {
             if (e.key === 'ArrowDown') {
               e.preventDefault()
@@ -183,10 +175,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               const currentIndex = allLinks.indexOf(e.currentTarget as HTMLElement)
               if (currentIndex === 0) {
                 // Go back to search input
-                const searchInput = document.querySelector('input[placeholder*="Search"]') as HTMLElement
-                if (searchInput) {
-                  searchInput.focus()
-                }
+                searchInputRef.current?.focus()
               } else {
                 const prevLink = allLinks[currentIndex - 1] as HTMLElement
                 if (prevLink) {
@@ -212,6 +201,10 @@ const Sidebar: React.FC<SidebarProps> = ({
             cursor: "pointer",
             "&:hover": {
               backgroundColor: "rgba(199, 125, 255, 0.1)",
+            },
+            "&:focus": {
+              backgroundColor: "rgba(199, 125, 255, 0.2)",
+              color: "#c77dff",
             },
           }}
         >
