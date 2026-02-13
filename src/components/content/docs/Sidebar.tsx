@@ -154,70 +154,63 @@ const Sidebar: React.FC<SidebarProps> = ({
       return (
         <ListItem
           key={key}
+          component={Link}
+          href={`${basePath}/${item.slug}`}
+          onClick={onNavigate}
+          data-search-result-link
+          tabIndex={100}
+          title={item.title}
+          onKeyDown={(e: React.KeyboardEvent<HTMLAnchorElement>) => {
+            if (e.key === 'ArrowDown') {
+              e.preventDefault()
+              const allLinks = Array.from(document.querySelectorAll('[data-search-result-link]'))
+              const currentIndex = allLinks.indexOf(e.currentTarget as HTMLElement)
+              const nextLink = allLinks[currentIndex + 1] as HTMLElement
+              if (nextLink) {
+                nextLink.focus()
+              }
+            } else if (e.key === 'ArrowUp') {
+              e.preventDefault()
+              const allLinks = Array.from(document.querySelectorAll('[data-search-result-link]'))
+              const currentIndex = allLinks.indexOf(e.currentTarget as HTMLElement)
+              if (currentIndex === 0) {
+                // Go back to search input
+                searchInputRef.current?.focus()
+              } else {
+                const prevLink = allLinks[currentIndex - 1] as HTMLElement
+                if (prevLink) {
+                  prevLink.focus()
+                }
+              }
+            }
+          }}
           sx={{
             backgroundColor: isActive ? "rgba(255,255,255,0.1)" : "transparent",
             borderRadius: "6px",
             p: { xs: 1, md: 2 },
             pl: { xs: 1 * level, md: 2 * level },
+            fontWeight: 700,
+            maxWidth: "100%",
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textDecoration: "none",
+            color: isActive ? "#c77dff" : "inherit",
+            display: "block",
+            width: "100%",
+            outline: "none",
+            cursor: "pointer",
+            "&:hover": {
+              backgroundColor: "rgba(199, 125, 255, 0.1)",
+            },
+            "&:focus": {
+              backgroundColor: "rgba(199, 125, 255, 0.2)",
+              color: "#c77dff",
+            },
           }}
         >
-          <Link
-            href={`${basePath}/${item.slug}`}
-            onClick={onNavigate}
-            data-search-result-link
-            tabIndex={100}
-            style={{
-              fontWeight: 700,
-              maxWidth: "100%",
-              overflow: "hidden",
-              whiteSpace: "nowrap",
-              textDecoration: "none",
-              color: isActive ? "#c77dff" : "inherit",
-              display: "block",
-              width: "100%",
-              outline: "none",
-            }}
-            onFocus={(e) => {
-              e.target.style.backgroundColor = "rgba(199, 125, 255, 0.2)"
-              e.target.style.color = "#c77dff"
-            }}
-            onBlur={(e) => {
-              e.target.style.backgroundColor = isActive ? "rgba(255,255,255,0.1)" : "transparent"
-              e.target.style.color = isActive ? "#c77dff" : "inherit"
-            }}
-            onKeyDown={(e) => {
-              if (e.key === 'ArrowDown') {
-                e.preventDefault()
-                const allLinks = Array.from(document.querySelectorAll('[data-search-result-link]'))
-                const currentIndex = allLinks.indexOf(e.target as HTMLElement)
-                const nextLink = allLinks[currentIndex + 1] as HTMLElement
-                if (nextLink) {
-                  nextLink.focus()
-                }
-              } else if (e.key === 'ArrowUp') {
-                e.preventDefault()
-                const allLinks = Array.from(document.querySelectorAll('[data-search-result-link]'))
-                const currentIndex = allLinks.indexOf(e.target as HTMLElement)
-                if (currentIndex === 0) {
-                  // Go back to search input
-                  const searchInput = document.querySelector('input[placeholder*="Search"]') as HTMLElement
-                  if (searchInput) {
-                    searchInput.focus()
-                  }
-                } else {
-                  const prevLink = allLinks[currentIndex - 1] as HTMLElement
-                  if (prevLink) {
-                    prevLink.focus()
-                  }
-                }
-              }
-            }}
-            title={item.title}
-          >
-            {item.title.length > 28
-              ? `...${item.title.slice(-26)}`
-              : item.title}
-          </Link>
+          {item.title.length > 28
+            ? `...${item.title.slice(-26)}`
+            : item.title}
         </ListItem>
       )
     }
