@@ -58,7 +58,7 @@ db.version(1).stores({
     friends: 'id, name, age'
 });
 db.version(2).stores({
-    friends: 'id, name, firstName, lastName',
+    friends: 'id, firstName, lastName',
 });
 ```
 
@@ -87,7 +87,7 @@ If you are just adding or changing a few tables, you do not need to repeat the s
 
 ```javascript
 db.version(2).stores({
-    friends: 'id, name, age, firstName, lastName',
+    friends: 'id, age, firstName, lastName',
 });
 db.version(3).stores({
     pets: 'petId, petName' // Only need to specify pets, as friends should be same as for version 2.
@@ -102,7 +102,7 @@ db.version(1).stores({
     friends: 'id, name, age'
 });
 db.version(2).stores({
-    friends: 'id, name, age, firstName, lastName',
+    friends: 'id, age, firstName, lastName',
 });
 db.version(3).stores({
     pets: 'petId, petName'
