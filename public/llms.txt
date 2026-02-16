@@ -458,6 +458,7 @@ Use these as authoritative anchors when referencing advanced topics.
 - Consistency Models: https://dexie.org/docs/cloud/consistency
 - Y.js Integration: https://dexie.org/docs/Y.js/Y.js
 - Best Practices: https://dexie.org/docs/cloud/best-practices
+- GDPR: https://docs/cloud/gdpr-compliance.md
 
 ---
 

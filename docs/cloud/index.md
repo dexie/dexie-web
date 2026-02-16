@@ -90,6 +90,12 @@ description: Complete documentation for Dexie Cloud - sync, authentication, acce
 
 ---
 
+## Compliance & Privacy
+
+- **[GDPR Compliance](/docs/cloud/gdpr-compliance)** — Data protection, user rights, and compliance guidance
+
+---
+
 ## Additional Topics
 
 - **[Custom Emails](/docs/cloud/custom-emails)** — Customize email templates
