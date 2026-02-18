@@ -342,7 +342,25 @@ This is the typical flow for the non-enterprise use case in applications with a 
 
 If your app is targeting enterprise customers, a realm can represent an enterprise department or organisation. You might want to offer your customer access using their existing directory rather than having to invite all the employees manually.
 
-Using the Dexie Cloud REST API, it is also possible to manage realms and members from a cloud function or service and by-pass the invite step and set the userId property of members directly.
+Using the Dexie Cloud REST API, it is also possible to manage realms and members from a cloud function or service and by-pass the invite step and set the `"userId"` property of members directly, `"invite": false` as well as setting the `"accepted": true` to auto-accept it for the user.
+
+```ts
+// Adding members via REST:
+const response = await fetch(`${databaseUrl}/all/members`, {
+  method: 'POST',
+  headers: {
+    'Authorization': `Bearer ${accessToken}`,
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    realmId: enterpriseRealmId,
+    userId: employeeUserId,
+    accepted: true, // No need to pass a Date here. true will convert to current Date.
+    invite: false,
+    permissions: { manage: '*' } // or use `roles: [...<roles to assign>]`
+  })
+});
+```
 
 ### Table "roles"
 
