@@ -266,7 +266,7 @@ Angular 21 defaults to zoneless change detection, which:
 
 This makes Dexie's `liveQuery()` + `toSignal()` pattern an ideal fit for modern Angular apps.
 
-[View the full sample on GitHub](https://github.com/dexie/Dexie.js/tree/master/samples/angular)
+[View the full sample on GitHub](https://github.com/dexie/Dexie.js/tree/master/samples/angular) | [Open in StackBlitz](https://stackblitz.com/github/dexie/Dexie.js/tree/master/samples/angular?file=src%2Fapp%2Fapp.component.ts)
 
 ---
 
