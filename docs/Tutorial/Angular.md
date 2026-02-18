@@ -71,7 +71,8 @@ export { db };
 
 # 4. Turn App into an Offline ToDo app
 
-This example uses Angular 17+ features:
+This example uses Angular 21 features:
+- **Zoneless change detection** (default in Angular 21+, no zone.js required)
 - **Standalone components** (no NgModule required)
 - **Signals** with `toSignal()` for reactive data
 - **New control flow** syntax (`@for`, `@if`, `@empty`)
@@ -99,6 +100,8 @@ import { ItemListComponent } from './item-list.component';
 
       @for (list of todoLists(); track list.id) {
         <app-item-list [todoList]="list" />
+      } @empty {
+        <p>No lists yet. Add one below!</p>
       }
 
       <form (ngSubmit)="addNewList()">
@@ -123,8 +126,9 @@ export class AppComponent {
   );
 
   async addNewList() {
-    if (!this.newListName.trim()) return;
-    await db.todoLists.add({ title: this.newListName });
+    const title = this.newListName.trim();
+    if (!title) return;
+    await db.todoLists.add({ title });
     this.newListName = '';
   }
 }
@@ -191,16 +195,17 @@ export class ItemListComponent {
   // LiveQuery as signal - automatically updates when data changes
   items = toSignal(
     from(liveQuery(() => 
-      db.todoItems.where({ todoListId: this.todoList().id }).toArray()
+      db.todoItems.where({ todoListId: this.todoListId() }).toArray()
     )),
     { initialValue: [] as TodoItem[] }
   );
 
   async addItem() {
-    if (!this.newItemTitle.trim()) return;
+    const title = this.newItemTitle.trim();
+    if (!title) return;
     await db.todoItems.add({
       todoListId: this.todoListId(),
-      title: this.newItemTitle,
+      title,
       done: false,
     });
     this.newItemTitle = '';
@@ -218,12 +223,15 @@ export class ItemListComponent {
 
 # 6. Bootstrap the application
 
+Angular 21 uses zoneless change detection by default, so no zone.js import is needed:
+
 ```ts
 // main.ts
-import 'zone.js';  // Required for Angular change detection
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 
+// Angular 21+ uses zoneless change detection by default
+// Change detection is triggered by signals, template events, and Angular APIs
 bootstrapApplication(AppComponent).catch((err) => console.error(err));
 ```
 
@@ -245,8 +253,18 @@ items = toSignal(
 
 This gives you:
 - **Automatic updates** when database changes
-- **Zone.js integration** for change detection
-- **Signal-based reactivity** for optimal performance
+- **Signal-based reactivity** that integrates perfectly with zoneless change detection
+- **Optimal performance** - change detection only runs when signals update
+
+## Why Zoneless?
+
+Angular 21 defaults to zoneless change detection, which:
+- **Improves performance** - no unnecessary change detection cycles
+- **Reduces bundle size** - zone.js adds ~13KB gzipped
+- **Works with native async/await** - no need to transpile down to ES2015
+- **Pairs perfectly with signals** - change detection is triggered by signal updates
+
+This makes Dexie's `liveQuery()` + `toSignal()` pattern an ideal fit for modern Angular apps.
 
 [View the full sample on GitHub](https://github.com/dexie/Dexie.js/tree/master/samples/angular)
 
