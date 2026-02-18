@@ -80,8 +80,8 @@ This example uses Angular 21 features:
 
 For older Angular versions (< 17), see the [legacy example](#legacy-angular-example) below.
 
+**app.component.ts:**
 ```ts
-// app.component.ts
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -94,27 +94,7 @@ import { ItemListComponent } from './item-list.component';
   selector: 'app-root',
   standalone: true,
   imports: [FormsModule, ItemListComponent],
-  template: `
-    <main>
-      <h1>Dexie.js + Angular Todo App</h1>
-
-      @for (list of todoLists(); track list.id) {
-        <app-item-list [todoList]="list" />
-      } @empty {
-        <p>No lists yet. Add one below!</p>
-      }
-
-      <form (ngSubmit)="addNewList()">
-        <input
-          type="text"
-          [(ngModel)]="newListName"
-          name="listName"
-          placeholder="New list name..."
-        />
-        <button type="submit">Add List</button>
-      </form>
-    </main>
-  `,
+  templateUrl: './app.component.html',
 })
 export class AppComponent {
   newListName = '';
@@ -134,10 +114,33 @@ export class AppComponent {
 }
 ```
 
+**app.component.html:**
+```html
+<main>
+  <h1>Dexie.js + Angular Todo App</h1>
+
+  @for (list of todoLists(); track list.id) {
+    <app-item-list [todoList]="list" />
+  } @empty {
+    <p>No lists yet. Add one below!</p>
+  }
+
+  <form (ngSubmit)="addNewList()">
+    <input
+      type="text"
+      [(ngModel)]="newListName"
+      name="listName"
+      placeholder="New list name..."
+    />
+    <button type="submit">Add List</button>
+  </form>
+</main>
+```
+
 # 5. Add the ItemList component
 
+**item-list.component.ts:**
 ```ts
-// item-list.component.ts
 import { Component, computed, input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -149,39 +152,7 @@ import { db, TodoItem, TodoList } from './db';
   selector: 'app-item-list',
   standalone: true,
   imports: [FormsModule],
-  template: `
-    <section class="todo-list">
-      <h2>{{ todoList().title }}</h2>
-
-      <ul>
-        @for (item of items(); track item.id) {
-          <li [class.done]="item.done">
-            <label>
-              <input
-                type="checkbox"
-                [checked]="item.done"
-                (change)="toggleItem(item)"
-              />
-              {{ item.title }}
-            </label>
-            <button (click)="deleteItem(item.id)">×</button>
-          </li>
-        } @empty {
-          <li class="empty">No items yet</li>
-        }
-      </ul>
-
-      <form (ngSubmit)="addItem()">
-        <input
-          type="text"
-          [(ngModel)]="newItemTitle"
-          name="itemTitle"
-          placeholder="Add new item..."
-        />
-        <button type="submit">Add</button>
-      </form>
-    </section>
-  `,
+  templateUrl: './item-list.component.html',
 })
 export class ItemListComponent {
   // Signal input (Angular 17+)
@@ -219,6 +190,41 @@ export class ItemListComponent {
     await db.todoItems.delete(id);
   }
 }
+```
+
+**item-list.component.html:**
+```html
+<section class="todo-list">
+  <h2>{{ todoList().title }}</h2>
+
+  <ul>
+    @for (item of items(); track item.id) {
+      <li [class.done]="item.done">
+        <label>
+          <input
+            type="checkbox"
+            [checked]="item.done"
+            (change)="toggleItem(item)"
+          />
+          {{ item.title }}
+        </label>
+        <button (click)="deleteItem(item.id)">×</button>
+      </li>
+    } @empty {
+      <li class="empty">No items yet</li>
+    }
+  </ul>
+
+  <form (ngSubmit)="addItem()">
+    <input
+      type="text"
+      [(ngModel)]="newItemTitle"
+      name="itemTitle"
+      placeholder="Add new item..."
+    />
+    <button type="submit">Add</button>
+  </form>
+</section>
 ```
 
 # 6. Bootstrap the application
@@ -266,7 +272,7 @@ Angular 21 defaults to zoneless change detection, which:
 
 This makes Dexie's `liveQuery()` + `toSignal()` pattern an ideal fit for modern Angular apps.
 
-[View the full sample on GitHub](https://github.com/dexie/Dexie.js/tree/master/samples/angular)
+[View the full sample on GitHub](https://github.com/dexie/Dexie.js/tree/master/samples/angular) | [Open in StackBlitz](https://stackblitz.com/github/dexie/Dexie.js/tree/master/samples/angular?file=src%2Fapp%2Fapp.component.ts)
 
 ---
 

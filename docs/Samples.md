@@ -17,7 +17,7 @@ title: "Samples"
 
 ### Angular
 
-[Open Angular Example →](https://stackblitz.com/edit/angular-ivy-4666q1?file=src%2Fapp%2Fapp.module.ts)
+[Open Angular Example →](https://stackblitz.com/github/dexie/Dexie.js/tree/master/samples/angular?file=src%2Fapp%2Fapp.component.ts)
 
 ---
 
