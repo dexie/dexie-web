@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://dexie.org"),
   title: "Dexie Cloud Pricing - Free Offline-First Database with Sync Plans",
   description:
-    "Dexie Cloud pricing: Start free with 3 users and 100MB storage. Production plans from $0.12/user/month. On-premises options available. No backend setup required for offline-first apps with real-time sync.",
+    "Dexie Cloud pricing: Start free with 3 users and 100MB storage. Production plans from €0.12/user/month. On-premises options available. No backend setup required for offline-first apps with real-time sync.",
   keywords: [
     "dexie cloud pricing",
     "offline database pricing",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dexie Cloud Pricing - Start Free, Scale as Needed",
     description:
-      "Free tier: 3 users, 100MB storage. Production plans from $0.12/user/month. On-premises available. Perfect for offline-first applications.",
+      "Free tier: 3 users, 100MB storage. Production plans from €0.12/user/month. On-premises available. Perfect for offline-first applications.",
     url: "https://dexie.org/pricing",
     images: [
       {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dexie Cloud Pricing - Free Tier Available",
     description:
-      "Start free with 3 users. Production plans from $0.12/user/month. On-premises options for full control.",
+      "Start free with 3 users. Production plans from €0.12/user/month. On-premises options for full control.",
     images: ["/assets/images/og-images/og-base.png"],
   },
   alternates: {
@@ -95,7 +95,7 @@ const faqData = [
     id: 4,
     question: "Production",
     answer:
-      "This edition is hosted and starts at USD $3 per month for 25 seats. It works similarly to the Free edition but with more seats, storage and more generous API rate limits. Continue enjoying free evaluation users on top of the 100 production seats. You control which users occupy production seats via the Dexie Cloud Management app or REST API. Integrate this REST API with the web hooks of your payment gateway (e.g., Stripe, Paypal) to manage seats based on your subscription with customers. When the number of production end users reaches 100, you can manually purchase more seat-packs or let the subscription automatically upgrade or downgrade as needed.",
+      "This edition is hosted and starts at €3 per month for 25 seats. It works similarly to the Free edition but with more seats, storage and more generous API rate limits. Continue enjoying free evaluation users on top of the 100 production seats. You control which users occupy production seats via the Dexie Cloud Management app or REST API. Integrate this REST API with the web hooks of your payment gateway (e.g., Stripe, Paypal) to manage seats based on your subscription with customers. When the number of production end users reaches 100, you can manually purchase more seat-packs or let the subscription automatically upgrade or downgrade as needed.",
   },
   {
     id: 5,
@@ -176,7 +176,7 @@ const cloudPlans = [
     id: "free",
     title: "Free",
     subtitle: "Perfect for passion projects & simple websites.",
-    price: "$0",
+    price: "€0",
     priceNote: "per month",
     buttonText: "Start for Free",
     buttonLink: {
@@ -207,7 +207,7 @@ const cloudPlans = [
     id: "pro",
     title: "Pro",
     subtitle: "For scalable production applications.",
-    price: "$0.12",
+    price: "€0.12",
     priceNote: "per user / month",
     buttonText: "Buy Now",
     buttonLink: {
@@ -241,7 +241,7 @@ const cloudPlans = [
     id: "business",
     title: "Business",
     subtitle: "When you need control over your data and infrastructure.",
-    price: "$3,495",
+    price: "€3,495",
     priceNote: "forever",
     buttonText: "Buy now",
     buttonLink: {
@@ -266,7 +266,7 @@ const cloudPlans = [
     id: "enterprise",
     title: "Enterprise",
     subtitle: "When you need full control, source code and vendor independence.",
-    price: "$7,995",
+    price: "€7,995",
     priceNote: "forever",
     buttonText: "Buy now",
     buttonLink: {
@@ -316,7 +316,7 @@ const supportPlans: SupportPlan[] = [
   },
   {
     title: "Business Support",
-    price: "$695 / year",
+    price: "€695 / year",
     description:
       "This support option is available for the On-Prem Business Edition. One year of Business Support is included when purchasing Dexie Cloud On-Prem Business.",
     features: [
@@ -329,7 +329,7 @@ const supportPlans: SupportPlan[] = [
   },
   {
     title: "Enterprise Support",
-    price: "$3,495 / year",
+    price: "€3,495 / year",
     description:
       "Every customer is different and require different levels of support. With the Gold Support package, we can dedicate our support to your team, tailor SLAs and be available at the levels of customer's requirements.",
     features: [
@@ -408,7 +408,7 @@ const openSourceSupportPlans: OpenSourceSupportPlan[] = [
 const professionalServices: SupportPlan[] = [
   {
     title: "Kickstart & Onboarding",
-    price: "$2,500",
+    price: "€2,500",
     description:
       "Get up and running fast with 1-2 days of expert guidance. Perfect for teams new to offline-first concepts and Dexie Cloud sync patterns.",
     features: [
@@ -422,7 +422,7 @@ const professionalServices: SupportPlan[] = [
   },
   {
     title: "Setup & Integration",
-    price: "$5,000 - $15,000",
+    price: "€5,000 - €15,000",
     description:
       "Complete implementation support for your production environment. We help you set up authentication, access control, and integrate with your existing systems.",
     features: [
@@ -571,7 +571,7 @@ const comparisonRows: TableRow[] = [
   {
     feature: "Production users (your end users)",
     free: "3 seats, free",
-    production: "USD $3/mo per 25 seats",
+    production: "€3/mo per 25 seats",
     onPrem: "Unlimited",
   },
   {
@@ -681,12 +681,12 @@ const storageLimits: StorageLimit[] = [
 const additionalStorageData: AdditionalStorage[] = [
   {
     storageType: "Blob Storage",
-    storageCost: "USD $0.05 / extra GB / mo",
-    syncCosts: "USD $0.5 per 10,000 additional write operations",
+    storageCost: "€0.05 / extra GB / mo",
+    syncCosts: "€0.50 per 10,000 additional write operations",
   },
   {
     storageType: "Object Storage",
-    storageCost: "USD $2 / extra GB / mo",
+    storageCost: "€2 / extra GB / mo",
     syncCosts: "-",
   },
 ]
