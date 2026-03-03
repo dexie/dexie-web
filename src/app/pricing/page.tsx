@@ -749,9 +749,9 @@ export default function PricingPage() {
           textColor: "#dee2e6",
           backgroundColor: "#000000",
           containerWidth: "big",
-          sectionTitle: "Support Options",
+          sectionTitle: "Dexie Cloud Support Plans",
           sectionSubtitle:
-            "Choose the right level of support for your team and requirements",
+            "Support packages for Dexie Cloud On-Premises customers (Business & Enterprise editions)",
         }}
       />
       <Divider />
