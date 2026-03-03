@@ -57,6 +57,9 @@ import PricingWidget, {
 import SupportPlansWidget, {
   type SupportPlan,
 } from "@/components/content/SupportPlansWidget"
+import OpenSourceSupportWidget, {
+  type OpenSourceSupportPlan,
+} from "@/components/content/OpenSourceSupportWidget"
 import PreferredPartnersWidget from "@/components/content/PreferredPartnersWidget"
 import PricingTableWidget, {
   type TableColumn,
@@ -340,6 +343,64 @@ const supportPlans: SupportPlan[] = [
       "Video meetings",
       "Dedication",
     ],
+  },
+]
+
+// Dexie.js Open Source Support plans
+const openSourceSupportPlans: OpenSourceSupportPlan[] = [
+  {
+    title: "Starter",
+    price: "€2,990",
+    priceNote: "/ year",
+    description:
+      "For teams adopting Dexie.js who want confidence and direct access to the author when things get tricky.",
+    features: [
+      "Email support, 48h response time",
+      "Up to 10 support tickets / year",
+      "1 architecture review session (1h video)",
+      "Access to private bug tracker",
+      "Dexie.js version upgrade guidance",
+    ],
+    ctaText: "Contact us",
+    ctaHref: "mailto:business@dexie.org?subject=Dexie.js Starter Support",
+  },
+  {
+    title: "Professional",
+    price: "€7,490",
+    priceNote: "/ year",
+    description:
+      "For production teams who depend on Dexie.js and need faster response, architectural guidance, and a direct line to the core team.",
+    features: [
+      "Email & video support, 24h response time",
+      "Up to 25 support tickets / year",
+      "3 architecture review sessions / year",
+      "Prioritized bug fixes",
+      "Access to private bug tracker",
+      "Dexie.js roadmap input",
+      "Named contact on the core team",
+    ],
+    ctaText: "Contact us",
+    ctaHref: "mailto:business@dexie.org?subject=Dexie.js Professional Support",
+    highlighted: true,
+    badge: "Most popular",
+  },
+  {
+    title: "Enterprise",
+    price: "Custom",
+    description:
+      "For large organizations or teams with demanding SLA requirements, regulatory constraints, or complex integration needs. Tailored to your situation.",
+    features: [
+      "Dedicated Slack channel",
+      "SLA-backed response time (custom)",
+      "Unlimited support tickets",
+      "Quarterly strategy calls",
+      "Architecture consulting",
+      "Influence on roadmap",
+      "Custom contract & NDA available",
+      "On-site or video workshops (optional)",
+    ],
+    ctaText: "Get a quote",
+    ctaHref: "mailto:business@dexie.org?subject=Dexie.js Enterprise Support",
   },
 ]
 
@@ -659,6 +720,23 @@ export default function PricingPage() {
             "linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/assets/images/dexie-bg.jpg')",
           backgroundPosition: "center",
           backgroundSize: "cover",
+        }}
+      />
+
+      <Divider />
+
+      {/* Dexie.js Open Source Support */}
+      <OpenSourceSupportWidget
+        plans={openSourceSupportPlans}
+        settings={{
+          textColor: "#dee2e6",
+          backgroundColor: "#000000",
+          containerWidth: "big",
+          sectionTitle: "Dexie.js Professional Support",
+          sectionSubtitle:
+            "Direct support from the author and core team — for teams building production applications on Dexie.js open source.",
+          note:
+            "All plans are annual subscriptions invoiced upfront. Response times apply during CET business hours (Mon–Fri). Contact us to discuss your needs — we're happy to tailor a package.",
         }}
       />
 
