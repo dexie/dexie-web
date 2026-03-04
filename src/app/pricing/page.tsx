@@ -342,6 +342,8 @@ const supportPlans: SupportPlan[] = [
     description:
       "This support option is included when subscribing to Dexie Cloud Production (SaaS) and includes email and chat support.",
     features: ["Email support", "Chat support"],
+    ctaText: "Get started",
+    ctaHref: "/docs/cloud/quickstart",
   },
   {
     title: "Business",
@@ -355,6 +357,8 @@ const supportPlans: SupportPlan[] = [
       "Software updates",
       "Github issues",
     ],
+    ctaText: "Contact us",
+    ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
   },
   {
     title: "Enterprise",
@@ -374,6 +378,8 @@ const supportPlans: SupportPlan[] = [
       "Video meetings",
       "Dedication",
     ],
+    ctaText: "Contact us",
+    ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
   },
 ]
 
@@ -393,7 +399,7 @@ const openSourceSupportPlans: OpenSourceSupportPlan[] = [
       "Dexie.js version upgrade guidance",
     ],
     ctaText: "Contact us",
-    ctaHref: "mailto:business@dexie.org?subject=Dexie.js Starter Support",
+    ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
   },
   {
     title: "Professional",
@@ -411,7 +417,7 @@ const openSourceSupportPlans: OpenSourceSupportPlan[] = [
       "Named contact on the core team",
     ],
     ctaText: "Contact us",
-    ctaHref: "mailto:business@dexie.org?subject=Dexie.js Professional Support",
+    ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
     highlighted: true,
     badge: "Most popular",
   },
@@ -431,7 +437,7 @@ const openSourceSupportPlans: OpenSourceSupportPlan[] = [
       "On-site or video workshops (optional)",
     ],
     ctaText: "Get a quote",
-    ctaHref: "mailto:business@dexie.org?subject=Dexie.js Enterprise Support",
+    ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
   },
 ]
 

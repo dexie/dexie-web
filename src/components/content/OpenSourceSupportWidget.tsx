@@ -14,7 +14,7 @@ import {
   Theme,
 } from "@mui/material"
 import CheckIcon from "@mui/icons-material/Check"
-import EmailIcon from "@mui/icons-material/Email"
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 
 export interface OpenSourceSupportPlan {
   title: string
@@ -127,9 +127,16 @@ export default function OpenSourceSupportWidget({
                     boxShadow:
                       "0 8px 40px rgba(199, 125, 255, 0.15), 0 0 0 1px rgba(199, 125, 255, 0.3)",
                   }),
-                  "&:hover": {
-                    borderColor: plan.highlighted ? "#c77dff" : "#555",
-                  },
+                  "&:hover": plan.highlighted
+                    ? {
+                        borderColor: "#e0aaff",
+                        backgroundColor: "#241548",
+                        boxShadow:
+                          "0 16px 60px rgba(199, 125, 255, 0.35), 0 0 0 1px rgba(224, 170, 255, 0.6)",
+                      }
+                    : {
+                        borderColor: "#555",
+                      },
                 }}
               >
                 {plan.badge && (
@@ -207,6 +214,22 @@ export default function OpenSourceSupportWidget({
                           pl: "10px !important",
                           ml: "-10px !important",
                           borderRadius: "4px",
+                          transition: "background-color 0.15s",
+                          "&:hover": plan.highlighted
+                            ? {
+                                backgroundColor:
+                                  "rgba(199, 125, 255, 0.1)",
+                                "& .MuiSvgIcon-root": {
+                                  color: "#e0aaff",
+                                },
+                                "& .MuiTypography-root": {
+                                  color: "#e0aaff",
+                                },
+                              }
+                            : {
+                                backgroundColor:
+                                  "rgba(255, 255, 255, 0.04)",
+                              },
                           "& .MuiTypography-root": {
                             mb: "0px",
                           },
@@ -251,8 +274,10 @@ export default function OpenSourceSupportWidget({
                   <Button
                     component="a"
                     href={plan.ctaHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     variant={plan.highlighted ? "contained" : "outlined"}
-                    startIcon={<EmailIcon />}
+                    startIcon={<CalendarMonthIcon />}
                     fullWidth
                     sx={{
                       mt: 3,

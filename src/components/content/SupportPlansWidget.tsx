@@ -8,11 +8,13 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  Button,
   Chip,
   SxProps,
   Theme,
 } from "@mui/material"
 import CheckIcon from "@mui/icons-material/Check"
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 
 interface SupportPlan {
   title: string
@@ -21,6 +23,8 @@ interface SupportPlan {
   features: string[]
   highlighted?: boolean
   badge?: string
+  ctaText?: string
+  ctaHref?: string
 }
 
 interface SupportPlansWidgetProps {
@@ -95,12 +99,15 @@ export default function SupportPlansWidget({
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
             gap: 4,
+            alignItems: "stretch",
           }}
         >
           {plans.map((plan, index) => (
             <Box
               key={index}
               sx={{
+                display: "flex",
+                flexDirection: "column",
                 ...(plan.highlighted && {
                   transform: { xs: "none", md: "scale(1.04)" },
                   zIndex: 2,
@@ -109,7 +116,9 @@ export default function SupportPlansWidget({
             >
               <Card
                 sx={{
-                  height: "100%",
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
                   backgroundColor: plan.highlighted ? "#1a1035" : "#1a1a1a",
                   border: plan.highlighted
                     ? "1px solid #c77dff"
@@ -120,9 +129,16 @@ export default function SupportPlansWidget({
                     boxShadow:
                       "0 8px 40px rgba(199, 125, 255, 0.15), 0 0 0 1px rgba(199, 125, 255, 0.3)",
                   }),
-                  "&:hover": {
-                    borderColor: plan.highlighted ? "#c77dff" : "#555",
-                  },
+                  "&:hover": plan.highlighted
+                    ? {
+                        borderColor: "#e0aaff",
+                        backgroundColor: "#241548",
+                        boxShadow:
+                          "0 16px 60px rgba(199, 125, 255, 0.35), 0 0 0 1px rgba(224, 170, 255, 0.6)",
+                      }
+                    : {
+                        borderColor: "#555",
+                      },
                 }}
               >
                 {plan.badge && (
@@ -141,34 +157,47 @@ export default function SupportPlansWidget({
                     }}
                   />
                 )}
-                <CardContent sx={{ p: 3 }}>
+                <CardContent
+                  sx={{
+                    p: 4,
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <Typography
-                    variant="h4"
+                    variant="h5"
                     component="h3"
                     gutterBottom
-                    sx={{ color: textColor, fontWeight: 600 }}
+                    sx={{ color: textColor, fontWeight: 700, mb: 0.5 }}
                   >
                     {plan.title}
                   </Typography>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      mb: 2,
-                    }}
-                  >
-                    {plan.price}
-                  </Typography>
+
+                  <Box sx={{ mb: 2 }}>
+                    <Typography
+                      variant="h4"
+                      component="span"
+                      sx={{
+                        color: plan.highlighted ? "#c77dff" : textColor,
+                        fontWeight: 700,
+                      }}
+                    >
+                      {plan.price}
+                    </Typography>
+                  </Box>
+
                   <Typography
                     variant="body2"
                     sx={{
                       color: "#adb5bd",
                       mb: 3,
-                      lineHeight: 1.6,
+                      lineHeight: 1.7,
                     }}
                   >
                     {plan.description}
                   </Typography>
-                  <List sx={{ padding: 0 }}>
+                  <List sx={{ padding: 0, flex: 1 }}>
                     {plan.features.map((feature, featureIndex) => (
                       <ListItem
                         key={featureIndex}
@@ -181,6 +210,22 @@ export default function SupportPlansWidget({
                           pl: "10px !important",
                           ml: "-10px !important",
                           borderRadius: "4px",
+                          transition: "background-color 0.15s",
+                          "&:hover": plan.highlighted
+                            ? {
+                                backgroundColor:
+                                  "rgba(199, 125, 255, 0.1)",
+                                "& .MuiSvgIcon-root": {
+                                  color: "#e0aaff",
+                                },
+                                "& .MuiTypography-root": {
+                                  color: "#e0aaff",
+                                },
+                              }
+                            : {
+                                backgroundColor:
+                                  "rgba(255, 255, 255, 0.04)",
+                              },
                           "& .MuiTypography-root": {
                             mb: "0px",
                           },
@@ -200,7 +245,7 @@ export default function SupportPlansWidget({
                           <CheckIcon
                             sx={{
                               fontSize: "16px",
-                              color: plan.highlighted ? "#c77dff" : undefined,
+                              color: plan.highlighted ? "#c77dff" : "#adb5bd",
                             }}
                           />
                         </ListItemIcon>
@@ -221,6 +266,39 @@ export default function SupportPlansWidget({
                       </ListItem>
                     ))}
                   </List>
+
+                  {plan.ctaText && plan.ctaHref && (
+                    <Button
+                      component="a"
+                      href={plan.ctaHref}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      variant={plan.highlighted ? "contained" : "outlined"}
+                      startIcon={<CalendarMonthIcon />}
+                      fullWidth
+                      sx={{
+                        mt: 3,
+                        py: 1.5,
+                        fontWeight: 600,
+                        ...(plan.highlighted
+                          ? {
+                              backgroundColor: "#c77dff",
+                              color: "#000",
+                              "&:hover": { backgroundColor: "#a855f7" },
+                            }
+                          : {
+                              borderColor: "#555",
+                              color: textColor,
+                              "&:hover": {
+                                borderColor: "#c77dff",
+                                color: "#c77dff",
+                              },
+                            }),
+                      }}
+                    >
+                      {plan.ctaText}
+                    </Button>
+                  )}
                 </CardContent>
               </Card>
             </Box>
