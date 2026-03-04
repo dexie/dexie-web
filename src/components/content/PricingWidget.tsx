@@ -48,6 +48,8 @@ export interface PricingPlan {
     subtext?: string
   }[]
   borderRadius?: string
+  contactSalesText?: string
+  contactSalesLink?: string
 }
 
 export interface PricingSettings {
@@ -89,7 +91,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
   const renderPricingCard = (
     plan: PricingPlan,
     index: number,
-    totalPlans: number
+    totalPlans: number,
   ) => {
     let borderRadius = "0px"
 
@@ -378,6 +380,27 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                 ))}
               </List>
             </Box>
+
+            {plan.contactSalesText && plan.contactSalesLink && (
+              <Box sx={{ textAlign: "center", mt: 2, mb: -2, mr: -2 }}>
+                <Box
+                  component="a"
+                  href={plan.contactSalesLink}
+                  sx={{
+                    color: "#adb5bd",
+                    textDecoration: "none",
+                    fontSize: "0.8rem",
+                    "&:hover": {
+                      color: "#c77dff",
+                      textDecoration: "underline",
+                    },
+                    transition: "color 0.2s ease",
+                  }}
+                >
+                  {plan.contactSalesText} →
+                </Box>
+              </Box>
+            )}
           </CardContent>
         </Card>
       </Box>
@@ -488,7 +511,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
               }}
             >
               {cloudPlans.map((plan, index) =>
-                renderPricingCard(plan, index, cloudPlans.length)
+                renderPricingCard(plan, index, cloudPlans.length),
               )}
             </Box>
           </Box>

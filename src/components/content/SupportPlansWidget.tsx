@@ -8,6 +8,7 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  Chip,
   SxProps,
   Theme,
 } from "@mui/material"
@@ -18,6 +19,8 @@ interface SupportPlan {
   price: string
   description: string
   features: string[]
+  highlighted?: boolean
+  badge?: string
 }
 
 interface SupportPlansWidgetProps {
@@ -95,17 +98,49 @@ export default function SupportPlansWidget({
           }}
         >
           {plans.map((plan, index) => (
-            <Box key={index}>
+            <Box
+              key={index}
+              sx={{
+                ...(plan.highlighted && {
+                  transform: { xs: "none", md: "scale(1.04)" },
+                  zIndex: 2,
+                }),
+              }}
+            >
               <Card
                 sx={{
                   height: "100%",
-                  backgroundColor: "#1a1a1a",
-                  border: "0px solid #333",
+                  backgroundColor: plan.highlighted ? "#1a1035" : "#1a1a1a",
+                  border: plan.highlighted
+                    ? "1px solid #c77dff"
+                    : "1px solid #333",
+                  position: "relative",
+                  transition: "border-color 0.2s, box-shadow 0.2s",
+                  ...(plan.highlighted && {
+                    boxShadow:
+                      "0 8px 40px rgba(199, 125, 255, 0.15), 0 0 0 1px rgba(199, 125, 255, 0.3)",
+                  }),
                   "&:hover": {
-                    borderColor: "#555",
+                    borderColor: plan.highlighted ? "#c77dff" : "#555",
                   },
                 }}
               >
+                {plan.badge && (
+                  <Chip
+                    label={plan.badge}
+                    size="small"
+                    sx={{
+                      position: "absolute",
+                      top: 16,
+                      right: 16,
+                      backgroundColor: "transparent",
+                      border: "1px solid #c77dff",
+                      color: "#c77dff",
+                      fontWeight: 600,
+                      fontSize: "0.7rem",
+                    }}
+                  />
+                )}
                 <CardContent sx={{ p: 3 }}>
                   <Typography
                     variant="h4"
@@ -165,6 +200,7 @@ export default function SupportPlansWidget({
                           <CheckIcon
                             sx={{
                               fontSize: "16px",
+                              color: plan.highlighted ? "#c77dff" : undefined,
                             }}
                           />
                         </ListItemIcon>

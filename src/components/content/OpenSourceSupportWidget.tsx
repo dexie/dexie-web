@@ -57,10 +57,14 @@ export default function OpenSourceSupportWidget({
 
   const getMaxWidth = () => {
     switch (containerWidth) {
-      case "small": return "sm"
-      case "medium": return "md"
-      case "big": return "xl"
-      default: return "xl"
+      case "small":
+        return "sm"
+      case "medium":
+        return "md"
+      case "big":
+        return "xl"
+      default:
+        return "xl"
     }
   }
 
@@ -77,7 +81,13 @@ export default function OpenSourceSupportWidget({
         </Typography>
         <Typography
           variant="h6"
-          sx={{ textAlign: "center", mb: 6, color: "#adb5bd", maxWidth: "800px", mx: "auto" }}
+          sx={{
+            textAlign: "center",
+            mb: 6,
+            color: "#adb5bd",
+            maxWidth: "800px",
+            mx: "auto",
+          }}
         >
           {sectionSubtitle}
         </Typography>
@@ -91,16 +101,32 @@ export default function OpenSourceSupportWidget({
           }}
         >
           {plans.map((plan, index) => (
-            <Box key={index} sx={{ display: "flex", flexDirection: "column" }}>
+            <Box
+              key={index}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                ...(plan.highlighted && {
+                  transform: { xs: "none", md: "scale(1.04)" },
+                  zIndex: 2,
+                }),
+              }}
+            >
               <Card
                 sx={{
                   flex: 1,
                   display: "flex",
                   flexDirection: "column",
                   backgroundColor: plan.highlighted ? "#1a1035" : "#1a1a1a",
-                  border: plan.highlighted ? "1px solid #c77dff" : "1px solid #333",
+                  border: plan.highlighted
+                    ? "1px solid #c77dff"
+                    : "1px solid #333",
                   position: "relative",
-                  transition: "border-color 0.2s",
+                  transition: "border-color 0.2s, box-shadow 0.2s",
+                  ...(plan.highlighted && {
+                    boxShadow:
+                      "0 8px 40px rgba(199, 125, 255, 0.15), 0 0 0 1px rgba(199, 125, 255, 0.3)",
+                  }),
                   "&:hover": {
                     borderColor: plan.highlighted ? "#c77dff" : "#555",
                   },
@@ -122,7 +148,14 @@ export default function OpenSourceSupportWidget({
                     }}
                   />
                 )}
-                <CardContent sx={{ p: 4, flex: 1, display: "flex", flexDirection: "column" }}>
+                <CardContent
+                  sx={{
+                    p: 4,
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <Typography
                     variant="h5"
                     component="h3"
@@ -166,14 +199,33 @@ export default function OpenSourceSupportWidget({
                       <ListItem
                         key={fi}
                         sx={{
-                          p: "3px 0",
-                          alignItems: "flex-start",
+                          display: "flex",
+                          justifyContent: "flex-start !important",
+                          alignContent: "flex-start !important",
+                          p: "1px !important",
+                          pb: "5px !important",
+                          pl: "10px !important",
+                          ml: "-10px !important",
+                          borderRadius: "4px",
+                          "& .MuiTypography-root": {
+                            mb: "0px",
+                          },
+                          "& .MuiListItemText-root": {
+                            m: "0px",
+                          },
                         }}
                       >
-                        <ListItemIcon sx={{ minWidth: "auto", mr: 1, mt: "2px" }}>
+                        <ListItemIcon
+                          sx={{
+                            minWidth: "auto",
+                            mr: 1,
+                            justifyContent: "flex-start",
+                            alignContent: "flex-start",
+                          }}
+                        >
                           <CheckIcon
                             sx={{
-                              fontSize: "15px",
+                              fontSize: "16px",
                               color: plan.highlighted ? "#c77dff" : "#adb5bd",
                             }}
                           />
@@ -182,7 +234,11 @@ export default function OpenSourceSupportWidget({
                           primary={
                             <Typography
                               component="span"
-                              sx={{ color: textColor, fontSize: "0.875rem", lineHeight: 1.5 }}
+                              sx={{
+                                color: textColor,
+                                fontSize: "0.9rem",
+                                lineHeight: 1.4,
+                              }}
                             >
                               {feature}
                             </Typography>
@@ -211,7 +267,10 @@ export default function OpenSourceSupportWidget({
                         : {
                             borderColor: "#555",
                             color: textColor,
-                            "&:hover": { borderColor: "#c77dff", color: "#c77dff" },
+                            "&:hover": {
+                              borderColor: "#c77dff",
+                              color: "#c77dff",
+                            },
                           }),
                     }}
                   >
@@ -226,7 +285,13 @@ export default function OpenSourceSupportWidget({
         {note && (
           <Typography
             variant="body2"
-            sx={{ textAlign: "center", mt: 4, color: "#6c757d", maxWidth: "700px", mx: "auto" }}
+            sx={{
+              textAlign: "center",
+              mt: 4,
+              color: "#6c757d",
+              maxWidth: "700px",
+              mx: "auto",
+            }}
           >
             {note}
           </Typography>

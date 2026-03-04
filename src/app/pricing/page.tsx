@@ -54,12 +54,11 @@ export const metadata: Metadata = {
 import PricingWidget, {
   type PricingPlan,
 } from "@/components/content/PricingWidget"
-import SupportPlansWidget, {
-  type SupportPlan,
-} from "@/components/content/SupportPlansWidget"
-import OpenSourceSupportWidget, {
-  type OpenSourceSupportPlan,
-} from "@/components/content/OpenSourceSupportWidget"
+import { type SupportPlan } from "@/components/content/SupportPlansWidget"
+import SupportPlansWidget from "@/components/content/SupportPlansWidget"
+import { type OpenSourceSupportPlan } from "@/components/content/OpenSourceSupportWidget"
+import SupportZone from "@/components/content/SupportZone"
+import PricingStickyNav from "@/components/content/PricingStickyNav"
 import PreferredPartnersWidget from "@/components/content/PreferredPartnersWidget"
 import PricingTableWidget, {
   type TableColumn,
@@ -69,7 +68,7 @@ import StorageLimitsWidget, {
   type StorageLimit,
   type AdditionalStorage,
 } from "@/components/content/StorageLimitsWidget"
-import { Divider } from "@mui/material"
+import { Box, Divider } from "@mui/material"
 
 // FAQ data
 const faqData = [
@@ -142,8 +141,7 @@ const faqData = [
   {
     id: 12,
     question: "Replaceable Authentication",
-    answer:
-      `To replace the default OTP authentication with your own authentication of choice,
+    answer: `To replace the default OTP authentication with your own authentication of choice,
       you'll need a backend-for-frontend (BFF) server side app to serve your client application.
       The server-side app needs to serve a dedicated token endpoint for dexie-cloud client that
       integrates with your authentication solution. See
@@ -167,6 +165,30 @@ const faqData = [
     question: "Is there a free trial for paid plans?",
     answer:
       "Yes, both Pro and Enterprise plans come with a 14-day free trial. No credit card required to start your trial.",
+  },
+  {
+    id: 16,
+    question: "Do I need Dexie.js support if I use Dexie Cloud?",
+    answer:
+      "If you're a Dexie Cloud customer, your plan already includes support for the full stack including the Dexie.js client library. The standalone Dexie.js support plans are designed for teams who use the open-source library without Dexie Cloud.",
+  },
+  {
+    id: 17,
+    question: "What if I only use the open-source Dexie.js library?",
+    answer:
+      "Many large companies build production applications on Dexie.js with their own backend and sync solutions. Our Dexie.js Professional Support plans give you direct access to the author and core team for architecture guidance, prioritized bug fixes, and peace of mind.",
+  },
+  {
+    id: 18,
+    question: "Can I get a combined Cloud + Dexie.js support package?",
+    answer:
+      "Yes. Contact us at business@dexie.org to discuss a tailored package that covers both your Dexie Cloud deployment and broader Dexie.js usage across your organization.",
+  },
+  {
+    id: 19,
+    question: "What does 'response time' mean in the support plans?",
+    answer:
+      "Response times indicate when you'll receive an initial substantive reply from the core team. Times apply during CET business hours (Mon–Fri, 9:00–17:00). Enterprise plans can include custom SLA hours.",
   },
 ]
 
@@ -230,10 +252,11 @@ const cloudPlans = [
       { text: "Unlimited databases" },
       { text: "Email support" },
       {
-        text: "Increased rate limits per user"
+        text: "Increased rate limits per user",
       },
       {
-        text: "Increased storage limits", subtext: "See Storage Limits for details."
+        text: "Increased storage limits",
+        subtext: "See Storage Limits for details.",
       },
     ],
   },
@@ -250,6 +273,8 @@ const cloudPlans = [
       title: "Buy now",
       target: "_self",
     },
+    contactSalesText: "Need custom terms? Contact Sales",
+    contactSalesLink: "/contact",
     sectionTitle: "Host everything yourself:",
     features: [
       {
@@ -265,7 +290,8 @@ const cloudPlans = [
   {
     id: "enterprise",
     title: "Enterprise",
-    subtitle: "When you need full control, source code and vendor independence.",
+    subtitle:
+      "When you need full control, source code and vendor independence.",
     price: "€7,995",
     priceNote: "forever",
     buttonText: "Buy now",
@@ -281,6 +307,8 @@ const cloudPlans = [
       color: "#c77dff",
       borderColor: "#c77dff",
     },
+    contactSalesText: "Need custom terms? Contact Sales",
+    contactSalesLink: "/contact",
     sectionTitle: "Everything in Business, plus:",
     features: [
       {
@@ -296,7 +324,8 @@ const cloudPlans = [
       { text: "Priority support" },
       {
         text: "Future-proof investment",
-        subtext: "Own your technology stack—no licensing fees, no vendor lock-in, ever.",
+        subtext:
+          "Own your technology stack—no licensing fees, no vendor lock-in, ever.",
       },
     ],
   },
@@ -308,14 +337,14 @@ const onPremisesPlans: PricingPlan[] = []
 // Support plans data
 const supportPlans: SupportPlan[] = [
   {
-    title: "Prod Support",
+    title: "Production",
     price: "Included",
     description:
       "This support option is included when subscribing to Dexie Cloud Production (SaaS) and includes email and chat support.",
     features: ["Email support", "Chat support"],
   },
   {
-    title: "Business Support",
+    title: "Business",
     price: "€695 / year",
     description:
       "This support option is available for the On-Prem Business Edition. One year of Business Support is included when purchasing Dexie Cloud On-Prem Business.",
@@ -328,10 +357,12 @@ const supportPlans: SupportPlan[] = [
     ],
   },
   {
-    title: "Enterprise Support",
+    title: "Enterprise",
     price: "€3,495 / year",
     description:
       "Every customer is different and require different levels of support. With the Gold Support package, we can dedicate our support to your team, tailor SLAs and be available at the levels of customer's requirements.",
+    highlighted: true,
+    badge: "Most popular",
     features: [
       "SLA 16 business hours",
       "Access to private GIT repo of Dexie Cloud Server for source code updates",
@@ -694,109 +725,157 @@ const additionalStorageData: AdditionalStorage[] = [
 export default function PricingPage() {
   return (
     <>
-      {/* Pricing Widget */}
-      <PricingWidget
-        cloudPlans={cloudPlans}
-        onPremisesPlans={onPremisesPlans}
-        settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
-          containerWidth: "big",
-          sectionTitle: "Cloud and on-premises with",
-          sectionSubtitle:
-            "Fully managed cloud solution for seamless scaling and automatic hosting, or host everything yourself for full control over your backend and infrastructure.",
-          typewriterStrings: [
-            "full backend control",
-            "IndexedDB simplified",
-            "local-first by design",
-            "source code available",
-            "server-free coding",
-            "zero server costs",
-          ],
-        }}
+      {/* Sticky Sub-Navigation */}
+      <PricingStickyNav />
+
+      {/* ============================================ */}
+      {/* ZONE A — Dexie Cloud                        */}
+      {/* ============================================ */}
+
+      {/* A1: Cloud Plans */}
+      <Box id="cloud">
+        <PricingWidget
+          cloudPlans={cloudPlans}
+          onPremisesPlans={onPremisesPlans}
+          settings={{
+            textColor: "#dee2e6",
+            backgroundColor: "#000000",
+            containerWidth: "big",
+            sectionTitle: "Cloud and on-premises with",
+            sectionSubtitle:
+              "Fully managed cloud solution for seamless scaling and automatic hosting, or host everything yourself for full control over your backend and infrastructure.",
+            typewriterStrings: [
+              "full backend control",
+              "IndexedDB simplified",
+              "local-first by design",
+              "source code available",
+              "server-free coding",
+              "zero server costs",
+            ],
+          }}
+          sx={{
+            paddingTop: "200px !important",
+            background:
+              "linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/assets/images/dexie-bg.jpg')",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+          }}
+        />
+      </Box>
+
+      <Divider />
+
+      {/* A2: Detailed Pricing Table (moved up from section 4) */}
+      <Box id="comparison">
+        <PricingTableWidget
+          title="Detailed Pricing Table"
+          subtitle="For more details, check out this blog post."
+          columns={comparisonColumns}
+          rows={comparisonRows}
+          settings={{
+            textColor: "#dee2e6",
+            backgroundColor: "#000000",
+            containerWidth: "big",
+          }}
+        />
+      </Box>
+
+      <Divider />
+
+      {/* A3: Storage Limits */}
+      <Box id="storage">
+        <StorageLimitsWidget
+          storageLimits={storageLimits}
+          additionalStorage={additionalStorageData}
+          settings={{
+            textColor: "#dee2e6",
+            backgroundColor: "#000000",
+            containerWidth: "big",
+          }}
+        />
+      </Box>
+
+      {/* ============================================ */}
+      {/* ZONE DIVIDER — Cloud → Support               */}
+      {/* ============================================ */}
+      <Box
         sx={{
-          paddingTop: "200px !important",
-          background:
-            "linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/assets/images/dexie-bg.jpg')",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-        }}
-      />
-
-      <Divider />
-
-      {/* Dexie.js Open Source Support */}
-      <OpenSourceSupportWidget
-        plans={openSourceSupportPlans}
-        settings={{
-          textColor: "#dee2e6",
+          py: 2,
+          position: "relative",
           backgroundColor: "#000000",
-          containerWidth: "big",
-          sectionTitle: "Dexie.js Professional Support",
-          sectionSubtitle:
-            "Direct support from the author and core team — for teams building production applications on Dexie.js open source.",
-          note:
-            "All plans are annual subscriptions invoiced upfront. Response times apply during CET business hours (Mon–Fri). Contact us to discuss your needs — we're happy to tailor a package.",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            left: "10%",
+            right: "10%",
+            top: "50%",
+            height: "2px",
+            background:
+              "linear-gradient(90deg, transparent, #7b2cbf, #c77dff, #7b2cbf, transparent)",
+            opacity: 0.6,
+          },
         }}
       />
 
-      <Divider />
+      {/* ============================================ */}
+      {/* ZONE B — Support Plans                       */}
+      {/* ============================================ */}
 
-      {/* Support Plans Section */}
-      <SupportPlansWidget
-        plans={supportPlans}
-        settings={{
-          textColor: "#dee2e6",
+      <Box id="support" sx={{ py: 8, backgroundColor: "#000000" }}>
+        <SupportZone
+          cloudSupportPlans={supportPlans}
+          openSourceSupportPlans={openSourceSupportPlans}
+          settings={{
+            textColor: "#dee2e6",
+            backgroundColor: "#000000",
+            containerWidth: "big",
+          }}
+        />
+      </Box>
+
+      {/* ============================================ */}
+      {/* ZONE DIVIDER — Support → Services            */}
+      {/* ============================================ */}
+      <Box
+        sx={{
+          py: 2,
+          position: "relative",
           backgroundColor: "#000000",
-          containerWidth: "big",
-          sectionTitle: "Dexie Cloud Support Plans",
-          sectionSubtitle:
-            "Support packages for Dexie Cloud On-Premises customers (Business & Enterprise editions)",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            left: "10%",
+            right: "10%",
+            top: "50%",
+            height: "2px",
+            background:
+              "linear-gradient(90deg, transparent, #7b2cbf, #c77dff, #7b2cbf, transparent)",
+            opacity: 0.6,
+          },
         }}
       />
+
+      {/* ============================================ */}
+      {/* ZONE C — Services & Partners                 */}
+      {/* ============================================ */}
+
+      <Box id="services">
+        <SupportPlansWidget
+          plans={professionalServices}
+          settings={{
+            textColor: "#dee2e6",
+            backgroundColor: "#000000",
+            containerWidth: "big",
+            sectionTitle: "Professional Services",
+            sectionSubtitle:
+              "Get expert help to implement, optimize, and scale your Dexie Cloud applications with our professional services",
+          }}
+        />
+      </Box>
+
       <Divider />
 
-      {/* Detailed Pricing Table Section */}
-      <PricingTableWidget
-        title="Detailed Pricing Table"
-        subtitle="For more details, check out this blog post."
-        columns={comparisonColumns}
-        rows={comparisonRows}
-        settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
-          containerWidth: "big",
-        }}
-      />
-      <Divider />
-
-      {/* Storage Limits Section */}
-      <StorageLimitsWidget
-        storageLimits={storageLimits}
-        additionalStorage={additionalStorageData}
-        settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
-          containerWidth: "big",
-        }}
-      />
-      <Divider />
-
-      {/* Professional Services Section */}
-      <SupportPlansWidget
-        plans={professionalServices}
-        settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
-          containerWidth: "big",
-          sectionTitle: "Professional Services",
-          sectionSubtitle:
-            "Get expert help to implement, optimize, and scale your Dexie Cloud applications with our professional services",
-        }}
-      />
-      <Divider />
-
-      {/* Preferred Partners Section */}
+      {/* Partners */}
       <PreferredPartnersWidget
         partners={preferredPartners}
         settings={{
@@ -808,26 +887,66 @@ export default function PricingPage() {
             "Work with certified Dexie Cloud experts who can help you implement, migrate, and optimize your offline-first applications",
         }}
       />
-      <Divider />
 
-      {/* FAQ Section */}
-      <FAQWidget
-        items={faqData}
-        settings={{
-          textColor: "#dee2e6",
+      {/* ============================================ */}
+      {/* ZONE DIVIDER — Services → FAQ                */}
+      {/* ============================================ */}
+      <Box
+        sx={{
+          py: 2,
+          position: "relative",
           backgroundColor: "#000000",
-          containerWidth: "big",
-          sectionTitle: "Frequently Asked Questions",
-          sectionSubtitle: "",
+          "&::after": {
+            content: '""',
+            position: "absolute",
+            left: "10%",
+            right: "10%",
+            top: "50%",
+            height: "2px",
+            background:
+              "linear-gradient(90deg, transparent, #7b2cbf, #c77dff, #7b2cbf, transparent)",
+            opacity: 0.6,
+          },
         }}
       />
+
+      {/* ============================================ */}
+      {/* ZONE D — FAQ & CTA                           */}
+      {/* ============================================ */}
+
+      <Box id="faq">
+        <FAQWidget
+          items={faqData}
+          settings={{
+            textColor: "#dee2e6",
+            backgroundColor: "#000000",
+            containerWidth: "big",
+            sectionTitle: "Frequently Asked Questions",
+            sectionSubtitle: "",
+          }}
+        />
+      </Box>
+
       <Divider />
 
-      {/* Call to Action Section */}
+      {/* Call to Action */}
       <CallToActionWidget
         text="Join thousands of developers building amazing offline-first applications with Dexie."
         title="Ready to Get Started?"
         buttonText="Start Free"
+        buttonLink={{
+          url: "/docs/cloud/quickstart",
+          querystring: "",
+          title: "Start Free",
+          target: "_self",
+        }}
+        secondaryButtonText="Contact Sales"
+        secondaryButtonLink={{
+          url: "/contact",
+          querystring: "",
+          title: "Contact Sales",
+          target: "_self",
+        }}
         textColor="#dee2e6"
         backgroundColor="#000000"
         containerWidth="big"
