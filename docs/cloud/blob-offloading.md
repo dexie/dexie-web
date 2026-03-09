@@ -168,9 +168,7 @@ npx dexie-cloud import my-database.json
 
 ## Limitations
 
-- Maximum blob size: 100 MB per upload
-- Blobs are not included in real-time sync (only references are synced)
-- Offline-created blobs are uploaded on next sync
+- No resumable uploads yet — very large uploads may fail on unreliable connections
 
 ## See Also
 
