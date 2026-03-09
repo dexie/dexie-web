@@ -45,7 +45,7 @@ await db.photos.add({
 
 ## What Gets Offloaded
 
-Any property containing one of these types will be offloaded:
+Binary properties **larger than 4 KB** are automatically offloaded to blob storage during sync. Smaller binaries are kept inline in the database object — no round-trip to blob storage needed.
 
 | Type | Description |
 |------|-------------|
@@ -54,6 +54,8 @@ Any property containing one of these types will be offloaded:
 | `Uint8Array` | Typed arrays |
 | `Int8Array`, `Int16Array`, etc. | All typed array variants |
 | `DataView` | DataView wrappers |
+
+> **Threshold:** Only binaries ≥ 4,096 bytes (4 KB) are offloaded. Smaller values sync inline like any other property.
 
 ## BlobRef — The Reference Object
 
