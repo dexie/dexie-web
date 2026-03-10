@@ -34,12 +34,12 @@ db.open();
 
 // Do some application logic on the database:
 db.transaction("rw", db.friends, db.pets, () => {
-    db.friends.bulkAdd([{
+    db.friends.bulkAdd([
         {name: "David", age: 52, sex: "male"},
         {name: "Ylva", age: 50, sex: "female"},
         {name: "Bennie", age: 40, sex: "male"},
         {name: "Jesper", age: 35, sex: "male"}
-    }]);
+    ]);
     db.pets.add({name: "Josephina", kind: "dog"});
 
     db.friends.where("name").equalsIgnoreCase("david").each(function(friend) {
