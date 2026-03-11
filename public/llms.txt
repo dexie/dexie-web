@@ -579,7 +579,7 @@ const client = new DexieCloudClient({
 });
 
 // Authenticate with client credentials (server-to-server)
-// Register a service client via `npx dexie-cloud clients add` or Dexie Cloud Manager.
+// Register a service client via `npx dexie-cloud authorize` (see https://dexie.org/docs/cloud/cli#authorize)
 const tokenResponse = await fetch('https://xxxxxxxx.dexie.cloud/token', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
