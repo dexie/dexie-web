@@ -45,17 +45,19 @@ await db.photos.add({
 
 ## What Gets Offloaded
 
-Binary properties **larger than 4 KB** are automatically offloaded to blob storage during sync. Smaller binaries are kept inline in the database object — no round-trip to blob storage needed.
+**Blob and File objects** are always offloaded to blob storage during sync, regardless of size. This ensures they are never stored inline in IndexedDB, avoiding issues with synchronous blob reading in service workers.
 
-| Type | Description |
-|------|-------------|
-| `Blob` | Browser Blob objects (including Files) |
-| `ArrayBuffer` | Raw binary buffers |
-| `Uint8Array` | Typed arrays |
-| `Int8Array`, `Int16Array`, etc. | All typed array variants |
-| `DataView` | DataView wrappers |
+**ArrayBuffer and typed arrays** (Uint8Array, etc.) are offloaded when they are **4 KB or larger**. Smaller binary buffers are kept inline.
 
-> **Threshold:** Only binaries ≥ 4,096 bytes (4 KB) are offloaded. Smaller values sync inline like any other property.
+| Type | Offloading Rule |
+|------|----------------|
+| `Blob` | Always offloaded |
+| `File` | Always offloaded |
+| `ArrayBuffer` | ≥ 4 KB |
+| `Uint8Array`, `Int8Array`, etc. | ≥ 4 KB |
+| `DataView` | ≥ 4 KB |
+
+> **Why always offload Blob/File?** Storing Blob objects inline in IndexedDB requires synchronous reading via `XMLHttpRequest` during sync, which is not available in service worker contexts. By always offloading, Dexie Cloud avoids this limitation entirely.
 
 ## BlobRef — The Reference Object
 
