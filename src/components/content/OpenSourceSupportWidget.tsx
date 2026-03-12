@@ -8,44 +8,51 @@ import {
   ListItem,
   ListItemText,
   ListItemIcon,
+  Button,
   Chip,
   SxProps,
   Theme,
 } from "@mui/material"
 import CheckIcon from "@mui/icons-material/Check"
+import EmailIcon from "@mui/icons-material/Email"
 
-interface SupportPlan {
+export interface OpenSourceSupportPlan {
   title: string
   price: string
+  priceNote?: string
   description: string
   features: string[]
+  ctaText: string
+  ctaHref: string
   highlighted?: boolean
   badge?: string
 }
 
-interface SupportPlansWidgetProps {
-  plans: SupportPlan[]
+interface OpenSourceSupportWidgetProps {
+  plans: OpenSourceSupportPlan[]
   settings?: {
     textColor?: string
     backgroundColor?: string
     containerWidth?: "small" | "medium" | "big"
     sectionTitle?: string
     sectionSubtitle?: string
+    note?: string
   }
   sx?: SxProps<Theme>
 }
 
-export default function SupportPlansWidget({
+export default function OpenSourceSupportWidget({
   plans,
   settings = {},
   sx = {},
-}: SupportPlansWidgetProps) {
+}: OpenSourceSupportWidgetProps) {
   const {
     textColor = "#dee2e6",
     backgroundColor = "#000000",
     containerWidth = "big",
-    sectionTitle = "Support Options",
-    sectionSubtitle = "Choose the right level of support for your team and requirements",
+    sectionTitle = "Dexie.js Support",
+    sectionSubtitle = "Professional support for teams building on Dexie.js",
+    note,
   } = settings
 
   const getMaxWidth = () => {
@@ -68,12 +75,7 @@ export default function SupportPlansWidget({
           variant="h2"
           component="h2"
           gutterBottom
-          sx={{
-            textAlign: "center",
-            mb: 2,
-            color: textColor,
-            fontWeight: 600,
-          }}
+          sx={{ textAlign: "center", mb: 2, color: textColor, fontWeight: 600 }}
         >
           {sectionTitle}
         </Typography>
@@ -95,12 +97,15 @@ export default function SupportPlansWidget({
             display: "grid",
             gridTemplateColumns: { xs: "1fr", md: "repeat(3, 1fr)" },
             gap: 4,
+            alignItems: "stretch",
           }}
         >
           {plans.map((plan, index) => (
             <Box
               key={index}
               sx={{
+                display: "flex",
+                flexDirection: "column",
                 ...(plan.highlighted && {
                   transform: { xs: "none", md: "scale(1.04)" },
                   zIndex: 2,
@@ -109,7 +114,9 @@ export default function SupportPlansWidget({
             >
               <Card
                 sx={{
-                  height: "100%",
+                  flex: 1,
+                  display: "flex",
+                  flexDirection: "column",
                   backgroundColor: plan.highlighted ? "#1a1035" : "#1a1a1a",
                   border: plan.highlighted
                     ? "1px solid #c77dff"
@@ -141,37 +148,56 @@ export default function SupportPlansWidget({
                     }}
                   />
                 )}
-                <CardContent sx={{ p: 3 }}>
+                <CardContent
+                  sx={{
+                    p: 4,
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                  }}
+                >
                   <Typography
-                    variant="h4"
+                    variant="h5"
                     component="h3"
                     gutterBottom
-                    sx={{ color: textColor, fontWeight: 600 }}
+                    sx={{ color: textColor, fontWeight: 700, mb: 0.5 }}
                   >
                     {plan.title}
                   </Typography>
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      mb: 2,
-                    }}
-                  >
-                    {plan.price}
-                  </Typography>
+
+                  <Box sx={{ mb: 2 }}>
+                    <Typography
+                      variant="h4"
+                      component="span"
+                      sx={{
+                        color: plan.highlighted ? "#c77dff" : textColor,
+                        fontWeight: 700,
+                      }}
+                    >
+                      {plan.price}
+                    </Typography>
+                    {plan.priceNote && (
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        sx={{ color: "#adb5bd", ml: 1 }}
+                      >
+                        {plan.priceNote}
+                      </Typography>
+                    )}
+                  </Box>
+
                   <Typography
                     variant="body2"
-                    sx={{
-                      color: "#adb5bd",
-                      mb: 3,
-                      lineHeight: 1.6,
-                    }}
+                    sx={{ color: "#adb5bd", mb: 3, lineHeight: 1.7 }}
                   >
                     {plan.description}
                   </Typography>
-                  <List sx={{ padding: 0 }}>
-                    {plan.features.map((feature, featureIndex) => (
+
+                  <List sx={{ padding: 0, flex: 1 }}>
+                    {plan.features.map((feature, fi) => (
                       <ListItem
-                        key={featureIndex}
+                        key={fi}
                         sx={{
                           display: "flex",
                           justifyContent: "flex-start !important",
@@ -200,7 +226,7 @@ export default function SupportPlansWidget({
                           <CheckIcon
                             sx={{
                               fontSize: "16px",
-                              color: plan.highlighted ? "#c77dff" : undefined,
+                              color: plan.highlighted ? "#c77dff" : "#adb5bd",
                             }}
                           />
                         </ListItemIcon>
@@ -221,14 +247,56 @@ export default function SupportPlansWidget({
                       </ListItem>
                     ))}
                   </List>
+
+                  <Button
+                    component="a"
+                    href={plan.ctaHref}
+                    variant={plan.highlighted ? "contained" : "outlined"}
+                    startIcon={<EmailIcon />}
+                    fullWidth
+                    sx={{
+                      mt: 3,
+                      py: 1.5,
+                      fontWeight: 600,
+                      ...(plan.highlighted
+                        ? {
+                            backgroundColor: "#c77dff",
+                            color: "#000",
+                            "&:hover": { backgroundColor: "#a855f7" },
+                          }
+                        : {
+                            borderColor: "#555",
+                            color: textColor,
+                            "&:hover": {
+                              borderColor: "#c77dff",
+                              color: "#c77dff",
+                            },
+                          }),
+                    }}
+                  >
+                    {plan.ctaText}
+                  </Button>
                 </CardContent>
               </Card>
             </Box>
           ))}
         </Box>
+
+        {note && (
+          <Typography
+            variant="body2"
+            sx={{
+              textAlign: "center",
+              mt: 4,
+              color: "#6c757d",
+              maxWidth: "700px",
+              mx: "auto",
+            }}
+          >
+            {note}
+          </Typography>
+        )}
       </Container>
     </Box>
   )
 }
-
-export type { SupportPlan }
