@@ -351,22 +351,29 @@ export const components = {
   }: React.HTMLAttributes<HTMLQuoteElement>) => {
     const convertedProps = convertProps(props)
     return (
-      <Paper
+      <Box
         component="blockquote"
-        elevation={0}
         sx={{
-          borderLeft: 4,
+          borderLeft: "4px solid",
           borderColor: "primary.main",
+          border: "1px dashed rgba(255, 255, 255, 0.2)",
+          borderLeftWidth: 4,
+          borderLeftStyle: "solid",
+          borderLeftColor: "secondary.main",
           pl: 3,
           mb: 3,
-          py: 1,
-          backgroundColor: "grey.50",
+          py: 1.5,
+          px: 3,
+          backgroundColor: "rgba(255, 255, 255, 0.03)",
+          borderRadius: 1,
           color: "text.secondary",
+          margin: 0,
+          marginBottom: 3,
         }}
         {...convertedProps}
       >
         <Typography component="div">{children}</Typography>
-      </Paper>
+      </Box>
     )
   },
   table: ({

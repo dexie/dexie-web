@@ -317,25 +317,32 @@ function parseHTMLToComponents(html: string): React.ReactNode {
             }
           case "blockquote":
             return (
-              <Paper
+              <Box
                 key={getKey()}
                 component="blockquote"
-                elevation={0}
                 sx={{
-                  borderLeft: 4,
+                  borderLeft: "4px solid",
                   borderColor: "primary.main",
+                  border: "1px dashed rgba(255, 255, 255, 0.2)",
+                  borderLeftWidth: 4,
+                  borderLeftStyle: "solid",
+                  borderLeftColor: "secondary.main",
                   pl: 3,
                   mb: 3,
-                  py: 1,
-                  backgroundColor: "grey.50",
+                  py: 1.5,
+                  px: 3,
+                  backgroundColor: "rgba(255, 255, 255, 0.03)",
+                  borderRadius: 1,
                   color: "text.secondary",
+                  margin: 0,
+                  marginBottom: 3,
                 }}
                 {...convertProps(attribs || {})}
               >
                 <Typography component="div">
                   {domToReact(children as DOMNode[], options)}
                 </Typography>
-              </Paper>
+              </Box>
             )
           case "table":
             // Check if the table children need to be wrapped in tbody
