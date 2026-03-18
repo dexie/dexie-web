@@ -60,6 +60,24 @@ await db.photos.add({
 | `Uint8Array`, `Int8Array`, etc. | ≥ 4 KB |
 | `DataView` | ≥ 4 KB |
 
+### Long Strings
+
+Strings longer than `maxStringLength` (default **32,768 characters**) are also offloaded to blob storage during sync. This is useful for properties that store base64-encoded images or other large text.
+
+```ts
+db.cloud.configure({
+  databaseUrl: '...',
+  maxStringLength: 32768, // default (32KB characters)
+  // Set to Infinity to disable string offloading
+});
+```
+
+| Type | Offloading Rule |
+|------|----------------|
+| `string` | > `maxStringLength` (default 32KB) |
+
+The original string is kept intact in IndexedDB — offloading only affects the sync payload. When resolved, the blob is decoded back to a string transparently.
+
 > **Why always offload Blob/File?** Storing Blob objects inline in IndexedDB requires synchronous reading via `XMLHttpRequest` during sync, which is not available in service worker contexts. By always offloading, Dexie Cloud avoids this limitation entirely.
 
 ## BlobRef — The Reference Object
@@ -70,7 +88,7 @@ After offloading, binary properties are replaced with a **BlobRef**:
 // Before sync (local):
 { title: "Photo", image: Blob(524288) }
 
-// After sync (stored):
+// After sync (stored in cloud):
 {
   title: "Photo",
   image: {
@@ -81,6 +99,10 @@ After offloading, binary properties are replaced with a **BlobRef**:
   },
   _hasBlobRefs: 1          // Marker for quick detection
 }
+
+// String offloading example:
+// Before sync: { notes: "<very long string...>" }
+// After sync:  { notes: { _bt: "string", ref: "1:def456", size: 98304 }, _hasBlobRefs: 1 }
 ```
 
 ## Lazy Resolution

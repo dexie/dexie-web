@@ -83,7 +83,7 @@ When objects contain binary data that has been [offloaded to blob storage](/clou
 
 | Field | Description |
 |-------|-------------|
-| `_bt` | Original type name: `"Blob"`, `"File"`, `"ArrayBuffer"`, `"Uint8Array"`, etc. |
+| `_bt` | Original type name: `"Blob"`, `"File"`, `"ArrayBuffer"`, `"Uint8Array"`, `"string"`, etc. |
 | `ref` | Storage reference (format: `"version:blobId"`) — use with the [/blob/ endpoint](#blob-endpoint) |
 | `size` | Original size in bytes |
 | `ct` | Content type (only present for Blob/File) |
