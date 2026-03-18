@@ -373,15 +373,38 @@ export class TodoList extends Entity<TodoDB> {
 
 # Dexie Cloud — Summary and Quickstart
 
-## Getting Started
+## Getting Started with Dexie Cloud (Hosted)
 
-1. Install dependencies
-2. Run npx dexie-cloud create to create your database
-3. Configure your app with the generated database URL
-4. Use Dexie.js with the cloud addon
-5. Deploy and whitelist your domain
+The fastest way to get started is with the **hosted service at dexie.cloud** — no server to manage.
 
-(Full quickstart: https://dexie.org/docs/cloud/quickstart)
+```bash
+# 1. Install
+npm install dexie dexie-cloud-addon
+
+# 2. Create a database (interactive — sets up your cloud DB)
+npx dexie-cloud create
+
+# 3. Use in your app
+```
+
+```ts
+import Dexie from 'dexie';
+import dexieCloud from 'dexie-cloud-addon';
+
+const db = new Dexie('MyApp', { addons: [dexieCloud] });
+db.version(1).stores({ items: '@id, title' });
+db.cloud.configure({ databaseUrl: 'https://<your-db>.dexie.cloud' });
+```
+
+That's it — your app syncs across devices, works offline, and handles authentication automatically.
+
+Whitelist your production domain: `npx dexie-cloud whitelist https://myapp.com`
+
+Full quickstart: https://dexie.org/docs/cloud/quickstart
+
+## Self-Hosting Dexie Cloud
+
+Prefer to run the server yourself? See the "Self-Hosting Dexie Cloud" section below for Docker setup.
 
 ---
 
