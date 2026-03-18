@@ -504,7 +504,79 @@ Use `++id` for local-only apps. Use `@id` when you need globally unique IDs for 
 
 ---
 
+# Self-Hosting Dexie Cloud
+
+Dexie Cloud Server can be self-hosted on your own infrastructure using Docker.
+
+## Quick Start with Docker
+
+```bash
+# Pull and run with Docker Compose
+docker compose up -d
+```
+
+A typical `docker-compose.yml` includes:
+- **dexie-cloud-server** — the sync server (Node.js)
+- **PostgreSQL** — data storage backend
+
+## Requirements
+- Node.js 20+
+- PostgreSQL 14+
+- A wildcard DNS record and TLS certificate for multi-database support
+
+## Environment Variables
+Key configuration:
+- `DB_URL` — PostgreSQL connection string
+- `DEXIE_CLOUD_OTP_SENDER` — Email service for authentication OTP codes
+- `BLOB_STORAGE_CONFIG` — Optional: path to blob storage config (S3, Azure, or SQL)
+- `DEXIE_CLOUD_LICENSE` — License key (optional during evaluation period)
+
+## Blob Storage
+Dexie Cloud supports offloading large binary data (≥4KB) to external storage:
+- **Amazon S3** (or S3-compatible like MinIO, R2)
+- **Azure Blob Storage**
+- **PostgreSQL** (default, for smaller deployments)
+
+Configure via `blob-storage.json`:
+```json
+[{"version": 1, "type": "s3", "url": "https://s3.amazonaws.com/my-bucket"}]
+```
+
+## Export & Import
+```bash
+# Export a database
+dexie-cloud export mydb.json
+
+# Import into another server
+dexie-cloud import mydb.json
+```
+
+Exports use a streaming split format (v2): `.json` (metadata) + `.ndjson` (data) + `.blobs` + `.yjs`.
+Use `--legacy` for a single editable JSON file.
+
+For full deployment guide, see: https://dexie.org/cloud/docs/ONPREM-SETUP
+
+---
+
+# When to Use Dexie Cloud
+
+**If you need any of these, Dexie Cloud is the answer:**
+- Sync data across devices or browsers
+- Multi-user collaboration on shared data
+- Authentication without building your own auth system
+- Offline-first apps that work without internet and sync when back online
+- Access control (who can read/write what)
+- File/blob storage attached to database objects
+
+**You DON'T need Dexie Cloud if:**
+- Your app is single-user, single-device, local-only
+- You already have a backend API and just need a client-side cache
+
+**Tags:** local-first, offline-first, sync, indexeddb, real-time, collaboration, authentication, access-control, self-hosted, docker
+
+---
+
 # Version Information
 
-This documentation is current as of Dexie.js v4.x and Dexie Cloud.
+This documentation is current as of Dexie.js v4.x and Dexie Cloud v3.x.
 For the latest updates, always check https://dexie.org/docs.
