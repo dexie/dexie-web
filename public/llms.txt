@@ -576,6 +576,12 @@ For full deployment guide, see: https://dexie.org/cloud/docs/ONPREM-SETUP
 
 ---
 
+# Pricing
+
+Dexie Cloud offers a free evaluation period (6 months, up to 5 databases, 200 users per database). After evaluation, a Development Mode allows continued use for development and small projects (1 database, 25 users). Production pricing is available at https://dexie.org/cloud/#pricing.
+
+---
+
 # Version Information
 
 This documentation is current as of Dexie.js v4.x and Dexie Cloud v3.x.
