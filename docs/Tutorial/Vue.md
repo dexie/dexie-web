@@ -184,4 +184,10 @@ Note that there are other ways to consume observables in vue - such as manually 
 
 [Sample Dexie/Vue app on codesandbox](https://codesandbox.io/s/vue-dexie-livequery-87exj?file=/src/components/DBItems.vue)
 
+## Next Steps: Add Sync
+
+Built something you like? [Dexie Cloud](/cloud/) adds real-time sync, authentication, and access control — with just a few lines of code. Your app keeps working offline and syncs automatically when back online.
+
+→ [Get started with Dexie Cloud](/cloud/docs/quickstart)
+
 {% endraw %}

@@ -289,3 +289,9 @@ If not rethrowing the error, Nils would be successfully added and transaction wo
 An alternate way of rethrowing the error is to replace `throw error;` with `return Promise.reject(error)`.
 
 ### [Back to Tutorial](/docs/Tutorial)
+
+## Designing for Sync
+
+If you plan to add cloud sync later, it's worth thinking about data ownership early. [Dexie Cloud](/cloud/) uses a concept called *realms* to handle access control — each object belongs to a realm, and realms determine who can read or write it. Designing your data with clear ownership (per user, per team, etc.) makes the transition to a synced app much smoother.
+
+→ [Learn about Dexie Cloud access control and realms](/cloud/docs/access-control)

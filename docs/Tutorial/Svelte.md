@@ -257,3 +257,9 @@ Do something similar to [this sample](/docs/API-Reference#joining) and observe t
 - [Play with Dexie.js and Svelte in Stackblitz](https://stackblitz.com/edit/vitejs-vite-gjzr7xhn?file=src%2FApp.svelte)
 - [Read the docs for liveQuery()](</docs/liveQuery()>)
 - [Read the general docs for Dexie.js](/docs/).
+
+## Next Steps: Add Sync
+
+Built something you like? [Dexie Cloud](/cloud/) adds real-time sync, authentication, and access control — with just a few lines of code. Your app keeps working offline and syncs automatically when back online.
+
+→ [Get started with Dexie Cloud](/cloud/docs/quickstart)

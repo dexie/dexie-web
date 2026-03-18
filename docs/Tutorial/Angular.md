@@ -345,4 +345,10 @@ export class AppModule {}
 
 </details>
 
+## Next Steps: Add Sync
+
+Built something you like? [Dexie Cloud](/cloud/) adds real-time sync, authentication, and access control — with just a few lines of code. Your app keeps working offline and syncs automatically when back online.
+
+→ [Get started with Dexie Cloud](/cloud/docs/quickstart)
+
 {% endraw %}

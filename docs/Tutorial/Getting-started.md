@@ -51,7 +51,7 @@ Please select what framework you're on and we'll guide you further...
 
 <hr>
 
-What's an Offline First application without sync? We're cooking something slick and powerful. Curious about what's **coming**? Get a _little glimpse_ of how it will be to turn your client-only app into a server-backed, consistently synced and securely access controlled app. And maybe list yourself on the waitlist?
+What's an Offline First application without sync? [Dexie Cloud](/cloud/) is here — adding real-time sync, authentication, and access control to your Dexie app. Turn your client-only app into a server-backed, consistently synced, and securely access-controlled app with just a few lines of code.
 
 <div class="MuiBox-root" style="margin-bottom: 32px;">
     <div class="MuiBox-root">
