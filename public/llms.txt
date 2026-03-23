@@ -511,11 +511,9 @@ For the latest updates, always check https://dexie.org/docs.
 
 ---
 
-# Blob Offloading (NEW in dexie-cloud-addon 4.4.0 / Dexie Cloud Server 3.0.0)
+# Blob Offloading (NEW)
 
 Dexie Cloud supports **blob offloading** — large binary data (images, files) is automatically moved from IndexedDB to server-side blob storage.
-
-**Requires:** `dexie-cloud-addon` ≥ 4.4.0 and Dexie Cloud Server ≥ 3.0.0. Currently published under the `canary` tag on npm.
 
 ## How It Works
 
@@ -565,7 +563,7 @@ For full docs: https://dexie.org/cloud/docs/blob-offloading
 
 # Dexie Cloud SDK (NEW)
 
-The **dexie-cloud-sdk** package provides server-side REST access to Dexie Cloud databases. Designed for backend services, scripts, and server-to-server integrations — not for browser use (use dexie-cloud-addon in the browser).
+The **dexie-cloud-sdk** package provides server-side REST access to Dexie Cloud without Dexie.js or IndexedDB.
 
 ```bash
 npm install dexie-cloud-sdk
@@ -580,19 +578,15 @@ const client = new DexieCloudClient({
   blobHandling: 'auto'  // or 'lazy'
 });
 
-// Authenticate with client credentials (server-to-server)
-// Register a service client via `npx dexie-cloud authorize` (see https://dexie.org/docs/cloud/cli#authorize)
-const tokenResponse = await fetch('https://xxxxxxxx.dexie.cloud/token', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    grant_type: 'client_credentials',
-    client_id: 'your-client-id',
-    client_secret: 'your-client-secret',
-    scopes: ['ACCESS_DB', 'GLOBAL_READ', 'GLOBAL_WRITE']
-  })
-});
-const { accessToken } = await tokenResponse.json();
+// Authenticate using client credentials from dexie-cloud.key
+const keys = JSON.parse(fs.readFileSync('dexie-cloud.key', 'utf-8'));
+const { clientId, clientSecret } = keys[dbUrl];
+const { accessToken } = await client.auth.authenticateWithClientCredentials(
+  dbUrl,
+  clientId,
+  clientSecret,
+  ['ACCESS_DB']
+);
 
 // CRUD
 const items = await client.data.list('todoItems', accessToken);
@@ -602,8 +596,6 @@ await client.data.create('todoItems', { title: 'Hello', done: false }, accessTok
 const ref = await client.blobs.upload(new Uint8Array([1,2,3]), accessToken);
 const { data } = await client.blobs.download(ref, accessToken);
 ```
-
-Available scopes: ACCESS_DB, GLOBAL_READ, GLOBAL_WRITE, MANAGE_DB, DELETE_DB, IMPERSONATE.
 
 Auto mode: binary data in objects is uploaded automatically. Lazy mode: BlobRefs returned as-is, download explicitly.
 
