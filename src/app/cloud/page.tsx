@@ -1,6 +1,5 @@
 import React from "react";
 import type { Metadata } from "next";
-import Link from "next/link";
 
 export const metadata: Metadata = {
   title:
@@ -58,7 +57,7 @@ export const metadata: Metadata = {
   },
 };
 
-import { Box, Typography, Divider, Button, Chip } from "@mui/material";
+import { Box, Typography, Divider, Button } from "@mui/material";
 import HeroWidget from "@/components/content/hero/HeroWidget";
 import Benefits, {
   BenefitItem,
@@ -75,7 +74,6 @@ import FAQWidget from "@/components/content/FAQWidget";
 import TypeWriter from "@/components/content/shared/TypeWriter";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 
 // --- Benefits: 6 key capabilities ---
@@ -446,57 +444,31 @@ const faqItems = [
   },
 ];
 
-// --- Comparison data ---
-const comparisonRows = [
-  {
-    feature: "Offline-first by design",
-    dexie: true,
-    traditional: false,
-    firebase: false,
-  },
-  {
-    feature: "Zero backend code needed",
-    dexie: true,
-    traditional: false,
-    firebase: false,
-  },
-  {
-    feature: "Built-in auth (OTP + OAuth)",
-    dexie: true,
-    traditional: false,
-    firebase: true,
-  },
-  {
-    feature: "Per-object access control",
-    dexie: true,
-    traditional: false,
-    firebase: false,
-  },
-  {
-    feature: "Y.js / CRDT collaboration",
-    dexie: true,
-    traditional: false,
-    firebase: false,
-  },
-  {
-    feature: "Self-hostable",
-    dexie: true,
-    traditional: true,
-    firebase: false,
-  },
-  {
-    feature: "Predictable pricing",
-    dexie: true,
-    traditional: true,
-    firebase: false,
-  },
-  {
-    feature: "Instant UI (no loading spinners)",
-    dexie: true,
-    traditional: false,
-    firebase: false,
-  },
+// --- Comparison data (for PricingTableWidget) ---
+import PricingTableWidget, {
+  type TableColumn,
+  type TableRow as PricingTableRow,
+} from "@/components/content/PricingTableWidget";
+
+const comparisonColumns: TableColumn[] = [
+  { key: "feature", label: "Feature" },
+  { key: "dexie", label: "Dexie Cloud", align: "center" },
+  { key: "traditional", label: "DIY Backend", align: "center" },
+  { key: "firebase", label: "Firebase / Supabase", align: "center" },
 ];
+
+const comparisonRows: PricingTableRow[] = [
+  { feature: "Offline-first by design", dexie: true, traditional: false, firebase: false },
+  { feature: "Zero backend code needed", dexie: true, traditional: false, firebase: false },
+  { feature: "Built-in auth (OTP + OAuth)", dexie: true, traditional: false, firebase: true },
+  { feature: "Per-object access control", dexie: true, traditional: false, firebase: false },
+  { feature: "Y.js / CRDT collaboration", dexie: true, traditional: false, firebase: false },
+  { feature: "Self-hostable", dexie: true, traditional: true, firebase: false },
+  { feature: "Predictable pricing", dexie: true, traditional: true, firebase: false },
+  { feature: "Instant UI (no loading spinners)", dexie: true, traditional: false, firebase: false },
+];
+
+import CallToActionWidget from "@/components/content/CallToActionWidget";
 
 export default function DexieCloudPage() {
   return (
@@ -522,7 +494,7 @@ export default function DexieCloudPage() {
             />
           </>
         }
-        text="Add sync, authentication, and multi-user collaboration to your Dexie.js app \u2014 no backend needed. The world's most developer-friendly offline-first sync platform. Start free."
+        text="Add sync, authentication, and multi-user collaboration to your Dexie.js app — no backend needed. The world's most developer-friendly offline-first sync platform. Start free."
         background={"/assets/images/dexie-bg.jpg"}
         buttons={[
           {
@@ -616,204 +588,53 @@ export default function DexieCloudPage() {
       </Box>
 
       {/* SECTION 3 - PROBLEM to SOLUTION */}
-      <Box
-        sx={{
-          background:
-            "linear-gradient(180deg, #000000 0%, #0a0a1a 50%, #000000 100%)",
-          color: "#fff",
-          py: { xs: 8, md: 12 },
-        }}
-      >
-        <Box sx={{ maxWidth: "1200px", margin: "0 auto", px: 3 }}>
-          <Typography
-            variant="h3"
-            component="h2"
-            sx={{
-              textAlign: "center",
-              mb: 2,
-              fontWeight: 700,
-              fontSize: { xs: "2rem", md: "2.8rem" },
-            }}
-          >
-            Building a SaaS is hard.
-            <br />
-            <Box
-              component="span"
-              sx={{
-                background:
-                  "linear-gradient(135deg, #7b2cbf 0%, #c77dff 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              It doesn&apos;t have to be.
-            </Box>
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              textAlign: "center",
-              mb: 8,
-              color: "rgba(255,255,255,0.6)",
-              maxWidth: "700px",
-              margin: "0 auto",
-              fontWeight: 300,
-              pb: 6,
-            }}
-          >
-            The traditional way to build a multi-user app requires months of
-            backend work. Dexie Cloud replaces all of that with a single addon.
-          </Typography>
-
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", md: "1fr auto 1fr" },
-              gap: { xs: 4, md: 3 },
-              alignItems: "start",
-            }}
-          >
-            {/* Traditional way */}
-            <Box
-              sx={{
-                background: "rgba(255,50,50,0.05)",
-                border: "1px solid rgba(255,50,50,0.15)",
-                borderRadius: 3,
-                p: 4,
-              }}
-            >
-              <Typography
-                variant="overline"
-                sx={{ color: "rgba(255,100,100,0.8)", letterSpacing: 2 }}
-              >
-                The traditional way
-              </Typography>
-              <Typography
-                variant="h5"
-                sx={{
-                  mb: 3,
-                  fontWeight: 600,
-                  color: "rgba(255,255,255,0.9)",
-                }}
-              >
-                Months of backend work
-              </Typography>
-              {[
-                "Design & build REST/GraphQL API",
-                "Set up authentication service",
-                "Implement sync protocol",
-                "Build access control layer",
-                "Handle offline & conflict resolution",
-                "Deploy & maintain servers",
-                "Manage database infrastructure",
-                "Handle WebSocket connections",
-              ].map((item) => (
-                <Box
-                  key={item}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    mb: 1.5,
-                    gap: 1.5,
-                  }}
-                >
-                  <Typography sx={{ color: "rgba(255,100,100,0.6)" }}>
-                    &#x2715;
-                  </Typography>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: "rgba(255,255,255,0.6)" }}
-                  >
-                    {item}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-
-            {/* VS divider */}
-            <Box
-              sx={{
-                display: { xs: "none", md: "flex" },
-                alignItems: "center",
-                justifyContent: "center",
-                pt: 12,
-              }}
-            >
-              <Chip
-                label="VS"
-                sx={{
-                  fontWeight: 700,
-                  fontSize: "0.9rem",
-                  background: "rgba(255,255,255,0.1)",
-                  color: "#fff",
-                  border: "1px solid rgba(255,255,255,0.2)",
-                }}
-              />
-            </Box>
-
-            {/* Dexie Cloud way */}
-            <Box
-              sx={{
-                background: "rgba(123,44,191,0.08)",
-                border: "1px solid rgba(123,44,191,0.3)",
-                borderRadius: 3,
-                p: 4,
-              }}
-            >
-              <Typography
-                variant="overline"
-                sx={{ color: "#c77dff", letterSpacing: 2 }}
-              >
-                The Dexie Cloud way
-              </Typography>
-              <Typography
-                variant="h5"
-                sx={{ mb: 3, fontWeight: 600, color: "#fff" }}
-              >
-                Minutes of configuration
-              </Typography>
-              {[
-                "Install dexie-cloud-addon",
-                "Run npx dexie-cloud create",
-                "Add 3 lines of configuration",
-                "Auth works immediately",
-                "Sync works immediately",
-                "Access control built in",
-                "Offline support built in",
-                "Ship your SaaS",
-              ].map((item, i) => (
-                <Box
-                  key={item}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    mb: 1.5,
-                    gap: 1.5,
-                  }}
-                >
-                  <CheckCircleOutlineIcon
-                    sx={{
-                      fontSize: 18,
-                      color: i === 7 ? "#4ade80" : "#c77dff",
-                    }}
-                  />
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      color:
-                        i === 7 ? "#4ade80" : "rgba(255,255,255,0.85)",
-                      fontWeight: i === 7 ? 600 : 400,
-                    }}
-                  >
-                    {item}
-                  </Typography>
-                </Box>
-              ))}
-            </Box>
-          </Box>
-        </Box>
-      </Box>
+      <BlogPostsWidget
+        items={[
+          {
+            id: 1,
+            delay: "0.1s",
+            imgSrc: "/assets/images/blog/post-prev-1.jpg",
+            title: "The Traditional Way — ~3-6 months",
+            text: "Building a multi-user app the traditional way requires months of backend work: REST APIs, authentication, sync protocols, access control, conflict resolution, server deployment, and database infrastructure.",
+            authorImg: "/assets/images/blog/author/author-1.jpg",
+            authorName: "Dexie.js",
+            date: "",
+            link: "/docs/cloud",
+            keyPoints: [
+              "Design & build REST/GraphQL API — weeks",
+              "Set up authentication service — days",
+              "Implement sync protocol — weeks",
+              "Build access control layer — weeks",
+              "Handle offline & conflict resolution — weeks",
+              "Deploy & maintain servers — ongoing",
+            ],
+          },
+          {
+            id: 2,
+            delay: "0.1s",
+            imgSrc: "/assets/images/blog/post-prev-1.jpg",
+            title: "The Dexie Cloud Way — ~5 minutes",
+            text: "Dexie Cloud replaces all of that with a single addon. Install, configure, and ship. Auth, sync, access control, and offline support are all built in.",
+            authorImg: "/assets/images/blog/author/author-1.jpg",
+            authorName: "Dexie.js",
+            date: "",
+            link: "/docs/cloud/quickstart",
+            keyPoints: [
+              "Install dexie-cloud-addon — 10 seconds",
+              "Run npx dexie-cloud create — 10 seconds",
+              "Add 3 lines of configuration — 1 minute",
+              "Auth works — immediately",
+              "Sync works — immediately",
+              "Access control — built in",
+            ],
+          },
+        ]}
+        sectionTitle="Building a SaaS is hard. It doesn't have to be."
+        sectionSubtitle="The traditional way to build a multi-user app requires months of backend work. Dexie Cloud replaces all of that with a single addon."
+        textColor="#dee2e6"
+        backgroundColor="#000000"
+        containerWidth="big"
+      />
 
       <Divider />
 
@@ -821,87 +642,158 @@ export default function DexieCloudPage() {
       <Box
         id="from-app-to-saas"
         sx={{
-          background:
-            "linear-gradient(180deg, #000000 0%, #0f0f23 50%, #000000 100%)",
-          color: "#ffffff",
-          py: { xs: 8, md: 12 },
+          color: "#dee2e6",
+          py: 8,
         }}
       >
-        <Box sx={{ maxWidth: "1200px", margin: "0 auto", px: 3 }}>
+        <Box sx={{ maxWidth: "1400px", margin: "0 auto", px: 3 }}>
           <Typography
             variant="h3"
             component="h2"
-            sx={{
-              textAlign: "center",
-              mb: 2,
-              fontWeight: 700,
-              fontSize: { xs: "2rem", md: "2.8rem" },
-            }}
+            textAlign="center"
+            sx={{ mb: 2, color: "#ffffff" }}
           >
             From App to SaaS in 4 Steps
           </Typography>
           <Typography
             variant="h6"
-            sx={{
-              textAlign: "center",
-              mb: 8,
-              color: "rgba(255,255,255,0.6)",
-              maxWidth: "700px",
-              margin: "0 auto",
-              fontWeight: 300,
-              pb: 4,
-            }}
+            textAlign="center"
+            sx={{ mb: 6, opacity: 0.8, fontWeight: 300 }}
           >
-            Add sync to your existing Dexie.js app \u2014 or start fresh.
-            Either way, you&apos;ll be up and running in minutes.
+            Add sync to your existing Dexie.js app or start fresh
           </Typography>
 
-          {/* Step 1 + 2 side by side */}
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
               gap: 4,
-              mb: 4,
+              gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" },
+              alignItems: "start",
             }}
           >
+            {/* Step 1 */}
             <Box>
-              <StepHeader step={1} title="Create a cloud database" />
-              <CodeBlock
-                language="bash"
-                code="npx dexie-cloud create"
-                showLineNumbers={false}
-                commandLine
-                commandPrompt="$"
-              />
+              <Box sx={{ mb: 3 }}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    mb: 2,
+                    color: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    component="span"
+                    sx={{
+                      border: "2px solid rgba(255,255,255, 0.5)",
+                      borderRadius: "50%",
+                      width: 32,
+                      height: 32,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginRight: 2,
+                      fontSize: "0.9rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    1
+                  </Box>
+                  Create a cloud database
+                </Typography>
+              </Box>
+              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" } }}>
+                <CodeBlock
+                  language="bash"
+                  code="npx dexie-cloud create"
+                  showLineNumbers={false}
+                  commandLine
+                  commandPrompt="$"
+                />
+              </Box>
             </Box>
-            <Box>
-              <StepHeader step={2} title="Install the addon" />
-              <CodeBlock
-                language="bash"
-                code="npm install dexie-cloud-addon"
-                showLineNumbers={false}
-                commandLine
-                commandPrompt="$"
-              />
-            </Box>
-          </Box>
 
-          {/* Step 3 full width */}
-          <Box sx={{ mb: 4 }}>
-            <StepHeader step={3} title="Configure your database" />
-            <Box
-              sx={{
-                background: "rgba(255,255,255,0.03)",
-                borderRadius: 2,
-                overflow: "hidden",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-            >
-              <CodeBlock
-                language="typescript"
-                showLineNumbers={true}
-                code={`import Dexie from 'dexie';
+            {/* Step 2 */}
+            <Box>
+              <Box sx={{ mb: 3 }}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    mb: 2,
+                    color: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    component="span"
+                    sx={{
+                      border: "2px solid rgba(255,255,255, 0.5)",
+                      borderRadius: "50%",
+                      width: 32,
+                      height: 32,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginRight: 2,
+                      fontSize: "0.9rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    2
+                  </Box>
+                  Install the addon
+                </Typography>
+              </Box>
+              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" } }}>
+                <CodeBlock
+                  language="bash"
+                  code="npm install dexie-cloud-addon"
+                  showLineNumbers={false}
+                  commandLine
+                  commandPrompt="$"
+                />
+              </Box>
+            </Box>
+
+            {/* Step 3 */}
+            <Box>
+              <Box sx={{ mb: 3 }}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    mb: 2,
+                    color: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    component="span"
+                    sx={{
+                      border: "2px solid rgba(255,255,255, 0.5)",
+                      borderRadius: "50%",
+                      width: 32,
+                      height: 32,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginRight: 2,
+                      fontSize: "0.9rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    3
+                  </Box>
+                  Configure your database
+                </Typography>
+              </Box>
+              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" } }}>
+                <CodeBlock
+                  language="typescript"
+                  showLineNumbers={true}
+                  code={`import Dexie from 'dexie';
 import dexieCloud from 'dexie-cloud-addon';
 
 const db = new Dexie('MySaaSApp', { addons: [dexieCloud] });
@@ -915,28 +807,47 @@ db.cloud.configure({
   databaseUrl: "https://<your-db>.dexie.cloud",
   requireAuth: true  // Users must log in to sync
 });`}
-              />
+                />
+              </Box>
             </Box>
-          </Box>
 
-          {/* Step 4 full width */}
-          <Box sx={{ mb: 6 }}>
-            <StepHeader
-              step={4}
-              title="Use it \u2014 sync, auth & sharing just work"
-            />
-            <Box
-              sx={{
-                background: "rgba(255,255,255,0.03)",
-                borderRadius: 2,
-                overflow: "hidden",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-            >
-              <CodeBlock
-                language="tsx"
-                showLineNumbers={true}
-                code={`import { useLiveQuery } from "dexie-react-hooks";
+            {/* Step 4 */}
+            <Box>
+              <Box sx={{ mb: 3 }}>
+                <Typography
+                  variant="h5"
+                  sx={{
+                    mb: 2,
+                    color: "#ffffff",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    component="span"
+                    sx={{
+                      border: "2px solid rgba(255,255,255, 0.5)",
+                      borderRadius: "50%",
+                      width: 32,
+                      height: 32,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      marginRight: 2,
+                      fontSize: "0.9rem",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    4
+                  </Box>
+                  Use it
+                </Typography>
+              </Box>
+              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" } }}>
+                <CodeBlock
+                  language="tsx"
+                  showLineNumbers={true}
+                  code={`import { useLiveQuery } from "dexie-react-hooks";
 
 function TaskList() {
   const tasks = useLiveQuery(() => db.tasks.toArray());
@@ -957,95 +868,50 @@ function TaskList() {
     </ul>
   );
 }`}
-              />
+                />
+              </Box>
             </Box>
           </Box>
 
-          {/* Result callout */}
-          <Box
-            sx={{
-              textAlign: "center",
-              background:
-                "linear-gradient(135deg, rgba(123,44,191,0.15), rgba(74,222,128,0.1))",
-              borderRadius: 3,
-              p: { xs: 4, md: 5 },
-              border: "1px solid rgba(123,44,191,0.3)",
-            }}
-          >
-            <Typography
-              variant="h4"
-              sx={{
-                mb: 2,
-                fontWeight: 700,
-                color: "#4ade80",
-                fontSize: { xs: "1.5rem", md: "2rem" },
-              }}
-            >
-              That&apos;s it. Your app is now a SaaS.
-            </Typography>
-            <Typography
-              sx={{
-                color: "rgba(255,255,255,0.7)",
-                mb: 3,
-                maxWidth: "600px",
-                margin: "0 auto 24px",
-              }}
-            >
-              Users can sign in, their data syncs across devices, and they can
-              share and collaborate \u2014 all without a single line of backend
-              code.
-            </Typography>
+          {/* Progress Flow */}
+          <Box sx={{ mt: 6, textAlign: "center" }}>
             <Box
               sx={{
                 display: "flex",
-                gap: 2,
                 justifyContent: "center",
+                alignItems: "center",
+                gap: 2,
                 flexWrap: "wrap",
+                mb: 4,
               }}
             >
+              <Typography variant="body2">Create</Typography>
+              <ArrowForwardIcon sx={{ color: "#666" }} />
+              <Typography variant="body2">Install</Typography>
+              <ArrowForwardIcon sx={{ color: "#666" }} />
+              <Typography variant="body2">Configure</Typography>
+              <ArrowForwardIcon sx={{ color: "#666" }} />
+              <Typography variant="body2">Ship Your SaaS</Typography>
+            </Box>
+
+            <Box sx={{ mt: 4 }}>
               <Button
-                component={Link}
-                href="/docs/cloud/quickstart"
                 variant="contained"
                 size="large"
-                startIcon={<RocketLaunchIcon />}
-                sx={{
-                  background:
-                    "linear-gradient(135deg, #7b2cbf 0%, #9d4edd 100%)",
-                  px: 4,
-                  py: 1.5,
-                  fontSize: "1rem",
-                  textTransform: "none",
-                  "&:hover": {
-                    background:
-                      "linear-gradient(135deg, #9d4edd 0%, #c77dff 100%)",
-                    transform: "translateY(-2px)",
-                    boxShadow: "0 8px 25px rgba(123,44,191,0.4)",
-                  },
-                  transition: "all 0.3s ease",
-                }}
+                startIcon={<PlayArrowIcon />}
+                color="secondary"
+                sx={{ mr: 2, mb: 2 }}
+                href="/docs/cloud/quickstart"
               >
                 Quick Start Guide
               </Button>
               <Button
-                component={Link}
-                href="/docs/Tutorial/Dexie-Cloud"
                 variant="outlined"
                 size="large"
                 startIcon={<ArrowForwardIcon />}
-                sx={{
-                  borderColor: "rgba(255,255,255,0.3)",
-                  color: "#fff",
-                  px: 4,
-                  py: 1.5,
-                  fontSize: "1rem",
-                  textTransform: "none",
-                  "&:hover": {
-                    borderColor: "rgba(255,255,255,0.5)",
-                    backgroundColor: "rgba(255,255,255,0.05)",
-                  },
-                  transition: "all 0.3s ease",
-                }}
+                color="secondary"
+                sx={{ mb: 2 }}
+                href="/docs/Tutorial/Dexie-Cloud"
               >
                 Full Tutorial
               </Button>
@@ -1072,149 +938,17 @@ function TaskList() {
       <Divider />
 
       {/* SECTION 6 - COMPARISON */}
-      <Box
-        sx={{
-          background:
-            "linear-gradient(180deg, #000000 0%, #0a0a1a 50%, #000000 100%)",
-          color: "#fff",
-          py: { xs: 8, md: 12 },
+      <PricingTableWidget
+        title="Why Developers Choose Dexie Cloud"
+        subtitle="See how Dexie Cloud compares to building your own backend or using online-first platforms"
+        columns={comparisonColumns}
+        rows={comparisonRows}
+        settings={{
+          backgroundColor: "#000000",
+          textColor: "#dee2e6",
+          containerWidth: "big",
         }}
-      >
-        <Box sx={{ maxWidth: "900px", margin: "0 auto", px: 3 }}>
-          <Typography
-            variant="h3"
-            component="h2"
-            sx={{
-              textAlign: "center",
-              mb: 2,
-              fontWeight: 700,
-              fontSize: { xs: "2rem", md: "2.8rem" },
-            }}
-          >
-            Why Developers Choose Dexie Cloud
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              textAlign: "center",
-              mb: 6,
-              color: "rgba(255,255,255,0.6)",
-              fontWeight: 300,
-            }}
-          >
-            See how Dexie Cloud compares to building your own backend or using
-            online-first platforms
-          </Typography>
-
-          {/* Comparison table */}
-          <Box
-            sx={{
-              borderRadius: 3,
-              overflow: "hidden",
-              border: "1px solid rgba(255,255,255,0.1)",
-            }}
-          >
-            {/* Header */}
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: "1fr 100px 100px 100px",
-                background: "rgba(255,255,255,0.05)",
-                p: 2,
-                gap: 1,
-              }}
-            >
-              <Typography
-                variant="body2"
-                sx={{
-                  fontWeight: 600,
-                  color: "rgba(255,255,255,0.5)",
-                }}
-              >
-                Feature
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontWeight: 700,
-                  textAlign: "center",
-                  background:
-                    "linear-gradient(135deg, #7b2cbf 0%, #c77dff 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Dexie Cloud
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontWeight: 600,
-                  textAlign: "center",
-                  color: "rgba(255,255,255,0.5)",
-                }}
-              >
-                DIY Backend
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontWeight: 600,
-                  textAlign: "center",
-                  color: "rgba(255,255,255,0.5)",
-                }}
-              >
-                Firebase / Supabase
-              </Typography>
-            </Box>
-
-            {/* Rows */}
-            {comparisonRows.map((row, i) => (
-              <Box
-                key={row.feature}
-                sx={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 100px 100px 100px",
-                  p: 2,
-                  gap: 1,
-                  background:
-                    i % 2 === 0
-                      ? "rgba(255,255,255,0.02)"
-                      : "transparent",
-                  borderTop: "1px solid rgba(255,255,255,0.05)",
-                }}
-              >
-                <Typography
-                  variant="body2"
-                  sx={{ color: "rgba(255,255,255,0.8)" }}
-                >
-                  {row.feature}
-                </Typography>
-                <Typography variant="body2" sx={{ textAlign: "center" }}>
-                  {row.dexie ? "\u2705" : "\u2014"}
-                </Typography>
-                <Typography variant="body2" sx={{ textAlign: "center" }}>
-                  {row.traditional ? "\u2705" : "\u274C"}
-                </Typography>
-                <Typography variant="body2" sx={{ textAlign: "center" }}>
-                  {row.firebase ? "\u2705" : "\u274C"}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
-
-          <Box sx={{ textAlign: "center", mt: 4 }}>
-            <Typography
-              variant="body2"
-              sx={{ color: "rgba(255,255,255,0.4)", fontStyle: "italic" }}
-            >
-              Dexie Cloud is the only platform that combines true offline-first
-              architecture with zero-backend setup and built-in collaboration.
-            </Typography>
-          </Box>
-        </Box>
-      </Box>
+      />
 
       <Divider />
 
@@ -1233,7 +967,7 @@ function TaskList() {
             >
               totodo.app
             </a>{" "}
-            \u2014 a production SaaS built entirely with Dexie Cloud. No custom
+            {"\u2014"} a production SaaS built entirely with Dexie Cloud. No custom
             backend, no separate auth service, no infrastructure to manage.
           </>
         }
@@ -1271,255 +1005,28 @@ function TaskList() {
 
       <Divider />
 
-      {/* SECTION 10 - PRICING PREVIEW */}
-      <Box
-        sx={{
-          background:
-            "linear-gradient(180deg, #000000 0%, #0a0a1a 50%, #000000 100%)",
-          color: "#fff",
-          py: { xs: 8, md: 12 },
+      {/* SECTION 10 - START FREE, SCALE AS YOU GROW */}
+      <CallToActionWidget
+        title="Start Free. Scale as You Grow."
+        text="Begin with a generous free tier. When your app takes off, scale seamlessly with predictable per-seat pricing. No surprise bills, no vendor lock-in."
+        buttonText="View Pricing"
+        buttonLink={{
+          url: "/pricing",
+          querystring: "",
+          title: "View Pricing",
+          target: "_self",
         }}
-      >
-        <Box sx={{ maxWidth: "1000px", margin: "0 auto", px: 3 }}>
-          <Typography
-            variant="h3"
-            component="h2"
-            sx={{
-              textAlign: "center",
-              mb: 2,
-              fontWeight: 700,
-              fontSize: { xs: "2rem", md: "2.8rem" },
-            }}
-          >
-            Start Free. Scale as You Grow.
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              textAlign: "center",
-              mb: 6,
-              color: "rgba(255,255,255,0.6)",
-              fontWeight: 300,
-              maxWidth: "600px",
-              margin: "0 auto",
-              pb: 4,
-            }}
-          >
-            Predictable per-seat pricing. No surprise bills. Free evaluation
-            users are always unlimited.
-          </Typography>
-
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", md: "1fr 1fr 1fr" },
-              gap: 3,
-              mb: 6,
-            }}
-          >
-            {/* Free */}
-            <Box
-              sx={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: 3,
-                p: 4,
-                textAlign: "center",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "translateY(-4px)",
-                  borderColor: "rgba(255,255,255,0.2)",
-                },
-              }}
-            >
-              <Typography
-                variant="overline"
-                sx={{ color: "rgba(255,255,255,0.5)", letterSpacing: 2 }}
-              >
-                Free
-              </Typography>
-              <Typography
-                variant="h3"
-                sx={{ fontWeight: 800, my: 2, color: "#fff" }}
-              >
-                &euro;0
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.5)", mb: 3 }}
-              >
-                forever
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.7)", mb: 1 }}
-              >
-                3 production users
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.7)", mb: 1 }}
-              >
-                100 MB storage
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.7)" }}
-              >
-                Unlimited evaluation users
-              </Typography>
-            </Box>
-
-            {/* Production */}
-            <Box
-              sx={{
-                background: "rgba(123,44,191,0.1)",
-                border: "2px solid rgba(123,44,191,0.4)",
-                borderRadius: 3,
-                p: 4,
-                textAlign: "center",
-                position: "relative",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "translateY(-4px)",
-                  borderColor: "rgba(123,44,191,0.6)",
-                  boxShadow: "0 12px 40px rgba(123,44,191,0.2)",
-                },
-              }}
-            >
-              <Chip
-                label="MOST POPULAR"
-                size="small"
-                sx={{
-                  position: "absolute",
-                  top: -12,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  background:
-                    "linear-gradient(135deg, #7b2cbf 0%, #9d4edd 100%)",
-                  color: "#fff",
-                  fontWeight: 700,
-                  fontSize: "0.65rem",
-                }}
-              />
-              <Typography
-                variant="overline"
-                sx={{ color: "#c77dff", letterSpacing: 2 }}
-              >
-                Production
-              </Typography>
-              <Typography
-                variant="h3"
-                sx={{ fontWeight: 800, my: 2, color: "#fff" }}
-              >
-                &euro;3
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.5)", mb: 3 }}
-              >
-                /month for 25 seats
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.7)", mb: 1 }}
-              >
-                &euro;0.12 per user/month
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.7)", mb: 1 }}
-              >
-                500 MB included
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.7)" }}
-              >
-                Auto-scale as needed
-              </Typography>
-            </Box>
-
-            {/* On-Premises */}
-            <Box
-              sx={{
-                background: "rgba(255,255,255,0.03)",
-                border: "1px solid rgba(255,255,255,0.1)",
-                borderRadius: 3,
-                p: 4,
-                textAlign: "center",
-                transition: "all 0.3s ease",
-                "&:hover": {
-                  transform: "translateY(-4px)",
-                  borderColor: "rgba(255,255,255,0.2)",
-                },
-              }}
-            >
-              <Typography
-                variant="overline"
-                sx={{ color: "rgba(255,255,255,0.5)", letterSpacing: 2 }}
-              >
-                On-Premises
-              </Typography>
-              <Typography
-                variant="h3"
-                sx={{ fontWeight: 800, my: 2, color: "#fff" }}
-              >
-                Custom
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.5)", mb: 3 }}
-              >
-                one-time purchase
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.7)", mb: 1 }}
-              >
-                Unlimited users
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.7)", mb: 1 }}
-              >
-                Full source code access
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.7)" }}
-              >
-                Host on your infrastructure
-              </Typography>
-            </Box>
-          </Box>
-
-          <Box sx={{ textAlign: "center" }}>
-            <Button
-              component={Link}
-              href="/pricing"
-              variant="outlined"
-              size="large"
-              startIcon={<ArrowForwardIcon />}
-              sx={{
-                borderColor: "rgba(255,255,255,0.3)",
-                color: "#fff",
-                px: 5,
-                py: 1.5,
-                fontSize: "1rem",
-                textTransform: "none",
-                "&:hover": {
-                  borderColor: "#c77dff",
-                  backgroundColor: "rgba(123,44,191,0.1)",
-                },
-                transition: "all 0.3s ease",
-              }}
-            >
-              View Full Pricing & Compare Plans
-            </Button>
-          </Box>
-        </Box>
-      </Box>
+        secondaryButtonText="Start Building Free"
+        secondaryButtonLink={{
+          url: "/docs/cloud/quickstart",
+          querystring: "",
+          title: "Start Building Free",
+          target: "_self",
+        }}
+        textColor="#dee2e6"
+        backgroundColor="#000000"
+        containerWidth="big"
+      />
 
       <Divider />
 
@@ -1538,179 +1045,29 @@ function TaskList() {
       <Divider />
 
       {/* SECTION 12 - FINAL CTA */}
-      <Box
-        sx={{
-          background:
-            "linear-gradient(180deg, #000000 0%, #0a0a1a 30%, #1a0a2e 60%, #000000 100%)",
-          color: "#ffffff",
-          py: { xs: 10, md: 14 },
-          textAlign: "center",
-          position: "relative",
-          overflow: "hidden",
+      <CallToActionWidget
+        title="Ready to SaaS-ify Your App?"
+        text="Join thousands of developers who ship multi-user apps without building a backend. Start free, upgrade when you're ready."
+        buttonText="Start Building Free"
+        buttonLink={{
+          url: "/docs/cloud/quickstart",
+          querystring: "",
+          title: "Start Building Free",
+          target: "_self",
         }}
-      >
-        {/* Subtle glow */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: "600px",
-            height: "600px",
-            background:
-              "radial-gradient(circle, rgba(123,44,191,0.15) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }}
-        />
-
-        <Box
-          sx={{
-            maxWidth: "800px",
-            margin: "0 auto",
-            px: 3,
-            position: "relative",
-            zIndex: 1,
-          }}
-        >
-          <Typography
-            variant="h3"
-            component="h2"
-            sx={{
-              mb: 3,
-              fontWeight: 800,
-              fontSize: { xs: "2rem", md: "3rem" },
-              lineHeight: 1.2,
-            }}
-          >
-            Ready to SaaS-ify
-            <br />
-            Your App?
-          </Typography>
-          <Typography
-            variant="h6"
-            sx={{
-              mb: 5,
-              color: "rgba(255,255,255,0.7)",
-              fontWeight: 300,
-              fontSize: { xs: "1.1rem", md: "1.3rem" },
-              maxWidth: "600px",
-              margin: "0 auto 40px",
-            }}
-          >
-            Join thousands of developers who ship multi-user apps without
-            building a backend. Start free \u2014 upgrade when you&apos;re
-            ready.
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              justifyContent: "center",
-              flexWrap: "wrap",
-            }}
-          >
-            <Button
-              component={Link}
-              href="/docs/cloud/quickstart"
-              variant="contained"
-              size="large"
-              startIcon={<RocketLaunchIcon />}
-              sx={{
-                background:
-                  "linear-gradient(135deg, #7b2cbf 0%, #9d4edd 100%)",
-                color: "#ffffff",
-                px: 5,
-                py: 2,
-                fontSize: "1.1rem",
-                fontWeight: 600,
-                textTransform: "none",
-                boxShadow: "0 8px 32px rgba(123,44,191,0.4)",
-                "&:hover": {
-                  background:
-                    "linear-gradient(135deg, #9d4edd 0%, #c77dff 100%)",
-                  transform: "translateY(-4px)",
-                  boxShadow: "0 12px 48px rgba(123,44,191,0.5)",
-                },
-                transition: "all 0.3s ease",
-              }}
-            >
-              Start Building Free
-            </Button>
-            <Button
-              component={Link}
-              href="/docs/cloud"
-              variant="outlined"
-              size="large"
-              startIcon={<ArrowForwardIcon />}
-              sx={{
-                borderColor: "rgba(255,255,255,0.3)",
-                color: "#ffffff",
-                px: 5,
-                py: 2,
-                fontSize: "1.1rem",
-                fontWeight: 600,
-                textTransform: "none",
-                "&:hover": {
-                  borderColor: "#c77dff",
-                  backgroundColor: "rgba(123,44,191,0.1)",
-                  transform: "translateY(-4px)",
-                },
-                transition: "all 0.3s ease",
-              }}
-            >
-              Explore Documentation
-            </Button>
-          </Box>
-          <Box sx={{ mt: 4 }}>
-            <Button
-              component={Link}
-              href="/pricing"
-              variant="text"
-              sx={{
-                color: "rgba(255,255,255,0.5)",
-                textTransform: "none",
-                textDecoration: "underline",
-                "&:hover": {
-                  color: "#c77dff",
-                  backgroundColor: "transparent",
-                },
-              }}
-            >
-              View Pricing
-            </Button>
-          </Box>
-        </Box>
-      </Box>
+        secondaryButtonText="Explore Documentation"
+        secondaryButtonLink={{
+          url: "/docs/cloud",
+          querystring: "",
+          title: "Explore Documentation",
+          target: "_self",
+        }}
+        textColor="#dee2e6"
+        backgroundColor="#000000"
+        containerWidth="big"
+      />
     </>
   );
 }
 
-// --- Step Header helper ---
-function StepHeader({ step, title }: { step: number; title: string }) {
-  return (
-    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
-      <Box
-        sx={{
-          width: 36,
-          height: 36,
-          borderRadius: "50%",
-          background: "linear-gradient(135deg, #7b2cbf 0%, #9d4edd 100%)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontWeight: 700,
-          fontSize: "0.9rem",
-          color: "#fff",
-          mr: 2,
-          flexShrink: 0,
-        }}
-      >
-        {step}
-      </Box>
-      <Typography variant="h6" sx={{ fontWeight: 600, color: "#fff" }}>
-        {title}
-      </Typography>
-    </Box>
-  );
-}
+
