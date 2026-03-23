@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "Dexie Cloud \u2014 Turn Your App into a SaaS in Minutes | Offline-First Sync Platform",
+    "Dexie Cloud \u2014 Turn your App into a SaaS in minutes | Offline-First Sync Platform",
   description:
     "The fastest way to add sync, authentication, access control, and multi-user collaboration to your app. No backend needed. True offline-first. Start free, scale to millions.",
   keywords: [
@@ -24,15 +24,15 @@ export const metadata: Metadata = {
     "indexeddb sync",
     "progressive web app sync",
     "no backend required",
-    "firebase alternative",
-    "supabase alternative",
     "offline first saas",
     "build saas without backend",
+    "firebase alternative",
+    "supabase alternative",
     "y.js sync",
     "crdt collaboration",
   ],
   openGraph: {
-    title: "Dexie Cloud \u2014 Turn Your App into a SaaS in Minutes",
+    title: "Dexie Cloud \u2014 Turn your app into a SaaS in minutes",
     description:
       "Add sync, auth, and collaboration to your app in minutes. No backend development needed. The world's best offline-first sync platform.",
     url: "https://dexie.org/cloud",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dexie Cloud \u2014 Turn Your App into a SaaS in Minutes",
+    title: "Dexie Cloud \u2014 Turn your app into a SaaS in minutes",
     description:
       "Add sync, auth, and collaboration to your app in minutes. No backend. True offline-first. Start free.",
     images: ["/assets/images/og-images/og-base.png"],
@@ -434,13 +434,25 @@ const faqItems = [
     id: 7,
     question: "How does Dexie Cloud compare to Firebase or Supabase?",
     answer:
-      "Firebase and Supabase are online-first platforms where the server is the source of truth. Dexie Cloud is offline-first \u2014 your app works completely without internet, and sync is a bonus. This means instant UI, zero loading spinners, and true offline capability. Plus, Dexie Cloud requires no backend code at all, while Firebase and Supabase require server-side configuration and custom security rules.",
+      "Firebase and Supabase are online-first platforms where the server is the source of truth and the app breaks without internet. Dexie Cloud is offline-first: your app works completely without internet, and sync is a bonus. This means instant UI, zero loading spinners, and true offline capability. Unlike Firebase and Supabase, Dexie Cloud requires no backend code at all \u2014 no server-side configuration, no custom security rules, no infrastructure to maintain.",
   },
   {
     id: 8,
     question: "What about GDPR and data privacy?",
     answer:
       "Dexie Cloud is GDPR-compliant. Data is private by default \u2014 users own their data and it is only shared when they explicitly allow it. For full data sovereignty, you can self-host the entire infrastructure. See /docs/cloud/gdpr-compliance for details.",
+  },
+  {
+    id: 9,
+    question: "Why does offline-first architecture matter for user experience?",
+    answer:
+      "In traditional apps, every interaction triggers an API call \u2014 every tap or click waits for the server. This causes slow UX on mobile networks, broken functionality without internet, and complex caching logic to keep things feeling responsive. Offline-first flips this entirely: data lives locally, the UI is always instant, and sync happens automatically in the background. Your app works equally well in a warehouse, on a train, or in areas with poor connectivity. No loading spinners, no broken states \u2014 the app just works.",
+  },
+  {
+    id: 10,
+    question: "What development complexity does Dexie Cloud eliminate?",
+    answer:
+      "Traditional multi-user apps require building an API layer, authentication service, sync protocol, real-time WebSocket infrastructure, conflict resolution logic, and access control \u2014 often duplicated across both frontend and backend. With Dexie Cloud, all of this is built in. You write data locally with Dexie.js and sync, auth, conflict resolution, and collaboration are handled automatically. This dramatically reduces code complexity, eliminates entire categories of bugs, and cuts time to market significantly.",
   },
 ];
 
@@ -454,18 +466,18 @@ const comparisonColumns: TableColumn[] = [
   { key: "feature", label: "Feature" },
   { key: "dexie", label: "Dexie Cloud", align: "center" },
   { key: "traditional", label: "DIY Backend", align: "center" },
-  { key: "firebase", label: "Firebase / Supabase", align: "center" },
+  { key: "other", label: "Firebase / Supabase", align: "center" },
 ];
 
 const comparisonRows: PricingTableRow[] = [
-  { feature: "Offline-first by design", dexie: true, traditional: false, firebase: false },
-  { feature: "Zero backend code needed", dexie: true, traditional: false, firebase: false },
-  { feature: "Built-in auth (OTP + OAuth)", dexie: true, traditional: false, firebase: true },
-  { feature: "Per-object access control", dexie: true, traditional: false, firebase: false },
-  { feature: "Y.js / CRDT collaboration", dexie: true, traditional: false, firebase: false },
-  { feature: "Self-hostable", dexie: true, traditional: true, firebase: false },
-  { feature: "Predictable pricing", dexie: true, traditional: true, firebase: false },
-  { feature: "Instant UI (no loading spinners)", dexie: true, traditional: false, firebase: false },
+  { feature: "Offline-first by design", dexie: true, traditional: false, other: false },
+  { feature: "Zero backend code needed", dexie: true, traditional: false, other: false },
+  { feature: "Built-in auth (OTP + OAuth)", dexie: true, traditional: false, other: true },
+  { feature: "Per-object access control", dexie: true, traditional: false, other: false },
+  { feature: "Y.js / CRDT collaboration", dexie: true, traditional: false, other: false },
+  { feature: "Self-hostable", dexie: true, traditional: true, other: false },
+  { feature: "Predictable pricing", dexie: true, traditional: true, other: false },
+  { feature: "Instant UI (no loading spinners)", dexie: true, traditional: false, other: false },
 ];
 
 import CallToActionWidget from "@/components/content/CallToActionWidget";
@@ -478,18 +490,18 @@ export default function DexieCloudPage() {
         preHeading="DEXIE CLOUD"
         heading={
           <>
-            Turn Your App into a SaaS
+            Turn your App into a SaaS
             <br />
             <TypeWriter
               colorClass=""
               strings={[
-                "in Minutes",
-                "with Sync",
-                "with Auth",
-                "with Sharing",
-                "with Offline Support",
-                "with Collaboration",
-                "without a Backend",
+                "in minutes",
+                "with sync",
+                "with auth",
+                "with sharing",
+                "with offline support",
+                "with collaboration",
+                "without a backend",
               ]}
             />
           </>
@@ -534,58 +546,7 @@ export default function DexieCloudPage() {
         }}
       />
 
-      {/* SECTION 2 - TRUST BAR / STATS */}
-      <Box
-        sx={{
-          background: "#000",
-          borderTop: "1px solid rgba(255,255,255,0.06)",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
-          py: 4,
-        }}
-      >
-        <Box
-          sx={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            px: 3,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: { xs: 3, md: 6 },
-          }}
-        >
-          {[
-            { value: "11.8K+", label: "GitHub Stars" },
-            { value: "100K+", label: "Developers" },
-            { value: "4M+", label: "npm Downloads" },
-            { value: "0", label: "Backend Code Needed" },
-          ].map((stat) => (
-            <Box key={stat.label} sx={{ textAlign: "center", minWidth: 120 }}>
-              <Typography
-                variant="h4"
-                sx={{
-                  fontWeight: 800,
-                  background:
-                    "linear-gradient(135deg, #7b2cbf 0%, #c77dff 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                  mb: 0.5,
-                }}
-              >
-                {stat.value}
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: "rgba(255,255,255,0.5)", fontWeight: 500 }}
-              >
-                {stat.label}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
-      </Box>
+
 
       {/* SECTION 3 - PROBLEM to SOLUTION */}
       <BlogPostsWidget
@@ -601,12 +562,12 @@ export default function DexieCloudPage() {
             date: "",
             link: "/docs/cloud",
             keyPoints: [
-              "Design & build REST/GraphQL API — weeks",
-              "Set up authentication service — days",
-              "Implement sync protocol — weeks",
-              "Build access control layer — weeks",
-              "Handle offline & conflict resolution — weeks",
-              "Deploy & maintain servers — ongoing",
+              { text: "Design & build REST/GraphQL API", caption: "weeks" },
+              { text: "Set up authentication service", caption: "days" },
+              { text: "Implement sync protocol", caption: "weeks" },
+              { text: "Build access control layer", caption: "weeks" },
+              { text: "Handle offline & conflict resolution", caption: "weeks" },
+              { text: "Deploy & maintain servers", caption: "ongoing" },
             ],
           },
           {
@@ -620,12 +581,12 @@ export default function DexieCloudPage() {
             date: "",
             link: "/docs/cloud/quickstart",
             keyPoints: [
-              "Install dexie-cloud-addon — 10 seconds",
-              "Run npx dexie-cloud create — 10 seconds",
-              "Add 3 lines of configuration — 1 minute",
-              "Auth works — immediately",
-              "Sync works — immediately",
-              "Access control — built in",
+              { text: "Install dexie-cloud-addon", caption: "10 seconds" },
+              { text: "Run npx dexie-cloud create", caption: "10 seconds" },
+              { text: "Add 3 lines of configuration", caption: "1 minute" },
+              { text: "Auth works", caption: "immediately" },
+              { text: "Sync works", caption: "immediately" },
+              { text: "Access control", caption: "built in" },
             ],
           },
         ]}
@@ -634,11 +595,12 @@ export default function DexieCloudPage() {
         textColor="#dee2e6"
         backgroundColor="#000000"
         containerWidth="big"
+        hideActions
       />
 
       <Divider />
 
-      {/* SECTION 4 - FROM APP TO SAAS IN 4 STEPS */}
+      {/* SECTION 4 - FROM APP TO SAAS IN 3 STEPS */}
       <Box
         id="from-app-to-saas"
         sx={{
@@ -653,14 +615,14 @@ export default function DexieCloudPage() {
             textAlign="center"
             sx={{ mb: 2, color: "#ffffff" }}
           >
-            From App to SaaS in 4 Steps
+            From app to SaaS in 3 steps
           </Typography>
           <Typography
             variant="h6"
             textAlign="center"
             sx={{ mb: 6, opacity: 0.8, fontWeight: 300 }}
           >
-            Add sync to your existing Dexie.js app or start fresh
+            Already have a Dexie.js app? Here&apos;s all you need to add cloud sync
           </Typography>
 
           <Box
@@ -758,7 +720,7 @@ export default function DexieCloudPage() {
             </Box>
 
             {/* Step 3 */}
-            <Box>
+            <Box sx={{ gridColumn: { lg: "1 / -1" } }}>
               <Box sx={{ mb: 3 }}>
                 <Typography
                   variant="h5"
@@ -786,88 +748,29 @@ export default function DexieCloudPage() {
                   >
                     3
                   </Box>
-                  Configure your database
+                  Connect to cloud
                 </Typography>
               </Box>
-              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" } }}>
+              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" }, maxWidth: "700px" }}>
                 <CodeBlock
                   language="typescript"
                   showLineNumbers={true}
                   code={`import Dexie from 'dexie';
 import dexieCloud from 'dexie-cloud-addon';
 
-const db = new Dexie('MySaaSApp', { addons: [dexieCloud] });
+const db = new Dexie('MyApp', { addons: [dexieCloud] });
 
 db.version(1).stores({
-  projects: '@id, title, status',    // '@' = server-generated global ID
+  projects: '@id, title',    // '@' = server-generated ID for sync
   tasks:    '@id, projectId, done'
 });
 
 db.cloud.configure({
   databaseUrl: "https://<your-db>.dexie.cloud",
-  requireAuth: true  // Users must log in to sync
-});`}
-                />
-              </Box>
-            </Box>
-
-            {/* Step 4 */}
-            <Box>
-              <Box sx={{ mb: 3 }}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    mb: 2,
-                    color: "#ffffff",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box
-                    component="span"
-                    sx={{
-                      border: "2px solid rgba(255,255,255, 0.5)",
-                      borderRadius: "50%",
-                      width: 32,
-                      height: 32,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: 2,
-                      fontSize: "0.9rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    4
-                  </Box>
-                  Use it
-                </Typography>
-              </Box>
-              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" } }}>
-                <CodeBlock
-                  language="tsx"
-                  showLineNumbers={true}
-                  code={`import { useLiveQuery } from "dexie-react-hooks";
-
-function TaskList() {
-  const tasks = useLiveQuery(() => db.tasks.toArray());
-
-  const addTask = () => db.tasks.add({
-    title: "New task",
-    done: false
-  });
-  // That's it. The task syncs to all devices automatically.
-  // Auth is handled. Access control is built in.
-
-  return (
-    <ul>
-      {tasks?.map(task => (
-        <li key={task.id}>{task.title}</li>
-      ))}
-      <button onClick={addTask}>Add Task</button>
-    </ul>
-  );
-}`}
+  requireAuth: true
+});
+// That's it. Your app now syncs across all devices.
+// Auth, sharing, and access control are built in.`}
                 />
               </Box>
             </Box>
@@ -894,7 +797,20 @@ function TaskList() {
               <Typography variant="body2">Ship Your SaaS</Typography>
             </Box>
 
-            <Box sx={{ mt: 4 }}>
+            <Typography
+              variant="body2"
+              sx={{ mb: 4, opacity: 0.5 }}
+            >
+              New to Dexie.js?{" "}
+              <a
+                href="/docs/cloud/quickstart"
+                style={{ color: "inherit", textDecoration: "underline" }}
+              >
+                Start with the quickstart
+              </a>
+            </Typography>
+
+            <Box sx={{ mt: 2 }}>
               <Button
                 variant="contained"
                 size="large"
@@ -929,7 +845,7 @@ function TaskList() {
           textColor: "#dee2e6",
           backgroundColor: "#000000",
           containerWidth: "big",
-          sectionTitle: "Everything You Need to Ship",
+          sectionTitle: "Everything you need to ship",
           sectionSubtitle:
             "Built-in capabilities that replace months of backend work",
         }}
@@ -939,8 +855,8 @@ function TaskList() {
 
       {/* SECTION 6 - COMPARISON */}
       <PricingTableWidget
-        title="Why Developers Choose Dexie Cloud"
-        subtitle="See how Dexie Cloud compares to building your own backend or using online-first platforms"
+        title="Why developers choose Dexie Cloud"
+        subtitle="See how Dexie Cloud compares to building your own backend or using Firebase / Supabase"
         columns={comparisonColumns}
         rows={comparisonRows}
         settings={{
@@ -955,7 +871,7 @@ function TaskList() {
       {/* SECTION 7 - FEATURE DEEP DIVES */}
       <FeatureScreenshotWidget
         sectionCaption="See it in action"
-        sectionTitle="Built Totally on Dexie Cloud"
+        sectionTitle="Built totally on Dexie Cloud"
         description={
           <>
             Real-world screenshots from{" "}
@@ -986,7 +902,7 @@ function TaskList() {
           textColor: "#dee2e6",
           backgroundColor: "#000000",
           containerWidth: "big",
-          sectionTitle: "Developers Ship Faster",
+          sectionTitle: "Developers ship faster",
           sectionSubtitle: "with Dexie Cloud",
         }}
       />
@@ -996,7 +912,7 @@ function TaskList() {
       {/* SECTION 9 - STARTER TEMPLATES */}
       <BlogPostsWidget
         items={starterTemplates}
-        sectionTitle="Start Building in Minutes"
+        sectionTitle="Start building in minutes"
         sectionSubtitle="Clone a starter template and ship your SaaS today"
         textColor="#dee2e6"
         backgroundColor="#000000"
@@ -1007,7 +923,7 @@ function TaskList() {
 
       {/* SECTION 10 - START FREE, SCALE AS YOU GROW */}
       <CallToActionWidget
-        title="Start Free. Scale as You Grow."
+        title="Start free. Scale as you grow."
         text="Begin with a generous free tier. When your app takes off, scale seamlessly with predictable per-seat pricing. No surprise bills, no vendor lock-in."
         buttonText="View Pricing"
         buttonLink={{
@@ -1037,7 +953,7 @@ function TaskList() {
           textColor: "#dee2e6",
           backgroundColor: "#000000",
           containerWidth: "big",
-          sectionTitle: "Frequently Asked Questions",
+          sectionTitle: "Frequently asked questions",
           sectionSubtitle: "Everything you need to know about Dexie Cloud",
         }}
       />
@@ -1046,7 +962,7 @@ function TaskList() {
 
       {/* SECTION 12 - FINAL CTA */}
       <CallToActionWidget
-        title="Ready to SaaS-ify Your App?"
+        title="Ready to SaaS-ify your app?"
         text="Join thousands of developers who ship multi-user apps without building a backend. Start free, upgrade when you're ready."
         buttonText="Start Building Free"
         buttonLink={{
