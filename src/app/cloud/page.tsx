@@ -63,9 +63,7 @@ import Benefits, {
   BenefitItem,
 } from "@/components/content/Benefits/BenefitsWidget";
 import CodeBlock from "@/components/content/shared/CodeBlock";
-import TestimonialsWidget, {
-  TestimonialItem,
-} from "@/components/content/TestimonialsWidget";
+import TestimonialsWidget from "@/components/content/TestimonialsWidget";
 import BlogPostsWidget, {
   BlogPostItem,
 } from "@/components/content/BlogPostsWidget";
@@ -165,36 +163,7 @@ const capabilities: BenefitItem[] = [
 ];
 
 // --- Testimonials ---
-const testimonials: TestimonialItem[] = [
-  {
-    quote:
-      "After exploring several options, including major players like Firebase, I felt constrained by their complexity and locking structures. I sought a platform that not only fostered creativity but also expanded our possibilities. That\u2019s when I discovered Dexie Cloud. In just one year, I\u2019ve single-handedly built a hybrid web and mobile application for iOS and Android, complete with automatic data synchronization across all devices. What truly sets Dexie Cloud apart is its ability to unleash productivity and nurture creativity. Unlike other platforms, Dexie Cloud doesn\u2019t confine our visions; it expands them.",
-    author: "Bennie Forss, Founder of Zenta AB",
-    role: "Built To-do \u2014 an AI-driven offline-first task manager with sync across all platforms",
-    image: "/assets/images/testimonials/bennie.jpg",
-  },
-  {
-    quote:
-      "Offline-first web apps are no longer difficult. Dexie Cloud gave Fablehenge a truly backendless experience and has been essential for our tiny dev team to ship big features like it already happened. It is the perfect abstraction in front of the endless complexity two-way sync normally entails. Just write your data to IndexedDB with Dexie\u2019s best-in-class API. It\u2019ll show up where it\u2019s supposed to. Nothing could be simpler.",
-    author: "Dusty Phillips, Founder of Fablehenge",
-    role: "Built a collaborative writing app for story writers \u2014 no backend, just Dexie Cloud",
-    image: "/assets/images/testimonials/dusty2.jpeg",
-  },
-  {
-    quote:
-      "I started using Dexie for my project, and I was worried about integrating user authentication and synchronization into it. However, when I discovered Dexie Cloud, I was amazed at how seamlessly I could integrate it into my app. Within minutes, I had my application fully synchronized and authenticated. The documentation provided by Dexie Cloud was also very helpful.",
-    author: "Alba Rincon, Founder of Routickr",
-    role: "Built an app that helps users transform goals into lasting habits",
-    image: "/assets/images/testimonials/albarin.jpg",
-  },
-  {
-    quote:
-      "The speed with which you can start and complete an observation is crucial to whether you will prefer my app to Notes - or even pen and paper - at all. The discovery of Dexie Cloud made me realize that my bird lists could be shared with others and that there were also ready-made code examples on how to manage invitations, rights and similar things.",
-    author: "Anton Andreasson, Founder of Birdlist",
-    role: "Built an app for birdwatchers to log observations and share lists",
-    image: "/assets/images/testimonials/naton2.jpeg",
-  },
-];
+import { testimonials } from "@/app/page";
 
 // --- Starter templates ---
 const starterTemplates: BlogPostItem[] = [
@@ -523,19 +492,64 @@ export default function DexieCloudPage() {
             size: "large",
           },
           {
-            text: "See How It Works",
+            text: "View Pricing",
             link: {
-              url: "#from-app-to-saas",
+              url: "/pricing",
               querystring: "",
-              title: "See How It Works",
+              title: "View Pricing",
               target: "_self",
             },
-            icon: <PlayArrowIcon />,
+            icon: <ArrowForwardIcon />,
             variant: "text",
             color: "inherit",
             size: "large",
           },
         ]}
+        contentBottom={
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: { xs: 4, md: 8 },
+              flexWrap: "wrap",
+            }}
+          >
+            {[
+              { value: "14,000+", label: "GitHub Stars" },
+              { value: "100,000+", label: "Developers" },
+              { value: "2M+", label: "Monthly npm downloads" },
+            ].map(({ value, label }) => (
+              <Box key={label} sx={{ textAlign: "center" }}>
+                <Typography
+                  variant="h4"
+                  sx={{
+                    color: "#ffffff",
+                    fontWeight: 800,
+                    lineHeight: 1,
+                    letterSpacing: "-0.02em",
+                  }}
+                >
+                  {value}
+                </Typography>
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: "#dee2e6",
+                    opacity: 0.5,
+                    mt: 0.5,
+                    display: "block",
+                    letterSpacing: "0.05em",
+                    textTransform: "uppercase",
+                    fontSize: "0.65rem",
+                  }}
+                >
+                  {label}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        }
         settings={{
           textColor: "#ffffff",
           containerWidth: "big",
@@ -545,7 +559,6 @@ export default function DexieCloudPage() {
           overlayStrength: "85%",
         }}
       />
-
 
 
       {/* SECTION 3 - PROBLEM to SOLUTION */}
@@ -598,6 +611,7 @@ export default function DexieCloudPage() {
         backgroundColor="#000000"
         containerWidth="big"
         hideActions
+        highlightItemId={2}
       />
 
       <Divider />
@@ -852,6 +866,7 @@ db.cloud.configure({
         subtitle="See how Dexie Cloud compares to building your own backend or using Firebase / Supabase"
         columns={comparisonColumns}
         rows={comparisonRows}
+        highlightColumn="dexie"
         settings={{
           backgroundColor: "#000000",
           textColor: "#dee2e6",
@@ -914,31 +929,6 @@ db.cloud.configure({
 
       <Divider />
 
-      {/* SECTION 10 - START FREE, SCALE AS YOU GROW */}
-      <CallToActionWidget
-        title="Start free. Scale as you grow."
-        text="Begin with a generous free tier. When your app takes off, scale seamlessly with predictable per-seat pricing. No surprise bills, no vendor lock-in."
-        buttonText="View Pricing"
-        buttonLink={{
-          url: "/pricing",
-          querystring: "",
-          title: "View Pricing",
-          target: "_self",
-        }}
-        secondaryButtonText="Start Building Free"
-        secondaryButtonLink={{
-          url: "/docs/cloud/quickstart",
-          querystring: "",
-          title: "Start Building Free",
-          target: "_self",
-        }}
-        textColor="#dee2e6"
-        backgroundColor="#000000"
-        containerWidth="big"
-      />
-
-      <Divider />
-
       {/* SECTION 11 - FAQ */}
       <FAQWidget
         items={faqItems}
@@ -955,8 +945,8 @@ db.cloud.configure({
 
       {/* SECTION 12 - FINAL CTA */}
       <CallToActionWidget
-        title="Ready to SaaS-ify your app?"
-        text="Join thousands of developers who ship multi-user apps without building a backend. Start free, upgrade when you're ready."
+        title="Start free. Scale as you grow."
+        text="Begin with a generous free tier. When your app takes off, scale seamlessly with predictable per-seat pricing. No surprise bills, no vendor lock-in."
         buttonText="Start Building Free"
         buttonLink={{
           url: "/docs/cloud/quickstart",
@@ -964,11 +954,11 @@ db.cloud.configure({
           title: "Start Building Free",
           target: "_self",
         }}
-        secondaryButtonText="Explore Documentation"
+        secondaryButtonText="View Pricing"
         secondaryButtonLink={{
-          url: "/docs/cloud",
+          url: "/pricing",
           querystring: "",
-          title: "Explore Documentation",
+          title: "View Pricing",
           target: "_self",
         }}
         textColor="#dee2e6"
