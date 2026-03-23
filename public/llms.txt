@@ -578,10 +578,13 @@ const client = new DexieCloudClient({
   blobHandling: 'auto'  // or 'lazy'
 });
 
-// Authenticate
-const { accessToken } = await client.auth.authenticateWithOTP(
-  'user@example.com',
-  async () => prompt('Enter OTP: '),
+// Authenticate using client credentials from dexie-cloud.key
+const keys = JSON.parse(fs.readFileSync('dexie-cloud.key', 'utf-8'));
+const { clientId, clientSecret } = keys[dbUrl];
+const { accessToken } = await client.auth.authenticateWithClientCredentials(
+  dbUrl,
+  clientId,
+  clientSecret,
   ['ACCESS_DB']
 );
 
