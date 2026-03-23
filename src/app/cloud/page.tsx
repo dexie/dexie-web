@@ -555,7 +555,8 @@ export default function DexieCloudPage() {
             id: 1,
             delay: "0.1s",
             imgSrc: "/assets/images/blog/post-prev-1.jpg",
-            title: "The Traditional Way — ~3-6 months",
+            title: "The Traditional Way",
+            subtitle: "~3-6 months",
             text: "Building a multi-user app the traditional way requires months of backend work: REST APIs, authentication, sync protocols, access control, conflict resolution, server deployment, and database infrastructure.",
             authorImg: "/assets/images/blog/author/author-1.jpg",
             authorName: "Dexie.js",
@@ -574,7 +575,8 @@ export default function DexieCloudPage() {
             id: 2,
             delay: "0.1s",
             imgSrc: "/assets/images/blog/post-prev-1.jpg",
-            title: "The Dexie Cloud Way — ~5 minutes",
+            title: "The Dexie Cloud Way",
+            subtitle: "~5 minutes",
             text: "Dexie Cloud replaces all of that with a single addon. Install, configure, and ship. Auth, sync, access control, and offline support are all built in.",
             authorImg: "/assets/images/blog/author/author-1.jpg",
             authorName: "Dexie.js",
@@ -625,137 +627,45 @@ export default function DexieCloudPage() {
             Already have a Dexie.js app? Here&apos;s all you need to add cloud sync
           </Typography>
 
-          <Box
-            sx={{
-              display: "grid",
-              gap: 4,
-              gridTemplateColumns: { xs: "1fr", lg: "1fr 1fr" },
-              alignItems: "start",
-            }}
-          >
-            {/* Step 1 */}
-            <Box>
-              <Box sx={{ mb: 3 }}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    mb: 2,
-                    color: "#ffffff",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box
-                    component="span"
-                    sx={{
-                      border: "2px solid rgba(255,255,255, 0.5)",
-                      borderRadius: "50%",
-                      width: 32,
-                      height: 32,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: 2,
-                      fontSize: "0.9rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    1
-                  </Box>
-                  Create a cloud database
-                </Typography>
-              </Box>
-              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" } }}>
-                <CodeBlock
-                  language="bash"
-                  code="npx dexie-cloud create"
-                  showLineNumbers={false}
-                  commandLine
-                  commandPrompt="$"
-                />
-              </Box>
-            </Box>
+          {/* Vertical Timeline */}
+          <Box sx={{ position: "relative", maxWidth: "800px", mx: "auto" }}>
+            {/* Timeline line */}
+            <Box
+              sx={{
+                position: "absolute",
+                left: { xs: 20, md: 24 },
+                top: 0,
+                bottom: 0,
+                width: 2,
+                background:
+                  "linear-gradient(to bottom, #c77dff 0%, rgba(199,125,255,0.3) 80%, rgba(199,125,255,0) 100%)",
+              }}
+            />
 
-            {/* Step 2 */}
-            <Box>
-              <Box sx={{ mb: 3 }}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    mb: 2,
-                    color: "#ffffff",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box
-                    component="span"
-                    sx={{
-                      border: "2px solid rgba(255,255,255, 0.5)",
-                      borderRadius: "50%",
-                      width: 32,
-                      height: 32,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: 2,
-                      fontSize: "0.9rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    2
-                  </Box>
-                  Install the addon
-                </Typography>
-              </Box>
-              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" } }}>
-                <CodeBlock
-                  language="bash"
-                  code="npm install dexie-cloud-addon"
-                  showLineNumbers={false}
-                  commandLine
-                  commandPrompt="$"
-                />
-              </Box>
-            </Box>
-
-            {/* Step 3 */}
-            <Box sx={{ gridColumn: { lg: "1 / -1" } }}>
-              <Box sx={{ mb: 3 }}>
-                <Typography
-                  variant="h5"
-                  sx={{
-                    mb: 2,
-                    color: "#ffffff",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box
-                    component="span"
-                    sx={{
-                      border: "2px solid rgba(255,255,255, 0.5)",
-                      borderRadius: "50%",
-                      width: 32,
-                      height: 32,
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      marginRight: 2,
-                      fontSize: "0.9rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    3
-                  </Box>
-                  Connect to cloud
-                </Typography>
-              </Box>
-              <Box sx={{ zoom: 0.8, overflow: { xs: "auto", md: "hidden" }, maxWidth: "700px" }}>
-                <CodeBlock
-                  language="typescript"
-                  showLineNumbers={true}
-                  code={`import Dexie from 'dexie';
+            {[
+              {
+                step: 1,
+                title: "Create a cloud database",
+                description:
+                  "One command provisions your database on Dexie Cloud.",
+                code: "npx dexie-cloud create",
+                language: "bash" as const,
+                commandLine: true,
+              },
+              {
+                step: 2,
+                title: "Install the addon",
+                description: "Add the npm package to your project.",
+                code: "npm install dexie-cloud-addon",
+                language: "bash" as const,
+                commandLine: true,
+              },
+              {
+                step: 3,
+                title: "Connect to cloud",
+                description:
+                  "Three lines of config. Auth, sync, and access control are built in.",
+                code: `import Dexie from 'dexie';
 import dexieCloud from 'dexie-cloud-addon';
 
 const db = new Dexie('MyApp', { addons: [dexieCloud] });
@@ -770,32 +680,115 @@ db.cloud.configure({
   requireAuth: true
 });
 // That's it. Your app now syncs across all devices.
-// Auth, sharing, and access control are built in.`}
-                />
+// Auth, sharing, and access control are built in.`,
+                language: "typescript" as const,
+                commandLine: false,
+              },
+            ].map(({ step, title, description, code, language, commandLine }) => (
+              <Box
+                key={step}
+                sx={{
+                  display: "flex",
+                  gap: { xs: 2.5, md: 3.5 },
+                  mb: step < 3 ? { xs: 5, md: 6 } : 0,
+                  position: "relative",
+                }}
+              >
+                {/* Step badge */}
+                <Box
+                  sx={{
+                    width: { xs: 42, md: 50 },
+                    height: { xs: 42, md: 50 },
+                    borderRadius: "50%",
+                    backgroundColor: "#000000",
+                    border: "2px solid #c77dff",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    fontSize: { xs: "1rem", md: "1.15rem" },
+                    fontWeight: 700,
+                    color: "#c77dff",
+                    zIndex: 1,
+                  }}
+                >
+                  {step}
+                </Box>
+                {/* Step content */}
+                <Box sx={{ flex: 1, pt: 0.5, minWidth: 0 }}>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      color: "#ffffff",
+                      fontWeight: 600,
+                      mb: 0.5,
+                      fontSize: { xs: "1.15rem", md: "1.35rem" },
+                    }}
+                  >
+                    {title}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    sx={{ opacity: 0.5, mb: 2.5 }}
+                  >
+                    {description}
+                  </Typography>
+                  <Box sx={{ overflow: "hidden" }}>
+                    <CodeBlock
+                      language={language}
+                      code={code}
+                      showLineNumbers={!commandLine}
+                      commandLine={commandLine}
+                      commandPrompt={commandLine ? "$" : undefined}
+                    />
+                  </Box>
+                </Box>
               </Box>
-            </Box>
-          </Box>
+            ))}
 
-          {/* Progress Flow */}
-          <Box sx={{ mt: 6, textAlign: "center" }}>
+            {/* Completion dot */}
             <Box
               sx={{
                 display: "flex",
-                justifyContent: "center",
                 alignItems: "center",
-                gap: 2,
-                flexWrap: "wrap",
-                mb: 4,
+                gap: { xs: 2.5, md: 3.5 },
+                mt: { xs: 5, md: 6 },
+                position: "relative",
               }}
             >
-              <Typography variant="body2">Create</Typography>
-              <ArrowForwardIcon sx={{ color: "#666" }} />
-              <Typography variant="body2">Install</Typography>
-              <ArrowForwardIcon sx={{ color: "#666" }} />
-              <Typography variant="body2">Configure</Typography>
-              <ArrowForwardIcon sx={{ color: "#666" }} />
-              <Typography variant="body2">Ship Your SaaS</Typography>
+              <Box
+                sx={{
+                  width: { xs: 42, md: 50 },
+                  height: { xs: 42, md: 50 },
+                  borderRadius: "50%",
+                  background:
+                    "linear-gradient(135deg, #c77dff, #9b59b6)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                  zIndex: 1,
+                }}
+              >
+                <RocketLaunchIcon
+                  sx={{ color: "#fff", fontSize: { xs: 20, md: 24 } }}
+                />
+              </Box>
+              <Typography
+                variant="h5"
+                sx={{
+                  color: "#ffffff",
+                  fontWeight: 600,
+                  fontSize: { xs: "1.15rem", md: "1.35rem" },
+                }}
+              >
+                Ship your SaaS
+              </Typography>
             </Box>
+          </Box>
+
+          {/* CTA */}
+          <Box sx={{ mt: 8, textAlign: "center" }}>
 
             <Typography
               variant="body2"

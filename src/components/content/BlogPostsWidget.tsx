@@ -22,6 +22,7 @@ export interface BlogPostItem {
   delay?: string
   imgSrc: string
   title: string
+  subtitle?: string
   text: string
   authorImg: string
   authorName: string
@@ -129,10 +130,18 @@ export default function BlogPostsWidget({
               >
                 <Typography
                   variant="h5"
-                  sx={{ color: textColor, fontWeight: 600, mb: 2 }}
+                  sx={{ color: textColor, fontWeight: 600, mb: item.subtitle ? 0.5 : 2 }}
                 >
                   {item.title}
                 </Typography>
+                {item.subtitle && (
+                  <Typography
+                    variant="body2"
+                    sx={{ color: textColor, opacity: 0.5, mb: 2 }}
+                  >
+                    {item.subtitle}
+                  </Typography>
+                )}
                 <Typography
                   variant="body1"
                   sx={{ color: textColor, opacity: 0.8, mb: 8 }}
