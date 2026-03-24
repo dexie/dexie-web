@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title:
@@ -809,12 +810,12 @@ db.cloud.configure({
               sx={{ mb: 4, opacity: 0.5 }}
             >
               New to Dexie.js?{" "}
-              <a
+              <Link
                 href="/docs/cloud/quickstart"
                 style={{ color: "inherit", textDecoration: "underline" }}
               >
                 Start with the quickstart
-              </a>
+              </Link>
             </Typography>
 
             <Box sx={{ mt: 2 }}>
