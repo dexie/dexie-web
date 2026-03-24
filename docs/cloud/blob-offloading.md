@@ -46,9 +46,9 @@ await db.photos.add({
 
 ## What Gets Offloaded
 
-**Blob and File objects** are always offloaded to blob storage during sync, regardless of size. This ensures they are never stored inline in IndexedDB, avoiding issues with synchronous blob reading in service workers.
+**Blob and File objects** are always offloaded to blob storage during sync, regardless of size. This ensures they are never stored inline in mutations tables, avoiding issues with synchronous blob reading in service workers when syncing to server.
 
-**ArrayBuffer and typed arrays** (Uint8Array, etc.) are offloaded when they are **4 KB or larger**. Smaller binary buffers are kept inline.
+**ArrayBuffer and typed arrays** (Uint8Array, etc.) are offloaded when they are **4 KB or larger**. Smaller binary buffers are kept inline. Note however: this regards to the sync protocol only. Your application data will still see the full binary objects in Dexie offline access.
 
 | Type | Offloading Rule |
 |------|----------------|
@@ -60,7 +60,7 @@ await db.photos.add({
 
 ### Long Strings
 
-Strings longer than `maxStringLength` (default **32,768 characters**) are also offloaded to blob storage during sync. This is useful for properties that store base64-encoded images or other large text.
+Strings longer than `maxStringLength` (default **32,768 characters**) are also offloaded to blob storage during sync. This is useful for properties that store base64-encoded images or other large text. Same principle goes here: You can store a 10 million chars string in Dexie but when it's time to sync, it will put the data in a blob storage and sync the reference to the blob location. Blob storage is protected with the exact same access control that was set for the data, as if it was stored inline, except for a grace period of 1 hour after access removal.
 
 ```ts
 db.cloud.configure({
