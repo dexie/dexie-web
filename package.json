@@ -39,7 +39,9 @@
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
+    "remark-parse": "^11.0.0",
     "swiper": "^11.2.10",
+    "unified": "^11.0.5",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
