@@ -3,8 +3,6 @@ layout: docs-dexie-cloud
 title: 'Dexie Cloud SDK'
 ---
 
-# Dexie Cloud SDK
-
 The **Dexie Cloud SDK** (`dexie-cloud-sdk`) is a lightweight TypeScript/JavaScript client for interacting with Dexie Cloud services programmatically — without Dexie.js or IndexedDB.
 
 Use it for:
