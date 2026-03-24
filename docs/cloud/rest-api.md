@@ -17,6 +17,7 @@ This page documents the REST API that every database in Dexie Cloud has.
 | [/my/...](#my-endpoint)           | My data endpoint          |
 | [/public/...](#public-endpoint)   | Public data endpoint      |
 | [/users/...](#users-endpoint)     | Users data endpoint       |
+| [/blob/...](#blob-endpoint)       | Blob storage endpoint     |
 
 ## JSON Format for Special Types
 
@@ -60,6 +61,37 @@ const resolvedData = TSON.parse(json);
 ```
 
 **Note:** In Node.js environments that lack the native Blob type, a substitute "FakeBlob" object will be returned instead.
+
+### BlobRef Objects in Responses
+
+*Requires Dexie Cloud Server 3.0.0 or later.*
+
+When objects contain binary data that has been [offloaded to blob storage](/cloud/docs/blob-offloading), the corresponding properties will be **BlobRef** objects instead of inline data:
+
+```json
+{
+  "title": "My Photo",
+  "image": {
+    "_bt": "Blob",
+    "ref": "1:abc123def456",
+    "size": 524288,
+    "ct": "image/jpeg"
+  },
+  "_hasBlobRefs": 1
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| `_bt` | Original type name: `"Blob"`, `"File"`, `"ArrayBuffer"`, `"Uint8Array"`, `"string"`, etc. |
+| `ref` | Storage reference (format: `"version:blobId"`) — use with the [/blob/ endpoint](#blob-endpoint) |
+| `size` | Original size in bytes |
+| `ct` | Content type (only present for Blob/File) |
+| `_hasBlobRefs` | Marker on the parent object (value `1`) indicating it contains BlobRef properties |
+
+To download the actual binary data, use the [/blob/ endpoint](#blob-endpoint) with the `ref` value.
+
+> **Tip:** The [Dexie Cloud SDK](/cloud/docs/sdk) (`dexie-cloud-sdk`) handles BlobRef resolution automatically — it downloads blob data transparently when reading objects in `auto` mode.
 
 ### Creating JSON with Special Types
 
@@ -776,3 +808,54 @@ Content-Type: application/json
   }
 ]
 ```
+
+### /blob endpoint {#blob-endpoint}
+
+*Requires Dexie Cloud Server 3.0.0 or later.*
+
+Upload and download binary data directly to/from blob storage. See [Blob Offloading](/cloud/docs/blob-offloading) for a complete guide.
+
+#### Upload a Blob
+
+```http
+PUT /blob/<blobId>?ct=<contentType> HTTP/1.1
+Host: xxxx.dexie.cloud
+Authorization: Bearer <token from /token endpoint>
+Content-Type: <content type of the blob>
+
+<binary data>
+```
+
+| Parameter | Description |
+|-----------|-------------|
+| `blobId` | A unique identifier for the blob (client-generated) |
+| `ct` | Content type to store (URL-encoded, e.g., `image%2Fjpeg`) |
+
+**Response:**
+
+```json
+{ "ref": "1:abc123def456" }
+```
+
+The `ref` value includes a version prefix and should be stored as-is in your object's BlobRef.
+
+#### Download a Blob
+
+```http
+GET /blob/<ref> HTTP/1.1
+Host: xxxx.dexie.cloud
+Authorization: Bearer <token from /token endpoint>
+```
+
+| Parameter | Description |
+|-----------|-------------|
+| `ref` | The blob reference from a BlobRef object (e.g., `1:abc123def456`) |
+
+Returns the raw binary data with the original content type.
+
+**Access control:** The requesting user must have access to at least one realm that contains an object referencing this blob.
+
+#### See Also
+
+- [Blob Offloading](/cloud/docs/blob-offloading) — how blob offloading works
+- [Dexie Cloud SDK](/cloud/docs/sdk) — programmatic access with automatic blob handling
