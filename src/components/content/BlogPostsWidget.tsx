@@ -15,17 +15,20 @@ import {
 import LaunchIcon from "@mui/icons-material/Launch"
 import CheckIcon from "@mui/icons-material/Check"
 
+export type KeyPoint = string | { text: string; caption?: string }
+
 export interface BlogPostItem {
   id: number
   delay?: string
   imgSrc: string
   title: string
+  subtitle?: string
   text: string
   authorImg: string
   authorName: string
   date: string
   link: string
-  keyPoints: string[]
+  keyPoints: KeyPoint[]
 }
 
 interface BlogPostsWidgetProps {
@@ -35,6 +38,8 @@ interface BlogPostsWidgetProps {
   textColor?: string
   backgroundColor?: string
   containerWidth?: "small" | "big" | "default"
+  hideActions?: boolean
+  highlightItemId?: number
 }
 
 export default function BlogPostsWidget({
@@ -44,6 +49,8 @@ export default function BlogPostsWidget({
   textColor = "#dee2e6",
   backgroundColor = "#000000",
   containerWidth = "default",
+  hideActions = false,
+  highlightItemId,
 }: BlogPostsWidgetProps) {
   const getContainerMaxWidth = () => {
     switch (containerWidth) {
@@ -107,17 +114,24 @@ export default function BlogPostsWidget({
             justifyContent: "center",
           }}
         >
-          {items.map((item) => (
+          {items.map((item) => {
+            const isHighlighted = highlightItemId === item.id
+            return (
             <Card
               key={item.id}
               sx={{
-                backgroundColor: "#000000",
+                backgroundColor: isHighlighted
+                  ? "rgba(199,125,255,0.05)"
+                  : "#000000",
                 color: textColor,
                 width: { xs: "100%", md: "30%" },
                 minHeight: "420px",
                 display: "flex",
                 flexDirection: "column",
                 padding: "40px !important",
+                ...(isHighlighted && {
+                  border: "1px solid rgba(199,125,255,0.3)",
+                }),
               }}
             >
               <CardContent
@@ -125,10 +139,18 @@ export default function BlogPostsWidget({
               >
                 <Typography
                   variant="h5"
-                  sx={{ color: textColor, fontWeight: 600, mb: 2 }}
+                  sx={{ color: textColor, fontWeight: 600, mb: item.subtitle ? 0.5 : 2 }}
                 >
                   {item.title}
                 </Typography>
+                {item.subtitle && (
+                  <Typography
+                    variant="body2"
+                    sx={{ color: textColor, opacity: 0.5, mb: 2 }}
+                  >
+                    {item.subtitle}
+                  </Typography>
+                )}
                 <Typography
                   variant="body1"
                   sx={{ color: textColor, opacity: 0.8, mb: 8 }}
@@ -142,17 +164,20 @@ export default function BlogPostsWidget({
                     mt: "auto",
                     "& .MuiListItem-root:hover": {
                       borderRadius: "4px !important",
-                      padding: "0px 10px !important",
-                      margin: "0px -10px!important",
                       backgroundColor: "rgba(255, 255, 255, 0.075) !important",
                     },
                   }}
                 >
-                  {item.keyPoints.map((point, idx) => (
+                  {item.keyPoints.map((point, idx) => {
+                    const pointText = typeof point === "string" ? point : point.text
+                    const pointCaption = typeof point === "string" ? undefined : point.caption
+                    return (
                     <ListItem
                       key={idx}
                       sx={{
-                        p: "0px !important",
+                        p: "0px 10px !important",
+                        m: "0px -10px !important",
+                        borderRadius: "4px",
                         "& .MuiTypography-root": {
                           mb: "0px",
                         },
@@ -161,25 +186,32 @@ export default function BlogPostsWidget({
                         },
                       }}
                     >
-                      <ListItemIcon sx={{ minWidth: "auto", mr: 1 }}>
+                      <ListItemIcon sx={{ minWidth: "auto", mr: 1, alignSelf: "flex-start", mt: "3px" }}>
                         <CheckIcon
-                          sx={{ color: textColor, fontSize: "1rem" }}
+                          sx={{ color: isHighlighted ? "#c77dff" : textColor, fontSize: "1rem" }}
                         />
                       </ListItemIcon>
                       <ListItemText
-                        primary={point}
+                        primary={pointText}
+                        secondary={pointCaption}
                         sx={{
                           "& .MuiListItemText-primary": {
                             color: textColor,
                             fontSize: "0.9rem",
                           },
+                          "& .MuiListItemText-secondary": {
+                            color: textColor,
+                            opacity: 0.5,
+                            fontSize: "0.75rem",
+                          },
                         }}
                       />
                     </ListItem>
-                  ))}
+                    )
+                  })}
                 </List>
               </CardContent>
-              <CardActions
+              {!hideActions && <CardActions
                 sx={{
                   justifyContent: "flex-start",
                 }}
@@ -213,9 +245,10 @@ export default function BlogPostsWidget({
                 >
                   View Template
                 </Button>
-              </CardActions>
+              </CardActions>}
             </Card>
-          ))}
+            )
+          })}
         </Box>
       </Container>
     </Box>

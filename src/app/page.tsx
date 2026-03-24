@@ -210,7 +210,7 @@ export const blogPostsData: BlogPostItem[] = [
 ]
 
 // Testimonials data
-const testimonials: TestimonialItem[] = [
+export const testimonials: TestimonialItem[] = [
   {
     author: "David Fahlander",
     role: "Founder of Dexie.js",

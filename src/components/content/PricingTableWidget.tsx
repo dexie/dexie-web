@@ -31,6 +31,7 @@ interface PricingTableWidgetProps {
   description?: string
   columns: TableColumn[]
   rows: TableRow[]
+  highlightColumn?: string
   settings?: {
     textColor?: string
     backgroundColor?: string
@@ -40,9 +41,16 @@ interface PricingTableWidgetProps {
   sx?: SxProps<Theme>
 }
 
-const renderTableValue = (value: boolean | string | number) => {
+const renderTableValue = (
+  value: boolean | string | number,
+  isHighlighted: boolean
+) => {
   if (typeof value === "boolean") {
-    return value ? <CheckIcon sx={{}} /> : <CloseIcon sx={{}} />
+    return value ? (
+      <CheckIcon sx={{ color: isHighlighted ? "#c77dff" : undefined }} />
+    ) : (
+      <Typography component="span" sx={{ opacity: 0.15 }}>—</Typography>
+    )
   }
   return value?.toString() || "-"
 }
@@ -53,6 +61,7 @@ export default function PricingTableWidget({
   description,
   columns,
   rows,
+  highlightColumn,
   settings = {},
   sx = {},
 }: PricingTableWidgetProps) {
@@ -131,21 +140,35 @@ export default function PricingTableWidget({
             ...(maxWidth && { maxWidth, mx: "auto" }),
           }}
         >
-          <Table>
+          <Table sx={{ tableLayout: "fixed" }}>
+            <colgroup>
+              {columns.map((column, i) => (
+                <col
+                  key={column.key}
+                  style={i === 0 ? undefined : { width: `${100 / (columns.length + 1)}%` }}
+                />
+              ))}
+            </colgroup>
             <TableHead>
               <TableRow sx={{ backgroundColor: "#2a2a2a" }}>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.key}
-                    sx={{
-                      color: textColor,
-                      fontWeight: 600,
-                      textAlign: column.align || "left",
-                    }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
+                {columns.map((column) => {
+                  const isHL = highlightColumn === column.key
+                  return (
+                    <TableCell
+                      key={column.key}
+                      sx={{
+                        color: isHL ? "#ffffff" : textColor,
+                        fontWeight: isHL ? 700 : 600,
+                        textAlign: column.align || "left",
+                        ...(isHL && {
+                          backgroundColor: "rgba(199,125,255,0.08)",
+                        }),
+                      }}
+                    >
+                      {column.label}
+                    </TableCell>
+                  )
+                })}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -157,18 +180,24 @@ export default function PricingTableWidget({
                     "&:hover": { backgroundColor: "#2a2a2a" },
                   }}
                 >
-                  {columns.map((column, colIndex) => (
-                    <TableCell
-                      key={column.key}
-                      sx={{
-                        color: colIndex === 0 ? textColor : "#adb5bd",
-                        fontWeight: colIndex === 0 ? 500 : "normal",
-                        textAlign: column.align || "left",
-                      }}
-                    >
-                      {renderTableValue(row[column.key])}
-                    </TableCell>
-                  ))}
+                  {columns.map((column, colIndex) => {
+                    const isHL = highlightColumn === column.key
+                    return (
+                      <TableCell
+                        key={column.key}
+                        sx={{
+                          color: colIndex === 0 ? textColor : "#adb5bd",
+                          fontWeight: colIndex === 0 ? 500 : "normal",
+                          textAlign: column.align || "left",
+                          ...(isHL && {
+                            backgroundColor: "rgba(199,125,255,0.05)",
+                          }),
+                        }}
+                      >
+                        {renderTableValue(row[column.key], isHL)}
+                      </TableCell>
+                    )
+                  })}
                 </TableRow>
               ))}
             </TableBody>

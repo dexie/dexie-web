@@ -16,40 +16,43 @@ import {
 import CheckIcon from "@mui/icons-material/Check"
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
 
-interface SupportPlan {
+export interface OpenSourceSupportPlan {
   title: string
   price: string
+  priceNote?: string
   description: string
   features: string[]
+  ctaText: string
+  ctaHref: string
   highlighted?: boolean
   badge?: string
-  ctaText?: string
-  ctaHref?: string
 }
 
-interface SupportPlansWidgetProps {
-  plans: SupportPlan[]
+interface OpenSourceSupportWidgetProps {
+  plans: OpenSourceSupportPlan[]
   settings?: {
     textColor?: string
     backgroundColor?: string
     containerWidth?: "small" | "medium" | "big"
     sectionTitle?: string
     sectionSubtitle?: string
+    note?: string
   }
   sx?: SxProps<Theme>
 }
 
-export default function SupportPlansWidget({
+export default function OpenSourceSupportWidget({
   plans,
   settings = {},
   sx = {},
-}: SupportPlansWidgetProps) {
+}: OpenSourceSupportWidgetProps) {
   const {
     textColor = "#dee2e6",
     backgroundColor = "#000000",
     containerWidth = "big",
-    sectionTitle = "Support Options",
-    sectionSubtitle = "Choose the right level of support for your team and requirements",
+    sectionTitle = "Dexie.js Support",
+    sectionSubtitle = "Professional support for teams building on Dexie.js",
+    note,
   } = settings
 
   const getMaxWidth = () => {
@@ -72,12 +75,7 @@ export default function SupportPlansWidget({
           variant="h2"
           component="h2"
           gutterBottom
-          sx={{
-            textAlign: "center",
-            mb: 2,
-            color: textColor,
-            fontWeight: 600,
-          }}
+          sx={{ textAlign: "center", mb: 2, color: textColor, fontWeight: 600 }}
         >
           {sectionTitle}
         </Typography>
@@ -185,22 +183,28 @@ export default function SupportPlansWidget({
                     >
                       {plan.price}
                     </Typography>
+                    {plan.priceNote && (
+                      <Typography
+                        component="span"
+                        variant="body2"
+                        sx={{ color: "#adb5bd", ml: 1 }}
+                      >
+                        {plan.priceNote}
+                      </Typography>
+                    )}
                   </Box>
 
                   <Typography
                     variant="body2"
-                    sx={{
-                      color: "#adb5bd",
-                      mb: 3,
-                      lineHeight: 1.7,
-                    }}
+                    sx={{ color: "#adb5bd", mb: 3, lineHeight: 1.7 }}
                   >
                     {plan.description}
                   </Typography>
+
                   <List sx={{ padding: 0, flex: 1 }}>
-                    {plan.features.map((feature, featureIndex) => (
+                    {plan.features.map((feature, fi) => (
                       <ListItem
-                        key={featureIndex}
+                        key={fi}
                         sx={{
                           display: "flex",
                           justifyContent: "flex-start !important",
@@ -267,46 +271,57 @@ export default function SupportPlansWidget({
                     ))}
                   </List>
 
-                  {plan.ctaText && plan.ctaHref && (
-                    <Button
-                      component="a"
-                      href={plan.ctaHref}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      variant={plan.highlighted ? "contained" : "outlined"}
-                      startIcon={<CalendarMonthIcon />}
-                      fullWidth
-                      sx={{
-                        mt: 3,
-                        py: 1.5,
-                        fontWeight: 600,
-                        ...(plan.highlighted
-                          ? {
-                              backgroundColor: "#c77dff",
-                              color: "#000",
-                              "&:hover": { backgroundColor: "#a855f7" },
-                            }
-                          : {
-                              borderColor: "#555",
-                              color: textColor,
-                              "&:hover": {
-                                borderColor: "#c77dff",
-                                color: "#c77dff",
-                              },
-                            }),
-                      }}
-                    >
-                      {plan.ctaText}
-                    </Button>
-                  )}
+                  <Button
+                    component="a"
+                    href={plan.ctaHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant={plan.highlighted ? "contained" : "outlined"}
+                    startIcon={<CalendarMonthIcon />}
+                    fullWidth
+                    sx={{
+                      mt: 3,
+                      py: 1.5,
+                      fontWeight: 600,
+                      ...(plan.highlighted
+                        ? {
+                            backgroundColor: "#c77dff",
+                            color: "#000",
+                            "&:hover": { backgroundColor: "#a855f7" },
+                          }
+                        : {
+                            borderColor: "#555",
+                            color: textColor,
+                            "&:hover": {
+                              borderColor: "#c77dff",
+                              color: "#c77dff",
+                            },
+                          }),
+                    }}
+                  >
+                    {plan.ctaText}
+                  </Button>
                 </CardContent>
               </Card>
             </Box>
           ))}
         </Box>
+
+        {note && (
+          <Typography
+            variant="body2"
+            sx={{
+              textAlign: "center",
+              mt: 4,
+              color: "#6c757d",
+              maxWidth: "700px",
+              mx: "auto",
+            }}
+          >
+            {note}
+          </Typography>
+        )}
       </Container>
     </Box>
   )
 }
-
-export type { SupportPlan }
