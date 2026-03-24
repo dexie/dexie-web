@@ -64,8 +64,8 @@ Primary key options:
 
 - `id` – plain string or number primary key. The name can be anything (not just `id`). You provide the value yourself on insert.
 - `++id` – auto-increment integer primary key. The name can be anything (not just `id`). Requires no addon.
-- `@id` – auto-generated globally unique string primary key. The `@` prefix is the Dexie Cloud magic; the name after `@` can be anything (e.g. `@id`, `@key`, `@docId`). Only available when dexie-cloud-addon is installed. If the object already has a value for the key property on insert, that value is kept — `@` only auto-generates when the property is absent. To pre-generate an ID without inserting, use `db.<table>.newId({})` (synchronous).
-- If you do NOT use `@` but still use Dexie Cloud, you must provide IDs yourself and they must follow the colocating prefix rule if you want proper shard placement. The colocating prefix rule is: IDs belonging to the same realm should share the same 3-character prefix. Use `db.<table>.newId({colocateWith: realmId})` to generate a correctly prefixed ID manually.
+- `@id` – auto-generated globally unique string primary key. The `@` prefix is the Dexie Cloud magic; the name after `@` can be anything (e.g. `@id`, `@key`, `@docId`). Only available when dexie-cloud-addon is installed. If the object already has a value for the key property on insert, that value is kept — `@` only auto-generates when the property is absent. To pre-generate an ID without inserting, use `db.<table>.newId()` (synchronous, no arguments needed).
+- If you do NOT use `@` but still use Dexie Cloud, you must provide IDs yourself. Use `db.<table>.newId()` to generate a correctly formatted ID, or manage your own strings.
 - Primary keys can be compound (composite). The syntax for compound primary keys is `[prop1+prop2]`. Square brackets and `+` separator are required.
 - Primary keys are either inbound (normally) or outbound (not included in the value)
 - Primary keys cannot be Multientry (*)
@@ -489,11 +489,11 @@ No. The name after the prefix is up to you. `@id`, `@key`, `@docId`, `++id`, `++
 
 ## Q: How do I use Dexie Cloud without `@` auto-generation?
 
-Just declare a plain primary key: `{ myTable: 'myKey, ...' }`. You provide the key value yourself on every insert. When using Dexie Cloud with manual IDs, follow the colocating prefix rule so objects are stored on the correct shard: use `db.myTable.newId({ colocateWith: realmId })` to generate a compliant ID, or manage your own prefixed strings.
+Just declare a plain primary key: `{ myTable: 'myKey, ...' }`. You provide the key value yourself on every insert. Use `db.myTable.newId()` to generate a valid globally-unique ID, or manage your own strings.
 
 ## Q: How do I pre-generate a `@id` key before inserting?
 
-Use `db.<table>.newId({})` — it's synchronous and returns a valid globally-unique ID with the correct table prefix, without inserting anything. Useful when you need the ID before the object is ready to save.
+Use `db.<table>.newId()` — it's synchronous and returns a valid globally-unique ID with the correct table prefix, without inserting anything. Useful when you need the ID before the object is ready to save.
 
 ## Q: Why do I get "Failed to execute 'add' on 'IDBObjectStore'" error?
 
