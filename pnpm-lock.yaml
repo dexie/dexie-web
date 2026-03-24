@@ -80,15 +80,9 @@ importers:
       remark-html:
         specifier: ^16.0.1
         version: 16.0.1
-      remark-parse:
-        specifier: ^11.0.0
-        version: 11.0.0
       swiper:
         specifier: ^11.2.10
         version: 11.2.10
-      unified:
-        specifier: ^11.0.5
-        version: 11.0.5
       xml2js:
         specifier: ^0.6.2
         version: 0.6.2
