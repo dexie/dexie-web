@@ -3,8 +3,6 @@ layout: docs-dexie-cloud
 title: 'Blob Offloading'
 ---
 
-# Blob Offloading
-
 > **Requires:** `dexie-cloud-addon` **4.4.0** or later and Dexie Cloud Server **3.0.0** or later.
 > These versions are currently published under the `canary` tag on npm (`npm install dexie-cloud-addon@canary`).
 
