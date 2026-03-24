@@ -62,9 +62,11 @@ db.version(1).stores({
 
 Primary key options:
 
-- ++id – auto-increment primary key
-- @id – string primary key (this syntax is only available when dexie-cloud-addon is used)
-- Primary keys can be compound (composite). The syntax for compound primary keys are `[prop1+prop2]`. It is important to have the square brackets in the string and the plus sign as a separator between property names.
+- `id` – plain string or number primary key. The name can be anything (not just `id`). You provide the value yourself on insert.
+- `++id` – auto-increment integer primary key. The name can be anything (not just `id`). Requires no addon.
+- `@id` – auto-generated globally unique string primary key. The `@` prefix is the Dexie Cloud magic; the name after `@` can be anything (e.g. `@id`, `@key`, `@docId`). Only available when dexie-cloud-addon is installed. If the object already has a value for the key property on insert, that value is kept — `@` only auto-generates when the property is absent. To pre-generate an ID without inserting, use `db.<table>.newId({})` (synchronous).
+- If you do NOT use `@` but still use Dexie Cloud, you must provide IDs yourself and they must follow the colocating prefix rule if you want proper shard placement. The colocating prefix rule is: IDs belonging to the same realm should share the same 3-character prefix. Use `db.<table>.newId({colocateWith: realmId})` to generate a correctly prefixed ID manually.
+- Primary keys can be compound (composite). The syntax for compound primary keys is `[prop1+prop2]`. Square brackets and `+` separator are required.
 - Primary keys are either inbound (normally) or outbound (not included in the value)
 - Primary keys cannot be Multientry (*)
 - Primary keys are always unique and does not need to be explicitely declared for uniqueness, but it is not an error to do so.
@@ -474,12 +476,24 @@ Use these as authoritative anchors when referencing advanced topics.
 
 ## Q: What is the difference between `@id` and `$$id` / `$id` syntax?
 
-**`@id`** is Dexie Cloud syntax for auto-generated globally unique string IDs. It ONLY works when dexie-cloud-addon is installed and configured.
+**`@id`** is Dexie Cloud syntax for auto-generated globally unique string IDs. It ONLY works when dexie-cloud-addon is installed and configured. The property name after `@` can be anything — `@id` is just a common convention.
 
 **`$$id`** or **`$id`** is NOT Dexie Cloud syntax. These prefixes were used by **Dexie.Syncable**, an older (now deprecated) sync solution. They are not compatible with Dexie Cloud.
 
 If you're using Dexie Cloud, use `@id` or provide your own string IDs.
 If you see `$$` in old code or tutorials, it's likely referring to Dexie.Syncable, not Dexie Cloud.
+
+## Q: Does the primary key have to be named `id`?
+
+No. The name after the prefix is up to you. `@id`, `@key`, `@docId`, `++id`, `++pk` are all valid. `id` is just the conventional choice.
+
+## Q: How do I use Dexie Cloud without `@` auto-generation?
+
+Just declare a plain primary key: `{ myTable: 'myKey, ...' }`. You provide the key value yourself on every insert. When using Dexie Cloud with manual IDs, follow the colocating prefix rule so objects are stored on the correct shard: use `db.myTable.newId({ colocateWith: realmId })` to generate a compliant ID, or manage your own prefixed strings.
+
+## Q: How do I pre-generate a `@id` key before inserting?
+
+Use `db.<table>.newId({})` — it's synchronous and returns a valid globally-unique ID with the correct table prefix, without inserting anything. Useful when you need the ID before the object is ready to save.
 
 ## Q: Why do I get "Failed to execute 'add' on 'IDBObjectStore'" error?
 
@@ -497,12 +511,13 @@ Yes! Configure with `databaseUrl: undefined` or omit the databaseUrl entirely. T
 
 ## Q: What's the difference between `++id` and `@id`?
 
-- `++id` – Auto-incrementing integer (standard IndexedDB). Works without any addon.
-- `@id` – Auto-generated globally unique string (UUID-like). Requires dexie-cloud-addon.
+- `++id` – Auto-incrementing integer (standard IndexedDB). Works without any addon. Name is arbitrary.
+- `@id` – Auto-generated globally unique string (UUID-like with table prefix). Requires dexie-cloud-addon. Name after `@` is arbitrary.
+- Plain `id` – You manage the key yourself. Works everywhere.
 
-Use `++id` for local-only apps. Use `@id` when you need globally unique IDs for sync.
+Use `++id` for local-only apps with integer keys. Use `@id` when you want Dexie Cloud to generate cloud-safe globally-unique IDs automatically. Use a plain key if you prefer to generate or assign IDs yourself.
 
-**Note:** `@id` is NOT required for Dexie Cloud. You can use a plain string primary key and manage IDs yourself. `@id` is a convenience that auto-generates cloud-compatible IDs for you.
+**Note:** `@id` is NOT required for Dexie Cloud. You can use a plain string primary key and manage IDs yourself.
 
 ## Q: How are `@id` primary keys structured?
 
