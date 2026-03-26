@@ -538,7 +538,7 @@ db.version(1).stores({
 However, Dexie Cloud don't care about secondary indexes (so far) - the only information that Dexie Cloud server needs is the name of the primary key, and whether it is marked with an '@' sign or not.
 
 Just like in the client-side dexie schema, omitting a table doesn't mean deleting it. Explicitly set it to null in order to delete a table. A deleted table in the cloud does not delete its content - it is possible to bring the data back. In order to reset a table or database completely,
-use `npx dexie-cloud reset` command (not implemented yet).
+use the `npx dexie-cloud reset` command.
 
 ## templates pull
 
