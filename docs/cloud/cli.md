@@ -255,12 +255,124 @@ npx dexie-cloud whitelist "app:Marvellous ToDo List"
 npx dexie-cloud whitelist http://localhost:8080 --delete
 ```
 
+## export
+
+```
+npx dexie-cloud export [options] [filepath]
+```
+
+Exports the entire database to a `.zip` file. Run without arguments to get a full backup:
+
+```bash
+npx dexie-cloud export
+# → z1abc23-2026-03-26.zip
+```
+
+Use flags to export specific sections as separate JSON files, or to filter by realm/table.
+
+### Options
+
+| Option        | Type   | Meaning                                                                                  |
+| ------------- | ------ | ---------------------------------------------------------------------------------------- |
+| `--schema`    | flag   | Export schema only → `<dbId>-schema.json`                                                |
+| `--roles`     | flag   | Export roles only → `<dbId>-roles.json`                                                  |
+| `--demoUsers` | flag   | Export demo users only → `<dbId>-demoUsers.json`                                         |
+| `--realmId`   | string | Filter data export to given realmId (applies to zip and legacy exports)                  |
+| `--table`     | string | Filter data export to given table (applies to zip and legacy exports)                    |
+| `--legacy`    | flag   | Export in legacy JSON format (dexie-cloud@2.x compatible, human-readable)                |
+
+### Examples
+
+```bash
+# Full backup
+npx dexie-cloud export
+# → z1abc23-2026-03-26.zip
+
+# Export and restore a specific realm
+npx dexie-cloud export --realmId "rlm-public" public-data.zip
+npx dexie-cloud import public-data.zip
+
+# Export schema, edit it, re-import (useful for sealing or updating schema)
+npx dexie-cloud export --schema
+# → z1abc23-schema.json  (edit this file, then:)
+npx dexie-cloud import z1abc23-schema.json
+
+# Export roles, edit and re-import
+npx dexie-cloud export --roles
+# → z1abc23-roles.json
+npx dexie-cloud import z1abc23-roles.json
+```
+
+### Zip export format (dexie-cloud@3.x)
+
+_Since dexie-cloud@3.0_
+
+The default export format is a `.zip` file containing three entries:
+
+| File          | Format  | Contents                                                    |
+| ------------- | ------- | ----------------------------------------------------------- |
+| `data.ndjson` | Text    | All objects, schema, roles and members (streaming NDJSON)   |
+| `blobs.dcbl`  | Binary  | Blob data — omitted if database has no blobs                |
+| `yjs.dcyj`    | Binary  | Y.js collaborative document data — omitted if none present  |
+
+The `.dcbl` and `.dcyj` files are **binary** and should not be edited manually.
+
+#### What is NDJSON?
+
+`data.ndjson` uses [NDJSON](https://ndjson.org/) (Newline Delimited JSON) — each line is one self-contained JSON object. This enables streaming: the server sends data line by line without buffering the entire database, and the client processes it as it arrives.
+
+Example lines from `data.ndjson`:
+
+```ndjson
+{"type":"header","version":1,"dbId":"z1abc23","exportedAt":"2026-03-26T12:00:00.000Z"}
+{"type":"schema","schema":{"todoLists":"@id","todoItems":"@itemId, todoListId"},"sealed":false}
+{"realm":"rlm-public","table":"todoLists","id":"list1","data":{"id":"list1","title":"Shopping"}}
+```
+
+- Lines with a `type` field are metadata (`header`, `schema`, `roles`)
+- Lines with `realm`, `table`, `id`, `data` are object entries — one per line
+
+### Legacy JSON format (dexie-cloud@2.x)
+
+Use `--legacy` to export a plain `.json` file instead of a zip. This is useful when:
+
+- You need compatibility with `dexie-cloud@2.x` CLI
+- You want to hand-edit the exported data before re-importing
+- You want a human-readable, inspectable file
+
+```bash
+npx dexie-cloud export --legacy
+npx dexie-cloud export --legacy --realmId "rlm-public" publicData.json
+npx dexie-cloud export --legacy --realmId "rlm-public" --table "products" publicProducts.json
+```
+
+The legacy `.json` format is described in [Import file format](#import-file-format) below.
+
 ## import
 
-1. Create a JSON file with the data to import (see format and samples below)
-2. `npx dexie-cloud import <import-file>`
+```
+npx dexie-cloud import <import-file>
+```
 
-### Import file format
+Imports data into the database. Import is always **additive** — existing data is updated or added, never deleted, unless an object is explicitly set to `null`.
+
+Accepts:
+- A `.zip` file produced by `dexie-cloud export` (dexie-cloud@3.x format) — includes data, blobs, and Y.js documents if present
+- A `.json` file in the legacy format (dexie-cloud@2.x, or produced by `--schema`/`--roles`/`--demoUsers`/`--legacy`)
+
+```bash
+# Import a zip backup
+npx dexie-cloud import z1abc23-2026-03-26.zip
+
+# Import a JSON file (legacy format or schema/roles JSON)
+npx dexie-cloud import z1abc23-schema.json
+```
+
+## Import file format
+
+The JSON format used by `--legacy` export and by `--schema`, `--roles`, `--demoUsers` exports. Also accepted by `dexie-cloud import`.
+
+This is the dexie-cloud@2.x format — for the newer zip-based format see [Zip export format](#zip-export-format-dexie-cloud3x) above.
 
 ```ts
 interface ImportFileFormat {
@@ -426,47 +538,7 @@ db.version(1).stores({
 However, Dexie Cloud don't care about secondary indexes (so far) - the only information that Dexie Cloud server needs is the name of the primary key, and whether it is marked with an '@' sign or not.
 
 Just like in the client-side dexie schema, omitting a table doesn't mean deleting it. Explicitly set it to null in order to delete a table. A deleted table in the cloud does not delete its content - it is possible to bring the data back. In order to reset a table or database completely,
-use `npx dexie-cloud reset` command (not implemented yet).
-
-## export
-
-```
-npx dexie-cloud export [options] <json-filepath>
-```
-
-The export format is the same as the import format.
-
-### Options
-
-| Option        | Type   | Meaning                           |
-| ------------- | ------ | --------------------------------- |
-| `--schema`    | flag   | Only export "schema" and "sealed" |
-| `--data`      | flag   | Only export "data"                |
-| `--roles`     | flag   | Only export "roles"               |
-| `--demoUsers` | flag   | Only export "demoUsers"           |
-| `--realmId`   | string | Only export data in given realmId |
-| `--table`     | string | Only export data in given table   |
-
-Note: Re-importing export files is always possible to do, no matter if they are partial or not, as the import command is additive only, except for objects that are explicitly set to null.
-
-For example, if you only want to update roles, use:
-
-```
-npx dexie-cloud export --roles roles.json
-```
-
-Then edit roles.json, and:
-
-```
-npx dexie-cloud import roles.json
-```
-
-Options of type string are passed as follows:
-
-```
-npx dexie-cloud export --data --realmId "rlm-public" publicData.json
-npx dexie-cloud export --data --realmId "rlm-public" --table "products" publicProducts.json
-```
+use the `npx dexie-cloud reset` command.
 
 ## templates pull
 
