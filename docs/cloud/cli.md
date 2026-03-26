@@ -319,13 +319,32 @@ When no filepath argument is given, the output file is named automatically:
 
 ### Zip export format (default)
 
-When exporting without `--schema`/`--roles`/`--demoUsers`/`--legacy` flags, a `.zip` file is produced containing:
+_Since dexie-cloud@3.0_
 
-- `data.ndjson` — All data, schema, roles and members in streaming NDJSON format
-- `blobs.dcbl` — Binary blob data (omitted if database has no blobs)
-- `yjs.dcyj` — Y.js collaborative document data (omitted if database has no Y.js docs)
+Starting with version 3, export and import use a `.zip`-based format that supports **streaming**, includes **Y.js collaborative document data**, and correctly preserves all data types.
 
-The zip format correctly preserves all data types including `Date` objects.
+When exporting without `--schema`/`--roles`/`--demoUsers`/`--legacy` flags, a `.zip` file is produced containing three files:
+
+- **`data.ndjson`** — All data, schema, roles and members in streaming NDJSON format (text, UTF-8)
+- **`blobs.dcbl`** — Binary blob data in a custom binary format (omitted if database has no blobs)
+- **`yjs.dcyj`** — Y.js collaborative document data in a custom binary format (omitted if database has no Y.js docs)
+
+The `.dcbl` and `.dcyj` files are **binary** — they are not human-readable and should not be edited manually.
+
+#### What is NDJSON?
+
+[NDJSON](https://ndjson.org/) (Newline Delimited JSON) is a format where each line is a self-contained JSON object. This makes it suitable for streaming — the server can start sending data immediately without buffering the entire database in memory, and the client can begin processing before the transfer is complete.
+
+Each line in `data.ndjson` is one of the following:
+
+```ndjson
+{"type":"header","version":1,"dbId":"z1abc23","exportedAt":"2026-03-26T12:00:00.000Z"}
+{"type":"schema","schema":{"todoLists":"@id","todoItems":"@itemId, todoListId"},"sealed":false}
+{"realm":"rlm-public","table":"todoLists","id":"list1","data":{"id":"list1","title":"Shopping"}}
+```
+
+- **Metadata lines** have a `type` field (`header`, `schema`, `roles`, `error`)
+- **Data lines** have `realm`, `table`, `id` and `data` fields — one per object
 
 ### Examples
 
