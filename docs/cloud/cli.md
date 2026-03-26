@@ -403,35 +403,6 @@ interface ImportFileFormat {
 
 See [DBPermissionSet](DBPermissionSet).
 
-```ts
-interface ImportFileFormat {
-  schema?: {
-    [tableName: string]: string // Dexie.js schema
-  }
-  sealed?: boolean // Whether schema is locked from being extended in sync
-  demoUsers?: {
-    [userName: `${anyname}@demo.local`]: {}
-  }
-  roles?: {
-    [roleName: string]: {
-      displayName: string
-      description: string
-      sortOrder?: number
-      permissions: DBPermissionSet
-    }
-  }
-  data?: {
-    [realmId: string]: {
-      [tableName: string]: {
-        [primaryKey: string]: object
-      }
-    }
-  }
-}
-```
-
-See [DBPermissionSet](DBPermissionSet).
-
 ### Import file example for creating or updating data
 
 ```json
