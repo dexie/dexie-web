@@ -41,11 +41,13 @@ export default function LandingSearchBar() {
 
   // Global keyboard shortcut handler (Cmd/Ctrl + K)
   const handleGlobalKeyDown = useCallback((e: KeyboardEvent) => {
+    // On docs pages: the sidebar search handles Cmd/Ctrl+K — don't steal focus
+    if (isDocsPage) return
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault()
       inputRef.current?.focus()
     }
-  }, [])
+  }, [isDocsPage])
 
   useEffect(() => {
     document.addEventListener('keydown', handleGlobalKeyDown)
@@ -141,18 +143,17 @@ export default function LandingSearchBar() {
   // Limit displayed results
   const displayedResults = searchResults.searchResults.slice(0, 6)
 
-  // Don't render on docs pages (they have their own search in sidebar)
-  if (isDocsPage) {
-    return null
-  }
-
   return (
     <ClickAwayListener onClickAway={() => setShowDropdown(false)}>
       <Box
         sx={{
           position: "relative",
+          // Keep space reserved even on docs pages to prevent navbar jump.
+          // Use visibility:hidden so the element still occupies layout space.
           display: { xs: "none", lg: "flex" },
           alignItems: "center",
+          visibility: isDocsPage ? "hidden" : "visible",
+          pointerEvents: isDocsPage ? "none" : "auto",
         }}
       >
         <TextField
