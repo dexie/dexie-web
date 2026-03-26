@@ -277,8 +277,8 @@ Use flags to export specific sections as separate JSON files, or to filter by re
 | `--schema`    | flag   | Export schema only → `<dbId>-schema.json`                                                |
 | `--roles`     | flag   | Export roles only → `<dbId>-roles.json`                                                  |
 | `--demoUsers` | flag   | Export demo users only → `<dbId>-demoUsers.json`                                         |
-| `--realmId`   | string | Filter export to given realmId                                                           |
-| `--table`     | string | Filter export to given table                                                             |
+| `--realmId`   | string | Filter data export to given realmId (applies to zip and legacy exports)                  |
+| `--table`     | string | Filter data export to given table (applies to zip and legacy exports)                    |
 | `--legacy`    | flag   | Export in legacy JSON format (dexie-cloud@2.x compatible, human-readable)                |
 
 ### Examples
