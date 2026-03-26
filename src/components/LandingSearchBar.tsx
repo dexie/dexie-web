@@ -41,11 +41,13 @@ export default function LandingSearchBar() {
 
   // Global keyboard shortcut handler (Cmd/Ctrl + K)
   const handleGlobalKeyDown = useCallback((e: KeyboardEvent) => {
+    // On docs pages: the sidebar search handles Cmd/Ctrl+K — don't steal focus
+    if (isDocsPage) return
     if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
       e.preventDefault()
       inputRef.current?.focus()
     }
-  }, [])
+  }, [isDocsPage])
 
   useEffect(() => {
     document.addEventListener('keydown', handleGlobalKeyDown)
