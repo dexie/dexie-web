@@ -431,41 +431,54 @@ use `npx dexie-cloud reset` command (not implemented yet).
 ## export
 
 ```
-npx dexie-cloud export [options] <json-filepath>
+npx dexie-cloud export [options] [filepath]
 ```
 
-The export format is the same as the import format.
+By default, exports the entire database as a `.zip` file. Use flags to export specific sections as JSON.
 
 ### Options
 
-| Option        | Type   | Meaning                           |
-| ------------- | ------ | --------------------------------- |
-| `--schema`    | flag   | Only export "schema" and "sealed" |
-| `--data`      | flag   | Only export "data"                |
-| `--roles`     | flag   | Only export "roles"               |
-| `--demoUsers` | flag   | Only export "demoUsers"           |
-| `--realmId`   | string | Only export data in given realmId |
-| `--table`     | string | Only export data in given table   |
+| Option        | Type   | Meaning                                                                 |
+| ------------- | ------ | ----------------------------------------------------------------------- |
+| `--schema`    | flag   | Export only schema and sealed as `{dbId}-schema.json`                   |
+| `--roles`     | flag   | Export only roles as `{dbId}-roles.json`                                |
+| `--demoUsers` | flag   | Export only demo users as `{dbId}-demoUsers.json`                       |
+| `--data`      | flag   | Export all data as zip (same as default)                                |
+| `--realmId`   | string | Filter export to given realmId                                          |
+| `--table`     | string | Filter export to given table                                            |
+| `--legacy`    | flag   | Export in legacy JSON format (v1, for use with old CLI)                 |
 
-Note: Re-importing export files is always possible to do, no matter if they are partial or not, as the import command is additive only, except for objects that are explicitly set to null.
+### Zip export format (default)
 
-For example, if you only want to update roles, use:
+When exporting without `--schema`/`--roles`/`--demoUsers` flags, a `.zip` file is produced containing:
 
-```
-npx dexie-cloud export --roles roles.json
-```
+- `data.ndjson` — All data, schema, roles, members in streaming NDJSON format
+- `blobs.dcbl` — Binary blob data (omitted if database has no blobs)
+- `yjs.dcyj` — Y.js collaborative document data (omitted if database has no Y.js docs)
 
-Then edit roles.json, and:
+The zip format preserves all data types including Date objects.
 
-```
-npx dexie-cloud import roles.json
-```
+### Examples
 
-Options of type string are passed as follows:
+```bash
+# Full database export (zip)
+npx dexie-cloud export
 
-```
-npx dexie-cloud export --data --realmId "rlm-public" publicData.json
-npx dexie-cloud export --data --realmId "rlm-public" --table "products" publicProducts.json
+# Export specific realm (zip)
+npx dexie-cloud export --realmId "rlm-public" public-data.zip
+
+# Export specific table (zip)
+npx dexie-cloud export --table "products" products.zip
+
+# Export schema only (for editing and re-importing)
+npx dexie-cloud export --schema
+npx dexie-cloud import {dbId}-schema.json  # after editing
+
+# Export roles only
+npx dexie-cloud export --roles
+
+# Legacy JSON format (compatible with dexie-cloud@2.x CLI)
+npx dexie-cloud export --legacy
 ```
 
 ## templates pull
