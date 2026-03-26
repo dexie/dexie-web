@@ -357,7 +357,7 @@ npx dexie-cloud import <import-file>
 Imports data into the database. Import is always **additive** — existing data is updated or added, never deleted, unless an object is explicitly set to `null`.
 
 Accepts:
-- A `.zip` file produced by `dexie-cloud export` (dexie-cloud@3.x format)
+- A `.zip` file produced by `dexie-cloud export` (dexie-cloud@3.x format) — includes data, blobs, and Y.js documents if present
 - A `.json` file in the legacy format (dexie-cloud@2.x, or produced by `--schema`/`--roles`/`--demoUsers`/`--legacy`)
 
 ```bash
