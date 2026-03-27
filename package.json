@@ -7,6 +7,7 @@
   },
   "scripts": {
     "dev": "next dev --turbopack",
+    "update-blog-feed": "tsx scripts/update-blog-feed.mts",
     "build": "next build --turbopack && npm run build:sw && tsx scripts/generate-offline-manifest.mts",
     "build:sw": "tsx scripts/build-sw.mjs",
     "start": "next start",
