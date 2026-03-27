@@ -192,15 +192,14 @@ export async function GET(request: Request) {
         primaryError instanceof Error ? primaryError.message : primaryError,
       );
 
-      // Fall back to static blog-feed.xml
-      const { headers } = request;
-      const host = headers.get("host") || "dexie.org";
-      const protocol = headers.get("x-forwarded-proto") || "https";
-      const fallbackUrl = `${protocol}://${host}${FEEDS.BLOG_FALLBACK}`;
+      // Fall back to static blog-feed.xml using trusted base URL
+      const baseUrl = process.env.BLOG_BASE_URL || "https://dexie.org";
+      const fallbackUrl = `${baseUrl}${FEEDS.BLOG_FALLBACK}`;
 
       const fallbackResponse = await fetch(fallbackUrl, {
         headers: { "User-Agent": "Dexie-Web/1.0" },
         next: { revalidate: 600 },
+        signal: AbortSignal.timeout(5000),
       });
 
       if (!fallbackResponse.ok) {
