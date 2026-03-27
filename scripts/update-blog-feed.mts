@@ -11,6 +11,7 @@ import { writeFileSync } from "fs";
 import { resolve, dirname } from "path";
 import { fileURLToPath } from "url";
 
+// Keep in sync with src/config/feeds.ts FEEDS.BLOG
 const MEDIUM_FEED_URL = "https://medium.com/feed/dexie-js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_PATH = resolve(__dirname, "../public/blog-feed.xml");
@@ -51,6 +52,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("Error:", err.message);
+  console.error("Error:", err);
   process.exit(1);
 });

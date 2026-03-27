@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { parseStringPromise } from "xml2js";
+import { FEEDS } from "@/config/feeds";
 
 export interface BlogPost {
   title: string;
@@ -144,14 +145,12 @@ async function parseRssFeed(
   }
 }
 
-import { FEEDS } from "@/config/feeds";
-
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const limit = parseInt(searchParams.get("limit") || "6", 10);
+    // Always use the configured feed URL (user-supplied feedUrl is ignored to prevent SSRF)
     const feedUrl = FEEDS.BLOG;
-    // searchParams.get("feedUrl") || FEEDS.BLOG
 
     // Check if we have valid cached data
     const now = Date.now();
