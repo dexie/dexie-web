@@ -9,10 +9,19 @@
             <link>https://medium.com/dexie-js?source=rss----fa77780a736e---4</link>
         </image>
         <generator>Medium</generator>
-        <lastBuildDate>Fri, 28 Nov 2025 16:27:58 GMT</lastBuildDate>
+        <lastBuildDate>Fri, 27 Mar 2026 15:00:00 GMT</lastBuildDate>
         <atom:link href="https://medium.com/feed/dexie-js" rel="self" type="application/rss+xml"/>
         <webMaster><![CDATA[yourfriends@medium.com]]></webMaster>
         <atom:link href="http://medium.superfeedr.com" rel="hub"/>
+        <item>
+            <title><![CDATA[Dexie 4.4 & Dexie Cloud Server 3.0: The Big One]]></title>
+            <link>https://medium.com/@dfahlander/dexie-4-4-dexie-cloud-server-3-0-the-big-one-d883b98599e8?source=rss----fa77780a736e---4</link>
+            <guid isPermaLink="false">https://medium.com/p/d883b98599e8</guid>
+            <dc:creator><![CDATA[David Fahlander]]></dc:creator>
+            <pubDate>Fri, 27 Mar 2026 15:00:00 GMT</pubDate>
+            <atom:updated>2026-03-27T15:00:00.000Z</atom:updated>
+            <content:encoded><![CDATA[<p>Today we're shipping <strong>Dexie 4.4</strong> and <strong>Dexie Cloud Server 3.0</strong>. This has been weeks in the making, and it touches nearly every layer of the stack — from how IndexedDB connections are managed at the browser level, to how binaries flow between your app and the cloud, to how your users log in.</p><h4>A Chromium Collaboration Story</h4><p>The Chromium team reached out to us. Dexie is used in millions of pages — ChatGPT, WhatsApp Web, GitHub Desktop, Flightradar24. François Doray from the Chromium team contributed a fix using <code>FinalizationRegistry</code> so Dexie instances are garbage-collected even without explicit <code>close()</code>. Dexie 4.4 also leverages the IDB 3.0 <code>getAll(options)</code> API for more efficient key range queries.</p><h4>Blob Offloading</h4><p>Any Blob, File, or ArrayBuffer ≥ 4 KB is automatically offloaded to cloud storage during sync. Strings larger than 32 KB get the same treatment. Two modes: eager (default) and lazy. Track progress with <code>db.cloud.blobProgress</code>.</p><h4>Social Auth</h4><p>Dexie Cloud now supports Social Auth with Google, GitHub, Microsoft, Apple, and custom OAuth2 providers. One line: <code>await db.cloud.login({ provider: 'google' })</code>.</p><h4>Streaming Export/Import</h4><p>Export your entire database as a zip. Enterprise data portability — your data is yours.</p><h4>Upgrade Today</h4><p>The latest release is <code>dexie-cloud-addon@4.4.7</code>. Install: <code>npm install dexie@4.4.1 dexie-cloud-addon@4.4.7</code></p>]]></content:encoded>
+        </item>
         <item>
             <title><![CDATA[dexie-logger]]></title>
             <link>https://medium.com/dexie-js/dexie-logger-f0f07ee1a93f?source=rss----fa77780a736e---4</link>
