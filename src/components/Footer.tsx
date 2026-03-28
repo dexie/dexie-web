@@ -367,15 +367,15 @@ const Footer = () => {
               Browser testing via
             </Typography>
             <Link
-              href="https://www.lambdatest.com/"
+              href="https://www.testmuai.com/"
               target="_blank"
               rel="noopener noreferrer"
               sx={{ display: "inline-block" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://www.lambdatest.com/support/img/logo.svg"
-                alt="LambdaTest"
+                src="https://assets.testmuai.com/resources/images/logos/logo.svg"
+                alt="TestMu AI (Formerly LambdaTest)"
                 width={147}
                 height={26}
                 style={{ verticalAlign: "middle", filter: "brightness(0.85)" }}
