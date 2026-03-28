@@ -358,6 +358,31 @@ const Footer = () => {
             </Box>
           </Box>
 
+          {/* Sponsors */}
+          <Box sx={{ textAlign: "center", mt: 3, mb: 1 }}>
+            <Typography
+              variant="body2"
+              sx={{ color: alpha("#dee2e6", 0.7), mb: 1.5 }}
+            >
+              Browser testing via
+            </Typography>
+            <Link
+              href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=dexiejs"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ display: "inline-block" }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/assets/images/testmuai-white.svg"
+                alt="TestMu AI (Formerly LambdaTest)"
+                width={147}
+                height={26}
+                style={{ verticalAlign: "middle", filter: "brightness(0.85)" }}
+              />
+            </Link>
+          </Box>
+
           {/* Footer Text */}
           <Box sx={{ textAlign: "center", mt: 4, pt: 3 }}>
             <Typography
