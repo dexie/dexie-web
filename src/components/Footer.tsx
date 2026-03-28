@@ -374,7 +374,7 @@ const Footer = () => {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://assets.testmuai.com/resources/images/logos/logo.svg"
+                src="/assets/images/testmuai-white.svg"
                 alt="TestMu AI (Formerly LambdaTest)"
                 width={147}
                 height={26}
