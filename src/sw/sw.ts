@@ -11,7 +11,7 @@ import { MDFullTextMeta } from "@/types/MDFullTextMeta";
 import { offlineDB, type OfflineStatus } from "../db/offlineDB";
 import type { OfflineManifest } from "@/types/OfflineManifest";
 
-const VERSION = "v4"; // Bumped: cache /api/blog-feed for offline support
+const VERSION = "v3"; // Bumped for simplified approach
 const PRECACHE_NAME = `dexie-web-precache-${VERSION}`;
 const RUNTIME_NAME = `dexie-web-runtime-${VERSION}`;
 const MANIFEST_URL = "/offline-manifest.json";
@@ -639,12 +639,6 @@ self.addEventListener("fetch", (event: FetchEvent) => {
     return;
   }
   if (url.pathname.startsWith("/blog/")) {
-    event.respondWith(cacheFirst(event, { ignoreQuery: false }));
-    return;
-  }
-
-  // Blog feed API: cache-first so blog list/posts work offline
-  if (url.pathname.startsWith("/api/blog-feed")) {
     event.respondWith(cacheFirst(event, { ignoreQuery: false }));
     return;
   }
