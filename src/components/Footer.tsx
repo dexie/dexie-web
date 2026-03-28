@@ -367,7 +367,7 @@ const Footer = () => {
               Browser testing via
             </Typography>
             <Link
-              href="https://www.testmu.ai/"
+              href="https://www.testmuai.com/?utm_medium=sponsor&utm_source=dexiejs"
               target="_blank"
               rel="noopener noreferrer"
               sx={{ display: "inline-block" }}
