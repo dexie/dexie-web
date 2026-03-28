@@ -48,8 +48,10 @@ const BlogListClient: React.FC = () => {
           setError("No posts available")
         }
       } catch (err) {
-        const errorMessage =
-          err instanceof Error ? err.message : "Unknown error"
+        const isOffline = typeof navigator !== "undefined" && !navigator.onLine
+        const errorMessage = isOffline
+          ? "offline"
+          : err instanceof Error ? err.message : "Unknown error"
         console.error("Error loading posts:", errorMessage)
         setError(errorMessage)
       } finally {
@@ -313,9 +315,11 @@ const BlogListClient: React.FC = () => {
               sx={{ fontSize: 60, color: "text.secondary", mb: 2 }}
             />
             <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
-              No blog posts available at the moment.
+              {error === "offline"
+                ? "Blog posts are not available offline."
+                : "No blog posts available at the moment."}
             </Typography>
-            {error && (
+            {error && error !== "offline" && (
               <Typography
                 variant="body2"
                 color="error"
