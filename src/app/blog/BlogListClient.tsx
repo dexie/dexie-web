@@ -44,7 +44,7 @@ const BlogListClient: React.FC = () => {
         const data = await response.json()
         setPosts(data.posts || [])
 
-        if (data.posts.length === 0) {
+        if ((data.posts || []).length === 0) {
           setError("No posts available")
         }
       } catch (err) {
