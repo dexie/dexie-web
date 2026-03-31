@@ -47,7 +47,7 @@ Tokens are acquired lazily, cached in-memory, and refreshed automatically when w
 const client = new DexieCloudClient({
   serviceUrl: 'https://dexie.cloud',     // Required: Dexie Cloud service URL
   blobHandling: 'auto',                   // 'auto' (default) | 'lazy'
-  maxStringLength: 32768,                 // Strings longer than this offload to blobs
+  largeStringThreshold: 32768,            // Strings longer than this offload to blobs
   timeout: 30000,                         // Request timeout (ms)
   debug: false                            // Enable debug logging
 });
