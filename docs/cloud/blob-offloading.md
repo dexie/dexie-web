@@ -60,19 +60,19 @@ await db.photos.add({
 
 ### Long Strings
 
-Strings longer than `maxStringLength` (default **32,768 characters**) are also offloaded to blob storage during sync. This is useful for properties that store base64-encoded images or other large text. Same principle goes here: You can store a 10 million chars string in Dexie but when it's time to sync, it will put the data in a blob storage and sync the reference to the blob location. Blob storage is protected with the exact same access control that was set for the data, as if it was stored inline, except for a grace period of 1 hour after access removal.
+Strings longer than `largeStringThreshold` (default **32,768 characters**) are also offloaded to blob storage during sync. This is useful for properties that store base64-encoded images or other large text. Same principle goes here: You can store a 10 million chars string in Dexie but when it's time to sync, it will put the data in a blob storage and sync the reference to the blob location. Blob storage is protected with the exact same access control that was set for the data, as if it was stored inline, except for a grace period of 1 hour after access removal.
 
 ```ts
 db.cloud.configure({
   databaseUrl: '...',
-  maxStringLength: 32768, // default (32KB characters)
+  largeStringThreshold: 32768, // default (32KB characters)
   // Set to Infinity to disable string offloading
 });
 ```
 
 | Type | Offloading Rule |
 |------|----------------|
-| `string` | > `maxStringLength` (default 32KB) |
+| `string` | > `largeStringThreshold` (default 32KB) |
 
 The original string is kept intact in IndexedDB — offloading only affects the sync payload. When resolved, the blob is decoded back to a string transparently.
 
