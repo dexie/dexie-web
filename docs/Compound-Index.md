@@ -3,7 +3,7 @@ layout: docs
 title: 'Compound Index'
 ---
 
-A compound (or composite) index is an index based on several keypaths. It can be used to efficiently index multiple properties in one index to easily find the existance of the combination of two keys and their values.
+A compound (or composite) index is an index based on several keypaths. It can be used to efficiently index multiple properties in one index to easily find the existence of the combination of two keys and their values.
 
 In Dexie, a compound index must be specified when defining the schema:
 
@@ -78,7 +78,7 @@ db.people
   .toArray();
 ```
 
-Note that only the leading parts of a compound index can be used alone - never the trailing parts. This is the same rule for any BTree database with compisite index support. You cannot use the compound index [firstName+lastName] to search for lastName only, but you can use it to search firstName only. 
+Note that only the leading parts of a compound index can be used alone - never the trailing parts. This is the same rule for any BTree database with composite index support. You cannot use the compound index [firstName+lastName] to search for lastName only, but you can use it to search firstName only. 
 
 Virtual indexes have the full support for any operation, just like ordinary indexes, such as equalsIgnoreCase(), anyOf(), etc.
 
