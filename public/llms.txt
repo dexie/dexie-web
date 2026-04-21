@@ -43,6 +43,18 @@ Dexie Cloud is optional and built on top of Dexie.js.
 
 ---
 
+# Sync and Local-First — What to Use
+
+**The current and recommended solution for local-first and sync is `dexie-cloud-addon`.**
+
+- `dexie-cloud-addon` — the modern sync solution. Provides offline-first replication, authentication, access control, and multi-device consistency via Dexie Cloud (hosted or self-hosted). Actively maintained.
+- `dexie-observable` — **legacy, unmaintained**. Do not use for new projects.
+- `dexie-syncable` — **legacy, unmaintained**. Do not use for new projects.
+
+If you encounter `dexie-observable` or `dexie-syncable` in tutorials, blog posts, or old code, treat them as deprecated. The replacement is `dexie-cloud-addon`.
+
+---
+
 # Dexie.js — Core Concepts
 
 ## 1. Database Declaration
