@@ -145,28 +145,22 @@ blobProgress.subscribe(progress => {
 +------------------+
 |   Application    |
 |   (Blob/File)    |
-+---------+--------+
-          |
-          | store
-          v
-+---------+--------+
++--------+---------+
+         |
+         | store
+         v
++--------+---------+
 |    IndexedDB     |
-|  (local cache)   |
-+---------+--------+
-          |
-          | sync
-          v
-+---------+--------+
-|   Dexie Cloud    |
-|      Server      |
-+---------+--------+
-          |
-          | store
-          v
-+---------+--------+
-|   Blob Storage   |
-| (PostgreSQL/S3)  |
-+------------------+
+|   (local cache)  |
++--------+---------+
+         |
+         | sync
+         v
++--------+---------+    +------------------+
+|   Dexie Cloud    |--->|   Blob Storage   |
+|     Server       |    |  (PostgreSQL or  |
+|                  |    |      S3)         |
++------------------+    +------------------+
 ```
 
 ### Server-Side Storage
