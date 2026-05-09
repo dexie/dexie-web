@@ -142,25 +142,31 @@ blobProgress.subscribe(progress => {
 ## Architecture
 
 ```
-┌─────────────────┐
-│   Application   │
-│  (Blob/File)    │
-└────────┬────────┘
-         │ store
-┌────────▼────────┐
-│    IndexedDB    │
-│  (local cache)  │
-└────────┬────────┘
-         │ sync
-┌────────▼────────┐
-│  Dexie Cloud    │
-│    Server       │
-└────────┬────────┘
-         │ store
-┌────────▼────────┐
-│  Blob Storage   │
-│ (PostgreSQL/S3) │
-└─────────────────┘
++------------------+
+|   Application    |
+|   (Blob/File)    |
++---------+--------+
+          |
+          | store
+          v
++---------+--------+
+|    IndexedDB     |
+|  (local cache)   |
++---------+--------+
+          |
+          | sync
+          v
++---------+--------+
+|   Dexie Cloud    |
+|      Server      |
++---------+--------+
+          |
+          | store
+          v
++---------+--------+
+|   Blob Storage   |
+| (PostgreSQL/S3)  |
++------------------+
 ```
 
 ### Server-Side Storage
