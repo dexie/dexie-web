@@ -80,7 +80,7 @@ The original string is kept intact in IndexedDB — offloading only affects the 
 
 ## BlobRef — The Reference Object
 
-After offloading, each binary property is replaced with a **BlobRef** object. In addition, a `_hasBlobRefs` marker is added at the **root level** of the parent object (not inside the BlobRef itself) to allow the sync engine to quickly detect which objects need blob resolution:
+After offloading, binary properties are replaced with a **BlobRef**:
 
 ```ts
 // Before sync (local):
@@ -89,21 +89,19 @@ After offloading, each binary property is replaced with a **BlobRef** object. In
 // After sync (stored in cloud):
 {
   title: "Photo",
-  image: {              // ← BlobRef (replaces the binary property)
+  image: {
     _bt: "Blob",          // Original type
     ref: "1:abc123def",    // Storage reference
     size: 524288,          // Original size in bytes
     ct: "image/jpeg"       // Content type (Blob only)
   },
-  _hasBlobRefs: 1       // ← Root-level marker (not part of BlobRef)
+  _hasBlobRefs: 1          // Marker for quick detection
 }
 
 // String offloading example:
 // Before sync: { notes: "<very long string...>" }
 // After sync:  { notes: { _bt: "string", ref: "1:def456", size: 98304 }, _hasBlobRefs: 1 }
 ```
-
-Note that `_hasBlobRefs` is a root-level property set on **any object that contains at least one BlobRef** somewhere in its structure. It is not a field of the BlobRef itself.
 
 ## Lazy Resolution
 
