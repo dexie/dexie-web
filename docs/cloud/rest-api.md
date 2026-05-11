@@ -46,10 +46,10 @@ Blob objects:
 
 ### Parsing Special Types
 
-To properly parse JSON responses that contain these special types, use the `TypesonSimplified` utility from the `dreambase-library`:
+To properly parse JSON responses that contain these special types, use the `TypesonSimplified` utility from the `dexie-cloud-common` package:
 
 ```ts
-import { TypesonSimplified, builtInTypeDefs } from 'dreambase-library'
+import { TypesonSimplified, builtInTypeDefs } from 'dexie-cloud-common'
 
 export const TSON = TypesonSimplified(builtInTypeDefs)
 
@@ -101,14 +101,14 @@ To download the actual binary data, use the [/blob/ endpoint](#blob-endpoint) wi
 When sending data to POST endpoints, use `TSON.stringify()` instead of `JSON.stringify()` to properly serialize special types:
 
 ```ts
-import { FakeBlob } from 'dreambase-library'
+import { TypesonSimplified, builtInTypeDefs, FakeBlob } from 'dexie-cloud-common'
+
+export const TSON = TypesonSimplified(builtInTypeDefs)
 
 const data = {
   name: 'Example',
   createdAt: new Date(),
-  attachment: new FakeBlob(Buffer.from('hello world', 'utf8').buffer, {
-    type: 'text/plain',
-  }),
+  attachment: new FakeBlob(Buffer.from('hello world', 'utf8').buffer, 'text/plain'),
 }
 
 const response = await fetch(`${databaseUrl}/my/table`, {
