@@ -7,17 +7,17 @@ This page documents the REST API that every database in Dexie Cloud has.
 
 ## Endpoints
 
-|                                   |                           |
-| --------------------------------- | ------------------------- |
-| [/token](#token)                  | Token endpoint            |
-| [/token/validate](#token-validate) | Token validation endpoint |
-| [/auth-providers](#auth-providers) | List authentication providers |
-| [/oauth/login/:provider](#oauth-login) | Initiate OAuth login |
-| [/all/...](#all-endpoint)         | All data endpoint         |
-| [/my/...](#my-endpoint)           | My data endpoint          |
-| [/public/...](#public-endpoint)   | Public data endpoint      |
-| [/users/...](#users-endpoint)     | Users data endpoint       |
-| [/blob/...](#blob-endpoint)       | Blob storage endpoint     |
+|                                        |                               |
+| -------------------------------------- | ----------------------------- |
+| [/token](#token)                       | Token endpoint                |
+| [/token/validate](#token-validate)     | Token validation endpoint     |
+| [/auth-providers](#auth-providers)     | List authentication providers |
+| [/oauth/login/:provider](#oauth-login) | Initiate OAuth login          |
+| [/all/...](#all-endpoint)              | All data endpoint             |
+| [/my/...](#my-endpoint)                | My data endpoint              |
+| [/public/...](#public-endpoint)        | Public data endpoint          |
+| [/users/...](#users-endpoint)          | Users data endpoint           |
+| [/blob/...](#blob-endpoint)            | Blob storage endpoint         |
 
 ## JSON Format for Special Types
 
@@ -26,17 +26,20 @@ The JSON responses from data endpoints (`/all`, `/my`, and `/public`) encapsulat
 ### Special Type Format
 
 Special types are represented as JSON objects with two properties:
-- `$t`: The type name (e.g., "Date", "Blob")  
+
+- `$t`: The type name (e.g., "Date", "Blob")
 - `v`: The serialized value
 
 **Examples:**
 
 Date objects:
+
 ```json
 { "$t": "Date", "v": "2026-02-04T08:26:10.761Z" }
 ```
 
 Blob objects:
+
 ```json
 { "$t": "Blob", "v": "<base64-encoded-data>" }
 ```
@@ -46,25 +49,25 @@ Blob objects:
 To properly parse JSON responses that contain these special types, use the `TypesonSimplified` utility from the `dreambase-library`:
 
 ```ts
-import { TypesonSimplified, builtInTypeDefs } from "dreambase-library";
+import { TypesonSimplified, builtInTypeDefs } from 'dreambase-library'
 
-export const TSON = TypesonSimplified(builtInTypeDefs);
+export const TSON = TypesonSimplified(builtInTypeDefs)
 
 // Parse JSON response with special types:
 const response = await fetch(`${databaseUrl}/my/table`, {
   headers: {
-    'Authorization': `Bearer ${token}`
-  }
-});
-const json = await response.text();
-const resolvedData = TSON.parse(json);
+    Authorization: `Bearer ${token}`,
+  },
+})
+const json = await response.text()
+const resolvedData = TSON.parse(json)
 ```
 
 **Note:** In Node.js environments that lack the native Blob type, a substitute "FakeBlob" object will be returned instead.
 
 ### BlobRef Objects in Responses
 
-*Requires Dexie Cloud Server 3.0.0 or later.*
+_Requires Dexie Cloud Server 3.0.0 or later._
 
 When objects contain binary data that has been [offloaded to blob storage](/cloud/docs/blob-offloading), the corresponding properties will be **BlobRef** objects instead of inline data:
 
@@ -81,13 +84,13 @@ When objects contain binary data that has been [offloaded to blob storage](/clou
 }
 ```
 
-| Field | Description |
-|-------|-------------|
-| `_bt` | Original type name: `"Blob"`, `"File"`, `"ArrayBuffer"`, `"Uint8Array"`, `"string"`, etc. |
-| `ref` | Storage reference (format: `"version:blobId"`) — use with the [/blob/ endpoint](#blob-endpoint) |
-| `size` | Original size in bytes |
-| `ct` | Content type (only present for Blob/File) |
-| `_hasBlobRefs` | Marker on the parent object (value `1`) indicating it contains BlobRef properties |
+| Field          | Description                                                                                     |
+| -------------- | ----------------------------------------------------------------------------------------------- |
+| `_bt`          | Original type name: `"Blob"`, `"File"`, `"ArrayBuffer"`, `"Uint8Array"`, `"string"`, etc.       |
+| `ref`          | Storage reference (format: `"version:blobId"`) — use with the [/blob/ endpoint](#blob-endpoint) |
+| `size`         | Original size in bytes                                                                          |
+| `ct`           | Content type (only present for Blob/File)                                                       |
+| `_hasBlobRefs` | Marker on the parent object (value `1`) indicating it contains BlobRef properties               |
 
 To download the actual binary data, use the [/blob/ endpoint](#blob-endpoint) with the `ref` value.
 
@@ -98,22 +101,24 @@ To download the actual binary data, use the [/blob/ endpoint](#blob-endpoint) wi
 When sending data to POST endpoints, use `TSON.stringify()` instead of `JSON.stringify()` to properly serialize special types:
 
 ```ts
-import { FakeBlob } from "dreambase-library";
+import { FakeBlob } from 'dreambase-library'
 
 const data = {
-  name: "Example",
+  name: 'Example',
   createdAt: new Date(),
-  attachment: new FakeBlob(Buffer.from("hello world", "utf8").buffer, { type: "text/plain" })
-};
+  attachment: new FakeBlob(Buffer.from('hello world', 'utf8').buffer, {
+    type: 'text/plain',
+  }),
+}
 
 const response = await fetch(`${databaseUrl}/my/table`, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
+    Authorization: `Bearer ${token}`,
   },
-  body: TSON.stringify([data])
-});
+  body: TSON.stringify([data]),
+})
 ```
 
 ### /token
@@ -269,10 +274,10 @@ Content-Type: application/json
 
 ### /auth-providers
 
-|               |                |
-| ------------- | -------------- |
-| Method        | GET            |
-| Authorization | None required  |
+|               |               |
+| ------------- | ------------- |
+| Method        | GET           |
+| Authorization | None required |
 
 Returns the list of enabled authentication providers for this database.
 
@@ -305,22 +310,22 @@ Response:
 }
 ```
 
-| Field | Description |
-|-------|-------------|
-| providers | Array of enabled OAuth providers |
-| providers[].type | Provider type: `google`, `github`, `microsoft`, `apple`, or `custom-oauth2` |
-| providers[].name | Provider identifier used in OAuth URLs |
-| providers[].displayName | User-friendly name for login UI |
-| providers[].iconUrl | URL to provider icon |
-| providers[].scopes | OAuth scopes configured for this provider |
-| otpEnabled | Whether email OTP authentication is enabled |
+| Field                   | Description                                                                 |
+| ----------------------- | --------------------------------------------------------------------------- |
+| providers               | Array of enabled OAuth providers                                            |
+| providers[].type        | Provider type: `google`, `github`, `microsoft`, `apple`, or `custom-oauth2` |
+| providers[].name        | Provider identifier used in OAuth URLs                                      |
+| providers[].displayName | User-friendly name for login UI                                             |
+| providers[].iconUrl     | URL to provider icon                                                        |
+| providers[].scopes      | OAuth scopes configured for this provider                                   |
+| otpEnabled              | Whether email OTP authentication is enabled                                 |
 
 ### /oauth/login/:provider {#oauth-login}
 
-|               |                |
-| ------------- | -------------- |
-| Method        | GET            |
-| Authorization | None required  |
+|               |               |
+| ------------- | ------------- |
+| Method        | GET           |
+| Authorization | None required |
 
 Initiates an OAuth authentication flow by redirecting to the provider's authorization page.
 
@@ -331,10 +336,10 @@ GET /oauth/login/google?redirect_uri=https://myapp.com HTTP/1.1
 Host: xxxx.dexie.cloud
 ```
 
-| Parameter | Required | Description |
-|-----------|----------|-------------|
-| redirect_uri | Yes | Where to redirect after authentication. Can be an https URL or custom scheme (e.g., `myapp://`) |
-| scopes | No | Space-separated OAuth scopes to request (uses configured defaults if omitted) |
+| Parameter    | Required | Description                                                                                     |
+| ------------ | -------- | ----------------------------------------------------------------------------------------------- |
+| redirect_uri | Yes      | Where to redirect after authentication. Can be an https URL or custom scheme (e.g., `myapp://`) |
+| scopes       | No       | Space-separated OAuth scopes to request (uses configured defaults if omitted)                   |
 
 **Flow:**
 
@@ -562,6 +567,26 @@ Authorization: Bearer <token from /token endpoint (with GLOBAL_READ, GLOBAL_WRIT
 
 The /users endpoint can be used to list, get, create, update and delete application users in your database. You can use the API to upgrade users from evaluation accounts to production accounts or vice versa. This API does support sorting and paging results.
 
+#### Required scopes
+
+| Operation                      | Required scopes                            |
+| ------------------------------ | ------------------------------------------ |
+| List / get users               | `ACCESS_DB`, `GLOBAL_READ`                 |
+| Create / update / delete users | `ACCESS_DB`, `GLOBAL_READ`, `GLOBAL_WRITE` |
+
+> **⚠️ Common pitfall:** Even if your API client is authorized for all scopes (`*`), you must **explicitly request** the scopes you need when calling `/token`. A token that only includes `ACCESS_DB` will get a 403 "Not authorized" when trying to create or update users.
+>
+> Always request all three scopes when managing users server-side:
+>
+> ```json
+> {
+>   "grant_type": "client_credentials",
+>   "client_id": "<your client ID>",
+>   "client_secret": "<your client secret>",
+>   "scopes": ["ACCESS_DB", "GLOBAL_READ", "GLOBAL_WRITE"]
+> }
+> ```
+
 #### List users
 
 **Request:**
@@ -721,7 +746,9 @@ In all these samples, userId is the same as email. This is true when using the b
 
 #### Create users
 
-To create one or several users, do a POST request against /users endpoint with Content-Type: application/json. The JSON data must be an array of users. Each user in the array must at least have the "userId" and the "type" properties set. Optionally, supply the properties "validUntil", "evalDaysLeft", "deactivated" and "data" properties. This API is picky about unsupported properties and will fail if any unsupported or unauthorized property was present in the provided users. The only fuzzy part of a user is the data property that can contain arbritary sub properties.
+To create one or several users, do a POST request against /users endpoint with Content-Type: application/json.
+
+**Required token scopes:** `ACCESS_DB`, `GLOBAL_READ`, `GLOBAL_WRITE` The JSON data must be an array of users. Each user in the array must at least have the "userId" and the "type" properties set. Optionally, supply the properties "validUntil", "evalDaysLeft", "deactivated" and "data" properties. This API is picky about unsupported properties and will fail if any unsupported or unauthorized property was present in the provided users. The only fuzzy part of a user is the data property that can contain arbritary sub properties.
 
 ```http
 POST /users HTTP/1.1
@@ -743,7 +770,9 @@ Content-Type: application/json
 
 #### Update users
 
-To update one or several users, do a POST request against /users endpoint with Content-Type: application/json. The JSON data must be an array of change objects. Each entry in the array does only need to specify the userId property along with the properties to update. This API is picky about unsupported properties and will fail if any unsupported or unauthorized property was present in the change objects. The only fuzzy part of a user is the data property that can contain arbritary sub properties.
+To update one or several users, do a POST request against /users endpoint with Content-Type: application/json.
+
+**Required token scopes:** `ACCESS_DB`, `GLOBAL_READ`, `GLOBAL_WRITE` The JSON data must be an array of change objects. Each entry in the array does only need to specify the userId property along with the properties to update. This API is picky about unsupported properties and will fail if any unsupported or unauthorized property was present in the change objects. The only fuzzy part of a user is the data property that can contain arbritary sub properties.
 
 **_Updateable user properties:_**
 
@@ -811,7 +840,7 @@ Content-Type: application/json
 
 ### /blob endpoint {#blob-endpoint}
 
-*Requires Dexie Cloud Server 3.0.0 or later.*
+_Requires Dexie Cloud Server 3.0.0 or later._
 
 Upload and download binary data directly to/from blob storage. See [Blob Offloading](/cloud/docs/blob-offloading) for a complete guide.
 
@@ -826,10 +855,10 @@ Content-Type: <content type of the blob>
 <binary data>
 ```
 
-| Parameter | Description |
-|-----------|-------------|
-| `blobId` | A unique identifier for the blob (client-generated) |
-| `ct` | Content type to store (URL-encoded, e.g., `image%2Fjpeg`) |
+| Parameter | Description                                               |
+| --------- | --------------------------------------------------------- |
+| `blobId`  | A unique identifier for the blob (client-generated)       |
+| `ct`      | Content type to store (URL-encoded, e.g., `image%2Fjpeg`) |
 
 **Response:**
 
@@ -847,9 +876,9 @@ Host: xxxx.dexie.cloud
 Authorization: Bearer <token from /token endpoint>
 ```
 
-| Parameter | Description |
-|-----------|-------------|
-| `ref` | The blob reference from a BlobRef object (e.g., `1:abc123def456`) |
+| Parameter | Description                                                       |
+| --------- | ----------------------------------------------------------------- |
+| `ref`     | The blob reference from a BlobRef object (e.g., `1:abc123def456`) |
 
 Returns the raw binary data with the original content type.
 
