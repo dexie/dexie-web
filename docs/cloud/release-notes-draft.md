@@ -77,12 +77,10 @@ The `dexie-cloud-addon` now supports automatic blob offloading:
 
 - **Transparent**: Store Blob, File, Uint8Array, ArrayBuffer, etc. — offloading happens automatically on sync
 - **Lazy resolution**: BlobRefs are resolved to real data only when accessed
-- **Eager download**: Background download of blobs after sync (up to 6 parallel)
-- **Progress tracking**: Subscribe to upload/download progress via `blobProgress`
+- **Eager download**: Background download of blobs after sync (up to 10 parallel)
+- **Progress tracking**: Subscribe to download progress via `db.cloud.blobProgress`
 
 ```ts
-import { blobProgress } from 'dexie-cloud-addon';
-
 // Store binary data — offloaded automatically
 await db.photos.add({
   title: 'Sunset',
@@ -90,8 +88,11 @@ await db.photos.add({
 });
 
 // Track progress
-blobProgress.subscribe(p => {
-  if (p) console.log(`${p.phase}: ${p.loaded}/${p.total}`);
+db.cloud.blobProgress.subscribe(p => {
+  console.log(
+    `${p.blobsRemaining} blob(s) / ${p.bytesRemaining} byte(s) left ` +
+    `(downloading=${p.isDownloading})`
+  );
 });
 ```
 

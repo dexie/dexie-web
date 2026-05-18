@@ -119,25 +119,34 @@ You can also eagerly download blobs in the background after sync:
 db.cloud.configure({
   databaseUrl: 'https://xxxxxxxx.dexie.cloud',
   // Blobs are downloaded eagerly in the background after sync
-  // Up to 6 parallel downloads
+  // Up to 10 parallel downloads
 });
 ```
 
 ## Progress Tracking
 
-Track upload and download progress:
+Subscribe to `db.cloud.blobProgress` to drive a progress indicator or
+"downloading for offline" status in your UI:
 
 ```ts
-import { blobProgress } from 'dexie-cloud-addon';
-
-// Subscribe to progress updates
-blobProgress.subscribe(progress => {
-  if (progress) {
-    console.log(`${progress.phase}: ${progress.loaded}/${progress.total} bytes`);
-    // phase: 'upload' | 'download'
-  }
+db.cloud.blobProgress.subscribe(progress => {
+  console.log(
+    `${progress.blobsRemaining} blob(s) / ${progress.bytesRemaining} byte(s) left ` +
+    `(downloading=${progress.isDownloading})`
+  );
 });
 ```
+
+The observable emits a `BlobProgress` value:
+
+| Field            | Type    | Description                                                            |
+|------------------|---------|------------------------------------------------------------------------|
+| `isDownloading`  | boolean | `true` while the eager downloader is actively working.                 |
+| `blobsRemaining` | number  | Number of unresolved blob references left in any synced table.         |
+| `bytesRemaining` | number  | Estimated total bytes still to download (sum of `size` on each ref).   |
+
+It updates reactively via `liveQuery` — every blob that lands in
+IndexedDB drops the counters automatically.
 
 ## Architecture
 

@@ -693,9 +693,8 @@ Blob, File, ArrayBuffer, Uint8Array, and all TypedArray variants.
 ## Progress Tracking
 
 ```js
-import { blobProgress } from 'dexie-cloud-addon';
-blobProgress.subscribe(p => {
-  if (p) console.log(`${p.phase}: ${p.loaded}/${p.total}`);
+db.cloud.blobProgress.subscribe(p => {
+  console.log(`${p.blobsRemaining} blob(s) / ${p.bytesRemaining} byte(s) left (downloading=${p.isDownloading})`);
 });
 ```
 
