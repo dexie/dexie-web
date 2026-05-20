@@ -180,6 +180,7 @@ self.addEventListener("install", (event: ExtendableEvent) => {
           "/",
           "/docs",
           "/favicon.ico",
+          "/assets/images/dexie-logo.png",
           "/assets/images/og-images/og-base.png",
         ].map((u) => new Request(u, { credentials: "same-origin" }))
       );
