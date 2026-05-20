@@ -11,7 +11,7 @@ import { MDFullTextMeta } from "@/types/MDFullTextMeta";
 import { offlineDB, type OfflineStatus } from "../db/offlineDB";
 import type { OfflineManifest } from "@/types/OfflineManifest";
 
-const VERSION = "v4"; // Added dexie-logo.png to precache
+const VERSION = "v3"; // Bumped for simplified approach
 const PRECACHE_NAME = `dexie-web-precache-${VERSION}`;
 const RUNTIME_NAME = `dexie-web-runtime-${VERSION}`;
 const MANIFEST_URL = "/offline-manifest.json";
