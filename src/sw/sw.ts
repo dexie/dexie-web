@@ -11,7 +11,7 @@ import { MDFullTextMeta } from "@/types/MDFullTextMeta";
 import { offlineDB, type OfflineStatus } from "../db/offlineDB";
 import type { OfflineManifest } from "@/types/OfflineManifest";
 
-const VERSION = "v3"; // Bumped for simplified approach
+const VERSION = "v4"; // Added dexie-logo.png to precache
 const PRECACHE_NAME = `dexie-web-precache-${VERSION}`;
 const RUNTIME_NAME = `dexie-web-runtime-${VERSION}`;
 const MANIFEST_URL = "/offline-manifest.json";
@@ -180,6 +180,7 @@ self.addEventListener("install", (event: ExtendableEvent) => {
           "/",
           "/docs",
           "/favicon.ico",
+          "/assets/images/dexie-logo.png",
           "/assets/images/og-images/og-base.png",
         ].map((u) => new Request(u, { credentials: "same-origin" }))
       );
