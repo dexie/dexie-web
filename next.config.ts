@@ -28,6 +28,11 @@ const nextConfig: NextConfig = {
         destination: "/pricing",
         permanent: false,
       },
+      {
+        source: "/:path*.html",
+        destination: "/:path*",
+        permanent: true,
+      },
     ]
   },
 }
