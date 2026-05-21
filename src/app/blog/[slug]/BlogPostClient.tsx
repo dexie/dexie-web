@@ -17,6 +17,53 @@ import parse, {
 } from "html-react-parser"
 import { BlogPost } from "@/utils/rssFeedParser"
 import RelatedBlogPosts from "../RelatedBlogPosts"
+import CodeBlock from "@/components/content/shared/CodeBlock"
+
+// Heuristic language detection for code snippets without explicit language hints
+function detectLanguage(code: string): string {
+  const trimmed = code.trim()
+  const firstLine = trimmed.split("\n")[0].trim()
+
+  // Shell / bash: first line is a common CLI command or a kebab-case binary
+  if (
+    /^(npm|npx|yarn|pnpm|node|git|curl|wget|dexie-cloud)\s/.test(firstLine) ||
+    /^\w+-\w+/.test(firstLine)
+  ) {
+    return "bash"
+  }
+
+  // HTML: block starts with < and ends with >
+  if (trimmed.startsWith("<") && trimmed.endsWith(">")) {
+    return "markup"
+  }
+
+  // HTML: explicit doctype declaration
+  if (/<!DOCTYPE\s+html/i.test(trimmed)) {
+    return "markup"
+  }
+
+  // Default: tsx is a superset of JS, TS, JSX and TSX
+  return "tsx"
+}
+
+// Extract plain text from DOM nodes inside a <pre>, converting <br> to newlines
+function extractPreContent(nodes: DOMNode[]): string {
+  return nodes
+    .map((node) => {
+      if (
+        "data" in node &&
+        typeof (node as { data: unknown }).data === "string"
+      ) {
+        return (node as { data: string }).data
+      }
+      if (node instanceof Element) {
+        if (node.name === "br") return "\n"
+        return extractPreContent(node.children as DOMNode[])
+      }
+      return ""
+    })
+    .join("")
+}
 
 interface BlogPostClientProps {
   post: BlogPost
@@ -38,14 +85,39 @@ const BlogPostClient: React.FC<BlogPostClientProps> = ({ post }) => {
     }
   }
 
-  // Parse HTML content and add target="_blank" to external links
+  // Parse HTML content and add syntax highlighting / target="_blank" to external links
   const parseOptions: HTMLReactParserOptions = {
     replace: (domNode) => {
-      if (domNode instanceof Element && domNode.name === "a") {
+      if (!(domNode instanceof Element)) return
+
+      // Syntax-highlight code blocks in <pre> tags
+      if (domNode.name === "pre") {
+        const className = domNode.attribs?.class || ""
+        const match = /language-(\w+)/.exec(className)
+        const code = extractPreContent(domNode.children as DOMNode[]).trim()
+        const language = match ? match[1] : detectLanguage(code)
+
+        return (
+          <Box
+            sx={{
+              my: 2,
+              background: "rgba(255, 255, 255, 0.05)",
+              borderRadius: 2,
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              p: 3,
+              overflow: "auto",
+            }}
+          >
+            <CodeBlock code={code} language={language} />
+          </Box>
+        )
+      }
+
+      // Open external links in a new tab
+      if (domNode.name === "a") {
         const href = domNode.attribs?.href
 
         if (href) {
-          // Check if link is external (starts with http/https and not current domain)
           const isExternal =
             href.startsWith("http://") || href.startsWith("https://")
 
@@ -189,18 +261,17 @@ const BlogPostClient: React.FC<BlogPostClientProps> = ({ post }) => {
                   textDecoration: "underline",
                 },
               },
-              "& pre": {
-                bgcolor: alpha(theme.palette.text.primary, 0.05),
-                p: 2,
-                borderRadius: 1,
-                overflowX: "auto",
-              },
               "& code": {
                 fontFamily: "monospace",
                 fontSize: "0.9em",
                 bgcolor: alpha(theme.palette.text.primary, 0.05),
                 px: 0.5,
                 borderRadius: 0.5,
+              },
+              "& .codeblock-container code": {
+                bgcolor: "transparent",
+                p: 0,
+                borderRadius: 0,
               },
               "& ul, & ol": {
                 pl: 3,
