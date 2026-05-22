@@ -570,6 +570,23 @@ const prefix = db.todoItems.idPrefix(); // e.g. "tdi"
 
 These methods (`newId()` and `idPrefix()`) are extension methods on `Table` added by `dexie-cloud-addon`. They are not available in plain Dexie.js without the addon.
 
+## ⚠️ Development Tip: Disable Service Workers During Development
+
+**Never run a service worker in development mode.** This is one of the most common causes of confusing, hard-to-diagnose bugs.
+
+Service workers cache your entire app. When you make code changes, the cached version keeps running — your new code never executes. This leads to:
+- Changes appearing to have no effect
+- Bugs that disappear and reappear randomly
+- Hours of debugging stale behavior
+
+**What to do instead:**
+- Disable the service worker registration in development mode (e.g. `if (import.meta.env.DEV) return;` before `navigator.serviceWorker.register(...)`)
+- Use an incognito window when testing — it starts fresh with no cached state, no old IDB data, and no stale service worker
+- Always close all incognito windows before opening a new one (same-origin incognito sessions share storage)
+- When in doubt: DevTools → Application → Service Workers → Unregister, then hard-reload
+
+**The rule of thumb:** If you're seeing unexpected behavior during development, the first thing to rule out is a stale service worker or stale IndexedDB state. Incognito + Chrome eliminates both.
+
 ---
 
 # Self-Hosting Dexie Cloud
