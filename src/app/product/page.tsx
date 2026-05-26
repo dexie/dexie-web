@@ -388,7 +388,7 @@ export default function ProductPage() {
 
 // Declare tables, IDs and indexes
 db.version(1).stores({
-  friends: '++id, name, age'
+  friends: 'id, name, age'
 });`}
                 />
               </Box>
@@ -437,6 +437,7 @@ const oldFriends = await db.friends
 
 // or make a new one
 await db.friends.add({
+  id: uuid.v7(), // from "uuid" package on npm
   name: 'Camilla',
   age: 25,
   street: 'East 13:th Street',
@@ -549,7 +550,7 @@ const db = new Dexie('SyncedDB', {
 });
 
 db.version(1).stores({
-  friends: '@id, name, age' // '@' for global ID
+  friends: 'id, name, age'
 });
 
 db.cloud.configure({
@@ -591,7 +592,7 @@ db.cloud.configure({
                 startIcon={<PlayArrowIcon />}
                 color="secondary"
                 sx={{ mr: 2, mb: 2 }}
-                href="https://jsfiddle.net/dfahlander/3tf5r0cu"
+                href="https://jsfiddle.net/dfahlander/w2zqxn49/"
                 target="_blank"
               >
                 Try in JSFiddle
