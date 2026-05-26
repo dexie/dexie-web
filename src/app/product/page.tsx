@@ -437,7 +437,7 @@ const oldFriends = await db.friends
 
 // or make a new one
 await db.friends.add({
-  id: uuid.v7(), // from "uuid" package on npm
+  id: uuidv7(), // import { v7 as uuidv7 } from "uuid"
   name: 'Camilla',
   age: 25,
   street: 'East 13:th Street',
