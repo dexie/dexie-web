@@ -575,7 +575,7 @@ Requires `GLOBAL_WRITE` scope. This also removes any blobs and Y.js documents as
 
 _Since dexie-cloud@3.0.4_
 
-Removes all objects, members, and Y.js data belonging to a specific realm across all tables. Validates shard availability upfront (all-or-nothing) to prevent partial deletes.
+Removes all objects, members, and Y.js data belonging to a specific realm across all tables. Validates shard availability upfront (all-or-nothing) to prevent partial deletes. Since every user store their private data on a fictive realmId that corresponds to their user id, clear-realm can also be used to wipe out all private data for a certain user.
 
 ```
 npx dexie-cloud clear-realm <realmId>
@@ -592,10 +592,13 @@ npx dexie-cloud clear-realm <realmId>
 
 ```
 # Clear all data from a specific realm (prompts for confirmation)
-npx dexie-cloud clear-realm rlm-xyz123
+npx dexie-cloud clear-realm "rlm-xyz123"
 
 # Skip confirmation
-npx dexie-cloud clear-realm rlm-xyz123 --yes
+npx dexie-cloud clear-realm "rlm-xyz123" --yes
+
+# Clear all data for a certain user
+npx dexie-cloud clear-realm "foo@bar.com"
 ```
 
 ### Remarks
