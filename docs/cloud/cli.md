@@ -540,6 +540,71 @@ However, Dexie Cloud don't care about secondary indexes (so far) - the only info
 Just like in the client-side dexie schema, omitting a table doesn't mean deleting it. Explicitly set it to null in order to delete a table. A deleted table in the cloud does not delete its content - it is possible to bring the data back. In order to reset a table or database completely,
 use the `npx dexie-cloud reset` command.
 
+## clear-table
+
+_Since dexie-cloud CLI version 3.0.4 (dexie-cloud@3.0.4)_
+
+Wipes all objects from a given table in the database. Useful for resetting test data or performing targeted data cleanup.
+
+```bash
+npx dexie-cloud clear-table <table>
+```
+
+### Options
+
+| Option | Meaning |
+| --- | --- |
+| `-Y, --yes` | Skip confirmation prompt |
+| `--db <Database-URL>` | Database URL (defaults to dexie-cloud.json) |
+
+### Example
+
+```bash
+# Clear all items from the 'todoItems' table (prompts for confirmation)
+npx dexie-cloud clear-table todoItems
+
+# Skip confirmation
+npx dexie-cloud clear-table todoItems --yes
+```
+
+### Remarks
+
+Requires `GLOBAL_WRITE` scope. This also removes any blobs and Y.js documents associated with the deleted objects.
+
+## clear-realm
+
+_Since dexie-cloud CLI version 3.0.4 (dexie-cloud@3.0.4)_
+
+Removes all objects, members, and Y.js data belonging to a specific realm across all tables. Validates shard availability upfront (all-or-nothing) to prevent partial deletes. Since every user store their private data on a fictive realmId that corresponds to their user id, clear-realm can also be used to wipe out all private data for a certain user.
+
+```
+npx dexie-cloud clear-realm <realmId>
+```
+
+### Options
+
+| Option | Meaning |
+| --- | --- |
+| `-Y, --yes` | Skip confirmation prompt |
+| `--db <Database-URL>` | Database URL (defaults to dexie-cloud.json) |
+
+### Example
+
+```bash
+# Clear all data from a specific realm (prompts for confirmation)
+npx dexie-cloud clear-realm "rlm-xyz123"
+
+# Skip confirmation
+npx dexie-cloud clear-realm "rlm-xyz123" --yes
+
+# Clear all data for a certain user
+npx dexie-cloud clear-realm "foo@bar.com"
+```
+
+### Remarks
+
+Requires `GLOBAL_WRITE` scope. This removes all objects, member entries, and Y.js collaborative documents belonging to the given realm. The realm entry itself is not deleted — only its contents.
+
 ## templates pull
 
 _Since 2024-01-31_
