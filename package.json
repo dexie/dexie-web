@@ -6,7 +6,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack -p 4000",
     "update-blog-feed": "tsx scripts/update-blog-feed.mts",
     "build": "next build --turbopack && npm run build:sw && tsx scripts/generate-offline-manifest.mts",
     "build:sw": "tsx scripts/build-sw.mjs",
