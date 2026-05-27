@@ -542,11 +542,11 @@ use the `npx dexie-cloud reset` command.
 
 ## clear-table
 
-_Since dexie-cloud@3.0.4_
+_Since dexie-cloud CLI version 3.0.4 (dexie-cloud@3.0.4)_
 
-Wipes all objects from a given table in the database without deleting the database itself. Useful for resetting test data or performing targeted data cleanup.
+Wipes all objects from a given table in the database. Useful for resetting test data or performing targeted data cleanup.
 
-```
+```bash
 npx dexie-cloud clear-table <table>
 ```
 
@@ -559,7 +559,7 @@ npx dexie-cloud clear-table <table>
 
 ### Example
 
-```
+```bash
 # Clear all items from the 'todoItems' table (prompts for confirmation)
 npx dexie-cloud clear-table todoItems
 
@@ -573,7 +573,7 @@ Requires `GLOBAL_WRITE` scope. This also removes any blobs and Y.js documents as
 
 ## clear-realm
 
-_Since dexie-cloud@3.0.4_
+_Since dexie-cloud CLI version 3.0.4 (dexie-cloud@3.0.4)_
 
 Removes all objects, members, and Y.js data belonging to a specific realm across all tables. Validates shard availability upfront (all-or-nothing) to prevent partial deletes. Since every user store their private data on a fictive realmId that corresponds to their user id, clear-realm can also be used to wipe out all private data for a certain user.
 
@@ -590,7 +590,7 @@ npx dexie-cloud clear-realm <realmId>
 
 ### Example
 
-```
+```bash
 # Clear all data from a specific realm (prompts for confirmation)
 npx dexie-cloud clear-realm "rlm-xyz123"
 
