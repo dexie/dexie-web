@@ -119,14 +119,37 @@ rule is when using `y-dexie`, where Y.Doc properties are declared in the schema 
 
 Schema versioning:
 
-Since dexie@3, it is not required anymore to keep old schemas in the code, except when an upgrader is involved. The upgrader need to 
-know the shape of the old version before executing.
-Since dexie@4, it is not required anymore to increment version number when altering the schema as Dexie will inspect and compare the declared
-schema with the installed schema on load and upgrade the schema if nescessary even when the version number isn't incremented. However, 
-it is still considered a best practice to increment the version number when schema has been changed as it might save
-one millisecond of time in the opening procedure of the database, but it won't fail to open. Dexie 4 also supports downgrading
-the database (for example after trying a new version of the app and then rolling it back to a previous version) but migration code
-declared in update() hooks will only be called on upgrade, and has no corresponding downgrading mechanism.
+Since dexie@3, old version blocks are no longer needed unless an upgrader is involved.
+Since dexie@4, even incrementing the version number is optional — Dexie auto-detects schema
+changes on load. Incrementing is still best practice (saves ~1ms on open). Dexie 4 also
+supports schema downgrade, but upgrade() hooks have no downgrade counterpart.
+
+Schema change: edit the *existing* version block and increment its number. Do NOT stack
+version blocks — that is a legacy Dexie 1/2 pattern.
+
+```typescript
+// ✅ Correct — edit the existing block
+db.version(2).stores({ friends: "++id, name, age, email", todos: "++id, title, done" });
+
+// ❌ Wrong (legacy) — stacking blocks without an upgrader
+db.version(1).stores({ friends: "++id, name, age",        todos: "++id, title, done" });
+db.version(2).stores({ friends: "++id, name, age, email", todos: "++id, title, done" });
+```
+
+Only use multiple version blocks when running an upgrade() data migrator:
+
+```typescript
+db.version(1).stores({ friends: "++id, name, age" });
+db.version(2).stores({ friends: "++id, firstName, lastName, age" }).upgrade(tx =>
+  tx.friends.toCollection().modify(f => {
+    f.firstName = f.name.split(" ")[0];
+    f.lastName  = f.name.split(" ")[1] ?? "";
+    delete f.name;
+  })
+);
+```
+
+Note: upgrade() is NOT supported with Dexie Cloud — schema migrations must be done on server using REST or CLI.
  
 ## y-dexie
 
