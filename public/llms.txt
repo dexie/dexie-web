@@ -149,8 +149,7 @@ db.version(2).stores({ friends: "++id, firstName, lastName, age" }).upgrade(tx =
 );
 ```
 
-Note: upgrade() is NOT supported with Dexie Cloud — the server handles schema migrations.
-For Dexie Cloud, just edit the single version block.
+Note: upgrade() is NOT supported with Dexie Cloud — schema migrations must be done on server using REST or CLI.
  
 ## y-dexie
 
