@@ -201,46 +201,30 @@ const onPremisesPlans: PricingPlan[] = []
 // Support plans data
 const supportPlans: SupportPlan[] = [
   {
-    title: "Production",
+    title: "Production (SaaS)",
     price: "Included",
     description:
-      "This support option is included when subscribing to Dexie Cloud Production (SaaS) and includes email and chat support.",
-    features: ["Email support", "Chat support"],
+      "This support option is included for all paid Dexie Cloud SaaS plans (Indie, Pro, Gold) and includes email or prioritized chat support.",
+    features: [
+      "Email or prioritized chat support",
+      "SLA: 1 business day response (Gold)",
+      "Access to community and documentation",
+      "Software updates included automatically",
+    ],
     ctaText: "Get started",
     ctaHref: "/docs/cloud/quickstart",
   },
   {
-    title: "Business",
-    price: "€695 / year",
+    title: "On-Premises Support Renewal",
+    price: "€1,495 / year",
     description:
-      "This support option is available for the On-Prem Business Edition. One year of Business Support is included when purchasing Dexie Cloud On-Prem Business.",
+      "Optionally keep your Dexie Cloud On-Premises Enterprise instance future-proof with ongoing priority support and software updates starting from Year 2.",
     features: [
-      "Chat support",
-      "Email support",
-      "Prioritized tickets",
-      "Software updates",
-      "Github issues",
-    ],
-    ctaText: "Contact us",
-    ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
-  },
-  {
-    title: "Enterprise",
-    price: "€3,495 / year",
-    description:
-      "Every customer is different and require different levels of support. With the Gold Support package, we can dedicate our support to your team, tailor SLAs and be available at the levels of customer's requirements.",
-    highlighted: true,
-    badge: "Most popular",
-    features: [
-      "SLA 16 business hours",
-      "Access to private GIT repo of Dexie Cloud Server for source code updates",
-      "Prioritized tickets",
-      "Private Github issues",
-      "Software updates",
-      "Chat support",
-      "Email support",
-      "Video meetings",
-      "Dedication",
+      "Priority Email & Chat Support",
+      "SLA: 1 business day response time",
+      "Access to private GitHub repo for latest server updates",
+      "Direct core engineering reviews",
+      "Regular security patches & hotfixes",
     ],
     ctaText: "Contact us",
     ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
@@ -407,6 +391,7 @@ const comparisonColumns: TableColumn[] = [
   { key: "indie", label: "Indie Plan", align: "center" },
   { key: "pro", label: "Pro Plan", align: "center" },
   { key: "gold", label: "Gold Plan", align: "center" },
+  { key: "onprem", label: "On-Premises Enterprise", align: "center" },
 ]
 
 const comparisonRows: TableRow[] = [
@@ -416,6 +401,7 @@ const comparisonRows: TableRow[] = [
     indie: true,
     pro: true,
     gold: true,
+    onprem: "Self-Hosted",
   },
   {
     feature: "All core database sync features included",
@@ -423,6 +409,7 @@ const comparisonRows: TableRow[] = [
     indie: true,
     pro: true,
     gold: true,
+    onprem: true,
   },
   {
     feature: "Customizable OTP authentication",
@@ -430,6 +417,7 @@ const comparisonRows: TableRow[] = [
     indie: true,
     pro: true,
     gold: true,
+    onprem: true,
   },
   {
     feature: "Replaceable authentication (BFF)",
@@ -437,6 +425,7 @@ const comparisonRows: TableRow[] = [
     indie: true,
     pro: true,
     gold: true,
+    onprem: true,
   },
   {
     feature: "Max Number of databases",
@@ -444,6 +433,7 @@ const comparisonRows: TableRow[] = [
     indie: "Unlimited",
     pro: "Unlimited",
     gold: "Unlimited",
+    onprem: "Unlimited",
   },
   {
     feature: "Evaluation users (your end users)",
@@ -451,6 +441,7 @@ const comparisonRows: TableRow[] = [
     indie: "Unlimited, free",
     pro: "Unlimited, free",
     gold: "Unlimited, free",
+    onprem: "Unlimited, free",
   },
   {
     feature: "Demo accounts (for showcasing app)",
@@ -458,6 +449,7 @@ const comparisonRows: TableRow[] = [
     indie: "Unlimited, free",
     pro: "Unlimited, free",
     gold: "Unlimited, free",
+    onprem: "Unlimited, free",
   },
   {
     feature: "Included Postgres Storage",
@@ -465,6 +457,7 @@ const comparisonRows: TableRow[] = [
     indie: "10 GB",
     pro: "50 GB",
     gold: "200 GB",
+    onprem: "Unlimited (Own Host)",
   },
   {
     feature: "Included Blob Storage",
@@ -472,6 +465,7 @@ const comparisonRows: TableRow[] = [
     indie: "25 GB",
     pro: "100 GB",
     gold: "500 GB",
+    onprem: "Unlimited (Own Host)",
   },
   {
     feature: "Included Sync Operations / mo",
@@ -479,6 +473,7 @@ const comparisonRows: TableRow[] = [
     indie: "5 Million",
     pro: "25 Million",
     gold: "100 Million",
+    onprem: "Unlimited (Own Host)",
   },
   {
     feature: "Point-In-Time-Recovery (PITR)",
@@ -486,6 +481,7 @@ const comparisonRows: TableRow[] = [
     indie: "7 days",
     pro: "30 days",
     gold: "30 days",
+    onprem: "Configurable (Database backup)",
   },
   {
     feature: "Support options",
@@ -493,6 +489,7 @@ const comparisonRows: TableRow[] = [
     indie: "Email Support",
     pro: "Priority Support",
     gold: "Premium Support (AI + Human, 1 business day SLA)",
+    onprem: "1 Year Priority Support Included (Optional renewal)",
   },
 ]
 

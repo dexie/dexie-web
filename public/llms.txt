@@ -723,7 +723,15 @@ Dexie Cloud offers a flexible flat-rate pricing model with two switchable billin
   - Premium Support (AI-assisted + direct core team engineering review, 1 business day SLA)
 
 - **Founder's Circle:** Custom pricing
-  - White-glove service, custom limits, dedicated Slack channel, full server source code options.
+  - White-glove service, custom limits, dedicated Slack channel, custom SLA.
+
+- **On-Premises Enterprise:** €7,995 (One-time purchase / Perpetual license)
+  - Full server source code access (private GitHub repo) for absolute independence.
+  - Unlimited databases, unlimited production seats, and unlimited scale.
+  - 1 year of Priority Support and software updates included.
+  - Optional renewal from Year 2 for €1,495/year (keeps support & updates active; perpetual software usage remains forever regardless).
+  - Self-host anywhere on your own servers (Docker/Kubernetes).
+  - Zero recurring software licensing fees.
 
 ## Frequently Asked Pricing Questions (LLM Reference)
 

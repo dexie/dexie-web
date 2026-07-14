@@ -249,6 +249,29 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
     ],
   }
 
+  const onPremisesPlan = {
+    id: "onprem",
+    title: "On-Premises Enterprise",
+    subtitle: "Complete data sovereignty, absolute control over infrastructure, and full source code access.",
+    price: "€7,995",
+    priceNote: "One-time purchase / Perpetual license",
+    buttonText: "Buy License",
+    buttonLink: {
+      url: "/contact",
+      querystring: "",
+      title: "Contact Us",
+      target: "_self",
+    },
+    features: [
+      "Full server source code access (via private GitHub repo) for absolute independence",
+      "Unlimited databases, production-seats, and unlimited scale",
+      "1 year of Priority Support and software updates included",
+      "Optional Year 2 support/updates renewal (€1,495/yr), perpetual usage regardless",
+      "Self-host anywhere on your own servers (Docker/Kubernetes)",
+      "Zero recurring software licensing fees",
+    ],
+  }
+
   const renderPricingCard = (
     plan: typeof activePlans[0],
     index: number,
@@ -683,14 +706,27 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
           )}
         </Box>
 
-        {/* Full-width callout for Founder's Circle */}
-        <Box sx={{ mt: 4, mb: 6 }}>
+        {/* Premium paths: Founder's Circle & On-Premises Enterprise */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", lg: "row" },
+            gap: 3,
+            mt: 4,
+            mb: 6,
+          }}
+        >
+          {/* Card 1: Founder's Circle */}
           <Card
             sx={{
+              flex: 1,
               backgroundColor: "#161616",
               border: "1px solid #2d2d2d",
               borderRadius: "20px",
-              p: { xs: 2, md: 4 },
+              p: { xs: 2, md: 3 },
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
               transition: "box-shadow 0.2s, border-color 0.2s",
               "&:hover": {
                 borderColor: "#c77dff",
@@ -698,64 +734,124 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
               },
             }}
           >
-            <CardContent
-              sx={{
-                display: "flex",
-                flexDirection: { xs: "column", md: "row" },
-                alignItems: { xs: "flex-start", md: "center" },
-                justifyContent: "space-between",
-                gap: 4,
-              }}
-            >
-              <Box sx={{ flex: 1, textAlign: "left" }}>
-                <Box sx={{ display: "flex", alignItems: "baseline", gap: 2, mb: 1 }}>
-                  <Typography variant="h4" component="h3" sx={{ fontWeight: 700, color: "#ffffff" }}>
+            <CardContent sx={{ textAlign: "left", p: 1, display: "flex", flexDirection: "column", height: "100%" }}>
+              <Box sx={{ flex: 1 }}>
+                <Box sx={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", mb: 1, flexWrap: "wrap", gap: 1 }}>
+                  <Typography variant="h5" component="h3" sx={{ fontWeight: 700, color: "#ffffff" }}>
                     {foundersPlan.title}
                   </Typography>
-                  <Typography variant="h5" sx={{ color: "#c77dff", fontWeight: 600 }}>
+                  <Typography variant="h6" sx={{ color: "#c77dff", fontWeight: 600 }}>
                     {foundersPlan.price}
                   </Typography>
                 </Box>
-                <Typography variant="body2" sx={{ color: "#adb5bd", mb: 3, maxWidth: "600px", fontSize: "0.9rem" }}>
+                <Typography variant="body2" sx={{ color: "#adb5bd", mb: 3, fontSize: "0.85rem", minHeight: "40px" }}>
                   {foundersPlan.subtitle}
                 </Typography>
-                <ButtonWidget
-                  text={foundersPlan.buttonText}
-                  link={foundersPlan.buttonLink}
-                  color="primary"
-                  size="medium"
-                  variant="contained"
-                  sx={{
-                    borderRadius: "50px",
-                    px: 4,
-                    py: 1.2,
-                    backgroundColor: "#c77dff",
-                    color: "#000000",
-                    fontWeight: 600,
-                    "&:hover": {
-                      backgroundColor: "#b25eff",
-                    },
-                  }}
-                />
-              </Box>
-
-              <Box sx={{ flex: 1, width: "100%", borderLeft: { xs: "none", md: "1px solid #2d2d2d" }, pl: { xs: 0, md: 4 } }}>
-                <List sx={{ display: "grid", gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" }, gap: "10px", p: 0 }}>
+                <Divider sx={{ my: 2, opacity: 0.1, backgroundColor: "#ffffff" }} />
+                <List sx={{ display: "flex", flexDirection: "column", gap: "10px", p: 0, mb: 4 }}>
                   {foundersPlan.features.map((feature, idx) => (
                     <ListItem key={idx} sx={{ p: 0, display: "flex", alignItems: "flex-start" }}>
-                      <ListItemIcon sx={{ minWidth: "auto", mr: 1, mt: "3px" }}>
+                      <ListItemIcon sx={{ minWidth: "auto", mr: 1.5, mt: "3px" }}>
                         <CheckIcon sx={{ fontSize: "14px", color: "#c77dff" }} />
                       </ListItemIcon>
                       <ListItemText
                         primary={feature}
                         primaryTypographyProps={{
-                          sx: { color: "#ffffff", fontSize: "0.8rem", textAlign: "left" },
+                          sx: { color: "#ffffff", fontSize: "0.85rem", textAlign: "left" },
                         }}
                       />
                     </ListItem>
                   ))}
                 </List>
               </Box>
+              <ButtonWidget
+                text={foundersPlan.buttonText}
+                link={foundersPlan.buttonLink}
+                color="primary"
+                size="medium"
+                variant="outlined"
+                sx={{
+                  borderRadius: "50px",
+                  width: "100%",
+                  py: 1,
+                  borderColor: "#c77dff",
+                  color: "#c77dff",
+                  fontWeight: 600,
+                  "&:hover": {
+                    backgroundColor: "rgba(199, 125, 255, 0.1)",
+                    borderColor: "#c77dff",
+                  },
+                }}
+              />
+            </CardContent>
+          </Card>
+
+          {/* Card 2: On-Premises Enterprise */}
+          <Card
+            sx={{
+              flex: 1,
+              backgroundColor: "#161616",
+              border: "1px solid #2d2d2d",
+              borderRadius: "20px",
+              p: { xs: 2, md: 3 },
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              transition: "box-shadow 0.2s, border-color 0.2s",
+              "&:hover": {
+                borderColor: "#c77dff",
+                boxShadow: "0 8px 24px rgba(199, 125, 255, 0.05)",
+              },
+            }}
+          >
+            <CardContent sx={{ textAlign: "left", p: 1, display: "flex", flexDirection: "column", height: "100%" }}>
+              <Box sx={{ flex: 1 }}>
+                <Box sx={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", mb: 1, flexWrap: "wrap", gap: 1 }}>
+                  <Typography variant="h5" component="h3" sx={{ fontWeight: 700, color: "#ffffff" }}>
+                    {onPremisesPlan.title}
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: "#c77dff", fontWeight: 600 }}>
+                    {onPremisesPlan.price}
+                  </Typography>
+                </Box>
+                <Typography variant="body2" sx={{ color: "#adb5bd", mb: 3, fontSize: "0.85rem", minHeight: "40px" }}>
+                  {onPremisesPlan.subtitle}
+                </Typography>
+                <Divider sx={{ my: 2, opacity: 0.1, backgroundColor: "#ffffff" }} />
+                <List sx={{ display: "flex", flexDirection: "column", gap: "10px", p: 0, mb: 4 }}>
+                  {onPremisesPlan.features.map((feature, idx) => (
+                    <ListItem key={idx} sx={{ p: 0, display: "flex", alignItems: "flex-start" }}>
+                      <ListItemIcon sx={{ minWidth: "auto", mr: 1.5, mt: "3px" }}>
+                        <CheckIcon sx={{ fontSize: "14px", color: "#c77dff" }} />
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={feature}
+                        primaryTypographyProps={{
+                          sx: { color: "#ffffff", fontSize: "0.85rem", textAlign: "left" },
+                        }}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+              <ButtonWidget
+                text={onPremisesPlan.buttonText}
+                link={onPremisesPlan.buttonLink}
+                color="primary"
+                size="medium"
+                variant="contained"
+                sx={{
+                  borderRadius: "50px",
+                  width: "100%",
+                  py: 1,
+                  backgroundColor: "#c77dff",
+                  color: "#000000",
+                  fontWeight: 600,
+                  "&:hover": {
+                    backgroundColor: "#b25eff",
+                  },
+                }}
+              />
             </CardContent>
           </Card>
         </Box>
