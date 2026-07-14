@@ -373,22 +373,12 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
             flexDirection: "column",
             position: "relative",
             overflow: "visible",
+            // Every tier card (including the "Popular" Indie card) shares the
+            // exact same border/shadow hover treatment — no always-on gradient
+            // rim, no extra pseudo-element paint work, no purple background.
+            // "Popular"/"Recommended" status is communicated via the outlined
+            // badge chip only, not via a different card border.
             ...CARD_HOVER_SX,
-            ...(plan.isPopular && {
-              "&::before": {
-                content: '""',
-                position: "absolute",
-                top: "-1px",
-                left: "-1px",
-                right: "-1px",
-                bottom: "-1px",
-                background: "linear-gradient(45deg, #7b2cbf, #9d4edd, #c77dff)",
-                borderRadius: "20px",
-                padding: "2px",
-                zIndex: -1,
-              },
-              borderColor: "transparent",
-            }),
           }}
         >
           <CardContent
