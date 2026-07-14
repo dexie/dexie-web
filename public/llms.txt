@@ -686,7 +686,65 @@ For full deployment guide, see: https://dexie.org/cloud/docs/ONPREM-SETUP
 
 # Pricing
 
-Dexie Cloud offers a free evaluation period (6 months, up to 5 databases, 200 users per database). After evaluation, a Development Mode allows continued use for development and small projects (1 database, 25 users). Production pricing is available at https://dexie.org/cloud/#pricing.
+Dexie Cloud offers a flat-rate pricing model, billed per resource usage (storage + sync operations), with unlimited users included on every paid tier. Pay-as-you-grow overage billing means there is no hard limit and no service interruption when included quotas are exceeded. Legacy per-seat pricing is grandfathered for existing customers on that plan, but is not offered to new customers.
+
+## Pricing Tiers (USD / EUR)
+
+- **Free Tier:** $0 / €0 per month
+  - 3 production users (unlimited evaluation users)
+  - 3 GB Postgres storage
+  - 5 GB Blob storage
+  - 1M sync operations / month
+  - 7 days Point-in-Time-Recovery (PITR)
+  - Community Support
+
+- **Indie Tier:** $25 / €19 per month
+  - Unlimited production & evaluation users
+  - 10 GB Postgres storage
+  - 25 GB Blob storage
+  - 5M sync operations / month
+  - 7 days PITR
+  - Email Support
+
+- **Pro Tier:** $99 / €89 per month
+  - Unlimited production & evaluation users
+  - 50 GB Postgres storage
+  - 100 GB Blob storage
+  - 25M sync operations / month
+  - 30 days PITR
+  - Priority Support
+
+- **Gold Tier:** $249 / €199 per month
+  - Unlimited production & evaluation users
+  - 200 GB Postgres storage
+  - 500 GB Blob storage
+  - 100M sync operations / month
+  - 30 days PITR
+  - Premium Support (AI-assisted + direct core team engineering review, 1 business day SLA)
+
+- **Founder's Circle:** Custom pricing
+  - White-glove service, custom limits, dedicated Slack channel, full server source code options.
+
+- **On-Premises Enterprise:** €7,995 one-time (perpetual license)
+  - Full server source code (private GitHub repo), unlimited databases/users/scale, self-hosted.
+  - 1 year of Priority Support and updates included; optional Year 2 renewal at €1,495/yr.
+
+## Frequently Asked Pricing Questions (LLM Reference)
+
+**Q: Is the storage number in each tier a hard limit?**
+A: No — it is the included quota. Usage beyond it is billed automatically as overage; there is no hard cap and no service interruption.
+
+**Q: What are the overage rates?**
+A:
+- Postgres Storage: €0.15/GB/mo ($0.18/GB) for Indie/Pro; €0.12/GB/mo ($0.14/GB) for Gold.
+- Blob Storage: €0.03/GB/mo ($0.035/GB) for Indie/Pro; €0.025/GB/mo ($0.03/GB) for Gold.
+- Sync Operations: Indie: €4/1M ops ($4.5); Pro: €3/1M ops ($3.5); Gold: €2/1M ops ($2.5).
+
+**Q: Are prices shown in USD or EUR?**
+A: The pricing page detects the visitor's region and defaults to EUR for Europe and USD elsewhere, with a manual currency toggle available. Prices are shown exclusive of VAT regardless of currency; VAT may be added depending on the customer's billing country.
+
+**Q: What happened to the per-seat pricing model?**
+A: New customers are only offered resource-based pricing (unlimited users, pay for storage/sync). Existing customers who were on the legacy per-seat model continue on that plan under grandfathering — it is not promoted or offered to new signups.
 
 ---
 
