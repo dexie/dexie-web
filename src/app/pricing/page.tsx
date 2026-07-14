@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://dexie.org"),
   title: "Dexie Cloud Pricing - Free Offline-First Database with Sync Plans",
   description:
-    "Dexie Cloud pricing: Start free with 3 users and 100MB storage. Production plans from €0.12/user/month. On-premises options available. No backend setup required for offline-first apps with real-time sync.",
+    "Dexie Cloud pricing: Start free with 3 users and 3GB storage. Flat-rate plans for Indie, Pro, and Gold starting at $25/month with unlimited users and pay-as-you-grow overages. No seat caps.",
   keywords: [
     "dexie cloud pricing",
     "offline database pricing",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dexie Cloud Pricing - Start Free, Scale as Needed",
     description:
-      "Free tier: 3 users, 100MB storage. Production plans from €0.12/user/month. On-premises available. Perfect for offline-first applications.",
+      "Free tier: 3 users, 3GB storage. Flat-rate Indie/Pro/Gold plans from $25/month with unlimited users and pay-as-you-grow overages.",
     url: "https://dexie.org/pricing",
     images: [
       {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dexie Cloud Pricing - Free Tier Available",
     description:
-      "Start free with 3 users. Production plans from €0.12/user/month. On-premises options for full control.",
+      "Start free with 3 users and 3GB storage. Production flat-rate plans starting at $25/month with unlimited users.",
     images: ["/assets/images/og-images/og-base.png"],
   },
   alternates: {
@@ -86,15 +86,15 @@ const faqData = [
   },
   {
     id: 3,
-    question: "Free",
+    question: "How does the Free Plan work?",
     answer:
-      "This edition is hosted and forever free. Let your app accept unlimited number of evaluation users and up to 3 production users. An end user's evaluation period will be paused on days when there are no sync requests from that user. After a user's evaluation period ends (30 active days), they can continue using your application offline, but data syncing will stop unless the user is upgraded to production. Upgrading a user can be done manually or programmatically. If more than 3 production seats are needed, existing databases can be upgraded to the Production edition.",
+      "The Free Plan is designed for passion projects, prototyping, and evaluation. It includes 3 production seats, unlimited evaluation users, 3 GB Postgres storage, and 5 GB Blob storage. If you need more resources, you can easily upgrade to Indie, Pro, or Gold. All database syncing features are identical across all plans.",
   },
   {
     id: 4,
-    question: "Production",
+    question: "Are there any hard limits on storage or sync operations?",
     answer:
-      "This edition is hosted and starts at €3 per month for 25 seats. It works similarly to the Free edition but with more seats, storage and more generous API rate limits. Continue enjoying free evaluation users on top of the 100 production seats. You control which users occupy production seats via the Dexie Cloud Management app or REST API. Integrate this REST API with the web hooks of your payment gateway (e.g., Stripe, Paypal) to manage seats based on your subscription with customers. When the number of production end users reaches 100, you can manually purchase more seat-packs or let the subscription automatically upgrade or downgrade as needed.",
+      "No! We follow a 'Build Without Limits' philosophy. All paid plans (Indie, Pro, and Gold) have generous included quotas, but there are no hard limits or automatic service shut-offs when you exceed them. Extra storage and sync operations are billed transparently as pay-as-you-grow overages. You can configure spend caps in your settings to avoid unexpected charges.",
   },
   {
     id: 5,
@@ -192,144 +192,8 @@ const faqData = [
   },
 ]
 
-// Cloud pricing plans data
-const cloudPlans = [
-  {
-    id: "free",
-    title: "Free",
-    subtitle: "Perfect for passion projects & simple websites.",
-    price: "€0",
-    priceNote: "per month",
-    buttonText: "Start for Free",
-    buttonLink: {
-      url: "/docs/cloud/quickstart",
-      querystring: "",
-      title: "Start for Free",
-      target: "_self",
-    },
-    sectionTitle: "Get started with:",
-    features: [
-      { text: "3 production users" },
-      {
-        text: "50,000 evaluation users",
-        subtext: "With user management and authentication.",
-      },
-      { text: "Online authentication" },
-      { text: "10 databases" },
-      { text: "10 connections" },
-      { text: "Community support" },
-      { text: "100 MB storage" },
-      {
-        text: "Rate limits",
-        subtext: "20 requests per second.",
-      },
-    ],
-  },
-  {
-    id: "pro",
-    title: "Pro",
-    subtitle: "For scalable production applications.",
-    price: "€0.12",
-    priceNote: "per user / month",
-    buttonText: "Buy Now",
-    buttonLink: {
-      url: "https://buy.stripe.com/14k9CEgSne5D1BS8ww",
-      querystring: "",
-      title: "Buy Now",
-      target: "_self",
-    },
-    isPopular: true,
-    badge: {
-      text: "Popular",
-      variant: "outlined" as const,
-      color: "#c77dff",
-      borderColor: "#c77dff",
-    },
-    sectionTitle: "Everything in the Free Plan, plus:",
-    features: [
-      { text: "Unlimited production users" },
-      { text: "Unlimited evaluation users" },
-      { text: "Unlimited databases" },
-      { text: "Email support" },
-      {
-        text: "Increased rate limits per user",
-      },
-      {
-        text: "Increased storage limits",
-        subtext: "See Storage Limits for details.",
-      },
-    ],
-  },
-  {
-    id: "business",
-    title: "Business",
-    subtitle: "When you need control over your data and infrastructure.",
-    price: "€3,495",
-    priceNote: "forever",
-    buttonText: "Buy now",
-    buttonLink: {
-      url: "https://buy.stripe.com/8wM8yAfOjf9HbcsfZ0",
-      querystring: "",
-      title: "Buy now",
-      target: "_self",
-    },
-    contactSalesText: "Need custom terms? Contact Sales",
-    contactSalesLink: "/contact",
-    sectionTitle: "Host everything yourself:",
-    features: [
-      {
-        text: "Install on your own server",
-        subtext: "Delivered as a Docker image.",
-      },
-      { text: "No limits or recurring costs" },
-      { text: "5 years of updates" },
-      { text: "1 year of limited support" },
-      { text: "Dedicated account manager" },
-    ],
-  },
-  {
-    id: "enterprise",
-    title: "Enterprise",
-    subtitle:
-      "When you need full control, source code and vendor independence.",
-    price: "€7,995",
-    priceNote: "forever",
-    buttonText: "Buy now",
-    buttonLink: {
-      url: "https://buy.stripe.com/cN21680Tp2mVeoE9AD",
-      querystring: "",
-      title: "Buy now",
-      target: "_self",
-    },
-    badge: {
-      text: "Bestseller",
-      variant: "outlined" as const,
-      color: "#c77dff",
-      borderColor: "#c77dff",
-    },
-    contactSalesText: "Need custom terms? Contact Sales",
-    contactSalesLink: "/contact",
-    sectionTitle: "Everything in Business, plus:",
-    features: [
-      {
-        text: "Full source code",
-        subtext: "Ten years of problem-solving—delivered to you on day one.",
-      },
-      {
-        text: "Vendor independence",
-        subtext:
-          "Modify, integrate, and maintain without external dependencies.",
-      },
-      { text: "1 year of full support" },
-      { text: "Priority support" },
-      {
-        text: "Future-proof investment",
-        subtext:
-          "Own your technology stack—no licensing fees, no vendor lock-in, ever.",
-      },
-    ],
-  },
-]
+// Cloud pricing plans data (handled dynamically inside PricingWidget)
+const cloudPlans: PricingPlan[] = []
 
 // On-premises plans (for future use)
 const onPremisesPlans: PricingPlan[] = []
@@ -539,192 +403,143 @@ const preferredPartners: PreferredPartner[] = [
 // Detailed comparison table data
 const comparisonColumns: TableColumn[] = [
   { key: "feature", label: "Feature" },
-  { key: "free", label: "Free (SaaS)", align: "center" },
-  { key: "production", label: "Production (SaaS)", align: "center" },
-  { key: "onPrem", label: "On-prem Business / Enterprise", align: "center" },
+  { key: "free", label: "Free Plan", align: "center" },
+  { key: "indie", label: "Indie Plan", align: "center" },
+  { key: "pro", label: "Pro Plan", align: "center" },
+  { key: "gold", label: "Gold Plan", align: "center" },
 ]
 
 const comparisonRows: TableRow[] = [
   {
     feature: "Easy setup: npx dexie-cloud create",
     free: true,
-    production: true,
-    onPrem: "See docs",
+    indie: true,
+    pro: true,
+    gold: true,
   },
   {
-    feature: "All main features included",
+    feature: "All core database sync features included",
     free: true,
-    production: true,
-    onPrem: true,
+    indie: true,
+    pro: true,
+    gold: true,
   },
   {
-    feature: "Customizable authentication",
+    feature: "Customizable OTP authentication",
     free: true,
-    production: true,
-    onPrem: true,
+    indie: true,
+    pro: true,
+    gold: true,
   },
   {
-    feature: "Replaceable authentication",
+    feature: "Replaceable authentication (BFF)",
     free: true,
-    production: true,
-    onPrem: true,
-  },
-  {
-    feature: "Custom email templates",
-    free: false,
-    production: true,
-    onPrem: true,
-  },
-  {
-    feature: "Vertically scalable",
-    free: false,
-    production: true,
-    onPrem: true,
-  },
-  {
-    feature: "Horizontally scalable",
-    free: false,
-    production: true,
-    onPrem: true,
+    indie: true,
+    pro: true,
+    gold: true,
   },
   {
     feature: "Max Number of databases",
-    free: "Unlimited, free",
-    production: "Unlimited, free",
-    onPrem: "Unlimited",
+    free: "Unlimited",
+    indie: "Unlimited",
+    pro: "Unlimited",
+    gold: "Unlimited",
   },
   {
     feature: "Evaluation users (your end users)",
     free: "Unlimited, free",
-    production: "Unlimited, free",
-    onPrem: "Unlimited",
+    indie: "Unlimited, free",
+    pro: "Unlimited, free",
+    gold: "Unlimited, free",
   },
   {
     feature: "Demo accounts (for showcasing app)",
     free: "Unlimited, free",
-    production: "Unlimited, free",
-    onPrem: "Unlimited",
+    indie: "Unlimited, free",
+    pro: "Unlimited, free",
+    gold: "Unlimited, free",
   },
   {
-    feature: "Production users (your end users)",
-    free: "3 seats, free",
-    production: "€3/mo per 25 seats",
-    onPrem: "Unlimited",
+    feature: "Included Postgres Storage",
+    free: "3 GB",
+    indie: "10 GB",
+    pro: "50 GB",
+    gold: "200 GB",
   },
   {
-    feature: "Storage",
-    free: "100 MB",
-    production: "See storage limits",
-    onPrem: "Unlimited",
+    feature: "Included Blob Storage",
+    free: "5 GB",
+    indie: "25 GB",
+    pro: "100 GB",
+    gold: "500 GB",
   },
   {
-    feature: "Simultaneous Client Connections",
-    free: "10",
-    production: "200 per 100 users",
-    onPrem: "Unlimited",
+    feature: "Included Sync Operations / mo",
+    free: "1 Million",
+    indie: "5 Million",
+    pro: "25 Million",
+    gold: "100 Million",
   },
   {
-    feature: "Sync rate-limits",
-    free: "50 per 5 mins per user",
-    production: "200 per 5 minutes per user",
-    onPrem: "Configurable",
-  },
-  {
-    feature: "Software updates (client)",
-    free: "✔ (via npm)",
-    production: "✔ (via npm)",
-    onPrem: "✔ (via npm)",
-  },
-  {
-    feature: "Software updates (server)",
-    free: "N/A",
-    production: "N/A",
-    onPrem: "✔ (via git, npm or download)",
-  },
-  {
-    feature: "Full source code",
-    free: false,
-    production: false,
-    onPrem: "On-Prem Gold",
-  },
-  {
-    feature: "Access to private Git repo",
-    free: false,
-    production: false,
-    onPrem: "On-Prem Gold",
+    feature: "Point-In-Time-Recovery (PITR)",
+    free: "7 days",
+    indie: "7 days",
+    pro: "30 days",
+    gold: "30 days",
   },
   {
     feature: "Support options",
-    free: "Github or Stackoverflow",
-    production: "Email / chat",
-    onPrem: "Silver- or Gold Support",
+    free: "Github/Stackoverflow",
+    indie: "Email Support",
+    pro: "Priority Support",
+    gold: "Premium Support (AI + Human, 1 business day SLA)",
   },
 ]
 
 // Storage limits data
 const storageLimits: StorageLimit[] = [
   {
-    seats: "Free edition",
-    objectStorage: "25 MB",
-    blobStorage: "75 MB",
-    blobWrites: "1,000 / mo",
-  },
-  {
-    seats: "25",
-    objectStorage: "1 GB",
-    blobStorage: "20 GB",
-    blobWrites: "50,000 / mo",
-  },
-  {
-    seats: "50",
-    objectStorage: "2 GB",
-    blobStorage: "40 GB",
-    blobWrites: "100,000 / mo",
-  },
-  {
-    seats: "75",
+    seats: "Free Tier",
     objectStorage: "3 GB",
-    blobStorage: "60 GB",
-    blobWrites: "150,000 / mo",
+    blobStorage: "5 GB",
+    blobWrites: "1M sync-ops / mo",
   },
   {
-    seats: "100",
-    objectStorage: "4 GB",
-    blobStorage: "80 GB",
-    blobWrites: "200,000 / mo",
-  },
-  { seats: "...", objectStorage: "...", blobStorage: "...", blobWrites: "..." },
-  {
-    seats: "1,000",
-    objectStorage: "20 GB",
-    blobStorage: "800 GB",
-    blobWrites: "2,000,000 / mo",
+    seats: "Indie Tier",
+    objectStorage: "10 GB",
+    blobStorage: "25 GB",
+    blobWrites: "5M sync-ops / mo",
   },
   {
-    seats: "10,000",
+    seats: "Pro Tier",
+    objectStorage: "50 GB",
+    blobStorage: "100 GB",
+    blobWrites: "25M sync-ops / mo",
+  },
+  {
+    seats: "Gold Tier",
     objectStorage: "200 GB",
-    blobStorage: "8 TB",
-    blobWrites: "20,000,000 / mo",
-  },
-  {
-    seats: "100,000",
-    objectStorage: "2 TB",
-    blobStorage: "80 TB",
-    blobWrites: "200,000,000 / mo",
+    blobStorage: "500 GB",
+    blobWrites: "100M sync-ops / mo",
   },
 ]
 
 // Additional storage pricing
 const additionalStorageData: AdditionalStorage[] = [
   {
-    storageType: "Blob Storage",
-    storageCost: "€0.05 / extra GB / mo",
-    syncCosts: "€0.50 per 10,000 additional write operations",
+    storageType: "Postgres Database Storage (overage)",
+    storageCost: "€0.15 / extra GB / mo ($0.18 for USD)",
+    syncCosts: "€0.12 / extra GB / mo on Gold ($0.14 for USD)",
   },
   {
-    storageType: "Object Storage",
-    storageCost: "€2 / extra GB / mo",
-    syncCosts: "-",
+    storageType: "Blob Storage / Files (overage)",
+    storageCost: "€0.03 / extra GB / mo ($0.035 for USD)",
+    syncCosts: "€0.025 / extra GB / mo on Gold ($0.03 for USD)",
+  },
+  {
+    storageType: "Sync Operations (overage per 1M ops)",
+    storageCost: "Indie: €4 / 1M ($4.5), Pro: €3 / 1M ($3.5)",
+    syncCosts: "Gold: €2 / 1M ($2.5)",
   },
 ]
 
