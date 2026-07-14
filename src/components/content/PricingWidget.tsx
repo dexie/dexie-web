@@ -509,7 +509,14 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
                 </Typography>
               )}
 
-              <List sx={{ padding: 0 }}>
+              <List
+                sx={{
+                  padding: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "4px",
+                }}
+              >
                 {plan.features.map((feature, idx) => (
                   <ListItem
                     key={idx}
@@ -517,8 +524,10 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
                       display: "flex",
                       justifyContent: "flex-start !important",
                       alignItems: "flex-start !important",
-                      p: 0,
-                      pb: "10px !important",
+                      borderRadius: "8px",
+                      mx: "-8px !important",
+                      px: "8px !important",
+                      py: "6px !important",
                     }}
                   >
                     <ListItemIcon
@@ -638,7 +647,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
             sx={{
               display: "flex",
               flexDirection: "column",
-              gap: "10px",
+              gap: "4px",
               p: 0,
               mb: 4,
             }}
@@ -646,7 +655,14 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
             {plan.features.map((feature, idx) => (
               <ListItem
                 key={idx}
-                sx={{ p: 0, display: "flex", alignItems: "flex-start" }}
+                sx={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                  borderRadius: "8px",
+                  mx: "-8px",
+                  px: "8px",
+                  py: "6px",
+                }}
               >
                 <ListItemIcon sx={{ minWidth: "auto", mr: 1.5, mt: "3px" }}>
                   <CheckIcon sx={{ fontSize: "14px", color: "#c77dff" }} />
