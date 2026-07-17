@@ -207,15 +207,15 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         },
         {
           text: "10 GB Postgres storage",
-          subtext: `No hard limit — overage €0.15/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
+          subtext: `No hard limit — overage ${isEUR ? "€0.15" : "$0.18"}/GB/mo`,
         },
         {
           text: "25 GB Blob storage",
-          subtext: `No hard limit — overage €0.03/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
+          subtext: `No hard limit — overage ${isEUR ? "€0.03" : "$0.035"}/GB/mo`,
         },
         {
           text: "5M Sync Units (SU) / month",
-          subtext: `No hard cap — overage €4/1M SU${!isEUR ? " (billed in EUR)" : ""}`,
+          subtext: `No hard cap — overage ${isEUR ? "€4" : "$4.5"}/1M SU`,
         },
         { text: "Email support" },
       ],
@@ -238,15 +238,15 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         { text: "Unlimited end users" },
         {
           text: "50 GB Postgres storage",
-          subtext: `No hard limit — overage €0.15/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
+          subtext: `No hard limit — overage ${isEUR ? "€0.15" : "$0.18"}/GB/mo`,
         },
         {
           text: "100 GB Blob storage",
-          subtext: `No hard limit — overage €0.03/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
+          subtext: `No hard limit — overage ${isEUR ? "€0.03" : "$0.035"}/GB/mo`,
         },
         {
           text: "25M Sync Units (SU) / month",
-          subtext: `No hard cap — overage €3/1M SU${!isEUR ? " (billed in EUR)" : ""}`,
+          subtext: `No hard cap — overage ${isEUR ? "€3" : "$3.5"}/1M SU`,
         },
         { text: "Priority support (faster response)" },
       ],
@@ -279,15 +279,15 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         },
         {
           text: "200 GB Postgres storage",
-          subtext: `No hard limit — overage €0.12/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
+          subtext: `No hard limit — overage ${isEUR ? "€0.12" : "$0.14"}/GB/mo`,
         },
         {
           text: "500 GB Blob storage",
-          subtext: `No hard limit — overage €0.025/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
+          subtext: `No hard limit — overage ${isEUR ? "€0.025" : "$0.03"}/GB/mo`,
         },
         {
           text: "100M Sync Units (SU) / month",
-          subtext: `No hard cap — overage €2/1M SU${!isEUR ? " (billed in EUR)" : ""}`,
+          subtext: `No hard cap — overage ${isEUR ? "€2" : "$2.5"}/1M SU`,
         },
         { text: "Prioritized E2E encryption & custom auth guidance" },
       ],

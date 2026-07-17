@@ -94,7 +94,7 @@ const faqData = [
     id: 4,
     question: "Are there any hard limits on storage or Sync Units?",
     answer:
-      "Paid plans (Indie, Pro, and Scale) follow a 'Build Without Limits' philosophy with generous included quotas, no hard limits, and no automatic service shut-offs when you exceed them. Extra storage and Sync Units on paid plans are billed transparently as pay-as-you-grow overages (billed in EUR). On the Free plan, overages are not supported, and database syncing will temporarily pause if included quotas are exceeded until you upgrade or free up space. Generous fair-use limits apply to network egress (Indie: 50 GB, Pro: 250 GB, Scale: 1 TB per month) and concurrent WebSocket connections (Free: 100, Indie: 1,000, Pro: 5,000, Scale: 20,000) to protect shared infrastructure — casual overages on these connections are never met with a hard cutoff. Paid plans also let you configure spend caps in your settings to avoid unexpected charges.",
+      "Paid plans (Indie, Pro, and Scale) follow a 'Build Without Limits' philosophy with generous included quotas, no hard limits, and no automatic service shut-offs when you exceed them. Extra storage and Sync Units on paid plans are billed transparently as pay-as-you-grow overages (billed in your selected currency, EUR or USD). On the Free plan, overages are not supported, and database syncing will temporarily pause if included quotas are exceeded until you upgrade or free up space. Generous fair-use limits apply to network egress (Indie: 50 GB, Pro: 250 GB, Scale: 1 TB per month) and concurrent WebSocket connections (Free: 100, Indie: 1,000, Pro: 5,000, Scale: 20,000) to protect shared infrastructure — casual overages on these connections are never met with a hard cutoff. Paid plans also let you configure spend caps in your settings to avoid unexpected charges.",
   },
   {
     id: 5,
@@ -493,18 +493,18 @@ const storageLimits: StorageLimit[] = [
 const additionalStorageData: AdditionalStorage[] = [
   {
     storageType: "Postgres Database Storage (overage)",
-    storageCost: "€0.15 / extra GB / mo",
-    syncCosts: "€0.12 / extra GB / mo on Scale",
+    storageCost: "€0.15 / $0.18 per extra GB / mo",
+    syncCosts: "€0.12 / $0.14 per extra GB / mo on Scale",
   },
   {
     storageType: "Blob Storage / Files (overage)",
-    storageCost: "€0.03 / extra GB / mo",
-    syncCosts: "€0.025 / extra GB / mo on Scale",
+    storageCost: "€0.03 / $0.035 per extra GB / mo",
+    syncCosts: "€0.025 / $0.03 per extra GB / mo on Scale",
   },
   {
     storageType: "Sync Units (overage per 1M SU)",
-    storageCost: "Indie: €4 / 1M, Pro: €3 / 1M",
-    syncCosts: "Scale: €2 / 1M",
+    storageCost: "Indie: €4 / $4.5, Pro: €3 / $3.5",
+    syncCosts: "Scale: €2 / $2.5 per 1M",
   },
 ];
 
@@ -577,7 +577,7 @@ export default function PricingPage() {
             textColor: "#dee2e6",
             backgroundColor: "#000000",
             containerWidth: "big",
-            additionalStorageDescription: "If more storage or sync throughput than what's included in the plan is required, a subscription can be extended with additional storage and sync operations (overages are billed in EUR for all customers):",
+            additionalStorageDescription: "If more storage or sync throughput than what's included in the plan is required, a subscription can be extended with additional storage and sync operations (overages are billed in your selected currency, EUR or USD):",
           }}
         />
       </Box>

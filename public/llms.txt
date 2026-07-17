@@ -734,10 +734,10 @@ A: No — it is the included quota. Usage beyond it is billed automatically as o
 
 **Q: What are the overage rates?**
 A:
-Overages are billed in EUR for all customers regardless of selected currency.
-- Postgres Storage: €0.15/GB/mo for Indie/Pro; €0.12/GB/mo for Scale.
-- Blob Storage: €0.03/GB/mo for Indie/Pro; €0.025/GB/mo for Scale.
-- Sync Units (SU): Indie: €4/1M SU; Pro: €3/1M SU; Scale: €2/1M SU.
+Overages are billed in the customer's selected billing currency (EUR or USD).
+- Postgres Storage: €0.15 / $0.18 per extra GB/mo for Indie/Pro; €0.12 / $0.14 per extra GB/mo for Scale.
+- Blob Storage: €0.03 / $0.035 per extra GB/mo for Indie/Pro; €0.025 / $0.03 per extra GB/mo for Scale.
+- Sync Units (SU): Indie: €4 / $4.5 per 1M SU; Pro: €3 / $3.5 per 1M SU; Scale: €2 / $2.5 per 1M SU.
 
 **Q: What is a Sync Unit (SU) and how is it defined?**
 A: A Sync Unit (SU) is a unified metric representing database write and synchronization throughput on the server.
