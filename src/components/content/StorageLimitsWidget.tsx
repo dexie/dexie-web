@@ -54,7 +54,7 @@ export default function StorageLimitsWidget({
     sectionTitle = "Storage Limits",
     sectionSubtitle = "Every Dexie Cloud plan includes a fixed storage and sync-operations quota — independent of how many production users you have. Usage beyond the included quota is billed automatically as pay-as-you-grow overage, never a hard stop.",
     additionalStorageTitle = "Additional Storage",
-    additionalStorageDescription = "If more storage or write frequency than what's already included in the price would be requested, a subscription can be extended with additional storage and write operations:",
+    additionalStorageDescription = "If more storage or sync throughput than what's already included in the price is required, a subscription can be extended with additional storage and sync operations:",
   } = settings
 
   const getMaxWidth = () => {
