@@ -155,7 +155,7 @@ const capabilities: BenefitItem[] = [
       "Start with our managed SaaS for free. Need full control? Self-host on Node.js + PostgreSQL with full source code access.",
     keyPoints: [
       "Free tier forever",
-      "Predictable per-seat pricing",
+      "Predictable flat-rate pricing",
       "Self-hosted option available",
     ],
     svgPath:
@@ -947,7 +947,7 @@ db.cloud.configure({
       {/* SECTION 12 - FINAL CTA */}
       <CallToActionWidget
         title="Start free. Scale as you grow."
-        text="Begin with a generous free tier. When your app takes off, scale seamlessly with predictable per-seat pricing. No surprise bills, no vendor lock-in."
+        text="Begin with a generous free tier. When your app takes off, scale seamlessly with predictable resource-based pricing. No surprise bills, no vendor lock-in."
         buttonText="Start Building Free"
         buttonLink={{
           url: "/docs/cloud/quickstart",
