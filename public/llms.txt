@@ -740,11 +740,12 @@ Overages are billed in EUR for all customers regardless of selected currency.
 - Sync Units (SU): Indie: €4/1M SU; Pro: €3/1M SU; Scale: €2/1M SU.
 
 **Q: What is a Sync Unit (SU) and how is it defined?**
-A: A Sync Unit (SU) is a unified metric representing database synchronization throughput and server workload.
-- A Sync Unit is consumed for database write transactions (inserts, updates, deletes) and client-initiated synchronization requests.
-- Each write of up to 10 KB of payload is counted as 1 Sync Unit. For larger payloads, the count is calculated as `ceil(payload_size / 10 KB)` (e.g., a 25 KB write consumes 3 Sync Units).
-- Sync Units are measured accurately at the server boundary. Evaluation, sync retries, and rejected operations do not consume billing quota.
-- Both Postgres DB writes and Blob storage additions/modifications are measured and synchronized using this unified Sync Unit metric.
+A: A Sync Unit (SU) is a unified metric representing database write and synchronization throughput on the server.
+- A Sync Unit is consumed for database write transactions (inserts, updates, deletes) committed via client-initiated synchronization (WebSocket, POST) or the REST API.
+- Each write of up to 10 KB of uncompressed logical object payload is counted as 1 Sync Unit. For larger payloads, the count is calculated as `ceil(uncompressed_payload_size / 10 KB)` (e.g., a 25 KB write consumes 3 Sync Units).
+- Transport-level compression (such as Gzip or Brotli) and network protocol framing (HTTP/2, HTTP/3) do not affect the Sync Unit count, ensuring reproducible and predictable billing.
+- Sync Units are measured accurately at the server database boundary. Sync retries, evaluation accounts, and rejected operations do not consume billing quota.
+- Binary files uploaded to Blob Storage are metered separately per GB stored and do not consume Sync Units. Transient awareness updates (such as cursor tracking and presence indicators) are 100% free and do not consume Sync Units.
 
 **Q: Are there network egress or concurrent connection limits?**
 A: Generous fair-use limits apply to prevent shared infrastructure abuse:
