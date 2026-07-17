@@ -199,7 +199,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         color: "#c77dff",
         borderColor: "#c77dff",
       },
-      sectionTitle: "Everything in the Free Plan, plus:",
+      sectionTitle: "Everything in Free, plus:",
       features: [
         {
           text: "Unlimited end users",
@@ -233,7 +233,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         title: "Buy Now",
         target: "_blank",
       },
-      sectionTitle: "Everything in the Indie Plan, plus:",
+      sectionTitle: "Everything in Indie, plus:",
       features: [
         { text: "Unlimited end users" },
         {
