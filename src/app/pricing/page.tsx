@@ -176,14 +176,7 @@ const faqData = [
     id: 17,
     question: "What is a Sync Unit (SU)?",
     answer:
-      `Sync Units measure data sent through database-writing sync
-      and REST requests.
-      Each started 10 KB of uncompressed logical payload counts as 1 SU
-      (e.g., a 25 KB payload = 3 SU).
-      For normal writes, the size of the posted changes is counted. 
-      HTTP payloads to /sync- and REST endpoints are measured. Y.js updates are measured
-      as the logical payload of the Y.js update. Y.js awareness updates (such as cursor tracking and presence indicators) are not counted.
-      Blob Storage uploads are not counted. Readonly requests are not counted.`,
+      "A Sync Unit (SU) is a simple way we measure the data you write to the cloud. Each created, updated, or deleted database object (up to 10 KB in size) counts as 1 SU. Larger objects count as multiple units (e.g., a 25 KB object = 3 SU).\n\nTo keep things fair and developer-friendly:\n- Read-only syncs are 100% free: Simply connecting, polling, or loading data consumes 0 SUs. You only pay for what you write.\n- Collaborative features are free: Real-time awareness updates (like cursor tracking and online indicators) are completely free.\n- Files are separate: Images and attachments uploaded to Blob Storage are billed separately by size and do not consume Sync Units.",
   },
   {
     id: 18,
