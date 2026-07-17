@@ -697,7 +697,6 @@ We offer a flat-rate pricing model, billed per resource usage (storage + Sync Un
   - 1 GB Postgres storage
   - 5 GB Blob storage
   - 1M Sync Units (SU) / month
-  - 7 days Point-in-Time-Recovery (PITR)
   - Community Support
 
 - **Indie Tier:** $25 / €19 per month
@@ -705,7 +704,6 @@ We offer a flat-rate pricing model, billed per resource usage (storage + Sync Un
   - 10 GB Postgres storage
   - 25 GB Blob storage
   - 5M Sync Units (SU) / month
-  - 7 days PITR
   - Email Support
 
 - **Pro Tier:** $99 / €89 per month
@@ -713,7 +711,6 @@ We offer a flat-rate pricing model, billed per resource usage (storage + Sync Un
   - 50 GB Postgres storage
   - 100 GB Blob storage
   - 25M Sync Units (SU) / month
-  - 30 days PITR
   - Priority Support
 
 - **Scale Tier:** $249 / €199 per month
@@ -721,7 +718,6 @@ We offer a flat-rate pricing model, billed per resource usage (storage + Sync Un
   - 200 GB Postgres storage
   - 500 GB Blob storage
   - 100M Sync Units (SU) / month
-  - 30 days PITR
   - Premium Support (AI-assisted + direct core team engineering review, 1 business day SLA)
 
 - **Founder's Circle:** Custom pricing

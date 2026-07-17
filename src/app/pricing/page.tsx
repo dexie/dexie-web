@@ -485,13 +485,6 @@ const comparisonRows: TableRow[] = [
     scale: "100 Million",
   },
   {
-    feature: "Point-In-Time-Recovery (PITR)",
-    free: "7 days",
-    indie: "7 days",
-    pro: "30 days",
-    scale: "30 days",
-  },
-  {
     feature: "Support options",
     free: "Github/Stackoverflow",
     indie: "Email Support",
