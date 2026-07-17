@@ -353,9 +353,9 @@ const featureSlides = [
       {
         id: 5,
         number: "3",
-        title: "Seat Management",
+        title: "User Management",
         description:
-          "Manage production seats via Cloud Manager or REST API. Integrate with payment gateway webhooks.",
+          "Manage production users via Cloud Manager or REST API. Integrate with payment gateway webhooks.",
         position: { x: 50, y: 88 },
       },
     ],
@@ -386,7 +386,7 @@ const faqItems = [
     id: 4,
     question: "How does pricing work?",
     answer:
-      "The Free tier includes 3 production users and 100 MB storage \u2014 forever free. Production plans start at 3 euros per month for 25 seats. Pricing is per-seat, so you know exactly what you will pay. No surprise bills. Evaluation users are always free and unlimited. See /pricing for full details.",
+      "Dexie Cloud offers flat-rate plans based on resource usage (storage and Sync Units) with unlimited users included on all paid tiers. You can start building for free with unlimited users and 1 GB Postgres storage. Paid plans (Indie, Pro, and Scale) start at $25/month with pay-as-you-grow overages. No seat caps, no user limits, and no hard blocks. See /pricing for full details.",
   },
   {
     id: 5,

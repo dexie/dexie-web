@@ -693,7 +693,7 @@ We offer a flat-rate pricing model, billed per resource usage (storage + sync op
 ## Pricing Tiers (USD / EUR)
 
 - **Free Tier:** $0 / €0 per month
-  - 3 production users (unlimited evaluation users)
+  - Unlimited production & evaluation users
   - 1 GB Postgres storage
   - 5 GB Blob storage
   - 1M sync operations / month

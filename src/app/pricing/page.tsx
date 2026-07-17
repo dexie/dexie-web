@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://dexie.org"),
   title: "Dexie Cloud Pricing - Free Offline-First Database with Sync Plans",
   description:
-    "Dexie Cloud pricing: Start free with 3 production users and 1GB storage. Flat-rate plans for Indie, Pro, and Scale starting at $25/month with unlimited users and pay-as-you-grow overages. No seat caps.",
+    "Dexie Cloud pricing: Start free with unlimited users and 1GB storage. Flat-rate plans for Indie, Pro, and Scale starting at $25/month with unlimited users and pay-as-you-grow overages. No seat caps.",
   keywords: [
     "dexie cloud pricing",
     "offline database pricing",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dexie Cloud Pricing - Start Free, Scale as Needed",
     description:
-      "Free tier: 3 production users, 1GB storage. Flat-rate Indie/Pro/Scale plans from $25/month with unlimited users and pay-as-you-grow overages.",
+      "Free tier: Unlimited users, 1GB storage. Flat-rate Indie/Pro/Scale plans from $25/month with unlimited users and pay-as-you-grow overages.",
     url: "https://dexie.org/pricing",
     images: [
       {
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dexie Cloud Pricing - Free Tier Available",
     description:
-      "Start free with 3 production users and 1GB storage. Flat-rate plans starting at $25/month with unlimited users.",
+      "Start free with unlimited users and 1GB storage. Flat-rate plans starting at $25/month with unlimited users.",
     images: ["/assets/images/og-images/og-base.png"],
   },
   alternates: {
@@ -88,7 +88,7 @@ const faqData = [
     id: 3,
     question: "How does the Free Plan work?",
     answer:
-      "The Free Plan is designed for passion projects, prototyping, and evaluation. It includes 3 production users, unlimited evaluation users, 1 GB Postgres storage, and 5 GB Blob storage. If you need more resources, you can easily upgrade to Indie, Pro, or Scale. All database syncing features are identical across all plans.",
+      "The Free Plan is designed for passion projects, prototyping, and evaluation. It includes unlimited production & evaluation users, 1 GB Postgres storage, and 5 GB Blob storage. If you need more resources, you can easily upgrade to Indie, Pro, or Scale. All database syncing features are identical across all plans.",
   },
   {
     id: 4,
@@ -112,13 +112,13 @@ const faqData = [
     id: 7,
     question: "Evaluation Users",
     answer:
-      "Evaluation users are free time-limited end user accounts for your app, that can be upgraded to production at any time. By default, Dexie Cloud allows anyone to authenticate (configurable). Unknown users do not occupy seats but receive an evaluation license for up to 30 active days. Evaluation accounts are paused on inactive days (configurable). After an evaluation period ends, the user can continue using the app but won't be able to sync data. You can indicate the user's evaluation status and prompt them to upgrade. Upgrade evaluation users to production via the Dexie Cloud Management app or REST API.",
+      "Evaluation users are free time-limited end user accounts for your app, that can be upgraded to production at any time. By default, Dexie Cloud allows anyone to authenticate (configurable). Unknown users receive an evaluation license for up to 30 active days (no per-user charges apply). Evaluation accounts are paused on inactive days (configurable). After an evaluation period ends, the user can continue using the app but won't be able to sync data. You can indicate the user's evaluation status and prompt them to upgrade. Upgrade evaluation users to production via the Dexie Cloud Management app or REST API.",
   },
   {
     id: 8,
     question: "Production Users",
     answer:
-      "On the Free plan you get 3 production users at no cost. Indie, Pro, and Scale include unlimited production users — no seat packs, no per-seat pricing. Manage production user status via the Dexie Cloud Management app or REST API, and integrate this API with your payment gateway webhooks to activate users based on customer subscriptions.",
+      "All plans, including the Free plan, include unlimited production users — there are no seat packs, no per-seat pricing, and no user limits. You can manage production user status via the Dexie Cloud Management app or REST API, and integrate this API with your payment gateway webhooks to activate users based on customer subscriptions.",
   },
   {
     id: 9,
@@ -164,7 +164,7 @@ const faqData = [
     id: 15,
     question: "Is there a free trial?",
     answer:
-      "No credit card or trial is needed to get started. Our Free plan is permanent and comes with 3 production users, unlimited evaluation users, and generous storage/sync quotas. You can start building today and upgrade to a paid tier (Indie, Pro, or Scale) when you need more production users or larger quotas.",
+      "No credit card or trial is needed to get started. Our Free plan is permanent and comes with unlimited production users, unlimited evaluation users, and generous storage/sync quotas. You can start building today and upgrade to a paid tier (Indie, Pro, or Scale) when you need more production users or larger quotas.",
   },
   {
     id: 16,
