@@ -88,13 +88,13 @@ const faqData = [
     id: 3,
     question: "How does the Free Plan work?",
     answer:
-      "The Free Plan is designed for passion projects, prototyping, and evaluation. It includes unlimited production & evaluation users, 1 GB Postgres storage, and 5 GB Blob storage. If you need more resources, you can easily upgrade to Indie, Pro, or Scale. All database syncing features are identical across all plans.",
+      "The Free Plan is designed for passion projects, prototyping, and evaluation. It includes unlimited production & evaluation users, 1 GB Postgres storage, and 5 GB Blob storage. Unlike paid plans, the Free plan has a hard limit on resources and does not support overages. If you approach these limits, we will send you warning emails so you can easily upgrade to Indie, Pro, or Scale to keep syncing without interruption. All database syncing features are identical across all plans.",
   },
   {
     id: 4,
     question: "Are there any hard limits on storage or Sync Units?",
     answer:
-      "No! We follow a 'Build Without Limits' philosophy. All paid plans (Indie, Pro, and Scale) have generous included quotas, but there are no hard limits or automatic service shut-offs when you exceed them. Extra storage and Sync Units are billed transparently as pay-as-you-grow overages (billed in EUR). Generous fair-use limits apply to network egress (Indie: 50 GB, Pro: 250 GB, Scale: 1 TB per month) and concurrent WebSocket connections (Free: 100, Indie: 1,000, Pro: 5,000, Scale: 20,000) to protect shared infrastructure — casual overages are never met with a hard cutoff. You can configure spend caps in your settings to avoid unexpected charges.",
+      "Paid plans (Indie, Pro, and Scale) follow a 'Build Without Limits' philosophy with generous included quotas, no hard limits, and no automatic service shut-offs when you exceed them. Extra storage and Sync Units on paid plans are billed transparently as pay-as-you-grow overages (billed in EUR). On the Free plan, overages are not supported, and database syncing will temporarily pause if included quotas are exceeded until you upgrade or free up space. Generous fair-use limits apply to network egress (Indie: 50 GB, Pro: 250 GB, Scale: 1 TB per month) and concurrent WebSocket connections (Free: 100, Indie: 1,000, Pro: 5,000, Scale: 20,000) to protect shared infrastructure — casual overages on these connections are never met with a hard cutoff. Paid plans also let you configure spend caps in your settings to avoid unexpected charges.",
   },
   {
     id: 5,
@@ -164,7 +164,7 @@ const faqData = [
     id: 15,
     question: "Is there a free trial?",
     answer:
-      "No credit card or trial is needed to get started. Our Free plan is permanent and comes with unlimited production users, unlimited evaluation users, and generous storage/sync quotas. You can start building today and upgrade to a paid tier (Indie, Pro, or Scale) when you need more production users or larger quotas.",
+      "No credit card or trial is needed to get started. Our Free plan is permanent and comes with unlimited production users, unlimited evaluation users, and generous storage/sync quotas. You can start building today and upgrade to a paid tier (Indie, Pro, or Scale) when you need larger quotas.",
   },
   {
     id: 16,
@@ -450,6 +450,13 @@ const comparisonRows: TableRow[] = [
     scale: "Unlimited, free",
   },
   {
+    feature: "Production users (your end users)",
+    free: "Unlimited, free",
+    indie: "Unlimited, free",
+    pro: "Unlimited, free",
+    scale: "Unlimited, free",
+  },
+  {
     feature: "Demo accounts (for showcasing app)",
     free: "Unlimited, free",
     indie: "Unlimited, free",
@@ -561,7 +568,7 @@ export default function PricingPage() {
             containerWidth: "big",
             sectionTitle: "Build without limits.",
             sectionSubtitle:
-              "Your app can grow to any size — the platform won't hold it back. No seat caps. No connection limits. No 'contact sales to scale.' You grow, you pay for what you use, and we scale with you.",
+              "Your app can grow to any size — the platform won't hold it back. No seat caps. Unlimited connections (soft fair-use guidelines apply). No 'contact sales to scale.' You grow, you pay for what you use, and we scale with you.",
             typewriterStrings: [
               "full backend control",
               "IndexedDB simplified",

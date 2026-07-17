@@ -259,7 +259,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
     {
       id: "scale",
       title: "Scale",
-      subtitle: "When you need dedicated SLA support & expert help.",
+      subtitle: "When you need priority response targets & expert help.",
       price: isEUR ? "€199" : "$249",
       priceNote: "per month",
       buttonText: "Buy Now",

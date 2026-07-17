@@ -688,7 +688,7 @@ For full deployment guide, see: https://dexie.org/cloud/docs/ONPREM-SETUP
 
 Dexie Cloud is built on a "Build without limits" philosophy: your app can grow to any size without being held back by hard limits. There are no seat caps, no connection limits, and no "contact sales to scale." You pay for what you use, and we scale with you.
 
-We offer a flat-rate pricing model, billed per resource usage (storage + sync operations), with unlimited users included on every paid tier. Pay-as-you-grow overage billing means there is no hard limit and no service interruption when included quotas are exceeded. Legacy per-seat pricing is grandfathered for existing customers on that plan, but is not offered to new customers.
+We offer a flat-rate pricing model, billed per resource usage (storage + Sync Units), with unlimited users included on every paid tier. Pay-as-you-grow overage billing means there is no hard limit and no service interruption when included quotas are exceeded. Legacy per-seat pricing is grandfathered for existing customers on that plan, but is not offered to new customers.
 
 ## Pricing Tiers (USD / EUR)
 
@@ -696,7 +696,7 @@ We offer a flat-rate pricing model, billed per resource usage (storage + sync op
   - Unlimited production & evaluation users
   - 1 GB Postgres storage
   - 5 GB Blob storage
-  - 1M sync operations / month
+  - 1M Sync Units (SU) / month
   - 7 days Point-in-Time-Recovery (PITR)
   - Community Support
 
@@ -704,7 +704,7 @@ We offer a flat-rate pricing model, billed per resource usage (storage + sync op
   - Unlimited production & evaluation users
   - 10 GB Postgres storage
   - 25 GB Blob storage
-  - 5M sync operations / month
+  - 5M Sync Units (SU) / month
   - 7 days PITR
   - Email Support
 
@@ -712,7 +712,7 @@ We offer a flat-rate pricing model, billed per resource usage (storage + sync op
   - Unlimited production & evaluation users
   - 50 GB Postgres storage
   - 100 GB Blob storage
-  - 25M sync operations / month
+  - 25M Sync Units (SU) / month
   - 30 days PITR
   - Priority Support
 
@@ -720,7 +720,7 @@ We offer a flat-rate pricing model, billed per resource usage (storage + sync op
   - Unlimited production & evaluation users
   - 200 GB Postgres storage
   - 500 GB Blob storage
-  - 100M sync operations / month
+  - 100M Sync Units (SU) / month
   - 30 days PITR
   - Premium Support (AI-assisted + direct core team engineering review, 1 business day SLA)
 
@@ -741,7 +741,14 @@ A:
 Overages are billed in EUR for all customers regardless of selected currency.
 - Postgres Storage: €0.15/GB/mo for Indie/Pro; €0.12/GB/mo for Scale.
 - Blob Storage: €0.03/GB/mo for Indie/Pro; €0.025/GB/mo for Scale.
-- Sync Operations (Sync Units): Indie: €4/1M ops; Pro: €3/1M ops; Scale: €2/1M ops.
+- Sync Units (SU): Indie: €4/1M SU; Pro: €3/1M SU; Scale: €2/1M SU.
+
+**Q: What is a Sync Unit (SU) and how is it defined?**
+A: A Sync Unit (SU) is a unified metric representing database synchronization throughput and server workload.
+- A Sync Unit is consumed for database write transactions (inserts, updates, deletes) and client-initiated synchronization requests.
+- Each write of up to 10 KB of payload is counted as 1 Sync Unit. For larger payloads, the count is calculated as `ceil(payload_size / 10 KB)` (e.g., a 25 KB write consumes 3 Sync Units).
+- Sync Units are measured accurately at the server boundary. Evaluation, sync retries, and rejected operations do not consume billing quota.
+- Both Postgres DB writes and Blob storage additions/modifications are measured and synchronized using this unified Sync Unit metric.
 
 **Q: Are there network egress or concurrent connection limits?**
 A: Generous fair-use limits apply to prevent shared infrastructure abuse:
