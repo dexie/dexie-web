@@ -164,10 +164,10 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
       features: [
         { text: "3 production users" },
         {
-          text: "50,000 evaluation users",
+          text: "Unlimited evaluation users",
           subtext: "With full user management and authentication.",
         },
-        { text: "Online authentication" },
+        { text: "Customizable OTP authentication" },
         {
           text: "1 GB Postgres storage",
           subtext: "No hard limit — pay-as-you-grow overage.",
@@ -210,15 +210,15 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         { text: "Unlimited evaluation users" },
         {
           text: "10 GB Postgres storage",
-          subtext: `No hard limit — overage ${isEUR ? "€0.15" : "$0.18"}/GB/mo`,
+          subtext: `No hard limit — overage €0.15/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
         },
         {
           text: "25 GB Blob storage",
-          subtext: `No hard limit — overage ${isEUR ? "€0.03" : "$0.035"}/GB/mo`,
+          subtext: `No hard limit — overage €0.03/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
         },
         {
           text: "5M Sync Units (SU) / month",
-          subtext: `No hard cap — overage ${isEUR ? "€4" : "$4.5"}/1M SU`,
+          subtext: `No hard cap — overage €4/1M SU${!isEUR ? " (billed in EUR)" : ""}`,
         },
         { text: "7 days PITR" },
         { text: "Email support" },
@@ -242,15 +242,15 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         { text: "Unlimited production users" },
         {
           text: "50 GB Postgres storage",
-          subtext: `No hard limit — overage ${isEUR ? "€0.15" : "$0.18"}/GB/mo`,
+          subtext: `No hard limit — overage €0.15/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
         },
         {
           text: "100 GB Blob storage",
-          subtext: `No hard limit — overage ${isEUR ? "€0.03" : "$0.035"}/GB/mo`,
+          subtext: `No hard limit — overage €0.03/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
         },
         {
           text: "25M Sync Units (SU) / month",
-          subtext: `No hard cap — overage ${isEUR ? "€3" : "$3.5"}/1M SU`,
+          subtext: `No hard cap — overage €3/1M SU${!isEUR ? " (billed in EUR)" : ""}`,
         },
         { text: "30 days PITR" },
         { text: "Priority support (faster response)" },
@@ -284,15 +284,15 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         },
         {
           text: "200 GB Postgres storage",
-          subtext: `No hard limit — overage ${isEUR ? "€0.12" : "$0.14"}/GB/mo`,
+          subtext: `No hard limit — overage €0.12/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
         },
         {
           text: "500 GB Blob storage",
-          subtext: `No hard limit — overage ${isEUR ? "€0.025" : "$0.03"}/GB/mo`,
+          subtext: `No hard limit — overage €0.025/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
         },
         {
           text: "100M Sync Units (SU) / month",
-          subtext: `No hard cap — overage ${isEUR ? "€2" : "$2.5"}/1M SU`,
+          subtext: `No hard cap — overage €2/1M SU${!isEUR ? " (billed in EUR)" : ""}`,
         },
         { text: "30 days PITR" },
         { text: "Prioritized E2E encryption & custom auth guidance" },
@@ -742,18 +742,35 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
             variant="h1"
             component="h1"
             sx={{
-              fontSize: { xs: "2.2rem", md: "3.5rem" },
-              fontWeight: 600,
-              mb: 3,
+              fontSize: { xs: "2.5rem", md: "4rem" },
+              fontWeight: 700,
+              mb: 2,
               lineHeight: 1.2,
+              letterSpacing: "-0.5px",
             }}
           >
-            {settings.sectionTitle} <br />
-            <TypeWriter
-              colorClass=""
-              strings={settings.typewriterStrings || ["full backend control"]}
-            />
+            {settings.sectionTitle}
           </Typography>
+          {settings.typewriterStrings && settings.typewriterStrings.length > 0 && (
+            <Typography
+              variant="h2"
+              component="div"
+              sx={{
+                fontSize: { xs: "1.2rem", md: "1.6rem" },
+                fontWeight: 500,
+                color: "#adb5bd",
+                mb: 4,
+                display: "block",
+              }}
+            >
+              Cloud &amp; on-premises with{" "}
+              <TypeWriter
+                colorClass=""
+                breakRows={false}
+                strings={settings.typewriterStrings}
+              />
+            </Typography>
+          )}
           {settings.sectionSubtitle && (
             <Typography
               variant="body1"

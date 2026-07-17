@@ -94,7 +94,7 @@ const faqData = [
     id: 4,
     question: "Are there any hard limits on storage or Sync Units?",
     answer:
-      "No! We follow a 'Build Without Limits' philosophy. All paid plans (Indie, Pro, and Scale) have generous included quotas, but there are no hard limits or automatic service shut-offs when you exceed them. Extra storage and Sync Units are billed transparently as pay-as-you-grow overages. Generous fair-use limits also apply to network egress and concurrent connections to protect shared infrastructure — casual overages are never met with a hard cutoff. You can configure spend caps in your settings to avoid unexpected charges.",
+      "No! We follow a 'Build Without Limits' philosophy. All paid plans (Indie, Pro, and Scale) have generous included quotas, but there are no hard limits or automatic service shut-offs when you exceed them. Extra storage and Sync Units are billed transparently as pay-as-you-grow overages (billed in EUR). Generous fair-use limits apply to network egress (Indie: 50 GB, Pro: 250 GB, Scale: 1 TB per month) and concurrent WebSocket connections (Free: 100, Indie: 1,000, Pro: 5,000, Scale: 20,000) to protect shared infrastructure — casual overages are never met with a hard cutoff. You can configure spend caps in your settings to avoid unexpected charges.",
   },
   {
     id: 5,
@@ -162,9 +162,9 @@ const faqData = [
   },
   {
     id: 15,
-    question: "Is there a free trial for paid plans?",
+    question: "Is there a free trial?",
     answer:
-      "Yes, both Pro and Enterprise plans come with a 14-day free trial. No credit card required to start your trial.",
+      "No credit card or trial is needed to get started. Our Free plan is permanent and comes with 3 production users, unlimited evaluation users, and generous storage/sync quotas. You can start building today and upgrade to a paid tier (Indie, Pro, or Scale) when you need more production users or larger quotas.",
   },
   {
     id: 16,
@@ -457,21 +457,21 @@ const comparisonRows: TableRow[] = [
     scale: "Unlimited, free",
   },
   {
-    feature: "Included Postgres Storage",
+    feature: "Included Postgres Storage (no hard limit, pay-as-you-grow)",
     free: "1 GB",
     indie: "10 GB",
     pro: "50 GB",
     scale: "200 GB",
   },
   {
-    feature: "Included Blob Storage",
+    feature: "Included Blob Storage (no hard limit, pay-as-you-grow)",
     free: "5 GB",
     indie: "25 GB",
     pro: "100 GB",
     scale: "500 GB",
   },
   {
-    feature: "Included Sync Units (SU) / mo",
+    feature: "Included Sync Units (SU) / mo (no hard limit, pay-as-you-grow)",
     free: "1 Million",
     indie: "5 Million",
     pro: "25 Million",
@@ -525,18 +525,18 @@ const storageLimits: StorageLimit[] = [
 const additionalStorageData: AdditionalStorage[] = [
   {
     storageType: "Postgres Database Storage (overage)",
-    storageCost: "€0.15 / extra GB / mo ($0.18 for USD)",
-    syncCosts: "€0.12 / extra GB / mo on Scale ($0.14 for USD)",
+    storageCost: "€0.15 / extra GB / mo",
+    syncCosts: "€0.12 / extra GB / mo on Scale",
   },
   {
     storageType: "Blob Storage / Files (overage)",
-    storageCost: "€0.03 / extra GB / mo ($0.035 for USD)",
-    syncCosts: "€0.025 / extra GB / mo on Scale ($0.03 for USD)",
+    storageCost: "€0.03 / extra GB / mo",
+    syncCosts: "€0.025 / extra GB / mo on Scale",
   },
   {
     storageType: "Sync Units (overage per 1M SU)",
-    storageCost: "Indie: €4 / 1M ($4.5), Pro: €3 / 1M ($3.5)",
-    syncCosts: "Scale: €2 / 1M ($2.5)",
+    storageCost: "Indie: €4 / 1M, Pro: €3 / 1M",
+    syncCosts: "Scale: €2 / 1M",
   },
 ];
 
@@ -559,9 +559,9 @@ export default function PricingPage() {
             textColor: "#dee2e6",
             backgroundColor: "#000000",
             containerWidth: "big",
-            sectionTitle: "Cloud and on-premises with",
+            sectionTitle: "Build without limits.",
             sectionSubtitle:
-              "Fully managed cloud solution for seamless scaling and automatic hosting, or host everything yourself for full control over your backend and infrastructure.",
+              "Your app can grow to any size — the platform won't hold it back. No seat caps. No connection limits. No 'contact sales to scale.' You grow, you pay for what you use, and we scale with you.",
             typewriterStrings: [
               "full backend control",
               "IndexedDB simplified",
@@ -609,6 +609,7 @@ export default function PricingPage() {
             textColor: "#dee2e6",
             backgroundColor: "#000000",
             containerWidth: "big",
+            additionalStorageDescription: "If more storage or sync throughput than what's included in the plan is required, a subscription can be extended with additional storage and sync operations (overages are billed in EUR for all customers):",
           }}
         />
       </Box>
