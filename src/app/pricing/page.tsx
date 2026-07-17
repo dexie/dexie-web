@@ -176,13 +176,31 @@ const faqData = [
     id: 17,
     question: "What is a Sync Unit (SU)?",
     answer:
-      "A Sync Unit (SU) is a simple way we measure the data you write to the cloud. Each created, updated, or deleted database object (up to 10 KB in size) counts as 1 SU. Larger objects count as multiple units (e.g., a 25 KB object = 3 SU).\n\nTo keep things fair and developer-friendly:\n- Read-only syncs are 100% free: Simply connecting, polling, or loading data consumes 0 SUs. You only pay for what you write.\n- Collaborative features are free: Real-time awareness updates (like cursor tracking and online indicators) are completely free.\n- Files are separate: Images and attachments uploaded to Blob Storage are billed separately by size and do not consume Sync Units.",
+      `A Sync Unit (SU) is a simple way we measure the data you write to the cloud.
+      Each created, updated, or deleted database object (up to 10 KB in size) counts
+       as 1 SU. Larger objects count as multiple units (e.g., a 25 KB object = 3 SU).
+
+       To keep things fair and developer-friendly:
+       - Read-only syncs are 100% free: Simply connecting, polling, or loading data
+       consumes 0 SUs. You only pay for what you write.
+       - Collaborative features are free: Real-time Y.js awareness updates (like cursor tracking and online indicators) are completely free.
+       - Blobs and other large binary are offloaded to blob storage (See /docs/cloud/blob-offloading ) so they only consume the SU for the corresponding BlobRef.
+       The actual binary data is stored in blob storage and billed separately.`,
   },
   {
     id: 18,
     question: "What if my needs go beyond the Scale plan?",
     answer:
-      "Founder's Circle offers white-glove, custom-tailored service — custom storage and Sync Unit limits, a dedicated Slack channel with the core team, and negotiable SLAs — for teams operating at very large scale. If you need full data sovereignty or self-hosting instead, our On-Premises Enterprise license may be a better fit. Contact us to discuss your requirements.",
+      `Founder's Circle offers white-glove, custom-tailored service —
+      custom storage and Sync Unit limits, a dedicated Slack channel
+      with the core team, and negotiable SLAs — for teams operating at
+      very large scale. Dexie Cloud can outgrow a single postgres capability and use
+      sharding built for high-scale workloads.
+
+      
+      If you need full data sovereignty or self-hosting
+      instead, our On-Premises Enterprise license may be a better fit.
+      Contact us to discuss your requirements.`,
   },
 ];
 
