@@ -176,7 +176,14 @@ const faqData = [
     id: 17,
     question: "What is a Sync Unit (SU)?",
     answer:
-      "A Sync Unit is our metering unit for database write throughput: 1 SU equals one created, modified, or deleted database object (synced over WebSocket, POST, or via the REST API), up to 10 KB in uncompressed logical size. Larger objects count as multiple units (e.g., a 25 KB object = 3 SU). Transient awareness updates (such as cursor tracking and presence indicators) and binary file data uploaded to Blob Storage are entirely excluded from Sync Units.",
+      `Sync Units measure data sent through database-writing sync
+      and REST requests.
+      Each started 10 KB of uncompressed logical payload counts as 1 SU
+      (e.g., a 25 KB payload = 3 SU).
+      For normal writes, the size of the posted changes is counted. 
+      HTTP payloads to /sync- and REST endpoints are measured. Y.js updates are measured
+      as the logical payload of the Y.js update. Y.js awareness updates (such as cursor tracking and presence indicators) are not counted.
+      Blob Storage uploads are not counted. Readonly requests are not counted.`,
   },
   {
     id: 18,
