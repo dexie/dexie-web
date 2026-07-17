@@ -693,28 +693,28 @@ We offer a flat-rate pricing model, billed per resource usage (storage + Sync Un
 ## Pricing Tiers (USD / EUR)
 
 - **Free Tier:** $0 / €0 per month
-  - Unlimited production & evaluation users
+  - Unlimited end users
   - 1 GB Postgres storage
   - 5 GB Blob storage
   - 1M Sync Units (SU) / month
   - Community Support
 
 - **Indie Tier:** $25 / €19 per month
-  - Unlimited production & evaluation users
+  - Unlimited end users
   - 10 GB Postgres storage
   - 25 GB Blob storage
   - 5M Sync Units (SU) / month
   - Email Support
 
 - **Pro Tier:** $99 / €89 per month
-  - Unlimited production & evaluation users
+  - Unlimited end users
   - 50 GB Postgres storage
   - 100 GB Blob storage
   - 25M Sync Units (SU) / month
   - Priority Support
 
 - **Scale Tier:** $249 / €199 per month
-  - Unlimited production & evaluation users
+  - Unlimited end users
   - 200 GB Postgres storage
   - 500 GB Blob storage
   - 100M Sync Units (SU) / month
@@ -724,7 +724,7 @@ We offer a flat-rate pricing model, billed per resource usage (storage + Sync Un
   - White-glove service, custom limits, dedicated Slack channel, full server source code options.
 
 - **On-Premises Enterprise:** €7,995 one-time (perpetual license)
-  - Full server source code (private GitHub repo), unlimited databases/users/scale, self-hosted.
+  - Full server source code (private GitHub repo), unlimited databases and end users, with self-hosting on your own infrastructure or cloud provider.
   - 1 year of Priority Support and updates included; optional Year 2 renewal at €1,495/yr.
 
 ## Frequently Asked Pricing Questions (LLM Reference)

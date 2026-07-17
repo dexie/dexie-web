@@ -88,7 +88,7 @@ const faqData = [
     id: 3,
     question: "How does the Free Plan work?",
     answer:
-      "The Free Plan is designed for passion projects, prototyping, and evaluation. It includes unlimited production & evaluation users, 1 GB Postgres storage, and 5 GB Blob storage. Unlike paid plans, the Free plan has a hard limit on resources and does not support overages. If you approach these limits, we will send you warning emails so you can easily upgrade to Indie, Pro, or Scale to keep syncing without interruption. All database syncing features are identical across all plans.",
+      "The Free Plan is designed for passion projects, prototyping, and evaluation. It includes unlimited end users, 1 GB Postgres storage, and 5 GB Blob storage. Unlike paid plans, the Free plan has a hard limit on resources and does not support overages. If you approach these limits, we will send you warning emails so you can easily upgrade to Indie, Pro, or Scale to keep syncing without interruption. All database syncing features are identical across all plans.",
   },
   {
     id: 4,
@@ -100,46 +100,28 @@ const faqData = [
     id: 5,
     question: "What is the On-Premises Enterprise license?",
     answer:
-      "The On-Premises Enterprise license (€7,995 one-time) gives you full server source code access, unlimited databases and production users, and complete control to self-host on your own infrastructure or any cloud provider (AWS, Azure, etc.) — with zero recurring software licensing fees. It includes 1 year of Priority Support and software updates; renew annually for €1,495/yr to keep receiving updates and support.\n\nRead more… »",
+      "The On-Premises Enterprise license (€7,995 one-time) gives you full server source code access, unlimited databases and end users, and complete control to self-host on your own infrastructure or any cloud provider (AWS, Azure, etc.) — with zero recurring software licensing fees. It includes 1 year of Priority Support and software updates; renew annually for €1,495/yr to keep receiving updates and support.\n\nRead more… »",
   },
   {
     id: 6,
-    question: "End User Types",
+    question: "Are end-users unlimited on all plans?",
     answer:
-      "This section outlines the distinctions between Evaluation, Production, and Demo users as referenced in the pricing table. Dexie Cloud provides a security layer of authentication and access control directly between end-user and database. End users will authenticate directly with Dexie Cloud database but via a customizable authentication experience for the end user.",
+      "Yes, all plans (including the Free plan) include unlimited end users. There are no seat packs, no per-seat pricing, and no user limits. You only pay for the resources your application consumes (Postgres DB, Blob storage, and Sync Units).",
   },
   {
     id: 7,
-    question: "Evaluation Users",
-    answer:
-      "Evaluation users are free time-limited end user accounts for your app, that can be upgraded to production at any time. By default, Dexie Cloud allows anyone to authenticate (configurable). Unknown users receive an evaluation license for up to 30 active days (no per-user charges apply). Evaluation accounts are paused on inactive days (configurable). After an evaluation period ends, the user can continue using the app but won't be able to sync data. You can indicate the user's evaluation status and prompt them to upgrade. Upgrade evaluation users to production via the Dexie Cloud Management app or REST API.",
-  },
-  {
-    id: 8,
-    question: "Production Users",
-    answer:
-      "All plans, including the Free plan, include unlimited production users — there are no seat packs, no per-seat pricing, and no user limits. You can manage production user status via the Dexie Cloud Management app or REST API, and integrate this API with your payment gateway webhooks to activate users based on customer subscriptions.",
-  },
-  {
-    id: 9,
-    question: "Demo Accounts",
-    answer:
-      "Demo accounts are for testing and demoing your app. They lack login credentials and are useful for showcasing data sharing. Like any other user account, demo accounts do not have access to any private data that hasn't been actively shared to it. Enable or disable demo accounts as needed. Demo accounts don't count toward your user limits and do not expire.\n\nFind more about Dexie Cloud and its features by visiting the Dexie Cloud Documentation.",
-  },
-  {
-    id: 10,
     question: "Customized Authentication",
     answer:
       "In all editions, it is possible to replace or customize end-user authentication. Dexie Cloud comes with OTP authentication and a default GUI that prompts the user for email and One-time password. There's no need to write any backend or even front-end code for this. However, customers may want to either customise the user interface, or integrate with an existing authentication solution instead of using the built-in OTP authentication from Dexie Cloud.",
   },
   {
-    id: 11,
+    id: 8,
     question: "Customizable Authentication",
     answer:
       "To customize the default GUI for our OTP authentication, configure {customLoginGui: true} and let a component use the db.cloud.userInteraction observable to display dialogs with your own look and feel. Customized authentication does not need a custom backend but can be served the way you prefer, and even from a static web site.",
   },
   {
-    id: 12,
+    id: 9,
     question: "Replaceable Authentication",
     answer: `To replace the default OTP authentication with your own authentication of choice,
       you'll need a backend-for-frontend (BFF) server side app to serve your client application.
@@ -149,55 +131,55 @@ const faqData = [
       on how it can be accomplished.`,
   },
   {
-    id: 13,
+    id: 10,
     question: "Can I upgrade or downgrade my plan?",
     answer:
       "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and billing adjustments are prorated.",
   },
   {
-    id: 14,
+    id: 11,
     question: "What happens to my data if I cancel?",
     answer:
       "Your data remains accessible for 30 days after cancellation. You can export your data or reactivate your account during this period. After 30 days, data is permanently deleted.",
   },
   {
-    id: 15,
+    id: 12,
     question: "Is there a free trial?",
     answer:
-      "No credit card or trial is needed to get started. Our Free plan is permanent and comes with unlimited production users, unlimited evaluation users, and generous storage/sync quotas. You can start building today and upgrade to a paid tier (Indie, Pro, or Scale) when you need larger quotas.",
+      "No credit card or trial is needed to get started. Our Free plan is permanent and comes with unlimited end users and generous storage/sync quotas. You can start building today and upgrade to a paid tier (Indie, Pro, or Scale) when you need larger quotas.",
   },
   {
-    id: 16,
+    id: 13,
     question: "Do I need Dexie.js support if I use Dexie Cloud?",
     answer:
       "If you're a Dexie Cloud customer, your plan already includes support for the full stack including the Dexie.js client library. The standalone Dexie.js support plans are designed for teams who use the open-source library without Dexie Cloud.",
   },
   {
-    id: 17,
+    id: 14,
     question: "What if I only use the open-source Dexie.js library?",
     answer:
       "Many large companies build production applications on Dexie.js with their own backend and sync solutions. Our Dexie.js Professional Support plans give you direct access to the author and core team for architecture guidance, prioritized bug fixes, and peace of mind.",
   },
   {
-    id: 18,
+    id: 15,
     question: "Can I get a combined Cloud + Dexie.js support package?",
     answer:
       "Yes. Contact us at business@dexie.org to discuss a tailored package that covers both your Dexie Cloud deployment and broader Dexie.js usage across your organization.",
   },
   {
-    id: 19,
+    id: 16,
     question: "What does 'response time' mean in the support plans?",
     answer:
       "Response times indicate when you'll receive an initial substantive reply from the core team. Times apply during CET business hours (Mon–Fri, 9:00–17:00). Enterprise plans can include custom SLA hours.",
   },
   {
-    id: 20,
+    id: 17,
     question: "What is a Sync Unit (SU)?",
     answer:
       "A Sync Unit is our metering unit for sync throughput: 1 SU equals one created or modified object synced, up to 10 KB in size. Larger objects count as multiple units (e.g. a 25 KB object = 3 SU). This keeps billing predictable and protects shared infrastructure from abuse via oversized bulk writes.",
   },
   {
-    id: 21,
+    id: 18,
     question: "What if my needs go beyond the Scale plan?",
     answer:
       "Founder's Circle offers white-glove, custom-tailored service — custom storage and Sync Unit limits, a dedicated Slack channel with the core team, and negotiable SLAs — for teams operating at very large scale. If you need full data sovereignty or self-hosting instead, our On-Premises Enterprise license may be a better fit. Contact us to discuss your requirements.",
@@ -443,43 +425,29 @@ const comparisonRows: TableRow[] = [
     scale: "Unlimited",
   },
   {
-    feature: "Evaluation users (your end users)",
-    free: "Unlimited, free",
-    indie: "Unlimited, free",
-    pro: "Unlimited, free",
-    scale: "Unlimited, free",
-  },
-  {
-    feature: "Production users (your end users)",
-    free: "Unlimited, free",
-    indie: "Unlimited, free",
-    pro: "Unlimited, free",
-    scale: "Unlimited, free",
-  },
-  {
-    feature: "Demo accounts (for showcasing app)",
-    free: "Unlimited, free",
-    indie: "Unlimited, free",
-    pro: "Unlimited, free",
-    scale: "Unlimited, free",
+    feature: "End users (your app's users)",
+    free: "Unlimited",
+    indie: "Unlimited",
+    pro: "Unlimited",
+    scale: "Unlimited",
   },
   {
     feature: "Included Postgres Storage (no hard limit, pay-as-you-grow)",
-    free: "1 GB",
+    free: "1 GB (Hard Limit)",
     indie: "10 GB",
     pro: "50 GB",
     scale: "200 GB",
   },
   {
     feature: "Included Blob Storage (no hard limit, pay-as-you-grow)",
-    free: "5 GB",
+    free: "5 GB (Hard Limit)",
     indie: "25 GB",
     pro: "100 GB",
     scale: "500 GB",
   },
   {
     feature: "Included Sync Units (SU) / mo (no hard limit, pay-as-you-grow)",
-    free: "1 Million",
+    free: "1 Million (Hard Limit)",
     indie: "5 Million",
     pro: "25 Million",
     scale: "100 Million",

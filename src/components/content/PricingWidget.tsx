@@ -162,19 +162,18 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
       },
       sectionTitle: "Get started with:",
       features: [
-        { text: "Unlimited users" },
         {
-          text: "Unlimited evaluation users",
-          subtext: "With full user management and authentication.",
+          text: "Unlimited end users",
+          subtext: "No seat caps or per-user billing.",
         },
         { text: "Customizable OTP authentication" },
         {
           text: "1 GB Postgres storage",
-          subtext: "No hard limit — pay-as-you-grow overage.",
+          subtext: "Hard limit — upgrade to remove.",
         },
         {
           text: "5 GB Blob storage",
-          subtext: "No hard limit — pay-as-you-grow overage.",
+          subtext: "Hard limit — upgrade to remove.",
         },
         { text: "1M Sync Units (SU) / month" },
         { text: "Community support" },
@@ -203,10 +202,9 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
       sectionTitle: "Everything in the Free Plan, plus:",
       features: [
         {
-          text: "Unlimited production users",
-          subtext: "No seat caps or per-user pricing.",
+          text: "Unlimited end users",
+          subtext: "No seat caps or per-user billing.",
         },
-        { text: "Unlimited evaluation users" },
         {
           text: "10 GB Postgres storage",
           subtext: `No hard limit — overage €0.15/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
@@ -237,7 +235,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
       },
       sectionTitle: "Everything in the Indie Plan, plus:",
       features: [
-        { text: "Unlimited production users" },
+        { text: "Unlimited end users" },
         {
           text: "50 GB Postgres storage",
           subtext: `No hard limit — overage €0.15/GB/mo${!isEUR ? " (billed in EUR)" : ""}`,
@@ -312,7 +310,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
     },
     features: [
       "Custom storage and sync limits",
-      "Unlimited databases & unlimited users",
+      "Unlimited databases & end users",
       "Dedicated Slack channel with Dexie.js core team",
       "Custom SLA & contract terms",
       "Full server source code access options",
@@ -336,7 +334,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
     },
     features: [
       "Full server source code access (via private GitHub repo) for absolute independence",
-      "Unlimited databases, production users, and unlimited scale",
+      "Unlimited databases, end users, and unlimited scale",
       "1 year of Priority Support and software updates included",
       "Optional Year 2 support/updates renewal (€1,495/yr) — perpetual usage regardless",
       "Self-host anywhere on your own servers (Docker/Kubernetes)",
