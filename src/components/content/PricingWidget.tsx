@@ -169,14 +169,14 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         },
         { text: "Online authentication" },
         {
-          text: "3 GB Postgres storage",
+          text: "1 GB Postgres storage",
           subtext: "No hard limit — pay-as-you-grow overage.",
         },
         {
           text: "5 GB Blob storage",
           subtext: "No hard limit — pay-as-you-grow overage.",
         },
-        { text: "1M sync operations / month" },
+        { text: "1M Sync Units (SU) / month" },
         { text: "7 days PITR (Point-In-Time Recovery)" },
         { text: "Community support" },
       ],
@@ -217,8 +217,8 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
           subtext: `No hard limit — overage ${isEUR ? "€0.03" : "$0.035"}/GB/mo`,
         },
         {
-          text: "5M sync operations / month",
-          subtext: `No hard cap — overage ${isEUR ? "€4" : "$4.5"}/1M ops`,
+          text: "5M Sync Units (SU) / month",
+          subtext: `No hard cap — overage ${isEUR ? "€4" : "$4.5"}/1M SU`,
         },
         { text: "7 days PITR" },
         { text: "Email support" },
@@ -249,16 +249,16 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
           subtext: `No hard limit — overage ${isEUR ? "€0.03" : "$0.035"}/GB/mo`,
         },
         {
-          text: "25M sync operations / month",
-          subtext: `No hard cap — overage ${isEUR ? "€3" : "$3.5"}/1M ops`,
+          text: "25M Sync Units (SU) / month",
+          subtext: `No hard cap — overage ${isEUR ? "€3" : "$3.5"}/1M SU`,
         },
         { text: "30 days PITR" },
         { text: "Priority support (faster response)" },
       ],
     },
     {
-      id: "gold",
-      title: "Gold",
+      id: "scale",
+      title: "Scale",
       subtitle: "When you need dedicated SLA support & expert help.",
       price: isEUR ? "€199" : "$249",
       priceNote: "per month",
@@ -280,7 +280,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
         {
           text: "Premium Support included",
           subtext:
-            "AI-assisted + direct core engineering review (1 business day SLA).",
+            "Priority email support, AI-assisted + human review by Liz & David (1 business day SLA target; incidents excluded).",
         },
         {
           text: "200 GB Postgres storage",
@@ -291,8 +291,8 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
           subtext: `No hard limit — overage ${isEUR ? "€0.025" : "$0.03"}/GB/mo`,
         },
         {
-          text: "100M sync operations / month",
-          subtext: `No hard cap — overage ${isEUR ? "€2" : "$2.5"}/1M ops`,
+          text: "100M Sync Units (SU) / month",
+          subtext: `No hard cap — overage ${isEUR ? "€2" : "$2.5"}/1M SU`,
         },
         { text: "30 days PITR" },
         { text: "Prioritized E2E encryption & custom auth guidance" },

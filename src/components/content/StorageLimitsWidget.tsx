@@ -14,7 +14,7 @@ import {
 } from "@mui/material"
 
 interface StorageLimit {
-  seats: string
+  plan: string
   objectStorage: string
   blobStorage: string
   blobWrites: string
@@ -52,7 +52,7 @@ export default function StorageLimitsWidget({
     backgroundColor = "#000000",
     containerWidth = "big",
     sectionTitle = "Storage Limits",
-    sectionSubtitle = "Dexie Cloud Production includes storage in relation to the number of seats purchased. The storage limit is computed on the sum of storage and not per individual user. Storage limits are differentiated between blob- and object data.",
+    sectionSubtitle = "Every Dexie Cloud plan includes a fixed storage and sync-operations quota — independent of how many production users you have. Usage beyond the included quota is billed automatically as pay-as-you-grow overage, never a hard stop.",
     additionalStorageTitle = "Additional Storage",
     additionalStorageDescription = "If more storage or write frequency than what's already included in the price would be requested, a subscription can be extended with additional storage and write operations:",
   } = settings
@@ -113,16 +113,16 @@ export default function StorageLimitsWidget({
             <TableHead>
               <TableRow sx={{ backgroundColor: "#2a2a2a" }}>
                 <TableCell sx={{ color: textColor, fontWeight: 600 }}>
-                  Seats
+                  Plan
                 </TableCell>
                 <TableCell sx={{ color: textColor, fontWeight: 600 }}>
-                  Included Object storage
+                  Included Postgres Storage
                 </TableCell>
                 <TableCell sx={{ color: textColor, fontWeight: 600 }}>
-                  Included Blob storage
+                  Included Blob Storage
                 </TableCell>
                 <TableCell sx={{ color: textColor, fontWeight: 600 }}>
-                  Included Blob write operations
+                  Included Sync Units (SU) / mo
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -136,7 +136,7 @@ export default function StorageLimitsWidget({
                   }}
                 >
                   <TableCell sx={{ color: textColor, fontWeight: 500 }}>
-                    {row.seats}
+                    {row.plan}
                   </TableCell>
                   <TableCell sx={{ color: "#adb5bd" }}>
                     {row.objectStorage}
@@ -165,8 +165,8 @@ export default function StorageLimitsWidget({
           }}
         >
           The storage limit is specified on the total subscription and does not
-          have to be distributed equally between the users. A Blob write
-          operation is counted when a blob is created or updated (replaced).
+          have to be distributed equally between the users. A sync operation is
+          counted each time a record is created, updated, or deleted.
         </Typography>
 
         {/* Additional Storage Section */}
@@ -209,13 +209,13 @@ export default function StorageLimitsWidget({
             <TableHead>
               <TableRow sx={{ backgroundColor: "#2a2a2a" }}>
                 <TableCell sx={{ color: textColor, fontWeight: 600 }}>
-                  Storage Type
+                  Resource
                 </TableCell>
                 <TableCell sx={{ color: textColor, fontWeight: 600 }}>
-                  Storage Cost
+                  Indie / Pro Rate
                 </TableCell>
                 <TableCell sx={{ color: textColor, fontWeight: 600 }}>
-                  Sync costs
+                  Scale Rate
                 </TableCell>
               </TableRow>
             </TableHead>
