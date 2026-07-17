@@ -162,7 +162,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
       },
       sectionTitle: "Get started with:",
       features: [
-        { text: "Unlimited production users" },
+        { text: "Unlimited users" },
         {
           text: "Unlimited evaluation users",
           subtext: "With full user management and authentication.",
