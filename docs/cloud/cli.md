@@ -132,8 +132,14 @@ List API clients along with their owner email-addresses.
 Request client_id and client_secret for an existing db and save them into dexie-cloud.key. Also set active database in dexie-cloud.json. This command will require email OTP verification before retrieving credentials and the OTP receiver must have been authorized to manager the database using the [npx dexie-cloud authorize](#authorize) command, or be the creator of the database.
 
 <pre>
-npx dexie-cloud connect &lt;Database URL&gt;
+npx dexie-cloud connect &lt;Database URL&gt; [options]
 </pre>
+
+#### Options
+
+```
+-F, --force      Force a new login/verification and client connection even if keys already exist locally. (Requires dexie-cloud CLI version 3.0.5 or later).
+```
 
 #### Sample
 
@@ -155,6 +161,45 @@ dexie-cloud.key - contains client ID and secret
 dexie-cloud.json
 dexie-cloud.key
 ```
+
+## Rotating API Client Keys
+
+If your API client keys (stored in `dexie-cloud.key`) are ever compromised, or if you want to rotate keys periodically for security reasons, you can rotate them securely without losing access to your database.
+
+This process requires **dexie-cloud CLI version 3.0.5 or later**.
+
+### Rotation Steps
+
+#### 1. Authorize a new client
+First, authorize a new client for your email address. This will register a new, unverified client in the database:
+
+```bash
+npx dexie-cloud authorize youremail@company.com
+```
+
+#### 2. Connect the new client (using --force)
+Next, connect to the database with the new client. You must pass the `--force` flag (requires version `3.0.5`) to tell the CLI to ignore the existing cached keys on your computer and trigger a fresh verification flow:
+
+```bash
+npx dexie-cloud connect https://zxxxxx.dexie.cloud --force
+```
+
+This will trigger an email OTP verification. Once you enter the OTP, the CLI will retrieve the new credentials, verify the new client, and overwrite your local `dexie-cloud.key` file with the new keys.
+
+#### 3. Revoke the old client
+Now that your local terminal is successfully authenticated using the new verified client, you can securely revoke the old client ID. First, run the `clients` command to see the list of active clients:
+
+```bash
+npx dexie-cloud clients
+```
+
+Find the client ID of your old, compromised client, and revoke it:
+
+```bash
+npx dexie-cloud revoke <old-client-id>
+```
+
+The database must always have at least one verified admin client, but because you verified your new client in step 2, the server will let you revoke the old one successfully. Your old keys are now completely inactive!
 
 ## delete
 
