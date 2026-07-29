@@ -132,14 +132,10 @@ List API clients along with their owner email-addresses.
 Request client_id and client_secret for an existing db and save them into dexie-cloud.key. Also set active database in dexie-cloud.json. This command will require email OTP verification before retrieving credentials and the OTP receiver must have been authorized to manager the database using the [npx dexie-cloud authorize](#authorize) command, or be the creator of the database.
 
 <pre>
-npx dexie-cloud connect &lt;Database URL&gt; [options]
+npx dexie-cloud connect &lt;Database URL&gt;
 </pre>
 
-#### Options
-
-```
--F, --force      Force a new login/verification and client connection even if keys already exist locally. (Requires dexie-cloud CLI version 3.0.5 or later).
-```
+If you already have local credentials for this database URL (in `dexie-cloud.key`), `connect` will reuse them without prompting. To rotate your keys instead of just switching the active database, see [Rotating API Client Keys](#rotating-api-client-keys) below.
 
 #### Sample
 
@@ -162,31 +158,59 @@ dexie-cloud.json
 dexie-cloud.key
 ```
 
+## reconnect
+
+_Since dexie-cloud CLI version 3.0.6_
+
+Rotates your API client key by verifying a pending (unverified) client — created via [authorize](#authorize) — through a fresh email OTP challenge, and stores its keys locally.
+
+<pre>
+npx dexie-cloud reconnect [Database URL]
+</pre>
+
+The `Database URL` argument is optional and defaults to the database currently stored in `dexie-cloud.json`.
+
+Unlike `connect`, `reconnect` always performs a fresh OTP challenge and requires that a pending (unverified) API client actually exists for the authenticated email. If none exists — for example if [authorize](#authorize) was never run, or the pending client was already verified — the command fails with a clear error instead of silently reusing your existing, already-verified client.
+
+#### Sample
+
+```
+$ npx dexie-cloud reconnect
+Enter your email address: youremail@company.com
+Enter OTP: YourOTP
+Reconnected to https://zxxxxx.dexie.cloud with a new API client (keys stored in dexie-cloud.key, current database stored in dexie-cloud.json).
+```
+
 ## Rotating API Client Keys
 
 If your API client keys (stored in `dexie-cloud.key`) are ever compromised, or if you want to rotate keys periodically for security reasons, you can rotate them securely without losing access to your database.
 
-This process requires **dexie-cloud CLI version 3.0.5 or later**.
+This process requires **dexie-cloud CLI version 3.0.6 or later**.
 
 ### Rotation Steps
 
 #### 1. Authorize a new client
+
 First, authorize a new client for your email address. This will register a new, unverified client in the database:
 
 ```bash
 npx dexie-cloud authorize youremail@company.com
 ```
 
-#### 2. Connect the new client (using --force)
-Next, connect to the database with the new client. You must pass the `--force` flag (requires version `3.0.5`) to tell the CLI to ignore the existing cached keys on your computer and trigger a fresh verification flow:
+A database can only have one pending (unverified) client per email at a time. If you run `authorize` again for the same email before verifying the pending client, the command will fail — run [reconnect](#reconnect) first, or [revoke](#revoke) the pending client, before authorizing again.
+
+#### 2. Reconnect to verify the new client
+
+Next, verify the new client with a fresh OTP challenge using [reconnect](#reconnect):
 
 ```bash
-npx dexie-cloud connect https://zxxxxx.dexie.cloud --force
+npx dexie-cloud reconnect
 ```
 
-This will trigger an email OTP verification. Once you enter the OTP, the CLI will retrieve the new credentials, verify the new client, and overwrite your local `dexie-cloud.key` file with the new keys.
+This will trigger an email OTP verification. Once you enter the OTP, the CLI will retrieve the new credentials, verify the pending client created in step 1, and overwrite your local `dexie-cloud.key` file with the new keys.
 
 #### 3. Revoke the old client
+
 Now that your local terminal is successfully authenticated using the new verified client, you can securely revoke the old client ID. First, run the `clients` command to see the list of active clients:
 
 ```bash
@@ -317,14 +341,14 @@ Use flags to export specific sections as separate JSON files, or to filter by re
 
 ### Options
 
-| Option        | Type   | Meaning                                                                                  |
-| ------------- | ------ | ---------------------------------------------------------------------------------------- |
-| `--schema`    | flag   | Export schema only → `<dbId>-schema.json`                                                |
-| `--roles`     | flag   | Export roles only → `<dbId>-roles.json`                                                  |
-| `--demoUsers` | flag   | Export demo users only → `<dbId>-demoUsers.json`                                         |
-| `--realmId`   | string | Filter data export to given realmId (applies to zip and legacy exports)                  |
-| `--table`     | string | Filter data export to given table (applies to zip and legacy exports)                    |
-| `--legacy`    | flag   | Export in legacy JSON format (dexie-cloud@2.x compatible, human-readable)                |
+| Option        | Type   | Meaning                                                                   |
+| ------------- | ------ | ------------------------------------------------------------------------- |
+| `--schema`    | flag   | Export schema only → `<dbId>-schema.json`                                 |
+| `--roles`     | flag   | Export roles only → `<dbId>-roles.json`                                   |
+| `--demoUsers` | flag   | Export demo users only → `<dbId>-demoUsers.json`                          |
+| `--realmId`   | string | Filter data export to given realmId (applies to zip and legacy exports)   |
+| `--table`     | string | Filter data export to given table (applies to zip and legacy exports)     |
+| `--legacy`    | flag   | Export in legacy JSON format (dexie-cloud@2.x compatible, human-readable) |
 
 ### Examples
 
@@ -354,11 +378,11 @@ _Since dexie-cloud@3.0_
 
 The default export format is a `.zip` file containing three entries:
 
-| File          | Format  | Contents                                                    |
-| ------------- | ------- | ----------------------------------------------------------- |
-| `data.ndjson` | Text    | All objects, schema, roles and members (streaming NDJSON)   |
-| `blobs.dcbl`  | Binary  | Blob data — omitted if database has no blobs                |
-| `yjs.dcyj`    | Binary  | Y.js collaborative document data — omitted if none present  |
+| File          | Format | Contents                                                   |
+| ------------- | ------ | ---------------------------------------------------------- |
+| `data.ndjson` | Text   | All objects, schema, roles and members (streaming NDJSON)  |
+| `blobs.dcbl`  | Binary | Blob data — omitted if database has no blobs               |
+| `yjs.dcyj`    | Binary | Y.js collaborative document data — omitted if none present |
 
 The `.dcbl` and `.dcyj` files are **binary** and should not be edited manually.
 
@@ -402,6 +426,7 @@ npx dexie-cloud import <import-file>
 Imports data into the database. Import is always **additive** — existing data is updated or added, never deleted, unless an object is explicitly set to `null`.
 
 Accepts:
+
 - A `.zip` file produced by `dexie-cloud export` (dexie-cloud@3.x format) — includes data, blobs, and Y.js documents if present
 - A `.json` file in the legacy format (dexie-cloud@2.x, or produced by `--schema`/`--roles`/`--demoUsers`/`--legacy`)
 
@@ -597,9 +622,9 @@ npx dexie-cloud clear-table <table>
 
 ### Options
 
-| Option | Meaning |
-| --- | --- |
-| `-Y, --yes` | Skip confirmation prompt |
+| Option                | Meaning                                     |
+| --------------------- | ------------------------------------------- |
+| `-Y, --yes`           | Skip confirmation prompt                    |
 | `--db <Database-URL>` | Database URL (defaults to dexie-cloud.json) |
 
 ### Example
@@ -628,9 +653,9 @@ npx dexie-cloud clear-realm <realmId>
 
 ### Options
 
-| Option | Meaning |
-| --- | --- |
-| `-Y, --yes` | Skip confirmation prompt |
+| Option                | Meaning                                     |
+| --------------------- | ------------------------------------------- |
+| `-Y, --yes`           | Skip confirmation prompt                    |
 | `--db <Database-URL>` | Database URL (defaults to dexie-cloud.json) |
 
 ### Example
