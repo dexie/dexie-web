@@ -155,7 +155,7 @@ Request client_id and client_secret for an existing db and save them into dexie-
 npx dexie-cloud connect &lt;Database URL&gt;
 </pre>
 
-If you already have local credentials for this database URL (in `dexie-cloud.key`), `connect` will reuse them without prompting. To rotate your keys instead of just switching the active database, see [Rotating API Client Keys](#rotating-api-client-keys) below.
+If you already have local credentials for this database URL (in `dexie-cloud.key`), `connect` will reuse them without prompting. To rotate your keys instead of just switching the active database, see [rotate](#rotate) below.
 
 #### Sample
 
@@ -178,72 +178,25 @@ dexie-cloud.json
 dexie-cloud.key
 ```
 
+## rotate
+
+Rotate the API key for the current client without email OTP authentication.
+
+<pre>
+npx dexie-cloud rotate
+</pre>
+
+The command authenticates with the current `dexie-cloud.key`, creates a sibling client with the same scopes and email verification status, and stores the new credentials locally. The old and new clients work in parallel. The old client receives an expiry time seven days from the rotation; its ID and expiry are printed so it can be removed manually with [revoke](#revoke) after the new key has been deployed everywhere. No additional scope is required.
+
 ## reconnect
 
-_Since dexie-cloud CLI version 3.0.6_
-
-Rotates your API client key by verifying a pending (unverified) client — created via [authorize](#authorize) — through a fresh email OTP challenge, and stores its keys locally.
+Recover access with a fresh email OTP when the local key has expired, was lost, or you are setting up a new machine for an already-authorized email.
 
 <pre>
 npx dexie-cloud reconnect [Database URL]
 </pre>
 
-The `Database URL` argument is optional and defaults to the database currently stored in `dexie-cloud.json`.
-
-Unlike `connect`, `reconnect` always performs a fresh OTP challenge and requires that a pending (unverified) API client actually exists for the authenticated email. If none exists — for example if [authorize](#authorize) was never run, or the pending client was already verified — the command fails with a clear error instead of silently reusing your existing, already-verified client.
-
-#### Sample
-
-```
-$ npx dexie-cloud reconnect
-Enter your email address: youremail@company.com
-Enter OTP: YourOTP
-Reconnected to https://zxxxxx.dexie.cloud with a new API client (keys stored in dexie-cloud.key, current database stored in dexie-cloud.json).
-```
-
-## Rotating API Client Keys
-
-If your API client keys (stored in `dexie-cloud.key`) are ever compromised, or if you want to rotate keys periodically for security reasons, you can rotate them securely without losing access to your database.
-
-This process requires **dexie-cloud CLI version 3.0.6 or later**.
-
-### Rotation Steps
-
-#### 1. Authorize a new client
-
-First, authorize a new client for your email address. This will register a new, unverified client in the database:
-
-```bash
-npx dexie-cloud authorize youremail@company.com
-```
-
-A database can only have one pending (unverified) client per email at a time. If you run `authorize` again for the same email before verifying the pending client, the command will fail — run [reconnect](#reconnect) first, or [revoke](#revoke) the pending client, before authorizing again.
-
-#### 2. Reconnect to verify the new client
-
-Next, verify the new client with a fresh OTP challenge using [reconnect](#reconnect):
-
-```bash
-npx dexie-cloud reconnect
-```
-
-This will trigger an email OTP verification. Once you enter the OTP, the CLI will retrieve the new credentials, verify the pending client created in step 1, and overwrite your local `dexie-cloud.key` file with the new keys.
-
-#### 3. Revoke the old client
-
-Now that your local terminal is successfully authenticated using the new verified client, you can securely revoke the old client ID. First, run the `clients` command to see the list of active clients:
-
-```bash
-npx dexie-cloud clients
-```
-
-Find the client ID of your old, compromised client, and revoke it:
-
-```bash
-npx dexie-cloud revoke <old-client-id>
-```
-
-The database must always have at least one verified admin client, but because you verified your new client in step 2, the server will let you revoke the old one successfully. Your old keys are now completely inactive!
+The `Database URL` is optional and defaults to the database stored in `dexie-cloud.json`. CLI commands automatically invoke this recovery flow when the current client key has expired. Run `reconnect` explicitly when the local key is unavailable or when you want to force recovery.
 
 ## delete
 
