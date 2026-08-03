@@ -85,7 +85,7 @@ Authorizes another user to manage the database.
 npx dexie-cloud authorize &lt;email address&gt; [--scopes &lt;scopes&gt;]
 </pre>
 
-Authorizing a user will create an API client for that user with its own client ID and secret. The authorized user may then connect to the same database using the [connect](#connect) command.
+Authorizing a user grants a new API client for that email address with its own client ID and secret. The authorized user may then connect to the same database using the [connect](#connect) command. This is for onboarding or granting access; use [rotate](#rotate) to replace the current client's key.
 
 To list authorized users, use the [clients](#clients) command.
 
@@ -126,6 +126,26 @@ To see a list of authorized database managers, see the [clients](#clients) comma
 ## clients
 
 List API clients along with their owner email-addresses.
+
+## rotate
+
+Rotate the API key for the current client.
+
+<pre>
+npx dexie-cloud rotate
+</pre>
+
+No additional scope is required. Rotation creates a sibling client with the same scopes and email verification status, stores its new credentials in `dexie-cloud.key`, and leaves both clients working in parallel. The old client is automatically set to expire after 7 days; its ID and expiry are printed so it can optionally be removed immediately with [revoke](#revoke).
+
+## reconnect
+
+Recover access when the local `dexie-cloud.key` has expired, was lost, or when setting up a new machine for an existing authorized email.
+
+<pre>
+npx dexie-cloud reconnect [Database URL]
+</pre>
+
+CLI commands automatically start this OTP recovery when they detect an expired local key. Run `reconnect` explicitly when you want to force recovery or have lost the local key entirely.
 
 ## connect
 
