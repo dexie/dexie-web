@@ -27,8 +27,15 @@ A list of Safari related issues that has been reported can be found [here](safar
 Fast and stable IndexedDB support. A few race condition issues that Dexie can workaround. For the most stable Safari support, use Dexie 4 (`npm install dexie@latest`).
 It works around the most major Safari issue and it continuously runs its unit tests on Safari browsers in Lambdatest for every commit.
 
+## Safari version 15, 16, 17, 18
+
+Fast and performant IndexedDB support, but some instability issues when tabs wakes up from backround (See Dexie issue [#2008](https://github.com/dexie/Dexie.js/issues/2008))
+
+## Modern Safari (version >= 26)
+
+Support for most IndexedDB 3.0 features except getAllRecords() and reverse ordered getAllKeys() but dexie works around the lacking IndexedDB support. Some of the severe instability issues with waking up from background has been solved in Mars 2026 (https://bugs.webkit.org/show_bug.cgi?id=277615, https://bugs.webkit.org/show_bug.cgi?id=309386)
+
 ## Chrome and Opera on IOS
 
 Due to Apples restricted policies for iOS, Chrome and Opera running on iOS is actually a Safari browser in the backend pretending to be Chrome or Opera. Thus, it's IndexedDB is actually provided by Safari even on Chrome, Opera or Firefox, see [issue #110](https://github.com/dexie/Dexie.js/issues/110).
 
-If your application must target iPhone 6 or below, it is recommended to include the indexedDB shim before requiring/including Dexie.js. iPhone 7 users will have a Safari engine of version >= 10.3.
