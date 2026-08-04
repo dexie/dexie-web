@@ -33,7 +33,7 @@ Fast and performant IndexedDB support, but some instability issues when tabs wak
 
 ## Modern Safari (version >= 26)
 
-Support for most IndexedDB 3.0 features except getAllRecords() and reverse ordered getAllKeys() but dexie works around the lacking IndexedDB support. Some of the severe instability issues has been solved in Mars 2026 (https://bugs.webkit.org/show_bug.cgi?id=309386).
+Support for most IndexedDB 3.0 features except getAllRecords() and reverse ordered getAllKeys() but Dexie works around the lacking IndexedDB support. Some of the severe instability issues has been solved in Mars 2026 (https://bugs.webkit.org/show_bug.cgi?id=309386).
 
 ## Chrome and Opera on IOS
 
