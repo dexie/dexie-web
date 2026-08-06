@@ -47,7 +47,7 @@ const renderTableValue = (
 ) => {
   if (typeof value === "boolean") {
     return value ? (
-      <CheckIcon sx={{ color: isHighlighted ? "#c77dff" : undefined }} />
+      <CheckIcon sx={{ color: isHighlighted ? "var(--dexie-accent)" : undefined }} />
     ) : (
       <Typography component="span" sx={{ opacity: 0.15 }}>—</Typography>
     )
@@ -66,8 +66,8 @@ export default function PricingTableWidget({
   sx = {},
 }: PricingTableWidgetProps) {
   const {
-    textColor = "#dee2e6",
-    backgroundColor = "#000000",
+    textColor = "var(--dexie-text)",
+    backgroundColor = "var(--dexie-bg)",
     containerWidth = "big",
     maxWidth,
   } = settings
@@ -108,7 +108,7 @@ export default function PricingTableWidget({
             sx={{
               textAlign: "center",
               mb: 4,
-              color: "#adb5bd",
+              color: "var(--dexie-text-muted)",
             }}
           >
             {subtitle}
@@ -121,7 +121,7 @@ export default function PricingTableWidget({
             sx={{
               textAlign: "center",
               mb: 4,
-              color: "#adb5bd",
+              color: "var(--dexie-text-muted)",
               maxWidth: "900px",
               mx: "auto",
               lineHeight: 1.6,
@@ -134,7 +134,7 @@ export default function PricingTableWidget({
         <TableContainer
           component={Paper}
           sx={{
-            backgroundColor: "#1a1a1a",
+            backgroundColor: "var(--dexie-surface-deep)",
             border: "1px solid #333",
             overflowX: "auto",
             ...(maxWidth && { maxWidth, mx: "auto" }),
@@ -157,7 +157,7 @@ export default function PricingTableWidget({
                     <TableCell
                       key={column.key}
                       sx={{
-                        color: isHL ? "#ffffff" : textColor,
+                        color: isHL ? "var(--dexie-bright)" : textColor,
                         fontWeight: isHL ? 700 : 600,
                         textAlign: column.align || "left",
                         ...(isHL && {
@@ -186,7 +186,7 @@ export default function PricingTableWidget({
                       <TableCell
                         key={column.key}
                         sx={{
-                          color: colIndex === 0 ? textColor : "#adb5bd",
+                          color: colIndex === 0 ? textColor : "var(--dexie-text-muted)",
                           fontWeight: colIndex === 0 ? 500 : "normal",
                           textAlign: column.align || "left",
                           ...(isHL && {

@@ -186,7 +186,7 @@ const CloudDocsLayout: React.FC<CloudDocsLayoutProps> = ({
           <Box
             sx={{
               "& a": {
-                color: "#c77dff !important",
+                color: "var(--dexie-accent) !important",
                 textDecoration: "none",
                 "&:hover": { color: "white !important" },
               },

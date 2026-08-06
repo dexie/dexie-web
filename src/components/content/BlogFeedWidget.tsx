@@ -286,7 +286,7 @@ const BlogFeedWidget: React.FC<BlogFeedWidgetProps> = ({
     <Box
       sx={{
         py: 8,
-        bgcolor: theme.palette.mode === "dark" ? "#0a0a0a" : "#f8f9fa",
+        bgcolor: theme.palette.mode === "dark" ? "var(--dexie-surface-deep)" : "#f8f9fa",
       }}
     >
       <Container maxWidth="lg">

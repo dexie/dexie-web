@@ -80,7 +80,7 @@ export default function HeroContent() {
               // .tpl-minimal-tabs > li > a styling
               padding: "5px 20px !important",
               textDecoration: "none",
-              color: "#fff", // .light-content .tpl-minimal-tabs > li > a
+              color: "var(--dexie-bright)", // .light-content .tpl-minimal-tabs > li > a
               background: "none",
               border: "1px solid transparent",
               borderRadius: "100px !important",
@@ -96,19 +96,19 @@ export default function HeroContent() {
               "&:hover": {
                 background: "none",
                 borderColor: "rgba(255, 255, 255, 0.3)", // approximation of var(--color-dark-4)
-                color: "#fff",
+                color: "var(--dexie-bright)",
               },
 
               // Active/selected state
               "&.Mui-selected": {
-                border: "1px solid #fff !important",
+                border: "1px solid var(--dexie-bright) !important",
                 background: "none !important",
-                color: "#fff !important",
+                color: "var(--dexie-bright) !important",
                 cursor: "default",
 
                 "&:hover": {
-                  border: "1px solid #fff !important",
-                  color: "#fff !important",
+                  border: "1px solid var(--dexie-bright) !important",
+                  color: "var(--dexie-bright) !important",
                 },
               },
             },

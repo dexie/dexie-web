@@ -45,8 +45,8 @@ export default function SupportPlansWidget({
   sx = {},
 }: SupportPlansWidgetProps) {
   const {
-    textColor = "#dee2e6",
-    backgroundColor = "#000000",
+    textColor = "var(--dexie-text)",
+    backgroundColor = "var(--dexie-bg)",
     containerWidth = "big",
     sectionTitle = "Support Options",
     sectionSubtitle = "Choose the right level of support for your team and requirements",
@@ -86,7 +86,7 @@ export default function SupportPlansWidget({
           sx={{
             textAlign: "center",
             mb: 6,
-            color: "#adb5bd",
+            color: "var(--dexie-text-muted)",
             maxWidth: "800px",
             mx: "auto",
           }}
@@ -119,9 +119,9 @@ export default function SupportPlansWidget({
                   flex: 1,
                   display: "flex",
                   flexDirection: "column",
-                  backgroundColor: plan.highlighted ? "#1a1035" : "#1a1a1a",
+                  backgroundColor: plan.highlighted ? "#1a1035" : "var(--dexie-surface-deep)",
                   border: plan.highlighted
-                    ? "1px solid #c77dff"
+                    ? "1px solid var(--dexie-accent)"
                     : "1px solid #333",
                   position: "relative",
                   transition: "border-color 0.2s, box-shadow 0.2s",
@@ -131,7 +131,7 @@ export default function SupportPlansWidget({
                   }),
                   "&:hover": plan.highlighted
                     ? {
-                        borderColor: "#e0aaff",
+                        borderColor: "var(--dexie-accent-soft)",
                         backgroundColor: "#241548",
                         boxShadow:
                           "0 16px 60px rgba(199, 125, 255, 0.35), 0 0 0 1px rgba(224, 170, 255, 0.6)",
@@ -150,8 +150,8 @@ export default function SupportPlansWidget({
                       top: 16,
                       right: 16,
                       backgroundColor: "transparent",
-                      border: "1px solid #c77dff",
-                      color: "#c77dff",
+                      border: "1px solid var(--dexie-accent)",
+                      color: "var(--dexie-accent)",
                       fontWeight: 600,
                       fontSize: "0.7rem",
                     }}
@@ -179,7 +179,7 @@ export default function SupportPlansWidget({
                       variant="h4"
                       component="span"
                       sx={{
-                        color: plan.highlighted ? "#c77dff" : textColor,
+                        color: plan.highlighted ? "var(--dexie-accent)" : textColor,
                         fontWeight: 700,
                       }}
                     >
@@ -190,7 +190,7 @@ export default function SupportPlansWidget({
                   <Typography
                     variant="body2"
                     sx={{
-                      color: "#adb5bd",
+                      color: "var(--dexie-text-muted)",
                       mb: 3,
                       lineHeight: 1.7,
                     }}
@@ -216,10 +216,10 @@ export default function SupportPlansWidget({
                                 backgroundColor:
                                   "rgba(199, 125, 255, 0.1)",
                                 "& .MuiSvgIcon-root": {
-                                  color: "#e0aaff",
+                                  color: "var(--dexie-accent-soft)",
                                 },
                                 "& .MuiTypography-root": {
-                                  color: "#e0aaff",
+                                  color: "var(--dexie-accent-soft)",
                                 },
                               }
                             : {
@@ -245,7 +245,7 @@ export default function SupportPlansWidget({
                           <CheckIcon
                             sx={{
                               fontSize: "16px",
-                              color: plan.highlighted ? "#c77dff" : "#adb5bd",
+                              color: plan.highlighted ? "var(--dexie-accent)" : "var(--dexie-text-muted)",
                             }}
                           />
                         </ListItemIcon>
@@ -282,7 +282,7 @@ export default function SupportPlansWidget({
                         fontWeight: 600,
                         ...(plan.highlighted
                           ? {
-                              backgroundColor: "#c77dff",
+                              backgroundColor: "var(--dexie-accent)",
                               color: "#000",
                               "&:hover": { backgroundColor: "#a855f7" },
                             }
@@ -290,8 +290,8 @@ export default function SupportPlansWidget({
                               borderColor: "#555",
                               color: textColor,
                               "&:hover": {
-                                borderColor: "#c77dff",
-                                color: "#c77dff",
+                                borderColor: "var(--dexie-accent)",
+                                color: "var(--dexie-accent)",
                               },
                             }),
                       }}

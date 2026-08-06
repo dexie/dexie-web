@@ -223,7 +223,7 @@ const BlogPostClient: React.FC<BlogPostClientProps> = ({ post }) => {
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: theme.palette.mode === "dark" ? "#0a0a0a" : "#f8f9fa",
+          bgcolor: theme.palette.mode === "dark" ? "var(--dexie-surface-deep)" : "#f8f9fa",
         }}
       >
         <Container maxWidth="lg" sx={{ py: 8 }}>

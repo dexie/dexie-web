@@ -197,7 +197,7 @@ const CustomHeroSection = styled(Box)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    background: "linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)",
+    background: "linear-gradient(135deg, var(--dexie-surface-deep) 0%, var(--dexie-surface-deep) 100%)",
     opacity: 0.9,
     zIndex: 1,
   },

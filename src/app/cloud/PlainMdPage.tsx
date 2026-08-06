@@ -23,7 +23,7 @@ export async function PlainMdPage(doc: Doc) {
         <Box
           sx={{
             "& a": {
-              color: "#c77dff !important",
+              color: "var(--dexie-accent) !important",
               textDecoration: "none",
               "&:hover": { color: "white !important" },
             },

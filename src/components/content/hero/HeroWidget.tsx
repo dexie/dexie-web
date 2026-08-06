@@ -1,19 +1,21 @@
-"use client"
+"use client";
 
-import { Box, Typography } from "@mui/material"
-import ButtonWidget, { ButtonWidgetProps } from "../shared/Button"
-import { HeroWidgetSettings } from "@/types/widgets"
+import { Box, Typography } from "@mui/material";
+import ButtonWidget, { ButtonWidgetProps } from "../shared/Button";
+import { HeroWidgetSettings } from "@/types/widgets";
+import { useThemeMode } from "@/theme/ThemeModeProvider";
 
 interface HeroWidgetProps {
-  preHeading: string
-  heading: string | React.ReactNode
-  text: string
-  background: string
-  contentRight?: React.ReactNode
-  contentRightWidthPercentage?: number
-  contentBottom?: React.ReactNode
-  buttons: ButtonWidgetProps[]
-  settings?: HeroWidgetSettings
+  preHeading: string;
+  heading: string | React.ReactNode;
+  text: string;
+  background: string;
+  backgroundLight?: string;
+  contentRight?: React.ReactNode;
+  contentRightWidthPercentage?: number;
+  contentBottom?: React.ReactNode;
+  buttons: ButtonWidgetProps[];
+  settings?: HeroWidgetSettings;
 }
 
 export default function HeroWidget({
@@ -21,6 +23,7 @@ export default function HeroWidget({
   heading,
   text,
   background,
+  backgroundLight,
   contentRight,
   contentRightWidthPercentage = 50,
   contentBottom,
@@ -35,92 +38,115 @@ export default function HeroWidget({
     verticalTextAlignment = "center",
   } = {},
 }: HeroWidgetProps) {
+  const { mode } = useThemeMode();
+  const resolvedBackground =
+    mode === "light" && backgroundLight ? backgroundLight : background;
+  const resolvedTextColor =
+    mode === "light" && /^(#fff|#ffffff)$/i.test(textColor)
+      ? "var(--dexie-bright)"
+      : textColor;
   // Smooth scroll for 'How it works?' button
   const handleButtonClick = (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
-    button: ButtonWidgetProps
+    button: ButtonWidgetProps,
   ) => {
     if (button.link.url === "#how-it-works-video") {
-      e.preventDefault()
-      const el = document.getElementById("how-it-works-video")
+      e.preventDefault();
+      const el = document.getElementById("how-it-works-video");
       if (el) {
-        const rect = el.getBoundingClientRect()
+        const rect = el.getBoundingClientRect();
         window.scrollTo({
           top: window.scrollY + rect.top - 32,
           behavior: "smooth",
-        })
+        });
       }
     }
     if (button.onClick) {
-      button.onClick(e)
+      button.onClick(e);
     }
-  }
+  };
   // Container width mapping
   const getContainerMaxWidth = () => {
     switch (containerWidth) {
       case "small":
-        return "600px"
+        return "600px";
       case "big":
-        return "1400px"
+        return "1400px";
       case "default":
       default:
-        return "1200px"
+        return "1200px";
     }
-  }
+  };
 
   // Text alignment mapping for flexbox
   const getJustifyContent = () => {
     switch (textAlignment) {
       case "center":
-        return "center"
+        return "center";
       case "right":
-        return "flex-end"
+        return "flex-end";
       case "space-around":
-        return "space-around"
+        return "space-around";
       case "space-between":
-        return "space-between"
+        return "space-between";
       case "space-evenly":
-        return "space-evenly"
+        return "space-evenly";
       case "left":
       default:
-        return "flex-start"
+        return "flex-start";
     }
-  }
+  };
 
   // Vertical alignment mapping
   const getAlignItems = () => {
     switch (verticalTextAlignment) {
       case "top":
-        return "flex-start"
+        return "flex-start";
       case "bottom":
-        return "flex-end"
+        return "flex-end";
       case "center":
       default:
-        return "center"
+        return "center";
     }
-  }
+  };
 
   // Determine if overlay should be light or dark based on text color
   const getOverlayColor = () => {
-    if (!overlayStrength) return "transparent"
+    if (!overlayStrength) return "transparent";
+
+    // The light hero asset is already tuned for dark text. Keep the overlay
+    // subtle instead of applying the dark-mode readability veil.
+    if (mode === "light" && backgroundLight) {
+      return `rgba(255, 255, 255, ${Math.min(
+        parseInt(overlayStrength.replace("%", "")) / 100,
+        0.24,
+      )})`;
+    }
+
+    if (textColor.startsWith("var(")) {
+      const opacity = parseInt(overlayStrength.replace("%", "")) / 100;
+      return mode === "light"
+        ? `rgba(255, 255, 255, ${opacity})`
+        : `rgba(0, 0, 0, ${opacity})`;
+    }
 
     // Simple brightness calculation - if text is light, overlay should be dark
-    const hex = textColor.replace("#", "")
-    const r = parseInt(hex.substr(0, 2), 16)
-    const g = parseInt(hex.substr(2, 2), 16)
-    const b = parseInt(hex.substr(4, 2), 16)
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000
+    const hex = textColor.replace("#", "");
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
 
-    const opacity = parseInt(overlayStrength.replace("%", "")) / 100
+    const opacity = parseInt(overlayStrength.replace("%", "")) / 100;
     return brightness > 128
       ? `rgba(0, 0, 0, ${opacity})` // Dark overlay for light text
-      : `rgba(255, 255, 255, ${opacity})` // Light overlay for dark text
-  }
+      : `rgba(255, 255, 255, ${opacity})`; // Light overlay for dark text
+  };
 
   return (
     <Box
       sx={{
-        backgroundImage: `url(${background})`,
+        backgroundImage: `url(${resolvedBackground})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: {
@@ -224,7 +250,7 @@ export default function HeroWidget({
                   ? `${100 - contentRightWidthPercentage}%`
                   : textWidth,
               },
-              color: textColor,
+              color: resolvedTextColor,
               textAlign: {
                 xs: "center", // Center text on small screens
                 md:
@@ -356,5 +382,5 @@ export default function HeroWidget({
         </Box>
       )}
     </Box>
-  )
+  );
 }

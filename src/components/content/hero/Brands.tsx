@@ -1,15 +1,17 @@
-"use client"
+"use client";
 
-import React from "react"
-import Image from "next/image"
-import { Box, Container, Typography, SxProps } from "@mui/material"
-import Link from "next/link"
+import React from "react";
+import Image from "next/image";
+import { Box, Container, Typography, SxProps } from "@mui/material";
+import Link from "next/link";
+import { useThemeMode } from "@/theme/ThemeModeProvider";
 
 interface BrandProps {
-  sx?: SxProps
+  sx?: SxProps;
 }
 
 export default function Brands({ sx }: BrandProps) {
+  const { mode } = useThemeMode();
   const brands = [
     {
       src: "/assets/images/brands/facebook.png",
@@ -53,7 +55,7 @@ export default function Brands({ sx }: BrandProps) {
       alt: "To To-Do",
       link: "https://totodo.app/go",
     },
-  ]
+  ];
 
   return (
     <Container
@@ -118,6 +120,7 @@ export default function Brands({ sx }: BrandProps) {
                   justifyContent: "center",
                   opacity: 0.7,
                   transition: "opacity 0.3s ease",
+                  filter: mode === "light" ? "brightness(0.28)" : "none",
                   "&:hover": {
                     opacity: 1,
                   },
@@ -125,6 +128,7 @@ export default function Brands({ sx }: BrandProps) {
               >
                 <Image
                   src={brand.src}
+                  className="brand-logo"
                   width={brand.width}
                   height={brand.height}
                   alt={brand.alt}
@@ -139,5 +143,5 @@ export default function Brands({ sx }: BrandProps) {
         </Box>
       </Box>
     </Container>
-  )
+  );
 }

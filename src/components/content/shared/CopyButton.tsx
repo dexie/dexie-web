@@ -44,7 +44,7 @@ export default function CopyButton({ code }: CopyButtonProps) {
         borderRadius: "4px",
         padding: "4px 10px !important",
         cursor: "pointer",
-        color: "#fff",
+        color: "var(--dexie-bright)",
         fontSize: "12px !important",
         fontFamily: "inherit",
         display: "flex",

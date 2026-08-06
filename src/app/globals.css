@@ -1,6 +1,41 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Shared legacy surface tokens. Dark mode keeps the site's existing colors;
+     light mode overrides them below so older widgets remain theme-aware. */
+  --dexie-bg: #000000;
+  --dexie-surface-deep: #0a0a0a;
+  --dexie-surface: #343a40;
+  --dexie-surface-raised: #212529;
+  --dexie-text: #dee2e6;
+  --dexie-text-muted: #adb5bd;
+  --dexie-bright: #ffffff;
+  --dexie-accent: #c77dff;
+  --dexie-accent-strong: #9d4edd;
+  --dexie-accent-soft: #e0aaff;
+}
+
+[data-mui-color-scheme="light"] {
+  --background: #f7f7fa;
+  --foreground: #1c1e21;
+  --dexie-bg: #f7f7fa;
+  --dexie-surface-deep: #ffffff;
+  --dexie-surface: #ffffff;
+  --dexie-surface-raised: #f0f1f4;
+  --dexie-text: #1c1e21;
+  --dexie-text-muted: #4b4f56;
+  --dexie-bright: #111214;
+  --dexie-accent: #6b2bc9;
+  --dexie-accent-strong: #5520a5;
+  --dexie-accent-soft: #8a3ffc;
+}
+
+/* Existing brand assets are white-on-transparent. Invert them only for the
+   light scheme so dark mode remains pixel-identical. */
+[data-mui-color-scheme="light"] .dexie-logo,
+[data-mui-color-scheme="light"] .brand-logo {
+  filter: invert(1);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -14,6 +49,12 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+/* Prism's material-dark theme is intentionally retained in both modes so
+   code remains a distinct, high-contrast surface in the light UI. */
+[data-mui-color-scheme="light"] pre[class*="language-"] {
+  background: #1f2937;
 }
 
 html {

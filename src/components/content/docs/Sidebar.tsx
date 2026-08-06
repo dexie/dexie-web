@@ -194,7 +194,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             overflow: "hidden",
             whiteSpace: "nowrap",
             textDecoration: "none",
-            color: isActive ? "#c77dff" : "inherit",
+            color: isActive ? "var(--dexie-accent)" : "inherit",
             display: "block",
             width: "100%",
             outline: "none",
@@ -204,7 +204,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             },
             "&:focus": {
               backgroundColor: "rgba(199, 125, 255, 0.2)",
-              color: "#c77dff",
+              color: "var(--dexie-accent)",
             },
           }}
         >

@@ -50,7 +50,7 @@ export default function FeatureScreenshotWidget({
   description = "",
   slides,
   textColor = "#333333",
-  backgroundColor = "#ffffff",
+  backgroundColor = "var(--dexie-bright)",
   containerWidth = "default",
 }: FeatureScreenshotWidgetProps) {
   const theme = useTheme()

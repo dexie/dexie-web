@@ -23,7 +23,7 @@ export default function TypeWriter({
         repeat={Infinity}
         style={{
           background:
-            "linear-gradient(to right, #7b2cbf,  #9d4edd,  #c77dff,  #9d4edd,  #7b2cbf)",
+            "linear-gradient(to right, #7b2cbf,  var(--dexie-accent-strong),  var(--dexie-accent),  var(--dexie-accent-strong),  #7b2cbf)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
         }}
@@ -40,7 +40,7 @@ export default function TypeWriter({
         repeat={Infinity}
         style={{
           background:
-            "linear-gradient(to right, #7b2cbf,  #9d4edd,  #c77dff,  #9d4edd,  #7b2cbf)",
+            "linear-gradient(to right, #7b2cbf,  var(--dexie-accent-strong),  var(--dexie-accent),  var(--dexie-accent-strong),  #7b2cbf)",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
         }}

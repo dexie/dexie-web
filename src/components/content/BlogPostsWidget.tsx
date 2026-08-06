@@ -46,8 +46,8 @@ export default function BlogPostsWidget({
   items,
   sectionTitle = "Get started in seconds",
   sectionSubtitle = "Accelerate your development with templates built by us and our community.",
-  textColor = "#dee2e6",
-  backgroundColor = "#000000",
+  textColor = "var(--dexie-text)",
+  backgroundColor = "var(--dexie-bg)",
   containerWidth = "default",
   hideActions = false,
   highlightItemId,
@@ -122,7 +122,7 @@ export default function BlogPostsWidget({
               sx={{
                 backgroundColor: isHighlighted
                   ? "rgba(199,125,255,0.05)"
-                  : "#000000",
+                  : "var(--dexie-bg)",
                 color: textColor,
                 width: { xs: "100%", md: "30%" },
                 minHeight: "420px",
@@ -188,7 +188,7 @@ export default function BlogPostsWidget({
                     >
                       <ListItemIcon sx={{ minWidth: "auto", mr: 1, alignSelf: "flex-start", mt: "3px" }}>
                         <CheckIcon
-                          sx={{ color: isHighlighted ? "#c77dff" : textColor, fontSize: "1rem" }}
+                          sx={{ color: isHighlighted ? "var(--dexie-accent)" : textColor, fontSize: "1rem" }}
                         />
                       </ListItemIcon>
                       <ListItemText

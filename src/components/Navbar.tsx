@@ -1,5 +1,5 @@
-"use client"
-import { useState, useEffect } from "react"
+"use client";
+import { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -17,112 +17,113 @@ import {
   ListItemButton,
   ListItemText,
   Collapse,
-} from "@mui/material"
-import Link from "next/link"
-import Image from "next/image"
-import { usePathname } from "next/navigation"
-import { menuItems } from "../config/navigation"
-import LockIcon from "@mui/icons-material/Lock"
-import GitHubIcon from "@mui/icons-material/GitHub"
-import LaunchIcon from "@mui/icons-material/Launch"
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore"
-import MenuIcon from "@mui/icons-material/Menu"
-import CloseIcon from "@mui/icons-material/Close"
-import ExpandLessIcon from "@mui/icons-material/ExpandLess"
-import { formatNumber } from "../utils/formatNumber"
-import { useClearSearchText } from "@/utils/useSearchText"
-import LandingSearchBar from "./LandingSearchBar"
-import MobileDrawerSearch from "./MobileDrawerSearch"
+} from "@mui/material";
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { menuItems } from "../config/navigation";
+import LockIcon from "@mui/icons-material/Lock";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import LaunchIcon from "@mui/icons-material/Launch";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import { formatNumber } from "../utils/formatNumber";
+import { useClearSearchText } from "@/utils/useSearchText";
+import LandingSearchBar from "./LandingSearchBar";
+import MobileDrawerSearch from "./MobileDrawerSearch";
+import ThemeModeToggle from "./ThemeModeToggle";
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
-  const [stars, setStars] = useState(13000)
+  const [scrolled, setScrolled] = useState(false);
+  const [stars, setStars] = useState(13000);
   const [supportMenuAnchor, setSupportMenuAnchor] =
-    useState<null | HTMLElement>(null)
+    useState<null | HTMLElement>(null);
   const [productMenuAnchor, setProductMenuAnchor] =
-    useState<null | HTMLElement>(null)
-  const [mounted, setMounted] = useState(false)
-  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false)
+    useState<null | HTMLElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const [expandedMobileMenu, setExpandedMobileMenu] = useState<string | null>(
-    null
-  )
-  const theme = useTheme()
-  const pathname = usePathname()
+    null,
+  );
+  const theme = useTheme();
+  const pathname = usePathname();
   // const isMobile = useMediaQuery(theme.breakpoints.down("md"))
 
-  const supportMenuOpen = Boolean(supportMenuAnchor)
-  const productMenuOpen = Boolean(productMenuAnchor)
+  const supportMenuOpen = Boolean(supportMenuAnchor);
+  const productMenuOpen = Boolean(productMenuAnchor);
 
   const handleSupportMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-    setSupportMenuAnchor(event.currentTarget)
-  }
+    setSupportMenuAnchor(event.currentTarget);
+  };
 
   const handleSupportMenuClose = () => {
-    setSupportMenuAnchor(null)
-  }
+    setSupportMenuAnchor(null);
+  };
 
   const handleProductMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-    setProductMenuAnchor(event.currentTarget)
-  }
+    setProductMenuAnchor(event.currentTarget);
+  };
 
   const handleProductMenuClose = () => {
-    setProductMenuAnchor(null)
-  }
+    setProductMenuAnchor(null);
+  };
 
   const handleMobileDrawerToggle = () => {
     // Clear search when opening drawer (to reset highlighting on doc pages)
     if (!mobileDrawerOpen) {
-      clearSearchText()
+      clearSearchText();
     }
-    setMobileDrawerOpen(!mobileDrawerOpen)
-  }
+    setMobileDrawerOpen(!mobileDrawerOpen);
+  };
 
   const handleMobileMenuExpand = (menuName: string) => {
-    setExpandedMobileMenu(expandedMobileMenu === menuName ? null : menuName)
-  }
+    setExpandedMobileMenu(expandedMobileMenu === menuName ? null : menuName);
+  };
 
   // Handle client-side mounting to prevent hydration mismatch
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted) return;
 
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 20
-      setScrolled(isScrolled)
-    }
+      const isScrolled = window.scrollY > 20;
+      setScrolled(isScrolled);
+    };
 
     // Check scroll position on mount
-    handleScroll()
+    handleScroll();
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [mounted])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [mounted]);
 
   useEffect(() => {
-    if (!mounted) return
+    if (!mounted) return;
 
     const fetchStars = async () => {
       try {
         const response = await fetch(
-          "https://api.github.com/repos/dexie/Dexie.js"
-        )
+          "https://api.github.com/repos/dexie/Dexie.js",
+        );
         if (!response.ok) {
-          console.warn("Failed to fetch GitHub stars:", response.status)
-          return
+          console.warn("Failed to fetch GitHub stars:", response.status);
+          return;
         }
-        const data = await response.json()
+        const data = await response.json();
         if (data.stargazers_count) {
-          setStars(data.stargazers_count)
+          setStars(data.stargazers_count);
         }
       } catch (error) {
-        console.error("Error fetching stars:", error)
+        console.error("Error fetching stars:", error);
       }
-    }
-    fetchStars()
-  }, [mounted])
+    };
+    fetchStars();
+  }, [mounted]);
 
   const clearSearchText = useClearSearchText();
 
@@ -150,27 +151,31 @@ export default function Navbar() {
       >
         <Image
           src="/assets/images/dexie-logo.png"
+          className="dexie-logo"
           alt="Dexie Logo"
           width={80}
           height={20}
         />
-        <IconButton onClick={handleMobileDrawerToggle} color="inherit">
-          <CloseIcon />
-        </IconButton>
+        <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
+          <ThemeModeToggle size="small" />
+          <IconButton onClick={handleMobileDrawerToggle} color="inherit">
+            <CloseIcon />
+          </IconButton>
+        </Box>
       </Box>
       <Divider />
-      
+
       {/* Mobile Search */}
       <MobileDrawerSearch onNavigate={() => setMobileDrawerOpen(false)} />
       <Divider />
-      
+
       <List sx={{ pt: 0 }}>
         {menuItems.map((item) => {
           const isActive =
             pathname === item.href ||
-            (item.text === "Product" && pathname.startsWith("/product"))
-          const hasChildren = item.children && item.children.length > 0
-          const isExpanded = expandedMobileMenu === item.text
+            (item.text === "Product" && pathname.startsWith("/product"));
+          const hasChildren = item.children && item.children.length > 0;
+          const isExpanded = expandedMobileMenu === item.text;
 
           return (
             <Box key={item.id}>
@@ -178,10 +183,10 @@ export default function Navbar() {
                 <ListItemButton
                   onClick={() => {
                     if (hasChildren) {
-                      handleMobileMenuExpand(item.text)
+                      handleMobileMenuExpand(item.text);
                     } else {
-                      setMobileDrawerOpen(false)
-                      clearSearchText()
+                      setMobileDrawerOpen(false);
+                      clearSearchText();
                     }
                   }}
                   component={
@@ -234,7 +239,7 @@ export default function Navbar() {
                             key={`divider-${index}`}
                             sx={{ mx: 3, my: 1 }}
                           />
-                        )
+                        );
                       }
                       return (
                         <ListItem key={index} disablePadding>
@@ -267,13 +272,13 @@ export default function Navbar() {
                             )}
                           </ListItemButton>
                         </ListItem>
-                      )
+                      );
                     })}
                   </List>
                 </Collapse>
               )}
             </Box>
-          )
+          );
         })}
 
         {/* GitHub Stars in mobile menu */}
@@ -327,7 +332,7 @@ export default function Navbar() {
         </ListItem>
       </List>
     </Drawer>
-  )
+  );
 
   return (
     <AppBar
@@ -360,6 +365,7 @@ export default function Navbar() {
           <Box sx={{ flex: "0 0 auto" }}>
             <Image
               src="/assets/images/dexie-logo.png"
+              className="dexie-logo"
               alt="Dexie Logo"
               width={80}
               height={20}
@@ -382,10 +388,10 @@ export default function Navbar() {
           {menuItems.map((item) => {
             const isActive =
               pathname === item.href ||
-              (item.text === "Product" && pathname.startsWith("/product"))
-            const isExternal = item.external
-            const isSupport = item.text === "Support"
-            const isProduct = item.text === "Product"
+              (item.text === "Product" && pathname.startsWith("/product"));
+            const isExternal = item.external;
+            const isSupport = item.text === "Support";
+            const isProduct = item.text === "Product";
 
             if (isProduct && item.children) {
               return (
@@ -407,7 +413,7 @@ export default function Navbar() {
                       "&:hover": {
                         backgroundColor: alpha(
                           theme.palette.primary.main,
-                          0.08
+                          0.08,
                         ),
                       },
                     }}
@@ -427,7 +433,7 @@ export default function Navbar() {
                       mt: 2,
                       "& .MuiPaper-root": {
                         minWidth: "280px",
-                        backgroundColor: "#000000",
+                        backgroundColor: "var(--dexie-bg)",
                       },
                       "& .MuiList-root": {
                         padding: "0px !important",
@@ -459,7 +465,7 @@ export default function Navbar() {
                           "&:hover": {
                             backgroundColor: alpha(
                               theme.palette.primary.main,
-                              0.08
+                              0.08,
                             ),
                           },
                         }}
@@ -474,7 +480,7 @@ export default function Navbar() {
                     ))}
                   </Menu>
                 </Box>
-              )
+              );
             }
 
             if (isSupport && item.children) {
@@ -497,7 +503,7 @@ export default function Navbar() {
                       "&:hover": {
                         backgroundColor: alpha(
                           theme.palette.primary.main,
-                          0.08
+                          0.08,
                         ),
                       },
                     }}
@@ -517,7 +523,7 @@ export default function Navbar() {
                       mt: 2,
                       "& .MuiPaper-root": {
                         minWidth: "280px",
-                        backgroundColor: "#000000",
+                        backgroundColor: "var(--dexie-bg)",
                       },
                       "& .MuiList-root": {
                         padding: "0px !important",
@@ -539,7 +545,7 @@ export default function Navbar() {
                             }}
                             key={`divider-${index}`}
                           />
-                        )
+                        );
                       }
                       return (
                         <MenuItem
@@ -566,7 +572,7 @@ export default function Navbar() {
                             "&:hover": {
                               backgroundColor: alpha(
                                 theme.palette.primary.main,
-                                0.08
+                                0.08,
                               ),
                             },
                           }}
@@ -578,11 +584,11 @@ export default function Navbar() {
                             />
                           )}
                         </MenuItem>
-                      )
+                      );
                     })}
                   </Menu>
                 </Box>
-              )
+              );
             }
 
             return (
@@ -590,7 +596,7 @@ export default function Navbar() {
                 key={item.id}
                 component={isExternal ? "a" : Link}
                 onClick={() => {
-                  clearSearchText()
+                  clearSearchText();
                 }}
                 href={item.href}
                 target={isExternal ? "_blank" : undefined}
@@ -619,12 +625,19 @@ export default function Navbar() {
                   <LaunchIcon sx={{ fontSize: "14px", opacity: 0.7 }} />
                 )}
               </Button>
-            )
+            );
           })}
         </Box>
 
         {/* Search Bar (Desktop only - large screens) */}
-        <Box sx={{ flex: "0 0 auto", marginRight: 2, display: "flex", alignItems: "center" }}>
+        <Box
+          sx={{
+            flex: "0 0 auto",
+            marginRight: 2,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
           <LandingSearchBar />
         </Box>
 
@@ -711,6 +724,18 @@ export default function Navbar() {
           </Button>
         </Box>
 
+        {/* Theme Mode Toggle (Desktop only) */}
+        <Box
+          sx={{
+            flex: "0 0 auto",
+            display: { xs: "none", md: "flex" },
+            alignItems: "center",
+            mr: 1,
+          }}
+        >
+          <ThemeModeToggle size="small" />
+        </Box>
+
         {/* Mobile Menu Button */}
         <Box sx={{ flex: "0 0 auto", display: { xs: "block", md: "none" } }}>
           <IconButton
@@ -730,5 +755,5 @@ export default function Navbar() {
       {/* Mobile Drawer */}
       {renderMobileDrawer()}
     </AppBar>
-  )
+  );
 }

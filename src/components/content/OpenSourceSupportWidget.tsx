@@ -47,8 +47,8 @@ export default function OpenSourceSupportWidget({
   sx = {},
 }: OpenSourceSupportWidgetProps) {
   const {
-    textColor = "#dee2e6",
-    backgroundColor = "#000000",
+    textColor = "var(--dexie-text)",
+    backgroundColor = "var(--dexie-bg)",
     containerWidth = "big",
     sectionTitle = "Dexie.js Support",
     sectionSubtitle = "Professional support for teams building on Dexie.js",
@@ -84,7 +84,7 @@ export default function OpenSourceSupportWidget({
           sx={{
             textAlign: "center",
             mb: 6,
-            color: "#adb5bd",
+            color: "var(--dexie-text-muted)",
             maxWidth: "800px",
             mx: "auto",
           }}
@@ -117,9 +117,9 @@ export default function OpenSourceSupportWidget({
                   flex: 1,
                   display: "flex",
                   flexDirection: "column",
-                  backgroundColor: plan.highlighted ? "#1a1035" : "#1a1a1a",
+                  backgroundColor: plan.highlighted ? "#1a1035" : "var(--dexie-surface-deep)",
                   border: plan.highlighted
-                    ? "1px solid #c77dff"
+                    ? "1px solid var(--dexie-accent)"
                     : "1px solid #333",
                   position: "relative",
                   transition: "border-color 0.2s, box-shadow 0.2s",
@@ -129,7 +129,7 @@ export default function OpenSourceSupportWidget({
                   }),
                   "&:hover": plan.highlighted
                     ? {
-                        borderColor: "#e0aaff",
+                        borderColor: "var(--dexie-accent-soft)",
                         backgroundColor: "#241548",
                         boxShadow:
                           "0 16px 60px rgba(199, 125, 255, 0.35), 0 0 0 1px rgba(224, 170, 255, 0.6)",
@@ -148,8 +148,8 @@ export default function OpenSourceSupportWidget({
                       top: 16,
                       right: 16,
                       backgroundColor: "transparent",
-                      border: "1px solid #c77dff",
-                      color: "#c77dff",
+                      border: "1px solid var(--dexie-accent)",
+                      color: "var(--dexie-accent)",
                       fontWeight: 600,
                       fontSize: "0.7rem",
                     }}
@@ -177,7 +177,7 @@ export default function OpenSourceSupportWidget({
                       variant="h4"
                       component="span"
                       sx={{
-                        color: plan.highlighted ? "#c77dff" : textColor,
+                        color: plan.highlighted ? "var(--dexie-accent)" : textColor,
                         fontWeight: 700,
                       }}
                     >
@@ -187,7 +187,7 @@ export default function OpenSourceSupportWidget({
                       <Typography
                         component="span"
                         variant="body2"
-                        sx={{ color: "#adb5bd", ml: 1 }}
+                        sx={{ color: "var(--dexie-text-muted)", ml: 1 }}
                       >
                         {plan.priceNote}
                       </Typography>
@@ -196,7 +196,7 @@ export default function OpenSourceSupportWidget({
 
                   <Typography
                     variant="body2"
-                    sx={{ color: "#adb5bd", mb: 3, lineHeight: 1.7 }}
+                    sx={{ color: "var(--dexie-text-muted)", mb: 3, lineHeight: 1.7 }}
                   >
                     {plan.description}
                   </Typography>
@@ -220,10 +220,10 @@ export default function OpenSourceSupportWidget({
                                 backgroundColor:
                                   "rgba(199, 125, 255, 0.1)",
                                 "& .MuiSvgIcon-root": {
-                                  color: "#e0aaff",
+                                  color: "var(--dexie-accent-soft)",
                                 },
                                 "& .MuiTypography-root": {
-                                  color: "#e0aaff",
+                                  color: "var(--dexie-accent-soft)",
                                 },
                               }
                             : {
@@ -249,7 +249,7 @@ export default function OpenSourceSupportWidget({
                           <CheckIcon
                             sx={{
                               fontSize: "16px",
-                              color: plan.highlighted ? "#c77dff" : "#adb5bd",
+                              color: plan.highlighted ? "var(--dexie-accent)" : "var(--dexie-text-muted)",
                             }}
                           />
                         </ListItemIcon>
@@ -285,7 +285,7 @@ export default function OpenSourceSupportWidget({
                       fontWeight: 600,
                       ...(plan.highlighted
                         ? {
-                            backgroundColor: "#c77dff",
+                            backgroundColor: "var(--dexie-accent)",
                             color: "#000",
                             "&:hover": { backgroundColor: "#a855f7" },
                           }
@@ -293,8 +293,8 @@ export default function OpenSourceSupportWidget({
                             borderColor: "#555",
                             color: textColor,
                             "&:hover": {
-                              borderColor: "#c77dff",
-                              color: "#c77dff",
+                              borderColor: "var(--dexie-accent)",
+                              color: "var(--dexie-accent)",
                             },
                           }),
                     }}

@@ -182,8 +182,8 @@ export default function ProductPage() {
       <Benefits
         items={dexieJsBenefits}
         settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
+          textColor: "var(--dexie-text)",
+          backgroundColor: "var(--dexie-bg)",
           containerWidth: "big",
           sectionTitle: "What is Dexie.js?",
           sectionSubtitle: "The Smarter Way to Use IndexedDB",
@@ -196,8 +196,8 @@ export default function ProductPage() {
       <Benefits
         items={dexieCloudBenefits}
         settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
+          textColor: "var(--dexie-text)",
+          backgroundColor: "var(--dexie-bg)",
           containerWidth: "big",
           sectionTitle: "What is Dexie Cloud?",
           sectionSubtitle: "Offline-First Sync Without the Complexity",
@@ -209,7 +209,7 @@ export default function ProductPage() {
       {/* Key Benefits Section */}
       <Box
         sx={{
-          color: "#dee2e6",
+          color: "var(--dexie-text)",
           py: 8,
           pt: 18,
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url("/assets/images/dexie-bg.jpg")`,
@@ -225,7 +225,7 @@ export default function ProductPage() {
             variant="h3"
             component="h2"
             textAlign="center"
-            sx={{ mb: 2, color: "#ffffff" }}
+            sx={{ mb: 2, color: "var(--dexie-bright)" }}
           >
             Why choose Dexie?
           </Typography>
@@ -257,7 +257,7 @@ export default function ProductPage() {
                   <path d="M12 18l1.291-4h-4.291l6.584-7-1.375 4h3.791l-6 7zm1.5-16c-5.288 0-9.649 3.914-10.377 9h-3.123l4 5.917 4-5.917h-2.847c.711-3.972 4.174-7 8.347-7 4.687 0 8.5 3.813 8.5 8.5s-3.813 8.5-8.5 8.5c-3.015 0-5.662-1.583-7.171-3.957l-1.2 1.775c1.916 2.536 4.948 4.182 8.371 4.182 5.797 0 10.5-4.702 10.5-10.5s-4.703-10.5-10.5-10.5z" />
                 </svg>
               </Box>
-              <Typography variant="h5" sx={{ mb: 2, color: "#ffffff" }}>
+              <Typography variant="h5" sx={{ mb: 2, color: "var(--dexie-bright)" }}>
                 Reactive
               </Typography>
               <Typography variant="body1" sx={{ opacity: 0.9 }}>
@@ -279,7 +279,7 @@ export default function ProductPage() {
                   <path d="M15.996 23.999h-12.605s.734-3.931.633-5.686c-.041-.724-.161-1.474-.54-2.104-.645-1-2.636-3.72-2.475-7.43.224-5.209 4.693-8.779 10.126-8.779 5.098 0 8.507 3.001 9.858 7.483.328 1.079.311 1.541-.151 2.607l-.006.013 1.751 2.142c.26.381.413.791.413 1.239 0 .547-.233 1.045-.61 1.399-.368.345-.767.452-1.248.642 0 0-.576 2.592-.873 3.291-.7 1.643-1.97 1.659-2.97 1.849-.394.083-.49.133-.681.681-.208.591-.363 1.435-.622 2.653m-4.842-22c-4.285.048-7.74 2.548-8.121 6.488-.192 1.991.463 3.986 1.516 5.705.611 1 1.305 1.592 1.464 3.875.091 1.313-.05 2.636-.241 3.932h8.604c.141-.645.35-1.485.687-2.057.449-.766 1.097-1.099 1.926-1.254.838-.148 1.238-.059 1.489-.785.212-.579.612-2.221.831-3.902 1.203-.335.612-.161 1.671-.559-.206-.234-1.918-2.314-2.045-2.6-.336-.759-.046-1.19.225-1.913.086-.251.06-.357-.009-.613-1.049-3.949-3.891-6.317-7.997-6.317m.52 3c.242.684.312 1.122.841 1.341h.001c.53.221.893-.044 1.543-.353l.953.952c-.312.655-.573 1.016-.354 1.544v.001c.219.528.653.597 1.342.841v1.347c-.681.243-1.123.313-1.342.843-.22.529.043.891.354 1.544l-.953.952c-.657-.313-1.014-.574-1.541-.355h-.001c-.531.222-.601.661-.843 1.343h-1.348c-.242-.684-.312-1.122-.841-1.34l-.001-.001c-.529-.221-.892.043-1.544.353l-.952-.952c.305-.643.574-1.011.353-1.545-.22-.529-.661-.599-1.341-.842v-1.347c.681-.242 1.121-.312 1.341-.841.22-.531-.042-.891-.353-1.545l.952-.952c.657.312 1.015.573 1.544.353h.001c.529-.219.599-.661.841-1.341h1.348zm-.674 6.667c-.92 0-1.667-.746-1.667-1.667s.747-1.667 1.667-1.667 1.666.746 1.666 1.667-.746 1.667-1.666 1.667" />
                 </svg>
               </Box>
-              <Typography variant="h5" sx={{ mb: 2, color: "#ffffff" }}>
+              <Typography variant="h5" sx={{ mb: 2, color: "var(--dexie-bright)" }}>
                 Easy to learn
               </Typography>
               <Typography variant="body1" sx={{ opacity: 0.9 }}>
@@ -301,7 +301,7 @@ export default function ProductPage() {
                   <path d="M15.408 21h-9.908c-3.037 0-5.5-2.463-5.5-5.5 0-2.702 1.951-4.945 4.521-5.408.212-3.951 3.473-7.092 7.479-7.092 3.267 0 6.037 2.089 7.063 5.003l-.063-.003c-.681 0-1.336.102-1.958.283-.878-2.025-2.73-3.283-5.042-3.283-3.359 0-5.734 2.562-5.567 6.78-1.954-.113-4.433.923-4.433 3.72 0 1.93 1.57 3.5 3.5 3.5h7.76c.566.81 1.3 1.49 2.148 2zm2.257-8.669c.402-.206.852-.331 1.335-.331 1.455 0 2.67 1.042 2.941 2.418l1.96-.398c-.456-2.291-2.475-4.02-4.901-4.02-.957 0-1.845.278-2.604.745l-1.396-1.745-1 5h5l-1.335-1.669zm5.335 8.669l-1.396-1.745c-.759.467-1.647.745-2.604.745-2.426 0-4.445-1.729-4.901-4.02l1.96-.398c.271 1.376 1.486 2.418 2.941 2.418.483 0 .933-.125 1.335-.331l-1.335-1.669h5l-1 5z" />
                 </svg>
               </Box>
-              <Typography variant="h5" sx={{ mb: 2, color: "#ffffff" }}>
+              <Typography variant="h5" sx={{ mb: 2, color: "var(--dexie-bright)" }}>
                 Easy to sync
               </Typography>
               <Typography variant="body1" sx={{ opacity: 0.9 }}>
@@ -318,7 +318,7 @@ export default function ProductPage() {
       {/* 4-Step Guide */}
       <Box
         sx={{
-          color: "#dee2e6",
+          color: "var(--dexie-text)",
           py: 8,
         }}
         id="from-local-to-global"
@@ -328,7 +328,7 @@ export default function ProductPage() {
             variant="h3"
             component="h2"
             textAlign="center"
-            sx={{ mb: 2, color: "#ffffff" }}
+            sx={{ mb: 2, color: "var(--dexie-bright)" }}
           >
             From local to global in 4 steps
           </Typography>
@@ -355,7 +355,7 @@ export default function ProductPage() {
                   variant="h5"
                   sx={{
                     mb: 2,
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     display: "flex",
                     alignItems: "center",
                   }}
@@ -401,7 +401,7 @@ db.version(1).stores({
                   variant="h5"
                   sx={{
                     mb: 2,
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     display: "flex",
                     alignItems: "center",
                   }}
@@ -454,7 +454,7 @@ await db.friends.add({
                   variant="h5"
                   sx={{
                     mb: 2,
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     display: "flex",
                     alignItems: "center",
                   }}
@@ -514,7 +514,7 @@ function FriendList() {
                   variant="h5"
                   sx={{
                     mb: 2,
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     display: "flex",
                     alignItems: "center",
                   }}
@@ -619,8 +619,8 @@ db.cloud.configure({
         items={blogPostsData}
         sectionTitle="Kickstart with templates"
         sectionSubtitle="From local storage to global sync - choose your path"
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
       />
 
@@ -628,8 +628,8 @@ db.cloud.configure({
       <CallToActionWidget
         text="Ready to build offline-first apps? Start with Dexie.js for local storage, add Dexie Cloud when you need sync, auth, and collaboration. No backend required."
         buttonText="Start Building"
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
       />
     </>
