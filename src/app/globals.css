@@ -14,6 +14,8 @@
   --dexie-accent: #c77dff;
   --dexie-accent-strong: #9d4edd;
   --dexie-accent-soft: #e0aaff;
+  --dexie-hero-overlay: rgba(0, 0, 0, 0.9);
+  --dexie-hero-overlay-soft: rgba(0, 0, 0, 0.8);
 }
 
 [data-mui-color-scheme="light"] {
@@ -29,6 +31,8 @@
   --dexie-accent: #6b2bc9;
   --dexie-accent-strong: #5520a5;
   --dexie-accent-soft: #8a3ffc;
+  --dexie-hero-overlay: rgba(247, 247, 250, 0.9);
+  --dexie-hero-overlay-soft: rgba(247, 247, 250, 0.86);
 }
 
 /* Existing brand assets are white-on-transparent. Invert them only for the

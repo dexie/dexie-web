@@ -541,7 +541,8 @@ export default function Navbar() {
                         return (
                           <Divider
                             sx={{
-                              border: "1px solid rgba(255, 255, 255, 0.12)",
+                              border: "1px solid",
+                              borderColor: theme.palette.divider,
                             }}
                             key={`divider-${index}`}
                           />

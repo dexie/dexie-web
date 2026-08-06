@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { Box, Tabs, Tab } from "@mui/material"
-import { useState } from "react"
-import CodeBlock from "@/components/content/shared/CodeBlock"
+import { Box, Tabs, Tab } from "@mui/material";
+import { useState } from "react";
+import CodeBlock from "@/components/content/shared/CodeBlock";
 
 interface TabPanelProps {
-  children?: React.ReactNode
-  index: number
-  value: number
+  children?: React.ReactNode;
+  index: number;
+  value: number;
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
+  const { children, value, index, ...other } = props;
 
   return (
     <Box
@@ -27,22 +27,22 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </Box>
-  )
+  );
 }
 
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
-  }
+  };
 }
 
 export default function HeroContent() {
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
   return (
     <Box
@@ -95,7 +95,7 @@ export default function HeroContent() {
               // Hover state
               "&:hover": {
                 background: "none",
-                borderColor: "rgba(255, 255, 255, 0.3)", // approximation of var(--color-dark-4)
+                borderColor: "var(--dexie-bright)",
                 color: "var(--dexie-bright)",
               },
 
@@ -225,5 +225,5 @@ db.cloud.configure({
         </Box>
       </TabPanel>
     </Box>
-  )
+  );
 }

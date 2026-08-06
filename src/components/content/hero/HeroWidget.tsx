@@ -111,7 +111,7 @@ export default function HeroWidget({
   };
 
   // Determine if overlay should be light or dark based on text color
-  const getOverlayColor = () => {
+  const getOverlayColor = (color: string = resolvedTextColor) => {
     if (!overlayStrength) return "transparent";
 
     // The light hero asset is already tuned for dark text. Keep the overlay
@@ -123,7 +123,7 @@ export default function HeroWidget({
       )})`;
     }
 
-    if (textColor.startsWith("var(")) {
+    if (color.startsWith("var(")) {
       const opacity = parseInt(overlayStrength.replace("%", "")) / 100;
       return mode === "light"
         ? `rgba(255, 255, 255, ${opacity})`
@@ -131,7 +131,7 @@ export default function HeroWidget({
     }
 
     // Simple brightness calculation - if text is light, overlay should be dark
-    const hex = textColor.replace("#", "");
+    const hex = color.replace("#", "");
     const r = parseInt(hex.substr(0, 2), 16);
     const g = parseInt(hex.substr(2, 2), 16);
     const b = parseInt(hex.substr(4, 2), 16);
@@ -179,7 +179,7 @@ export default function HeroWidget({
               left: 0,
               right: 0,
               bottom: 0,
-              backgroundColor: getOverlayColor(),
+              backgroundColor: getOverlayColor(resolvedTextColor),
               zIndex: 1,
             }
           : {},

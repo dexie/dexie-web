@@ -212,7 +212,7 @@ export default function ProductPage() {
           color: "var(--dexie-text)",
           py: 8,
           pt: 18,
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url("/assets/images/dexie-bg.jpg")`,
+          backgroundImage: `linear-gradient(var(--dexie-hero-overlay), var(--dexie-hero-overlay)), url("/assets/images/dexie-bg.jpg")`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           display: "flex",

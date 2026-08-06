@@ -762,7 +762,7 @@ export default function PricingPage() {
           sx={{
             paddingTop: "200px !important",
             background:
-              "linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/assets/images/dexie-bg.jpg')",
+              "linear-gradient(var(--dexie-hero-overlay), var(--dexie-hero-overlay)), url('/assets/images/dexie-bg.jpg')",
             backgroundPosition: "center",
             backgroundSize: "cover",
           }}
