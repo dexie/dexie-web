@@ -282,8 +282,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
             <Typography
               variant="caption"
               sx={{
-                color: settings.textColor || "var(--dexie-bright)",
-                opacity: 0.7,
+                color: "text.secondary",
                 fontSize: "0.8rem",
                 mb: 2,
               }}
@@ -300,8 +299,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                 <Typography
                   variant="caption"
                   sx={{
-                    color: settings.textColor || "var(--dexie-bright)",
-                    opacity: 0.7,
+                    color: "text.secondary",
                     fontSize: "0.8rem",
                     mb: 3,
                     display: "block",
@@ -343,6 +341,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                       <CheckIcon
                         sx={{
                           fontSize: "16px",
+                          color: "secondary.main",
                         }}
                       />
                     </ListItemIcon>
