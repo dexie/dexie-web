@@ -34,6 +34,7 @@ export default function HeroWidget({
     textWidth = "100%",
     height = "100vh",
     overlayStrength,
+    overlayStrengthLight,
     textAlignment = "left",
     verticalTextAlignment = "center",
   } = {},
@@ -41,6 +42,10 @@ export default function HeroWidget({
   const { mode } = useThemeMode();
   const resolvedBackground =
     mode === "light" && backgroundLight ? backgroundLight : background;
+  const resolvedOverlayStrength =
+    mode === "light" && overlayStrengthLight
+      ? overlayStrengthLight
+      : overlayStrength;
   const resolvedTextColor =
     mode === "light" && /^(#fff|#ffffff)$/i.test(textColor)
       ? "var(--dexie-bright)"
@@ -112,19 +117,19 @@ export default function HeroWidget({
 
   // Determine if overlay should be light or dark based on text color
   const getOverlayColor = (color: string = resolvedTextColor) => {
-    if (!overlayStrength) return "transparent";
+    if (!resolvedOverlayStrength) return "transparent";
 
-    // The light hero asset is already tuned for dark text. Keep the overlay
-    // subtle instead of applying the dark-mode readability veil.
+    // The light hero asset is a vibrant colorful photo (unlike dark mode's
+    // near-black one), so it needs a stronger, more opaque light scrim to
+    // guarantee text contrast — a subtle veil isn't enough against bright
+    // pink/orange regions of the image.
     if (mode === "light" && backgroundLight) {
-      return `rgba(255, 255, 255, ${Math.min(
-        parseInt(overlayStrength.replace("%", "")) / 100,
-        0.24,
-      )})`;
+      const opacity = parseInt(resolvedOverlayStrength.replace("%", "")) / 100;
+      return `rgba(255, 255, 255, ${opacity})`;
     }
 
     if (color.startsWith("var(")) {
-      const opacity = parseInt(overlayStrength.replace("%", "")) / 100;
+      const opacity = parseInt(resolvedOverlayStrength.replace("%", "")) / 100;
       return mode === "light"
         ? `rgba(255, 255, 255, ${opacity})`
         : `rgba(0, 0, 0, ${opacity})`;
@@ -144,7 +149,7 @@ export default function HeroWidget({
     const b = parseInt(normalizedHex.substr(4, 2), 16);
     const brightness = (r * 299 + g * 587 + b * 114) / 1000;
 
-    const opacity = parseInt(overlayStrength.replace("%", "")) / 100;
+    const opacity = parseInt(resolvedOverlayStrength.replace("%", "")) / 100;
     return brightness > 128
       ? `rgba(0, 0, 0, ${opacity})` // Dark overlay for light text
       : `rgba(255, 255, 255, ${opacity})`; // Light overlay for dark text
@@ -178,7 +183,7 @@ export default function HeroWidget({
           md: getAlignItems(),
         },
         position: "relative",
-        "&::before": overlayStrength
+        "&::before": resolvedOverlayStrength
           ? {
               content: '""',
               position: "absolute",

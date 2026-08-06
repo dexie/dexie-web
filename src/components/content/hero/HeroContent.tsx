@@ -49,6 +49,18 @@ export default function HeroContent() {
       sx={{
         width: "100%",
         zoom: "0.9 !important",
+        // This panel always renders on its own fixed dark backdrop (matching
+        // the Prism "material-dark" code theme) regardless of the site's
+        // light/dark color mode, the same way GitHub/VS Code docs keep code
+        // blocks dark-themed everywhere. This is especially important in
+        // light mode, where the hero background is now a vibrant colorful
+        // photo — syntax-highlighted code would be unreadable directly on
+        // top of it without a solid container.
+        backgroundColor: "#1a1a1a",
+        borderRadius: "12px",
+        border: "1px solid rgba(255, 255, 255, 0.08)",
+        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.35)",
+        p: 2,
         "& .MuiBox-root": {
           p: "0px !important",
         },

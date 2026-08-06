@@ -540,7 +540,7 @@ export default function Home() {
           "IndexedDB made simple. Add cloud sync for auth, storage, with real-time updates. One unified data layer across all platforms — no backend required. Truly offline-first."
         }
         background={"/assets/images/dexie-bg.jpg"}
-        backgroundLight="/assets/images/dexie-bg-light.jpg"
+        backgroundLight="/assets/images/dexie-bg-light-colorful.jpg"
         contentRight={<HeroContent />}
         contentRightWidthPercentage={45}
         contentBottom={
@@ -583,6 +583,7 @@ export default function Home() {
           height: "90vh",
           textColor: "#FFFFFF",
           overlayStrength: "80%",
+          overlayStrengthLight: "55%",
           textWidth: "60%",
           containerWidth: "big",
         }}

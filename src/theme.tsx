@@ -216,8 +216,14 @@ const typography = {
 };
 
 const theme = createTheme({
+  // `colorSchemeSelector: "data"` does NOT map to the default
+  // `data-mui-color-scheme` attribute that useColorScheme()/our bootstrap
+  // script manage on <html> — it silently falls back to "media" mode
+  // (`@media (prefers-color-scheme: ...)`), which only reflects the OS
+  // preference and never responds to a manual toggle. The selector must be
+  // spelled out explicitly to target the actual attribute.
   cssVariables: {
-    colorSchemeSelector: "data",
+    colorSchemeSelector: "data-mui-color-scheme",
   },
   colorSchemes: {
     dark: { palette: darkPalette },
