@@ -132,9 +132,16 @@ export default function HeroWidget({
 
     // Simple brightness calculation - if text is light, overlay should be dark
     const hex = color.replace("#", "");
-    const r = parseInt(hex.substr(0, 2), 16);
-    const g = parseInt(hex.substr(2, 2), 16);
-    const b = parseInt(hex.substr(4, 2), 16);
+    const normalizedHex =
+      hex.length === 3
+        ? hex
+            .split("")
+            .map((channel) => channel + channel)
+            .join("")
+        : hex;
+    const r = parseInt(normalizedHex.substr(0, 2), 16);
+    const g = parseInt(normalizedHex.substr(2, 2), 16);
+    const b = parseInt(normalizedHex.substr(4, 2), 16);
     const brightness = (r * 299 + g * 587 + b * 114) / 1000;
 
     const opacity = parseInt(overlayStrength.replace("%", "")) / 100;
