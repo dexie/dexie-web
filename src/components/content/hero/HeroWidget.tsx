@@ -40,8 +40,28 @@ export default function HeroWidget({
   } = {},
 }: HeroWidgetProps) {
   const { mode } = useThemeMode();
+  const isLightHero = mode === "light" && !!backgroundLight;
   const resolvedBackground =
     mode === "light" && backgroundLight ? backgroundLight : background;
+  // In light mode we layer a soft brand-tinted gradient scrim OVER the hero
+  // image so the vibrant polygon reads as a subtle, controlled brand accent
+  // (top-left) that fades to the page background — instead of a loud, dated
+  // wall of pink. This keeps a hint of color/energy while guaranteeing text
+  // contrast and a smooth transition into the sections below. Dark mode is
+  // untouched (plain cover image).
+  // Two stacked gradients over the polygon image: (1) a vertical fade that
+  // washes the bottom third to solid page-background so the logo strip and
+  // the section below sit on clean off-white; (2) a diagonal brand-tinted
+  // wash that keeps a soft purple accent in the upper-left and desaturates
+  // the rest. Result: the vibrant polygon reads as a subtle, intentional
+  // brand glow rather than a loud full-bleed wall of pink.
+  const backgroundImageValue = isLightHero
+    ? [
+        "linear-gradient(180deg, rgba(247,247,250,0.35) 0%, rgba(247,247,250,0.55) 55%, rgba(247,247,250,0.94) 88%, rgba(247,247,250,1) 100%)",
+        "linear-gradient(115deg, rgba(124,47,224,0.22) 0%, rgba(124,47,224,0.08) 34%, rgba(247,247,250,0.5) 62%, rgba(247,247,250,0.85) 100%)",
+        `url(${resolvedBackground})`,
+      ].join(", ")
+    : `url(${resolvedBackground})`;
   const resolvedOverlayStrength =
     mode === "light" && overlayStrengthLight
       ? overlayStrengthLight
@@ -158,7 +178,7 @@ export default function HeroWidget({
   return (
     <Box
       sx={{
-        backgroundImage: `url(${resolvedBackground})`,
+        backgroundImage: backgroundImageValue,
         backgroundSize: "cover",
         backgroundPosition: "center",
         height: {

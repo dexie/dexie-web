@@ -562,8 +562,16 @@ export default function Home() {
             },
             color: "secondary",
             size: "large",
-            variant: "outlined",
-            sx: { borderRadius: "32px" },
+            variant: "contained",
+            sx: {
+              borderRadius: "32px",
+              color: "#ffffff !important",
+              boxShadow: "0 8px 20px rgba(124, 47, 224, 0.28)",
+              "& .MuiButton-startIcon": { marginRight: "10px" },
+              "&:hover": {
+                boxShadow: "0 10px 26px rgba(124, 47, 224, 0.36)",
+              },
+            },
           },
           {
             text: "How it works?",

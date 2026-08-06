@@ -89,10 +89,12 @@ export default function HeroContent() {
               gap: "5px", // padding between tabs
             },
             "& .MuiTab-root": {
-              // .tpl-minimal-tabs > li > a styling
+              // .tpl-minimal-tabs > li > a styling. Panel is always dark, so
+              // inactive tab labels are a muted light gray (readable but
+              // clearly lower-emphasis than the active tab).
               padding: "5px 20px !important",
               textDecoration: "none",
-              color: "var(--dexie-bright)", // .light-content .tpl-minimal-tabs > li > a
+              color: "rgba(255, 255, 255, 0.55)",
               background: "none",
               border: "1px solid transparent",
               borderRadius: "100px !important",
@@ -104,23 +106,26 @@ export default function HeroContent() {
               letterSpacing: "1px",
               transition: "all 0.3s ease",
 
-              // Hover state
+              // Hover state. This panel always renders on a fixed dark
+              // background regardless of site color mode, so tab colors are
+              // hardcoded light (NOT var(--dexie-bright), which flips to dark
+              // in light mode and made the inactive tabs invisible).
               "&:hover": {
                 background: "none",
-                borderColor: "var(--dexie-bright)",
-                color: "var(--dexie-bright)",
+                borderColor: "rgba(255, 255, 255, 0.5)",
+                color: "#ffffff",
               },
 
               // Active/selected state
               "&.Mui-selected": {
-                border: "1px solid var(--dexie-bright) !important",
-                background: "none !important",
-                color: "var(--dexie-bright) !important",
+                border: "1px solid rgba(255, 255, 255, 0.9) !important",
+                background: "rgba(255, 255, 255, 0.08) !important",
+                color: "#ffffff !important",
                 cursor: "default",
 
                 "&:hover": {
-                  border: "1px solid var(--dexie-bright) !important",
-                  color: "var(--dexie-bright) !important",
+                  border: "1px solid rgba(255, 255, 255, 0.9) !important",
+                  color: "#ffffff !important",
                 },
               },
             },

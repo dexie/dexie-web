@@ -48,13 +48,6 @@ export default function Brands({ sx }: BrandProps) {
       alt: "GitHub",
       link: "https://github.com",
     },
-    {
-      src: "/assets/images/brands/totodo.png",
-      width: 150,
-      height: 35,
-      alt: "To To-Do",
-      link: "https://totodo.app/go",
-    },
   ];
 
   return (
@@ -118,11 +111,20 @@ export default function Brands({ sx }: BrandProps) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  opacity: 0.7,
+                  // Normalize the mixed-fidelity brand assets to a single
+                  // muted monochrome bar. In light mode the white/transparent
+                  // logos are darkened to a uniform gray; in dark mode they
+                  // stay as-is. This reads far more premium than mismatched
+                  // colorful marks.
+                  opacity: mode === "light" ? 0.75 : 0.7,
                   transition: "opacity 0.3s ease",
-                  filter: mode === "light" ? "brightness(0.28)" : "none",
+                  filter:
+                    mode === "light"
+                      ? "grayscale(1) brightness(0) opacity(0.78)"
+                      : "none",
                   "&:hover": {
                     opacity: 1,
+                    filter: mode === "light" ? "grayscale(1) brightness(0.1)" : "none",
                   },
                 }}
               >
