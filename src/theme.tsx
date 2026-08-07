@@ -500,6 +500,10 @@ theme.components = {
           "&.MuiButton-outlinedSecondary": {
             color: lightPalette.secondary.main,
             borderColor: lightPalette.secondary.main,
+            "&:hover": {
+              backgroundColor: "rgba(107, 33, 196, 0.08)",
+              borderColor: lightPalette.secondary.dark,
+            },
           },
         }),
       },
@@ -675,6 +679,7 @@ theme.components = {
   MuiTable: {
     styleOverrides: {
       root: {
+        backgroundColor: "transparent",
         border: "1px solid rgba(255, 255, 255, 0.05)",
         ...theme.applyStyles("light", {
           border: `1px solid ${lightPalette.divider}`,
@@ -685,6 +690,7 @@ theme.components = {
   MuiTableContainer: {
     styleOverrides: {
       root: {
+        backgroundColor: "transparent",
         border: "1px solid rgba(255, 255, 255, 0.05)",
         ...theme.applyStyles("light", {
           border: `1px solid ${lightPalette.divider}`,
@@ -695,6 +701,7 @@ theme.components = {
   MuiTableRow: {
     styleOverrides: {
       root: {
+        backgroundColor: "transparent",
         borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
         "&:hover": {
           backgroundColor: "rgba(255, 255, 255, 0.02)",
@@ -717,6 +724,7 @@ theme.components = {
   MuiTableCell: {
     styleOverrides: {
       root: {
+        backgroundColor: "transparent",
         borderBottom: "1px solid rgba(255, 255, 255, 0.05)",
         borderRight: "1px solid rgba(255, 255, 255, 0.05)",
         color: darkPalette.text.primary,
@@ -730,6 +738,7 @@ theme.components = {
         }),
       },
       head: {
+        backgroundColor: "transparent",
         borderBottom: "2px solid rgba(255, 255, 255, 0.05)",
         fontWeight: 600,
         color: darkPalette.text.primary,
