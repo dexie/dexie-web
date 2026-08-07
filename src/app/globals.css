@@ -72,6 +72,24 @@ body {
   background: transparent;
 }
 
+/* The dark code panel keeps a light foreground in light mode. Our CodeBlock
+   uses prism-<lang> classes, so the material-dark theme's base color (scoped to
+   code[class*=language-]) never applies and plain/untokenized code inherited
+   the near-black light-mode --dexie-text -> invisible on the dark panel. Force
+   the light foreground on the code surface and its plain tokens/parameters. */
+[data-mui-color-scheme="light"] .codeblock-container,
+[data-mui-color-scheme="light"] .codeblock-container pre[class*="prism-"],
+[data-mui-color-scheme="light"] .codeblock-container code[class*="prism-"],
+[data-mui-color-scheme="light"] .codeblock-container .code-line {
+  color: #eeffff;
+}
+
+[data-mui-color-scheme="light"] .codeblock-container .token.parameter,
+[data-mui-color-scheme="light"] .codeblock-container .token.plain,
+[data-mui-color-scheme="light"] .codeblock-container .token.plain-text {
+  color: #eeffff;
+}
+
 html {
   /* Fix anchor links being hidden behind fixed header */
   /* Mobile first - smaller header on mobile */
