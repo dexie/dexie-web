@@ -11,6 +11,7 @@ This page documents the REST API that every database in Dexie Cloud has.
 | -------------------------------------- | ----------------------------- |
 | [/token](#token)                       | Token endpoint                |
 | [/token/validate](#token-validate)     | Token validation endpoint     |
+| [/clients/rotate](#clients-rotate)     | Rotate an API client key      |
 | [/auth-providers](#auth-providers)     | List authentication providers |
 | [/oauth/login/:provider](#oauth-login) | Initiate OAuth login          |
 | [/all/...](#all-endpoint)              | All data endpoint             |
@@ -241,6 +242,68 @@ The token is valid in one hour from the time it was requested.
 
 - [Tokens](authentication#tokens)
 - [Example auth integration](<db.cloud.configure()#example-integrate-custom-authentication>)
+
+### /clients/rotate
+
+Rotates the API client key associated with the bearer token. The old client
+continues to work for a short grace period (7 days by default), after which it
+expires. The response contains the new client credentials, so handle the
+response as a secret.
+
+|                |                                                                                 |
+| -------------- | ------------------------------------------------------------------------------- |
+| Method         | POST                                                                            |
+| Content-Type   | application/json                                                                |
+| Authorization  | Bearer token                                                                    |
+| Required scope | `MANAGE_DB` for service-account rotation; no additional scope for self-rotation |
+
+#### Rotate the calling client
+
+Omit the request body, or provide `oldClientExpiryDays` to set the grace
+period for the old key:
+
+```http
+POST /clients/rotate HTTP/1.1
+Host: xxxx.dexie.cloud
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "oldClientExpiryDays": 7
+}
+```
+
+#### Rotate a service account
+
+A client with `MANAGE_DB` can rotate a specific service account by including
+its `clientId`. The caller must have every scope assigned to the target
+service account.
+
+```http
+POST /clients/rotate HTTP/1.1
+Host: xxxx.dexie.cloud
+Authorization: Bearer <manager token>
+Content-Type: application/json
+
+{
+  "clientId": "target-client-id",
+  "oldClientExpiryDays": 7
+}
+```
+
+#### Response
+
+```json
+{
+  "clientId": "new-client-id",
+  "clientSecret": "new-client-secret",
+  "scopes": ["ACCESS_DB"],
+  "oldClientId": "old-client-id",
+  "oldClientExpiresAt": "2026-08-14T12:00:00.000Z"
+}
+```
+
+The new `clientSecret` is returned only in this response. Store it securely.
 
 ### /token/validate
 
