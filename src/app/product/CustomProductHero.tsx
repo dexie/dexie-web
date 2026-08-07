@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { Box, Typography } from "@mui/material"
-import { styled } from "@mui/material/styles"
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward"
-import Image from "next/image"
-import TypeWriter from "@/components/content/shared/TypeWriter"
-import CodeBlock from "@/components/content/shared/CodeBlock"
+import React, { useState } from "react";
+import { Box, Typography } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import Image from "next/image";
+import TypeWriter from "@/components/content/shared/TypeWriter";
+import CodeBlock from "@/components/content/shared/CodeBlock";
 
 // Framework examples showcasing Dexie.js support
 const frameworkExamples = [
@@ -173,12 +173,15 @@ await db.tasks.add({
     description:
       "Real-time sync and collaboration - start local, add sync when ready",
   },
-]
+];
 
 // Styled components for the new hero
 const CustomHeroSection = styled(Box)(({ theme }) => ({
   background: 'url("/assets/images/dexie-bg.jpg") center/cover no-repeat',
   color: "white",
+  ...theme.applyStyles("light", {
+    color: "var(--dexie-text)",
+  }),
   padding: theme.spacing(6, 0),
   position: "relative",
   overflow: "hidden",
@@ -197,7 +200,8 @@ const CustomHeroSection = styled(Box)(({ theme }) => ({
     left: 0,
     right: 0,
     bottom: 0,
-    background: "linear-gradient(135deg, var(--dexie-surface-deep) 0%, var(--dexie-surface-deep) 100%)",
+    background:
+      "linear-gradient(135deg, var(--dexie-surface-deep) 0%, var(--dexie-surface-deep) 100%)",
     opacity: 0.9,
     zIndex: 1,
   },
@@ -205,7 +209,7 @@ const CustomHeroSection = styled(Box)(({ theme }) => ({
     position: "relative",
     zIndex: 2,
   },
-}))
+}));
 
 const FrameworkCard = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1, 0.5),
@@ -224,19 +228,28 @@ const FrameworkCard = styled(Box)(({ theme }) => ({
     borderColor: theme.palette.primary.light,
     boxShadow: `0 8px 24px rgba(0, 0, 0, 0.3)`,
   },
+  ...theme.applyStyles("light", {
+    backgroundColor: "rgba(17, 18, 20, 0.03)",
+    border: "1px solid rgba(17, 18, 20, 0.1)",
+    "&:hover, &.active": {
+      backgroundColor: "rgba(17, 18, 20, 0.06)",
+      borderColor: theme.palette.primary.main,
+      boxShadow: `0 8px 24px rgba(0, 0, 0, 0.12)`,
+    },
+  }),
   [theme.breakpoints.up("md")]: {
     padding: theme.spacing(2),
     margin: theme.spacing(1),
     minWidth: 80,
     borderRadius: theme.spacing(2),
   },
-}))
+}));
 
 export default function CustomProductHero() {
-  const [selectedFramework, setSelectedFramework] = useState("react")
+  const [selectedFramework, setSelectedFramework] = useState("react");
   const currentExample = frameworkExamples.find(
-    (f) => f.id === selectedFramework
-  )
+    (f) => f.id === selectedFramework,
+  );
 
   return (
     <CustomHeroSection>
@@ -358,7 +371,7 @@ export default function CustomProductHero() {
                   <Typography
                     variant="caption"
                     sx={{
-                      color: "white",
+                      color: "inherit",
                       fontWeight: 500,
                       fontSize: { xs: "0.6rem", md: "0.75rem" },
                       lineHeight: 1,
@@ -382,7 +395,7 @@ export default function CustomProductHero() {
               <ArrowForwardIcon
                 sx={{
                   fontSize: { xs: 16, md: 24 },
-                  color: "white",
+                  color: "inherit",
                 }}
               />
             </Box>
@@ -416,7 +429,7 @@ export default function CustomProductHero() {
                     <Typography
                       variant="caption"
                       sx={{
-                        color: "white",
+                        color: "inherit",
                         fontWeight: 500,
                         fontSize: { xs: "0.6rem", md: "0.75rem" },
                         lineHeight: 1,
@@ -534,5 +547,5 @@ export default function CustomProductHero() {
         </Box>
       </Box>
     </CustomHeroSection>
-  )
+  );
 }
