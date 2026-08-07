@@ -293,6 +293,9 @@ Content-Type: application/json
 
 #### Response
 
+On success, the endpoint returns `200 OK` with the following JSON response
+body:
+
 ```json
 {
   "clientId": "new-client-id",
@@ -303,7 +306,11 @@ Content-Type: application/json
 }
 ```
 
-The new `clientSecret` is returned only in this response. Store it securely.
+The calling application is responsible for securely storing **both** the new
+`clientId` and `clientSecret`, and for switching to them for subsequent token
+requests. The new `clientSecret` is returned only in this response; it cannot
+be retrieved later through the REST API. Only replace the stored credentials
+after the complete response has been received and persisted successfully.
 
 ### /token/validate
 
