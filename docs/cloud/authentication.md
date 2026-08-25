@@ -5,7 +5,7 @@ title: 'Authentication in Dexie Cloud'
 
 <div class="shoutouts" style="text-align: left; margin: 20px 0 35px 0;">
    <p>Zero config, registrationless, passwordless</p>
-   <p>Social login with Google, GitHub, Microsoft, Apple</p>
+   <p>Social login with Google, GitHub, Microsoft, Apple, Facebook, LinkedIn, Discord</p>
    <p>Easy to replace with your own authentication</p>
    <p>Long-lived sessions & cryptographically protected tokens</p>
 </div>
@@ -30,7 +30,7 @@ Dexie Cloud is for writing offline capable applications, which means that the ty
 Dexie Cloud supports multiple authentication methods:
 
 1. **Email OTP (One-Time Password)** - The default zero-config authentication
-2. **Social/OAuth Authentication** - Login with Google, GitHub, Microsoft, Apple, or custom OAuth2 providers
+2. **Social/OAuth Authentication** - Login with Google, GitHub, Microsoft, Apple, Facebook, LinkedIn, Discord, or custom OAuth2 providers
 3. **Custom Authentication** - Integrate your own authentication solution
 
 In the default setup, users will only need to authenticate the very first time they visit your app. There is no registration step for your users and they won't need to create any password. The authentication step will result in a securely stored, non-exportable crypto key in IndexedDB that can reauthenticate future sync calls automatically without requiring further user interaction.
@@ -47,6 +47,9 @@ Dexie Cloud supports social login through OAuth 2.0 / OpenID Connect providers. 
 - **GitHub** - Login with GitHub accounts
 - **Microsoft** - Login with Microsoft/Azure AD accounts
 - **Apple** - Login with Apple ID
+- **Facebook** - Login with Facebook accounts
+- **LinkedIn** - Login with LinkedIn accounts using OpenID Connect
+- **Discord** - Login with Discord accounts
 - **Custom OAuth2** - Any OAuth 2.0 / OpenID Connect compliant provider (Okta, Auth0, Keycloak, etc.)
 
 ### How It Works
@@ -55,7 +58,7 @@ When using OAuth authentication, Dexie Cloud acts as an OAuth proxy between your
 
 1. **Simplified redirect URLs** - You only need to configure Dexie Cloud's callback URL with the provider, not every page in your app
 2. **Enhanced security** - OAuth tokens from providers never reach your client; only Dexie Cloud tokens are issued
-3. **PKCE support** - All OAuth flows use PKCE (Proof Key for Code Exchange) for enhanced security
+3. **PKCE support** - Dexie Cloud uses PKCE where the provider supports it for this flow; confidential web flows are also protected by server-side state validation and the client secret
 4. **No dedicated callback route needed** - The dexie-cloud-addon handles the OAuth callback automatically
 
 ### Configuring OAuth Providers
@@ -69,6 +72,9 @@ For each provider you want to enable:
    - [GitHub Developer Settings](https://github.com/settings/developers)
    - [Microsoft Azure Portal](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/ApplicationsListBlade)
    - [Apple Developer Portal](https://developer.apple.com/account/resources/identifiers/list/serviceId)
+   - [Meta for Developers](https://developers.facebook.com/apps/)
+   - [LinkedIn Developers](https://www.linkedin.com/developers/apps) (enable **Sign in with LinkedIn using OpenID Connect**)
+   - [Discord Developer Portal](https://discord.com/developers/applications)
 
 2. **Configure the redirect URI** in your OAuth provider settings:
    ```
@@ -113,7 +119,7 @@ await db.cloud.login({ provider: 'google' });
 
 This will redirect the user to the OAuth provider's login page. After successful authentication, the user is automatically redirected back to your app and logged in.
 
-Available built-in providers: `google`, `github`, `microsoft`, `apple`
+Available built-in providers: `google`, `github`, `microsoft`, `apple`, `facebook`, `linkedin`, `discord`
 
 For custom OAuth2 providers, use the provider name you configured (e.g., `okta`, `auth0`).
 
@@ -220,9 +226,13 @@ App.addListener('appUrlOpen', async ({ url }) => {
 
 ### User Identity with OAuth
 
-By default, Dexie Cloud uses the user's verified email address as the user ID (the `sub` claim in tokens). This ensures consistent identity across different authentication methods—a user who logs in with Google and later with email OTP will be recognized as the same user if they share the same email.
+Dexie Cloud Manager offers three identity strategies under **Authentication Settings**:
 
-For enhanced privacy, you can configure your database to use opaque user IDs instead. In this mode, the email is hashed to produce a non-reversible identifier. Configure this in Dexie Cloud Manager under Authentication Settings.
+- **Email (default)** uses the verified email address as the user ID. A user who signs in through different providers or email OTP is recognized as the same user when the verified email matches.
+- **Opaque** derives a non-readable, deterministic user ID from the verified email. It preserves the same cross-provider matching as email identities while hiding the email from the user ID.
+- **Provider** uses the provider's stable account ID, namespaced by provider—for example, `facebook:12345`. This supports providers or configurations that do not return email. The same person signing in through another provider or email OTP is treated as a different user unless the accounts are linked separately.
+
+Choose the identity strategy before onboarding users. Changing it later creates different user IDs at the next login and can make existing private realms, invitations, and memberships inaccessible until identities are migrated.
 
 ## Customizing login GUI
 
@@ -263,7 +273,8 @@ import styled from 'styled-components'
  *       - value: value to return when selected
  *       - displayName: human-readable label
  *       - iconUrl: optional URL to an icon image
- *       - styleHint: optional hint like 'google', 'github', 'microsoft', 'apple', 'otp'
+ *       - styleHint: optional hint like 'google', 'github', 'microsoft', 'apple', 'facebook',
+ *         'linkedin', 'discord', 'otp'
  *     * ui.submitLabel = A suggested text for the submit / OK button
  *     * ui.cancelLabel = undefined if no cancel button is appropriate, or a suggested text for the cancel button.
  *     * ui.onSubmit = callback to call when fields have been collected from user OR when an option is selected.

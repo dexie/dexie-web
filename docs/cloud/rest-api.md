@@ -383,7 +383,7 @@ Response:
 | Field                   | Description                                                                 |
 | ----------------------- | --------------------------------------------------------------------------- |
 | providers               | Array of enabled OAuth providers                                            |
-| providers[].type        | Provider type: `google`, `github`, `microsoft`, `apple`, or `custom-oauth2` |
+| providers[].type        | Provider type: `google`, `github`, `microsoft`, `apple`, `facebook`, `linkedin`, `discord`, or `custom-oauth2` |
 | providers[].name        | Provider identifier used in OAuth URLs                                      |
 | providers[].displayName | User-friendly name for login UI                                             |
 | providers[].iconUrl     | URL to provider icon                                                        |
