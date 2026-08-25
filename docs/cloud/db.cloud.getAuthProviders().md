@@ -32,7 +32,7 @@ interface AuthProvidersResponse {
 }
 
 interface OAuthProviderInfo {
-  /** Provider type: 'google' | 'github' | 'microsoft' | 'apple' | 'custom-oauth2' */
+  /** Built-in provider type, or 'custom-oauth2' */
   type: string;
   /** Provider identifier used in login calls */
   name: string;
@@ -44,6 +44,8 @@ interface OAuthProviderInfo {
   scopes?: string[];
 }
 ```
+
+Built-in provider types are `google`, `github`, `microsoft`, `apple`, `facebook`, `linkedin`, and `discord`.
 
 ## Example
 

@@ -42,7 +42,7 @@ await db.cloud.login({ grant_type: 'demo', email: 'alice@demo.local' });
 
 ## OAuth / Social Login
 
-For OAuth-based authentication (Google, GitHub, Microsoft, Apple, or custom providers), use the `provider` parameter:
+For OAuth-based authentication (Google, GitHub, Microsoft, Apple, Facebook, LinkedIn, Discord, or custom providers), use the `provider` parameter:
 
 > **Prerequisites:** OAuth providers must first be configured in [Dexie Cloud Manager](https://manager.dexie.cloud). Navigate to your database, go to the **Authentication** section, and add the OAuth providers you want to support. See [Configuring OAuth Providers](authentication#configuring-oauth-providers) for detailed setup instructions.
 
@@ -60,7 +60,7 @@ await db.cloud.login({
 await db.cloud.login({ grant_type: 'otp' });
 ```
 
-Available built-in providers: `google`, `github`, `microsoft`, `apple`
+Available built-in providers: `google`, `github`, `microsoft`, `apple`, `facebook`, `linkedin`, `discord`
 
 For custom OAuth2 providers, use the provider name you configured (e.g., `okta`, `auth0`).
 
@@ -119,4 +119,3 @@ See [Authentication](authentication#social-authentication-oauth) for more detail
 [db.cloud.logout()](db.cloud.logout())
 [db.cloud.getAuthProviders()](db.cloud.getAuthProviders())
 [Authentication](authentication)
-
