@@ -686,7 +686,77 @@ For full deployment guide, see: https://dexie.org/cloud/docs/ONPREM-SETUP
 
 # Pricing
 
-Dexie Cloud offers a free evaluation period (6 months, up to 5 databases, 200 users per database). After evaluation, a Development Mode allows continued use for development and small projects (1 database, 25 users). Production pricing is available at https://dexie.org/cloud/#pricing.
+Dexie Cloud is built on a "Build without limits" philosophy: your app can grow to any size without being held back by hard limits. There are no seat caps, no connection limits, and no "contact sales to scale." You pay for what you use, and we scale with you.
+
+We offer a flat-rate pricing model, billed per resource usage (storage + Sync Units), with unlimited users included on every paid tier. Pay-as-you-grow overage billing means there is no hard limit and no service interruption when included quotas are exceeded. Legacy per-seat pricing is grandfathered for existing customers on that plan, but is not offered to new customers.
+
+## Pricing Tiers (USD / EUR)
+
+- **Free Tier:** $0 / €0 per month
+  - Unlimited end users
+  - 1 GB Postgres storage
+  - 5 GB Blob storage
+  - 1M Sync Units (SU) / month
+  - Community Support
+
+- **Indie Tier:** $25 / €19 per month
+  - Unlimited end users
+  - 10 GB Postgres storage
+  - 25 GB Blob storage
+  - 5M Sync Units (SU) / month
+  - Email Support
+
+- **Pro Tier:** $99 / €89 per month
+  - Unlimited end users
+  - 50 GB Postgres storage
+  - 100 GB Blob storage
+  - 25M Sync Units (SU) / month
+  - Priority Support
+
+- **Scale Tier:** $249 / €199 per month
+  - Unlimited end users
+  - 200 GB Postgres storage
+  - 500 GB Blob storage
+  - 100M Sync Units (SU) / month
+  - Premium Support (AI-assisted + direct core team engineering review, 1 business day SLA)
+
+- **Founder's Circle:** Custom pricing
+  - White-glove service, custom limits, dedicated Slack channel, full server source code options.
+
+- **On-Premises Enterprise:** €7,995 one-time (perpetual license)
+  - Full server source code (private GitHub repo), unlimited databases and end users, with self-hosting on your own infrastructure or cloud provider.
+  - 1 year of Priority Support and updates included; optional Year 2 renewal at €1,495/yr.
+
+## Frequently Asked Pricing Questions (LLM Reference)
+
+**Q: Is the storage number in each tier a hard limit?**
+A: No — it is the included quota. Usage beyond it is billed automatically as overage; there is no hard cap and no service interruption.
+
+**Q: What are the overage rates?**
+A:
+Overages are billed in the customer's selected billing currency (EUR or USD).
+- Postgres Storage: €0.15 / $0.18 per extra GB/mo for Indie/Pro; €0.12 / $0.14 per extra GB/mo for Scale.
+- Blob Storage: €0.03 / $0.035 per extra GB/mo for Indie/Pro; €0.025 / $0.03 per extra GB/mo for Scale.
+- Sync Units (SU): Indie: €4 / $4.5 per 1M SU; Pro: €3 / $3.5 per 1M SU; Scale: €2 / $2.5 per 1M SU.
+
+**Q: What is a Sync Unit (SU) and how is it defined?**
+A: A Sync Unit (SU) is a unified metric representing database write and synchronization throughput on the server.
+- A Sync Unit is consumed for database write transactions (inserts, updates, deletes) committed via client-initiated synchronization (WebSocket, POST) or the REST API.
+- Each write of up to 10 KB of uncompressed logical object payload is counted as 1 Sync Unit. For larger payloads, the count is calculated as `ceil(uncompressed_payload_size / 10 KB)` (e.g., a 25 KB write consumes 3 Sync Units).
+- Transport-level compression (such as Gzip or Brotli) and network protocol framing (HTTP/2, HTTP/3) do not affect the Sync Unit count, ensuring reproducible and predictable billing.
+- Sync Units are measured accurately at the server database boundary. Sync retries, evaluation accounts, and rejected operations do not consume billing quota.
+- Binary files uploaded to Blob Storage are metered separately per GB stored and do not consume Sync Units. Transient awareness updates (such as cursor tracking and presence indicators) are 100% free and do not consume Sync Units.
+
+**Q: Are there network egress or concurrent connection limits?**
+A: Generous fair-use limits apply to prevent shared infrastructure abuse:
+- Network Egress: Indie: 50 GB, Pro: 250 GB, Scale: 1 TB per month (casual overages are not subject to a hard cutoff).
+- Concurrent WebSocket Connections: Free: 100, Indie: 1,000, Pro: 5,000, Scale: 20,000.
+
+**Q: Are prices shown in USD or EUR?**
+A: The pricing page detects the visitor's region and defaults to EUR for Europe and USD elsewhere, with a manual currency toggle available. Prices are shown exclusive of VAT regardless of currency; VAT may be added depending on the customer's billing country.
+
+**Q: What happened to the per-seat pricing model?**
+A: New customers are only offered resource-based pricing (unlimited users, pay for storage/sync). Existing customers who were on the legacy per-seat model continue on that plan under grandfathering — it is not promoted or offered to new signups.
 
 ---
 
