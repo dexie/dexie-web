@@ -30,9 +30,9 @@ interface BenefitsProps {
 export default function Benefits({
   items,
   settings: {
-    textColor = "#dee2e6",
+    textColor = "var(--dexie-text)",
     containerWidth = "default",
-    backgroundColor = "#000000",
+    backgroundColor = "var(--dexie-bg)",
     sectionTitle = "Primary Benefits",
     sectionSubtitle = "Why use Dexie?",
   } = {},

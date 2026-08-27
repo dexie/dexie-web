@@ -70,8 +70,8 @@ export default function HackathonWidget({
   sectionTitle = "",
   description = "",
   winners,
-  textColor = "#dee2e6",
-  backgroundColor = "#000000",
+  textColor = "var(--dexie-text)",
+  backgroundColor = "var(--dexie-bg)",
   containerWidth = "default",
 }: HackathonWidgetProps) {
   const [value, setValue] = useState(0)
@@ -303,7 +303,7 @@ export default function HackathonWidget({
                     <Typography
                       variant="h6"
                       sx={{
-                        color: "#c77dff",
+                        color: "var(--dexie-accent)",
                         mb: 2,
                         fontSize: "1.125rem",
                         fontWeight: 500,

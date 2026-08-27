@@ -95,7 +95,7 @@ const DocsHomePage: React.FC<DocsHomePageProps> = ({
                       height: "100%",
                       display: "flex",
                       flexDirection: "column",
-                      backgroundColor: "#000000",
+                      backgroundColor: "var(--dexie-bg)",
                       border: "1px solid #333333",
                     }}
                   >

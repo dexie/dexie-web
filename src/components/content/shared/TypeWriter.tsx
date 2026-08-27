@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import React from "react"
-import { TypeAnimation } from "react-type-animation"
+import React from "react";
+import { TypeAnimation } from "react-type-animation";
 
 interface TypeWriterProps {
-  strings: string[]
-  colorClass?: string
-  breakRows?: boolean
+  strings: string[];
+  colorClass?: string;
+  breakRows?: boolean;
 }
 
 export default function TypeWriter({
@@ -23,12 +23,12 @@ export default function TypeWriter({
         repeat={Infinity}
         style={{
           background:
-            "linear-gradient(to right, #7b2cbf,  #9d4edd,  #c77dff,  #9d4edd,  #7b2cbf)",
+            "linear-gradient(to right, var(--dexie-accent-strong), var(--dexie-accent), var(--dexie-accent-soft), var(--dexie-accent-strong))",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
         }}
       />
-    )
+    );
   }
 
   return (
@@ -40,11 +40,11 @@ export default function TypeWriter({
         repeat={Infinity}
         style={{
           background:
-            "linear-gradient(to right, #7b2cbf,  #9d4edd,  #c77dff,  #9d4edd,  #7b2cbf)",
+            "linear-gradient(to right, var(--dexie-accent-strong), var(--dexie-accent), var(--dexie-accent-soft), var(--dexie-accent-strong))",
           WebkitBackgroundClip: "text",
           WebkitTextFillColor: "transparent",
         }}
       />
     </div>
-  )
+  );
 }

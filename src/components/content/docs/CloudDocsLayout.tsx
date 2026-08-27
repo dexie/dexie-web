@@ -66,7 +66,7 @@ const CloudDocsLayout: React.FC<CloudDocsLayoutProps> = ({
           sx={{
             top: "80px", // Below main navigation
             zIndex: theme.zIndex.drawer + 1,
-            backgroundColor: "rgba(0, 0, 0, 0.9)",
+            backgroundColor: "var(--dexie-hero-overlay)",
             backdropFilter: "blur(10px)",
           }}
         >
@@ -186,7 +186,7 @@ const CloudDocsLayout: React.FC<CloudDocsLayoutProps> = ({
           <Box
             sx={{
               "& a": {
-                color: "#c77dff !important",
+                color: "var(--dexie-accent) !important",
                 textDecoration: "none",
                 "&:hover": { color: "white !important" },
               },

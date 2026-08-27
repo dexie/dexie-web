@@ -127,7 +127,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
       >
         <Card
           sx={{
-            backgroundColor: "#1a1a1a",
+            backgroundColor: "var(--dexie-surface-deep)",
             border: "1px solid #2d2d2d",
             borderRadius: borderRadius,
             width: "100%",
@@ -144,7 +144,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                 left: 0,
                 right: 0,
                 bottom: 0,
-                background: "linear-gradient(45deg, #7b2cbf, #9d4edd, #c77dff)",
+                background: "linear-gradient(45deg, #7b2cbf, var(--dexie-accent-strong), var(--dexie-accent))",
                 borderRadius: borderRadius,
                 padding: "2px",
                 zIndex: -1,
@@ -184,7 +184,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                 variant="h5"
                 component="h3"
                 sx={{
-                  color: settings.textColor || "#ffffff",
+                  color: settings.textColor || "var(--dexie-bright)",
                   fontWeight: 700,
                   display: "inline-block",
                   mr: plan.badge ? 1 : 0,
@@ -200,19 +200,19 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                     backgroundColor:
                       plan.badge.variant === "outlined"
                         ? "transparent"
-                        : plan.badge.backgroundColor || "#c77dff",
+                        : plan.badge.backgroundColor || "var(--dexie-accent)",
                     color:
                       plan.badge.variant === "outlined"
                         ? plan.badge.borderColor ||
                           plan.badge.color ||
-                          "#c77dff"
-                        : plan.badge.color || "#ffffff",
+                          "var(--dexie-accent)"
+                        : plan.badge.color || "var(--dexie-bright)",
                     border:
                       plan.badge.variant === "outlined"
                         ? `1px solid ${
                             plan.badge.borderColor ||
                             plan.badge.color ||
-                            "#c77dff"
+                            "var(--dexie-accent)"
                           }`
                         : "none",
                     fontSize: "0.75rem",
@@ -236,7 +236,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
             <Typography
               variant="body2"
               sx={{
-                color: settings.textColor || "#ffffff",
+                color: settings.textColor || "var(--dexie-bright)",
                 mb: 3,
                 fontSize: "0.9rem",
                 minHeight: "48px",
@@ -254,11 +254,11 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                 variant="outlined"
                 sx={{
                   width: "100%",
-                  borderColor: "#c77dff",
-                  color: "#c77dff",
+                  borderColor: "var(--dexie-accent)",
+                  color: "var(--dexie-accent)",
                   borderRadius: "50px",
                   "&:hover": {
-                    borderColor: "#c77dff",
+                    borderColor: "var(--dexie-accent)",
                     backgroundColor: "rgba(199, 125, 255, 0.1)",
                   },
                 }}
@@ -269,7 +269,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
               variant="h3"
               component="div"
               sx={{
-                color: settings.textColor || "#ffffff",
+                color: settings.textColor || "var(--dexie-bright)",
                 fontWeight: 700,
                 fontSize: "2.5rem",
                 alignSelf: "flex-start",
@@ -282,8 +282,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
             <Typography
               variant="caption"
               sx={{
-                color: settings.textColor || "#ffffff",
-                opacity: 0.7,
+                color: "text.secondary",
                 fontSize: "0.8rem",
                 mb: 2,
               }}
@@ -292,7 +291,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
             </Typography>
 
             <Divider
-              sx={{ mb: 3, opacity: 0.05, backgroundColor: "#ffffff" }}
+              sx={{ mb: 3, opacity: 0.05, backgroundColor: "var(--dexie-bright)" }}
             />
 
             <Box sx={{ flex: 1 }}>
@@ -300,8 +299,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                 <Typography
                   variant="caption"
                   sx={{
-                    color: settings.textColor || "#ffffff",
-                    opacity: 0.7,
+                    color: "text.secondary",
                     fontSize: "0.8rem",
                     mb: 3,
                     display: "block",
@@ -343,6 +341,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                       <CheckIcon
                         sx={{
                           fontSize: "16px",
+                          color: "secondary.main",
                         }}
                       />
                     </ListItemIcon>
@@ -352,7 +351,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                           <Typography
                             component="span"
                             sx={{
-                              color: settings.textColor || "#ffffff",
+                              color: settings.textColor || "var(--dexie-bright)",
                               fontSize: "0.9rem",
                               lineHeight: 1.4,
                             }}
@@ -363,7 +362,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                             <Typography
                               component="div"
                               sx={{
-                                color: settings.textColor || "#ffffff",
+                                color: settings.textColor || "var(--dexie-bright)",
                                 opacity: 0.65,
                                 fontSize: "0.8rem",
                                 marginTop: "4px",
@@ -387,11 +386,11 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
                   component="a"
                   href={plan.contactSalesLink}
                   sx={{
-                    color: "#adb5bd",
+                    color: "var(--dexie-text-muted)",
                     textDecoration: "none",
                     fontSize: "0.8rem",
                     "&:hover": {
-                      color: "#c77dff",
+                      color: "var(--dexie-accent)",
                       textDecoration: "underline",
                     },
                     transition: "color 0.2s ease",
@@ -437,8 +436,8 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
     <Box
       component="section"
       sx={{
-        backgroundColor: settings.backgroundColor || "#000000",
-        color: settings.textColor || "#ffffff",
+        backgroundColor: settings.backgroundColor || "var(--dexie-bg)",
+        color: settings.textColor || "var(--dexie-bright)",
         py: { xs: 3, md: 10 },
         ...sx,
       }}
@@ -562,7 +561,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({
               component="a"
               href="/contact"
               sx={{
-                color: "#c77dff",
+                color: "var(--dexie-accent)",
                 textDecoration: "none",
                 "&:hover": {
                   textDecoration: "underline",

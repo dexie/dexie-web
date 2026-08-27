@@ -40,8 +40,8 @@ export default function SupportZone({
   const [activeTab, setActiveTab] = useState(0)
 
   const {
-    textColor = "#dee2e6",
-    backgroundColor = "#000000",
+    textColor = "var(--dexie-text)",
+    backgroundColor = "var(--dexie-bg)",
     containerWidth = "big",
   } = settings
 
@@ -80,7 +80,7 @@ export default function SupportZone({
           sx={{
             textAlign: "center",
             mb: 2,
-            color: "#adb5bd",
+            color: "var(--dexie-text-muted)",
             maxWidth: "800px",
             mx: "auto",
           }}
@@ -97,7 +97,7 @@ export default function SupportZone({
             sx={{
               minHeight: "44px",
               "& .MuiTabs-indicator": {
-                backgroundColor: "#c77dff",
+                backgroundColor: "var(--dexie-accent)",
                 height: "2px",
                 borderRadius: "1px",
               },
@@ -109,7 +109,7 @@ export default function SupportZone({
                 color: "#6c757d",
                 px: { xs: 1.5, sm: 3 },
                 "&.Mui-selected": {
-                  color: "#c77dff",
+                  color: "var(--dexie-accent)",
                 },
               },
             }}
@@ -221,7 +221,7 @@ export default function SupportZone({
                 </Typography>
                 <Typography
                   variant="body2"
-                  sx={{ color: "#adb5bd", fontSize: "0.85rem", mt: 0.5 }}
+                  sx={{ color: "var(--dexie-text-muted)", fontSize: "0.85rem", mt: 0.5 }}
                 >
                   We can design a support plan built around your team, stack,
                   and requirements.
@@ -236,9 +236,9 @@ export default function SupportZone({
                   gap: 1,
                   px: 2.5,
                   py: 1,
-                  border: "1px solid #c77dff",
+                  border: "1px solid var(--dexie-accent)",
                   borderRadius: "50px",
-                  color: "#c77dff",
+                  color: "var(--dexie-accent)",
                   textDecoration: "none",
                   fontSize: "0.85rem",
                   fontWeight: 600,

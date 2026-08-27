@@ -31,8 +31,8 @@ export default function CallToActionWidget({
   buttonLink,
   secondaryButtonText,
   secondaryButtonLink,
-  textColor = "#dee2e6",
-  backgroundColor = "#000000",
+  textColor = "var(--dexie-text)",
+  backgroundColor = "var(--dexie-bg)",
   containerWidth = "default",
 }: CallToActionWidgetProps) {
   // Container width mapping
