@@ -103,9 +103,11 @@ function MyComponent({ todoList }: Props) {
       "rw",
       [db.todoLists, db.todoItems, db.realms, db.members],
       () => {
-        // Delete all related data:
+        // Delete all related data except db.members:
         db.todoItems.where({ todoListId: todoList.id }).delete();
         db.todoLists.delete(todoList.id);
+
+        // Delete the realm if it exists (this will cascade delete members server-side)
         const tiedRealmId = getTiedRealmId(todoList.id);
         db.realms.delete(tiedRealmId);
       }
