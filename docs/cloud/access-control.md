@@ -265,14 +265,15 @@ function deleteTodoList(todoList) {
   // Use a transaction for full consistency also when syncing it:
   return db.transaction(
     'rw',
-    [db.todoLists, db.todoItems, db.realms, db.members],
+    [db.todoLists, db.todoItems, db.realms],
     () => {
       // Delete possible todo-items:
       db.todoItems.where({ todoListId: todoList.id }).delete()
       // Delete the list:
-      db.todoLists.delete(todoList.id)
-      // Delete possible realm in case list was shared:
-      db.realms.delete(getTiedRealmId(todoList.id)) // members are auto-deleted with realm
+      db.todoLists.where({ id: todoList.id }).delete()
+      // Delete possible realm in case list was shared. Members are
+      // cascade-deleted with the realm; do not delete db.members explicitly.
+      db.realms.delete(getTiedRealmId(todoList.id))
     }
   )
 }

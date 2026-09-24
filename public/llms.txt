@@ -175,6 +175,30 @@ const young = await db.friends
 
 Operations are transactional when executed inside db.transaction(...).
 
+## Dexie Cloud Consistency: express intent in where-clauses
+
+Dexie Cloud re-executes `where()` predicates on the server snapshot and on
+later syncs. Do not read an object locally inside a transaction and branch on
+its current `realmId` (or other mutable state) to decide which delete or
+modify operation to issue: the local snapshot may be stale in a local-first
+application.
+
+Choose the predicate according to the intended semantics:
+
+- To delete an object by identity regardless of its current realm, use an
+  identity predicate such as `db.cards.where({ id: card.id }).delete()`.
+- To delete related objects, use a relation predicate such as
+  `db.cardItems.where({ cardId: card.id }).delete()`.
+- To perform a compare-and-delete that should apply only while an object is in
+  a particular realm, include `realmId` in the predicate.
+
+Realm-tied deletion should normally be one transaction: delete the related
+application data with predicates expressing the intended scope, then delete
+the tied realm using `getTiedRealmId(object.id)`. Realm deletion cascades its
+members, so `db.members` should not be explicitly deleted as part of that
+transaction unless the application intentionally wants a separate member
+operation.
+
 ## Live Querying
 liveQuery and useLiveQuery enable reactive querying:
 

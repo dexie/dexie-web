@@ -117,6 +117,40 @@ Dexie Cloud can guarantee consistency within a graph of related entities so that
 
 If [Collection.modify()](</docs/Collection/Collection.modify()>) or [Collection.delete()](</docs/Collection/Collection.delete()>) is used on a collection filtered by a certain where-expression, the expression will be a part of the operation and be re-executed on the server snapshot to ensure consistency of the intension of the operation.
 
+### Express the intention, not the local state
+
+Do not first read an object inside a transaction and then choose a different
+delete predicate based on properties in that local object. In a local-first
+application, the local snapshot may be stale even though the transaction is
+atomic locally. Another client may have moved the object to another realm
+since this client last synced it. Branching on the locally observed
+`realmId`, for example, can therefore cause the operation to miss related data
+when it is re-executed against the server snapshot.
+
+Instead, put the intended condition in the `where()` clause itself. The
+condition is then recorded with the operation and evaluated again on the
+server and during later syncs. If the intention is “delete this object and all
+of its related objects regardless of which realm it currently belongs to”,
+use predicates that identify the object without a realm condition:
+
+```ts
+await db.cards.where({ id: card.id }).delete()
+await db.cardItems.where({ cardId: card.id }).delete()
+```
+
+If the intention is instead “delete this object only if it is still in this
+realm”, include `realmId` in the predicate. This is a different operation and
+must be chosen deliberately:
+
+```ts
+await db.cards.where({ id: card.id, realmId }).delete()
+```
+
+The same principle applies when moving objects between realms: use a
+realm-scoped predicate when the intention is to move only objects that have
+not changed realm, and omit it when the intention is to affect the object by
+identity regardless of its current realm.
+
 For example, let's say you want to modify all ToDo-items within a certain Todo-list to `{done: true}`:
 
 ```ts
@@ -364,14 +398,15 @@ async function shareList(todoList: TodoList) {
 async function deleteList(todoList: TodoList) {
   await db.transaction(
     'rw',
-    [db.todoLists, db.todoItems, db.realms, db.members],
+    [db.todoLists, db.todoItems, db.realms],
     () => {
       const tiedRealmId = getTiedRealmId(todoList.id)
-      db.todoLists.delete(todoList.id)
+      // Delete by identity regardless of the list's current realm:
+      // the local realmId may be stale when this operation syncs.
+      db.todoLists.where({ id: todoList.id }).delete()
       db.todoItems.where({ todoListId: todoList.id }).delete()
-      // Empty out any tied realm from members:
-      db.members.where({ realmId: tiedRealmId }).delete()
-      // Delete the tied realm if it exists:
+      // Delete the tied realm if it exists. Its members are cascade-deleted
+      // by realm deletion; do not delete db.members explicitly here.
       db.realms.delete(tiedRealmId)
     }
   )
