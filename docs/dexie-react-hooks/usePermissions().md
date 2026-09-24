@@ -107,7 +107,6 @@ function MyComponent({ todoList }: Props) {
         db.todoItems.where({ todoListId: todoList.id }).delete();
         db.todoLists.delete(todoList.id);
         const tiedRealmId = getTiedRealmId(todoList.id);
-        db.members.where({ realmId: tiedRealmId }).delete();
         db.realms.delete(tiedRealmId);
       }
     );
