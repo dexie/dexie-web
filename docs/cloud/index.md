@@ -100,6 +100,7 @@ description: Complete documentation for Dexie Cloud - sync, authentication, acce
 
 - **[Custom Emails](/docs/cloud/custom-emails)** — Customize email templates
 - **[Add Public Data](/docs/cloud/add-public-data)** — Data visible to all users
+- **[Browser Extensions](/docs/cloud/browser-extensions)** — Using Dexie Cloud in Chrome / Manifest V3 extensions
 
 ---
 
