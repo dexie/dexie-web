@@ -519,7 +519,10 @@ async function cacheFirst(
   const canonicalUrl = ignoreQuery ? request.url.split("?")[0] : request.url;
 
   // For ALL other requests (prefetch, assets, etc.), use cache-first
-  let cached = await cache.match(canonicalUrl);
+  let cached =
+    (await cache.match(canonicalUrl)) ||
+    // Fallback: check precache (e.g. dexie-logo.png added at install time)
+    (await caches.open(PRECACHE_NAME).then((c) => c.match(canonicalUrl)));
 
   // If not found and this is a docs route, try case-insensitive variants
   if (!cached && canonicalUrl.startsWith(`${ORIGIN}/docs/`)) {
