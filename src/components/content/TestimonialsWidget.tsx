@@ -34,8 +34,8 @@ interface TestimonialsProps {
 export default function TestimonialsWidget({
   items,
   settings: {
-    textColor = "#dee2e6",
-    backgroundColor = "#212529",
+    textColor = "var(--dexie-text)",
+    backgroundColor = "var(--dexie-surface-raised)",
     containerWidth = "default",
     sectionTitle = "Dexie is trusted by",
     sectionSubtitle = "1,000,000+ developers.",
@@ -196,7 +196,7 @@ export default function TestimonialsWidget({
                               position: "absolute",
                               top: "0rem",
                               left: { xs: "-1.5rem", sm: "-2rem" },
-                              color: "#000000",
+                              color: "var(--dexie-bg)",
                               backgroundColor: "white",
                               borderRadius: "50%",
                               width: "1em",
@@ -284,14 +284,14 @@ export default function TestimonialsWidget({
                 <IconButton
                   onClick={handlePrevSlide}
                   sx={{
-                    backgroundColor: "#ffffff",
-                    color: "#000000",
+                    backgroundColor: "var(--dexie-bright)",
+                    color: "var(--dexie-bg)",
                     borderRadius: "50%",
                     width: { xs: 40, sm: 48 },
                     height: { xs: 40, sm: 48 },
                     "&:hover": {
-                      backgroundColor: "#ffffff",
-                      color: "#000000",
+                      backgroundColor: "var(--dexie-bright)",
+                      color: "var(--dexie-bg)",
                       transform: "scale(1.1)",
                     },
                     transition: "all 0.3s ease",
@@ -305,14 +305,14 @@ export default function TestimonialsWidget({
                 <IconButton
                   onClick={handleNextSlide}
                   sx={{
-                    backgroundColor: "#ffffff",
-                    color: "#000000",
+                    backgroundColor: "var(--dexie-bright)",
+                    color: "var(--dexie-bg)",
                     borderRadius: "50%",
                     width: { xs: 40, sm: 48 },
                     height: { xs: 40, sm: 48 },
                     "&:hover": {
-                      backgroundColor: "#ffffff",
-                      color: "#000000",
+                      backgroundColor: "var(--dexie-bright)",
+                      color: "var(--dexie-bg)",
                       transform: "scale(1.1)",
                     },
                     transition: "all 0.3s ease",

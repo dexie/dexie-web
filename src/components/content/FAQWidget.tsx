@@ -210,8 +210,8 @@ const FAQWidget: React.FC<FAQWidgetProps> = ({ items, settings }) => {
   return (
     <Box
       sx={{
-        backgroundColor: settings.backgroundColor || "#ffffff",
-        color: settings.textColor || "#000000",
+        backgroundColor: settings.backgroundColor || "var(--dexie-bright)",
+        color: settings.textColor || "var(--dexie-bg)",
         py: { xs: 6, md: 10 },
       }}
     >
@@ -265,7 +265,7 @@ const FAQWidget: React.FC<FAQWidgetProps> = ({ items, settings }) => {
               onChange={handleChange(`panel${item.id}`)}
               sx={{
                 backgroundColor: "transparent",
-                color: settings.textColor || "#000000",
+                color: settings.textColor || "var(--dexie-bg)",
                 border: "1px solid rgba(255, 255, 255, 0.1)",
                 borderRadius: "8px !important",
                 mb: 2,
@@ -280,7 +280,7 @@ const FAQWidget: React.FC<FAQWidgetProps> = ({ items, settings }) => {
               <AccordionSummary
                 expandIcon={
                   <ExpandMoreIcon
-                    sx={{ color: settings.textColor || "#000000" }}
+                    sx={{ color: settings.textColor || "var(--dexie-bg)" }}
                   />
                 }
                 sx={{

@@ -4,6 +4,11 @@ export interface WidgetSettings {
   backgroundColor?: string
   height?: string
   overlayStrength?: string
+  // Optional override for the light color scheme, since the light-mode hero
+  // background image (a vibrant colorful polygon photo, unlike dark mode's
+  // near-black one) generally needs a lighter overlay strength to keep text
+  // legible without washing the color out completely.
+  overlayStrengthLight?: string
   textAlignment?:
     | "left"
     | "center"

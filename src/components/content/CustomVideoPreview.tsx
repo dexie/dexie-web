@@ -61,7 +61,7 @@ export default function CustomVideoPreview() {
             }}
           >
             <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
-              <circle cx="28" cy="28" r="28" fill="#fff" fillOpacity="0.9" />
+              <circle cx="28" cy="28" r="28" fill="var(--dexie-bright)" fillOpacity="0.9" />
               <polygon points="22,18 22,38 40,28" fill="#7C3AED" />
             </svg>
           </button>

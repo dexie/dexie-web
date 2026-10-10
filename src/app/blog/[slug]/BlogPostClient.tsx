@@ -147,7 +147,7 @@ const BlogPostClient: React.FC<BlogPostClientProps> = ({ post }) => {
           display: "flex",
           justifyContent: "center",
           background:
-            "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/assets/images/dexie-bg.jpg')",
+            "linear-gradient(var(--dexie-hero-overlay-soft), var(--dexie-hero-overlay-soft)), url('/assets/images/dexie-bg.jpg')",
           backgroundPosition: "center",
           backgroundSize: "cover",
           padding: { xs: 3, md: 6, lg: 12, xl: 40 },
@@ -223,7 +223,7 @@ const BlogPostClient: React.FC<BlogPostClientProps> = ({ post }) => {
       <Box
         sx={{
           minHeight: "100vh",
-          bgcolor: theme.palette.mode === "dark" ? "#0a0a0a" : "#f8f9fa",
+          bgcolor: theme.palette.mode === "dark" ? "var(--dexie-surface-deep)" : "#f8f9fa",
         }}
       >
         <Container maxWidth="lg" sx={{ py: 8 }}>

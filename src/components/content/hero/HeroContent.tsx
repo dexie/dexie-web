@@ -1,17 +1,17 @@
-"use client"
+"use client";
 
-import { Box, Tabs, Tab } from "@mui/material"
-import { useState } from "react"
-import CodeBlock from "@/components/content/shared/CodeBlock"
+import { Box, Tabs, Tab } from "@mui/material";
+import { useState } from "react";
+import CodeBlock from "@/components/content/shared/CodeBlock";
 
 interface TabPanelProps {
-  children?: React.ReactNode
-  index: number
-  value: number
+  children?: React.ReactNode;
+  index: number;
+  value: number;
 }
 
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
+  const { children, value, index, ...other } = props;
 
   return (
     <Box
@@ -27,28 +27,40 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
     </Box>
-  )
+  );
 }
 
 function a11yProps(index: number) {
   return {
     id: `simple-tab-${index}`,
     "aria-controls": `simple-tabpanel-${index}`,
-  }
+  };
 }
 
 export default function HeroContent() {
-  const [value, setValue] = useState(0)
+  const [value, setValue] = useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
   return (
     <Box
       sx={{
         width: "100%",
         zoom: "0.9 !important",
+        // This panel always renders on its own fixed dark backdrop (matching
+        // the Prism "material-dark" code theme) regardless of the site's
+        // light/dark color mode, the same way GitHub/VS Code docs keep code
+        // blocks dark-themed everywhere. This is especially important in
+        // light mode, where the hero background is now a vibrant colorful
+        // photo — syntax-highlighted code would be unreadable directly on
+        // top of it without a solid container.
+        backgroundColor: "#1a1a1a",
+        borderRadius: "12px",
+        border: "1px solid rgba(255, 255, 255, 0.08)",
+        boxShadow: "0 8px 24px rgba(0, 0, 0, 0.35)",
+        p: 2,
         "& .MuiBox-root": {
           p: "0px !important",
         },
@@ -77,10 +89,12 @@ export default function HeroContent() {
               gap: "5px", // padding between tabs
             },
             "& .MuiTab-root": {
-              // .tpl-minimal-tabs > li > a styling
+              // .tpl-minimal-tabs > li > a styling. Panel is always dark, so
+              // inactive tab labels are a muted light gray (readable but
+              // clearly lower-emphasis than the active tab).
               padding: "5px 20px !important",
               textDecoration: "none",
-              color: "#fff", // .light-content .tpl-minimal-tabs > li > a
+              color: "rgba(255, 255, 255, 0.55)",
               background: "none",
               border: "1px solid transparent",
               borderRadius: "100px !important",
@@ -92,23 +106,26 @@ export default function HeroContent() {
               letterSpacing: "1px",
               transition: "all 0.3s ease",
 
-              // Hover state
+              // Hover state. This panel always renders on a fixed dark
+              // background regardless of site color mode, so tab colors are
+              // hardcoded light (NOT var(--dexie-bright), which flips to dark
+              // in light mode and made the inactive tabs invisible).
               "&:hover": {
                 background: "none",
-                borderColor: "rgba(255, 255, 255, 0.3)", // approximation of var(--color-dark-4)
-                color: "#fff",
+                borderColor: "rgba(255, 255, 255, 0.5)",
+                color: "#ffffff",
               },
 
               // Active/selected state
               "&.Mui-selected": {
-                border: "1px solid #fff !important",
-                background: "none !important",
-                color: "#fff !important",
+                border: "1px solid rgba(255, 255, 255, 0.9) !important",
+                background: "rgba(255, 255, 255, 0.08) !important",
+                color: "#ffffff !important",
                 cursor: "default",
 
                 "&:hover": {
-                  border: "1px solid #fff !important",
-                  color: "#fff !important",
+                  border: "1px solid rgba(255, 255, 255, 0.9) !important",
+                  color: "#ffffff !important",
                 },
               },
             },
@@ -225,5 +242,5 @@ db.cloud.configure({
         </Box>
       </TabPanel>
     </Box>
-  )
+  );
 }

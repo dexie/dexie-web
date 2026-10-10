@@ -194,7 +194,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             overflow: "hidden",
             whiteSpace: "nowrap",
             textDecoration: "none",
-            color: isActive ? "#c77dff" : "inherit",
+            color: isActive ? "var(--dexie-accent)" : "inherit",
             display: "block",
             width: "100%",
             outline: "none",
@@ -204,7 +204,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             },
             "&:focus": {
               backgroundColor: "rgba(199, 125, 255, 0.2)",
-              color: "#c77dff",
+              color: "var(--dexie-accent)",
             },
           }}
         >
@@ -250,7 +250,10 @@ const Sidebar: React.FC<SidebarProps> = ({
         flexShrink: 0,
         mb: 2,
         pb: 2,
-        borderBottom: "1px solid rgba(255, 255, 255, 0.08)"
+        borderBottom: (theme) =>
+          theme.palette.mode === "light"
+            ? "1px solid rgba(0, 0, 0, 0.08)"
+            : "1px solid rgba(255, 255, 255, 0.08)"
       }}>
         <TextField
           inputRef={searchInputRef}
@@ -286,10 +289,13 @@ const Sidebar: React.FC<SidebarProps> = ({
                   }}
                   edge="end"
                   sx={{
-                    color: "rgba(255, 255, 255, 0.6)",
+                    color: "text.secondary",
                     "&:hover": {
-                      color: "rgba(255, 255, 255, 0.9)",
-                      backgroundColor: "rgba(255, 255, 255, 0.1)",
+                      color: "text.primary",
+                      backgroundColor: (theme) =>
+                        theme.palette.mode === "light"
+                          ? "rgba(0, 0, 0, 0.06)"
+                          : "rgba(255, 255, 255, 0.1)",
                     },
                     padding: "2px",
                     marginRight: "-2px",
@@ -311,12 +317,21 @@ const Sidebar: React.FC<SidebarProps> = ({
             minWidth: { xs: "250px", md: "270px" },
             "& .MuiOutlinedInput-root": {
               borderRadius: "8px",
-              backgroundColor: "rgba(255, 255, 255, 0.05)",
+              backgroundColor: (theme) =>
+                theme.palette.mode === "light"
+                  ? "rgba(0, 0, 0, 0.035)"
+                  : "rgba(255, 255, 255, 0.05)",
               "&:hover": {
-                backgroundColor: "rgba(255, 255, 255, 0.08)",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "light"
+                    ? "rgba(0, 0, 0, 0.055)"
+                    : "rgba(255, 255, 255, 0.08)",
               },
               "&.Mui-focused": {
-                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                backgroundColor: (theme) =>
+                  theme.palette.mode === "light"
+                    ? "rgba(0, 0, 0, 0.07)"
+                    : "rgba(255, 255, 255, 0.1)",
               },
             },
           }}

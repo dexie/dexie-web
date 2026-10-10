@@ -73,13 +73,13 @@ const CookieSettings = ({ open, onClose, onSave }: CookieSettingsProps) => {
       fullWidth
       PaperProps={{
         sx: {
-          backgroundColor: '#0a0a0a',
-          color: '#dee2e6',
+          backgroundColor: 'var(--dexie-surface-deep)',
+          color: 'var(--dexie-text)',
           border: '1px solid rgba(222, 226, 230, 0.1)',
         }
       }}
     >
-      <DialogTitle sx={{ color: '#ffffff' }}>Cookie Settings</DialogTitle>
+      <DialogTitle sx={{ color: 'var(--dexie-bright)' }}>Cookie Settings</DialogTitle>
       <DialogContent>
         <Typography variant="body2" color="text.secondary" paragraph>
           Manage your cookie preferences below. Some cookies are necessary for the website 
@@ -162,7 +162,7 @@ const CookieSettings = ({ open, onClose, onSave }: CookieSettingsProps) => {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose} sx={{ color: '#dee2e6' }}>Cancel</Button>
+        <Button onClick={onClose} sx={{ color: 'var(--dexie-text)' }}>Cancel</Button>
         <Button onClick={handleSave} variant="contained">
           Save Settings
         </Button>

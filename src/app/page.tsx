@@ -1,9 +1,9 @@
-import type { Metadata } from "next"
-import HeroWidget from "@/components/content/hero/HeroWidget"
-import HeroContent from "@/components/content/hero/HeroContent"
-import CustomVideoPreview from "@/components/content/CustomVideoPreview"
-import AdsClickIcon from "@mui/icons-material/AdsClick"
-import BlogFeedWidget from "@/components/content/BlogFeedWidget"
+import type { Metadata } from "next";
+import HeroWidget from "@/components/content/hero/HeroWidget";
+import HeroContent from "@/components/content/hero/HeroContent";
+import CustomVideoPreview from "@/components/content/CustomVideoPreview";
+import AdsClickIcon from "@mui/icons-material/AdsClick";
+import BlogFeedWidget from "@/components/content/BlogFeedWidget";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dexie.org"),
@@ -55,22 +55,22 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://dexie.org",
   },
-}
-import Brands from "@/components/content/hero/Brands"
+};
+import Brands from "@/components/content/hero/Brands";
 import Benefits, {
   BenefitItem,
-} from "@/components/content/Benefits/BenefitsWidget"
+} from "@/components/content/Benefits/BenefitsWidget";
 import BlogPostsWidget, {
   BlogPostItem,
-} from "@/components/content/BlogPostsWidget"
+} from "@/components/content/BlogPostsWidget";
 import TestimonialsWidget, {
   TestimonialItem,
-} from "@/components/content/TestimonialsWidget"
-import HackathonWidget from "@/components/content/HackathonWidget"
-import FeatureScreenshotWidget from "@/components/content/FeatureScreenshotWidget"
-import TypeWriter from "@/components/content/shared/TypeWriter"
-import PlayArrowIcon from "@mui/icons-material/PlayArrow"
-import { Box, Divider, Typography } from "@mui/material"
+} from "@/components/content/TestimonialsWidget";
+import HackathonWidget from "@/components/content/HackathonWidget";
+import FeatureScreenshotWidget from "@/components/content/FeatureScreenshotWidget";
+import TypeWriter from "@/components/content/shared/TypeWriter";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { Box, Divider, Typography } from "@mui/material";
 
 const dexieBenefitsData: BenefitItem[] = [
   {
@@ -152,7 +152,7 @@ const dexieBenefitsData: BenefitItem[] = [
     svgPath:
       "M17.281 8.991l3.706 1.97-2.261 2.013.011.006 2.25 3.09-2.25 1.228v3.096l-6.75 3.606-6.75-3.606v-3.091l-2.25-1.225 2.234-3.075-2.234-1.966 3.747-2.043c-.108.371-.197.808-.245 1.272l-1.769.964 1.181 1.04.624-.345c.056.339.146.672.279.984l-.823.456 6.028 3.124 5.978-3.119-.812-.451c.145-.299.245-.618.31-.944l.531.293 1.234-1.098-1.707-.907c-.05-.464-.146-.9-.262-1.272zm-4.798 8.217v5.393l5.256-2.807v-1.951l-3.502 1.91-1.754-2.545zm-6.247.639v1.947l5.249 2.804v-5.388l-1.748 2.543-3.501-1.906zm-1.772-2.103l4.96 2.7 1.099-1.599-4.983-2.582-1.076 1.481zm8.989 1.11l1.096 1.59 4.96-2.706-1.073-1.475-4.983 2.591zm-1.199-1.691h-.625l.003-2.728h.625l-.003 2.728zm-1.159-1.424h-.625l.009-1.739h.625l-.009 1.739zm2.358-.014h-.626l-.009-1.725h.625l.01 1.725zm-3.094-2.468l-.318-.734c-.732.269-2.155 2.284-2.155 2.284-1.195-2.607.161-4.846 1.243-5.659-.083-.699-.644-4.168 2.817-7.113l.041-.035.041.035c3.462 2.945 2.901 6.414 2.817 7.113 1.083.813 2.438 3.052 1.243 5.659 0 0-1.423-2.015-2.155-2.284l-.317.734-1.629.005-1.628-.005zm1.628-9.919c-1.093.923-2.432 3.393-1.854 6.223-.726.6-1.58 1.454-1.712 3.089.577-.77 1.419-1.21 2.091-1.356 0 0 .424.782.507.973l.968.003.969-.003c.083-.191.507-.973.507-.973.671.146 1.513.586 2.091 1.356-.133-1.635-.967-2.472-1.693-3.072.586-2.722-.771-5.295-1.861-6.229l-.013-.011zm-.044 5.693c-.284-.001-.515-.231-.515-.516 0-.285.231-.515.515-.515.284 0 .514.23.514.515 0 .285-.23.515-.514.516zm0-1.844c-.569 0-1.029-.462-1.03-1.031.001-.57.461-1.031 1.03-1.031s1.029.461 1.029 1.031c0 .569-.46 1.03-1.029 1.031zm0-1.434c.214 0 .388.174.388.389 0 .215-.174.389-.388.389-.215 0-.389-.174-.389-.389 0-.215.174-.389.389-.389z",
   },
-]
+];
 
 export const blogPostsData: BlogPostItem[] = [
   {
@@ -171,7 +171,7 @@ export const blogPostsData: BlogPostItem[] = [
       "Offline storage and sync",
       "Best way to learn the basics",
       "Starter template for your own app",
-      "Sharing and access control"
+      "Sharing and access control",
     ],
   },
   {
@@ -207,7 +207,7 @@ export const blogPostsData: BlogPostItem[] = [
     link: "https://github.com/albarin/sveltekit-dexie-boilerplate",
     keyPoints: ["Svelte framework", "Build-in authentication"],
   },
-]
+];
 
 // Testimonials data
 export const testimonials: TestimonialItem[] = [
@@ -246,7 +246,7 @@ export const testimonials: TestimonialItem[] = [
     quote:
       "What truly sets Dexie Cloud apart is its ability to unleash productivity and nurturing creativity. Unlike other platforms, Dexie Cloud doesn't confine our visions; it expands them.",
   },
-]
+];
 
 // Hackathon winners data
 const hackathonWinners = [
@@ -336,7 +336,7 @@ const hackathonWinners = [
       "https://dexie.org/assets/images/hackathon/winners/startup-toolkit-preview.png",
     imageAlt: "Startup ToolKit Preview",
   },
-]
+];
 
 // Feature screenshot slides data
 const featureScreenshotSlides = [
@@ -511,7 +511,7 @@ const featureScreenshotSlides = [
       },
     ],
   },
-]
+];
 
 export default function Home() {
   return (
@@ -540,6 +540,7 @@ export default function Home() {
           "IndexedDB made simple. Add cloud sync for auth, storage, with real-time updates. One unified data layer across all platforms — no backend required. Truly offline-first."
         }
         background={"/assets/images/dexie-bg.jpg"}
+        backgroundLight="/assets/images/dexie-bg-light-colorful.jpg"
         contentRight={<HeroContent />}
         contentRightWidthPercentage={45}
         contentBottom={
@@ -561,8 +562,16 @@ export default function Home() {
             },
             color: "secondary",
             size: "large",
-            variant: "outlined",
-            sx: { borderRadius: "32px" },
+            variant: "contained",
+            sx: {
+              borderRadius: "32px",
+              color: "#ffffff !important",
+              boxShadow: "0 8px 20px rgba(124, 47, 224, 0.28)",
+              "& .MuiButton-startIcon": { marginRight: "10px" },
+              "&:hover": {
+                boxShadow: "0 10px 26px rgba(124, 47, 224, 0.36)",
+              },
+            },
           },
           {
             text: "How it works?",
@@ -582,6 +591,7 @@ export default function Home() {
           height: "90vh",
           textColor: "#FFFFFF",
           overlayStrength: "80%",
+          overlayStrengthLight: "55%",
           textWidth: "60%",
           containerWidth: "big",
         }}
@@ -589,8 +599,8 @@ export default function Home() {
       <Benefits
         items={dexieBenefitsData}
         settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
+          textColor: "var(--dexie-text)",
+          backgroundColor: "var(--dexie-bg)",
           containerWidth: "big",
           sectionTitle: "Primary Benefits",
           sectionSubtitle: "Why use Dexie?",
@@ -600,8 +610,8 @@ export default function Home() {
       <TestimonialsWidget
         items={testimonials}
         settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
+          textColor: "var(--dexie-text)",
+          backgroundColor: "var(--dexie-bg)",
           containerWidth: "big",
           sectionTitle: "Dexie is trusted by",
           sectionSubtitle: "100,000+ developers.",
@@ -612,8 +622,8 @@ export default function Home() {
         items={blogPostsData}
         sectionTitle="Get started in minutes"
         sectionSubtitle="Accelerate your development with templates built by us and our community."
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
       />
       {/* Video Block: How it works */}
@@ -621,7 +631,7 @@ export default function Home() {
         id="how-it-works-video"
         sx={{
           background: "#000",
-          color: "#dee2e6",
+          color: "var(--dexie-text)",
           padding: "64px 0",
           textAlign: "center",
         }}
@@ -646,8 +656,8 @@ export default function Home() {
         sectionTitle="Winners of Dexie Global Hackathon 25"
         description="After eight inspiring weeks of innovation, collaboration, and creativity, we're thrilled to announce the outstanding winners who pushed the boundaries of what's possible with Dexie.js and Dexie Cloud!"
         winners={hackathonWinners}
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
       />
       <Divider />
@@ -673,8 +683,8 @@ export default function Home() {
           </>
         }
         slides={featureScreenshotSlides}
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
       />
       <Divider />
@@ -688,5 +698,5 @@ export default function Home() {
         title="Latest from our blog"
       />
     </div>
-  )
+  );
 }

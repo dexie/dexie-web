@@ -525,7 +525,7 @@ export default function DexieCloudPage() {
                 <Typography
                   variant="h4"
                   sx={{
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     fontWeight: 800,
                     lineHeight: 1,
                     letterSpacing: "-0.02em",
@@ -536,7 +536,7 @@ export default function DexieCloudPage() {
                 <Typography
                   variant="caption"
                   sx={{
-                    color: "#dee2e6",
+                    color: "var(--dexie-text)",
                     opacity: 0.5,
                     mt: 0.5,
                     display: "block",
@@ -552,7 +552,7 @@ export default function DexieCloudPage() {
           </Box>
         }
         settings={{
-          textColor: "#ffffff",
+          textColor: "var(--dexie-bright)",
           containerWidth: "big",
           height: "90vh",
           textAlignment: "center",
@@ -608,8 +608,8 @@ export default function DexieCloudPage() {
         ]}
         sectionTitle="Building a SaaS is hard. It doesn't have to be."
         sectionSubtitle="The traditional way to build a multi-user app requires months of backend work. Dexie Cloud replaces all of that with a single addon."
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
         hideActions
         highlightItemId={2}
@@ -621,7 +621,7 @@ export default function DexieCloudPage() {
       <Box
         id="from-app-to-saas"
         sx={{
-          color: "#dee2e6",
+          color: "var(--dexie-text)",
           py: 8,
         }}
       >
@@ -630,7 +630,7 @@ export default function DexieCloudPage() {
             variant="h3"
             component="h2"
             textAlign="center"
-            sx={{ mb: 2, color: "#ffffff" }}
+            sx={{ mb: 2, color: "var(--dexie-bright)" }}
           >
             From app to SaaS in 3 steps
           </Typography>
@@ -653,7 +653,7 @@ export default function DexieCloudPage() {
                 bottom: 0,
                 width: 2,
                 background:
-                  "linear-gradient(to bottom, #c77dff 0%, rgba(199,125,255,0.3) 80%, rgba(199,125,255,0) 100%)",
+                  "linear-gradient(to bottom, var(--dexie-accent) 0%, rgba(199,125,255,0.3) 80%, rgba(199,125,255,0) 100%)",
               }}
             />
 
@@ -715,15 +715,15 @@ db.cloud.configure({
                     width: { xs: 42, md: 50 },
                     height: { xs: 42, md: 50 },
                     borderRadius: "50%",
-                    backgroundColor: "#000000",
-                    border: "2px solid #c77dff",
+                    backgroundColor: "var(--dexie-bg)",
+                    border: "2px solid var(--dexie-accent)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
                     flexShrink: 0,
                     fontSize: { xs: "1rem", md: "1.15rem" },
                     fontWeight: 700,
-                    color: "#c77dff",
+                    color: "var(--dexie-accent)",
                     zIndex: 1,
                   }}
                 >
@@ -734,7 +734,7 @@ db.cloud.configure({
                   <Typography
                     variant="h5"
                     sx={{
-                      color: "#ffffff",
+                      color: "var(--dexie-bright)",
                       fontWeight: 600,
                       mb: 0.5,
                       fontSize: { xs: "1.15rem", md: "1.35rem" },
@@ -777,7 +777,7 @@ db.cloud.configure({
                   height: { xs: 42, md: 50 },
                   borderRadius: "50%",
                   background:
-                    "linear-gradient(135deg, #c77dff, #9b59b6)",
+                    "linear-gradient(135deg, var(--dexie-accent), #9b59b6)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -786,13 +786,13 @@ db.cloud.configure({
                 }}
               >
                 <RocketLaunchIcon
-                  sx={{ color: "#fff", fontSize: { xs: 20, md: 24 } }}
+                  sx={{ color: "var(--dexie-bright)", fontSize: { xs: 20, md: 24 } }}
                 />
               </Box>
               <Typography
                 variant="h5"
                 sx={{
-                  color: "#ffffff",
+                  color: "var(--dexie-bright)",
                   fontWeight: 600,
                   fontSize: { xs: "1.15rem", md: "1.35rem" },
                 }}
@@ -850,8 +850,8 @@ db.cloud.configure({
       <Benefits
         items={capabilities}
         settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
+          textColor: "var(--dexie-text)",
+          backgroundColor: "var(--dexie-bg)",
           containerWidth: "big",
           sectionTitle: "Everything you need to ship",
           sectionSubtitle:
@@ -869,8 +869,8 @@ db.cloud.configure({
         rows={comparisonRows}
         highlightColumn="dexie"
         settings={{
-          backgroundColor: "#000000",
-          textColor: "#dee2e6",
+          backgroundColor: "var(--dexie-bg)",
+          textColor: "var(--dexie-text)",
           containerWidth: "big",
         }}
       />
@@ -897,8 +897,8 @@ db.cloud.configure({
           </>
         }
         slides={featureSlides}
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
       />
 
@@ -908,8 +908,8 @@ db.cloud.configure({
       <TestimonialsWidget
         items={testimonials}
         settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
+          textColor: "var(--dexie-text)",
+          backgroundColor: "var(--dexie-bg)",
           containerWidth: "big",
           sectionTitle: "Developers ship faster",
           sectionSubtitle: "with Dexie Cloud",
@@ -923,8 +923,8 @@ db.cloud.configure({
         items={starterTemplates}
         sectionTitle="Start building in minutes"
         sectionSubtitle="Clone a starter template and ship your SaaS today"
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
       />
 
@@ -934,8 +934,8 @@ db.cloud.configure({
       <FAQWidget
         items={faqItems}
         settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
+          textColor: "var(--dexie-text)",
+          backgroundColor: "var(--dexie-bg)",
           containerWidth: "big",
           sectionTitle: "Frequently asked questions",
           sectionSubtitle: "Everything you need to know about Dexie Cloud",
@@ -962,8 +962,8 @@ db.cloud.configure({
           title: "View Pricing",
           target: "_self",
         }}
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
       />
     </>

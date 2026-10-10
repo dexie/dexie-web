@@ -294,7 +294,7 @@ export default function LandingSearchBar() {
               width: "320px",
               maxHeight: "400px",
               overflowY: "auto",
-              backgroundColor: "#1a1a1a",
+              backgroundColor: "var(--dexie-surface-deep)",
               border: `1px solid ${alpha(theme.palette.secondary.main, 0.2)}`,
               borderRadius: "12px",
               zIndex: 1300,

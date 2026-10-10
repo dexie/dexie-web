@@ -48,8 +48,8 @@ export default function StorageLimitsWidget({
   sx = {},
 }: StorageLimitsWidgetProps) {
   const {
-    textColor = "#dee2e6",
-    backgroundColor = "#000000",
+    textColor = "var(--dexie-text)",
+    backgroundColor = "var(--dexie-bg)",
     containerWidth = "big",
     sectionTitle = "Storage Limits",
     sectionSubtitle = "Dexie Cloud Production includes storage in relation to the number of seats purchased. The storage limit is computed on the sum of storage and not per individual user. Storage limits are differentiated between blob- and object data.",
@@ -91,7 +91,7 @@ export default function StorageLimitsWidget({
           sx={{
             textAlign: "center",
             mb: 4,
-            color: "#adb5bd",
+            color: "var(--dexie-text-muted)",
             maxWidth: "900px",
             mx: "auto",
             lineHeight: 1.6,
@@ -103,7 +103,7 @@ export default function StorageLimitsWidget({
         <TableContainer
           component={Paper}
           sx={{
-            backgroundColor: "#1a1a1a",
+            backgroundColor: "var(--dexie-surface-deep)",
             border: "1px solid #333",
             mb: 6,
             overflowX: "auto",
@@ -138,13 +138,13 @@ export default function StorageLimitsWidget({
                   <TableCell sx={{ color: textColor, fontWeight: 500 }}>
                     {row.seats}
                   </TableCell>
-                  <TableCell sx={{ color: "#adb5bd" }}>
+                  <TableCell sx={{ color: "var(--dexie-text-muted)" }}>
                     {row.objectStorage}
                   </TableCell>
-                  <TableCell sx={{ color: "#adb5bd" }}>
+                  <TableCell sx={{ color: "var(--dexie-text-muted)" }}>
                     {row.blobStorage}
                   </TableCell>
-                  <TableCell sx={{ color: "#adb5bd" }}>
+                  <TableCell sx={{ color: "var(--dexie-text-muted)" }}>
                     {row.blobWrites}
                   </TableCell>
                 </TableRow>
@@ -156,7 +156,7 @@ export default function StorageLimitsWidget({
         <Typography
           variant="body2"
           sx={{
-            color: "#adb5bd",
+            color: "var(--dexie-text-muted)",
             mb: 4,
             maxWidth: "800px",
             mx: "auto",
@@ -188,7 +188,7 @@ export default function StorageLimitsWidget({
           sx={{
             textAlign: "center",
             mb: 4,
-            color: "#adb5bd",
+            color: "var(--dexie-text-muted)",
             maxWidth: "800px",
             mx: "auto",
           }}
@@ -199,7 +199,7 @@ export default function StorageLimitsWidget({
         <TableContainer
           component={Paper}
           sx={{
-            backgroundColor: "#1a1a1a",
+            backgroundColor: "var(--dexie-surface-deep)",
             border: "1px solid #333",
             maxWidth: "600px",
             mx: "auto",
@@ -231,10 +231,10 @@ export default function StorageLimitsWidget({
                   <TableCell sx={{ color: textColor, fontWeight: 500 }}>
                     {row.storageType}
                   </TableCell>
-                  <TableCell sx={{ color: "#adb5bd" }}>
+                  <TableCell sx={{ color: "var(--dexie-text-muted)" }}>
                     {row.storageCost}
                   </TableCell>
-                  <TableCell sx={{ color: "#adb5bd" }}>
+                  <TableCell sx={{ color: "var(--dexie-text-muted)" }}>
                     {row.syncCosts}
                   </TableCell>
                 </TableRow>

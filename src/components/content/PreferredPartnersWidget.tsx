@@ -50,8 +50,8 @@ export default function PreferredPartnersWidget({
   sx = {},
 }: PreferredPartnersWidgetProps) {
   const {
-    textColor = "#dee2e6",
-    backgroundColor = "#000000",
+    textColor = "var(--dexie-text)",
+    backgroundColor = "var(--dexie-bg)",
     containerWidth = "big",
     sectionTitle = "Preferred Partners",
     sectionSubtitle = "Work with certified Dexie Cloud experts who can help you implement, migrate, and optimize your offline-first applications",
@@ -91,7 +91,7 @@ export default function PreferredPartnersWidget({
           sx={{
             textAlign: "center",
             mb: 6,
-            color: "#adb5bd",
+            color: "var(--dexie-text-muted)",
             maxWidth: "800px",
             mx: "auto",
           }}
@@ -131,7 +131,7 @@ export default function PreferredPartnersWidget({
                 <Card
                   key={index}
                   sx={{
-                    backgroundColor: "#1a1a1a",
+                    backgroundColor: "var(--dexie-surface-deep)",
                     border: "1px solid #333",
                     borderRadius: "12px",
                     "&:hover": {
@@ -169,7 +169,7 @@ export default function PreferredPartnersWidget({
                           target="_blank"
                           rel="noopener noreferrer"
                           sx={{
-                            color: "#c77dff",
+                            color: "var(--dexie-accent)",
                             textDecoration: "none",
                             display: "flex",
                             alignItems: "center",
@@ -188,7 +188,7 @@ export default function PreferredPartnersWidget({
                     <Typography
                       variant="body2"
                       sx={{
-                        color: "#adb5bd",
+                        color: "var(--dexie-text-muted)",
                         mb: 3,
                         lineHeight: 1.6,
                       }}
@@ -267,8 +267,8 @@ export default function PreferredPartnersWidget({
                         variant="contained"
                         startIcon={<EmailIcon />}
                         sx={{
-                          backgroundColor: "#c77dff",
-                          color: "#000000",
+                          backgroundColor: "var(--dexie-accent)",
+                          color: "var(--dexie-bg)",
                           borderRadius: "8px",
                           textTransform: "none",
                           "&:hover": {
@@ -284,8 +284,8 @@ export default function PreferredPartnersWidget({
                         rel="noopener noreferrer"
                         variant="outlined"
                         sx={{
-                          borderColor: "#c77dff",
-                          color: "#c77dff",
+                          borderColor: "var(--dexie-accent)",
+                          color: "var(--dexie-accent)",
                           borderRadius: "8px",
                           textTransform: "none",
                           "&:hover": {
@@ -315,7 +315,7 @@ export default function PreferredPartnersWidget({
             <Box
               sx={{
                 p: 4,
-                backgroundColor: "#1a1a1a",
+                backgroundColor: "var(--dexie-surface-deep)",
                 borderRadius: "12px",
                 border: "1px solid #333",
                 flex: 1, // Added to fill available height
@@ -337,7 +337,7 @@ export default function PreferredPartnersWidget({
               <Typography
                 variant="body2"
                 sx={{
-                  color: "#adb5bd",
+                  color: "var(--dexie-text-muted)",
                   mb: 3,
                   lineHeight: 1.6,
                   flex: 1, // Added to take up remaining space
@@ -351,8 +351,8 @@ export default function PreferredPartnersWidget({
                 href="/contact"
                 variant="outlined"
                 sx={{
-                  borderColor: "#c77dff",
-                  color: "#c77dff",
+                  borderColor: "var(--dexie-accent)",
+                  color: "var(--dexie-accent)",
                   borderRadius: "8px",
                   textTransform: "none",
                   width: "100%",

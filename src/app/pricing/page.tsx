@@ -242,8 +242,8 @@ const cloudPlans = [
     badge: {
       text: "Popular",
       variant: "outlined" as const,
-      color: "#c77dff",
-      borderColor: "#c77dff",
+      color: "var(--dexie-accent)",
+      borderColor: "var(--dexie-accent)",
     },
     sectionTitle: "Everything in the Free Plan, plus:",
     features: [
@@ -304,8 +304,8 @@ const cloudPlans = [
     badge: {
       text: "Bestseller",
       variant: "outlined" as const,
-      color: "#c77dff",
-      borderColor: "#c77dff",
+      color: "var(--dexie-accent)",
+      borderColor: "var(--dexie-accent)",
     },
     contactSalesText: "Need custom terms? Contact Sales",
     contactSalesLink: "/contact",
@@ -744,8 +744,8 @@ export default function PricingPage() {
           cloudPlans={cloudPlans}
           onPremisesPlans={onPremisesPlans}
           settings={{
-            textColor: "#dee2e6",
-            backgroundColor: "#000000",
+            textColor: "var(--dexie-text)",
+            backgroundColor: "var(--dexie-bg)",
             containerWidth: "big",
             sectionTitle: "Cloud and on-premises with",
             sectionSubtitle:
@@ -762,7 +762,7 @@ export default function PricingPage() {
           sx={{
             paddingTop: "200px !important",
             background:
-              "linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/assets/images/dexie-bg.jpg')",
+              "linear-gradient(var(--dexie-hero-overlay), var(--dexie-hero-overlay)), url('/assets/images/dexie-bg.jpg')",
             backgroundPosition: "center",
             backgroundSize: "cover",
           }}
@@ -779,8 +779,8 @@ export default function PricingPage() {
           columns={comparisonColumns}
           rows={comparisonRows}
           settings={{
-            textColor: "#dee2e6",
-            backgroundColor: "#000000",
+            textColor: "var(--dexie-text)",
+            backgroundColor: "var(--dexie-bg)",
             containerWidth: "big",
           }}
         />
@@ -794,8 +794,8 @@ export default function PricingPage() {
           storageLimits={storageLimits}
           additionalStorage={additionalStorageData}
           settings={{
-            textColor: "#dee2e6",
-            backgroundColor: "#000000",
+            textColor: "var(--dexie-text)",
+            backgroundColor: "var(--dexie-bg)",
             containerWidth: "big",
           }}
         />
@@ -808,7 +808,7 @@ export default function PricingPage() {
         sx={{
           py: 2,
           position: "relative",
-          backgroundColor: "#000000",
+          backgroundColor: "var(--dexie-bg)",
           "&::after": {
             content: '""',
             position: "absolute",
@@ -817,7 +817,7 @@ export default function PricingPage() {
             top: "50%",
             height: "2px",
             background:
-              "linear-gradient(90deg, transparent, #7b2cbf, #c77dff, #7b2cbf, transparent)",
+              "linear-gradient(90deg, transparent, #7b2cbf, var(--dexie-accent), #7b2cbf, transparent)",
             opacity: 0.6,
           },
         }}
@@ -827,13 +827,13 @@ export default function PricingPage() {
       {/* ZONE B — Support Plans                       */}
       {/* ============================================ */}
 
-      <Box id="support" sx={{ py: 8, backgroundColor: "#000000" }}>
+      <Box id="support" sx={{ py: 8, backgroundColor: "var(--dexie-bg)" }}>
         <SupportZone
           cloudSupportPlans={supportPlans}
           openSourceSupportPlans={openSourceSupportPlans}
           settings={{
-            textColor: "#dee2e6",
-            backgroundColor: "#000000",
+            textColor: "var(--dexie-text)",
+            backgroundColor: "var(--dexie-bg)",
             containerWidth: "big",
           }}
         />
@@ -846,7 +846,7 @@ export default function PricingPage() {
         sx={{
           py: 2,
           position: "relative",
-          backgroundColor: "#000000",
+          backgroundColor: "var(--dexie-bg)",
           "&::after": {
             content: '""',
             position: "absolute",
@@ -855,7 +855,7 @@ export default function PricingPage() {
             top: "50%",
             height: "2px",
             background:
-              "linear-gradient(90deg, transparent, #7b2cbf, #c77dff, #7b2cbf, transparent)",
+              "linear-gradient(90deg, transparent, #7b2cbf, var(--dexie-accent), #7b2cbf, transparent)",
             opacity: 0.6,
           },
         }}
@@ -869,8 +869,8 @@ export default function PricingPage() {
         <SupportPlansWidget
           plans={professionalServices}
           settings={{
-            textColor: "#dee2e6",
-            backgroundColor: "#000000",
+            textColor: "var(--dexie-text)",
+            backgroundColor: "var(--dexie-bg)",
             containerWidth: "big",
             sectionTitle: "Professional Services",
             sectionSubtitle:
@@ -885,8 +885,8 @@ export default function PricingPage() {
       <PreferredPartnersWidget
         partners={preferredPartners}
         settings={{
-          textColor: "#dee2e6",
-          backgroundColor: "#000000",
+          textColor: "var(--dexie-text)",
+          backgroundColor: "var(--dexie-bg)",
           containerWidth: "big",
           sectionTitle: "Preferred Partners",
           sectionSubtitle:
@@ -901,7 +901,7 @@ export default function PricingPage() {
         sx={{
           py: 2,
           position: "relative",
-          backgroundColor: "#000000",
+          backgroundColor: "var(--dexie-bg)",
           "&::after": {
             content: '""',
             position: "absolute",
@@ -910,7 +910,7 @@ export default function PricingPage() {
             top: "50%",
             height: "2px",
             background:
-              "linear-gradient(90deg, transparent, #7b2cbf, #c77dff, #7b2cbf, transparent)",
+              "linear-gradient(90deg, transparent, #7b2cbf, var(--dexie-accent), #7b2cbf, transparent)",
             opacity: 0.6,
           },
         }}
@@ -924,8 +924,8 @@ export default function PricingPage() {
         <FAQWidget
           items={faqData}
           settings={{
-            textColor: "#dee2e6",
-            backgroundColor: "#000000",
+            textColor: "var(--dexie-text)",
+            backgroundColor: "var(--dexie-bg)",
             containerWidth: "big",
             sectionTitle: "Frequently Asked Questions",
             sectionSubtitle: "",
@@ -953,8 +953,8 @@ export default function PricingPage() {
           title: "Contact Sales",
           target: "_self",
         }}
-        textColor="#dee2e6"
-        backgroundColor="#000000"
+        textColor="var(--dexie-text)"
+        backgroundColor="var(--dexie-bg)"
         containerWidth="big"
       />
     </>

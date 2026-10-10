@@ -1,33 +1,35 @@
-import type { Metadata } from "next"
-import { Geist, Geist_Mono, Roboto } from "next/font/google"
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter"
-import { ThemeProvider } from "@mui/material/styles"
-import { CssBaseline } from "@mui/material"
-import theme from "../theme"
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
-import ServiceWorkerRegistration from "../components/ServiceWorkerRegistration"
-import OfflineStatusIndicator from "../components/OfflineStatusIndicator"
-import CookieConsentManager from "../components/CookieConsentManager"
-import "./globals.css"
-import "../../public/assets/css/prism.css"
+import type { Metadata } from "next";
+import { Geist, Geist_Mono, Roboto } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import theme from "../theme";
+import { getColorModeScript } from "../theme/ColorModeScript";
+import { ThemeModeProvider } from "../theme/ThemeModeProvider";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import ServiceWorkerRegistration from "../components/ServiceWorkerRegistration";
+import OfflineStatusIndicator from "../components/OfflineStatusIndicator";
+import CookieConsentManager from "../components/CookieConsentManager";
+import "./globals.css";
+import "../../public/assets/css/prism.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-})
+});
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-})
+});
 
 const roboto = Roboto({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
   display: "swap",
   variable: "--font-roboto",
-})
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dexie.org"),
@@ -106,41 +108,59 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.ico",
   },
-}
+};
 
 // Generate structured data as a JSON string to prevent RSC serialization
-const structuredDataJson = '{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Dexie.js","description":"IndexedDB wrapper library for offline-first web applications with real-time sync capabilities","url":"https://dexie.org","applicationCategory":"DeveloperApplication","operatingSystem":"Web Browser","programmingLanguage":"JavaScript","author":{"@type":"Person","name":"David Fahlander","url":"https://github.com/dfahlander"},"publisher":{"@type":"Organization","name":"Awarica AB","address":{"@type":"PostalAddress","addressCountry":"SE","addressLocality":"Stockholm"}},"softwareVersion":"4.0","downloadUrl":"https://www.npmjs.com/package/dexie","license":"https://github.com/dexie/Dexie.js/blob/master/LICENSE","codeRepository":"https://github.com/dexie/Dexie.js","installUrl":"https://www.npmjs.com/package/dexie","screenshot":"https://dexie.org/assets/images/dexie-hero-og.jpg","offers":[{"@type":"Offer","name":"Dexie.js Open Source","price":"0","priceCurrency":"USD","description":"Free IndexedDB wrapper library"},{"@type":"Offer","name":"Dexie Cloud Free","price":"0","priceCurrency":"USD","description":"Free tier with 3 production users and 100MB storage"},{"@type":"Offer","name":"Dexie Cloud Production","price":"0.12","priceCurrency":"USD","description":"Production tier starting at $0.12 per user per month"}],"featureList":["Offline-first database","IndexedDB wrapper","Real-time synchronization","Authentication system","Collaborative features","React integration","Vue.js support","Angular compatibility","Progressive Web App support"]}'
+const structuredDataJson =
+  '{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Dexie.js","description":"IndexedDB wrapper library for offline-first web applications with real-time sync capabilities","url":"https://dexie.org","applicationCategory":"DeveloperApplication","operatingSystem":"Web Browser","programmingLanguage":"JavaScript","author":{"@type":"Person","name":"David Fahlander","url":"https://github.com/dfahlander"},"publisher":{"@type":"Organization","name":"Awarica AB","address":{"@type":"PostalAddress","addressCountry":"SE","addressLocality":"Stockholm"}},"softwareVersion":"4.0","downloadUrl":"https://www.npmjs.com/package/dexie","license":"https://github.com/dexie/Dexie.js/blob/master/LICENSE","codeRepository":"https://github.com/dexie/Dexie.js","installUrl":"https://www.npmjs.com/package/dexie","screenshot":"https://dexie.org/assets/images/dexie-hero-og.jpg","offers":[{"@type":"Offer","name":"Dexie.js Open Source","price":"0","priceCurrency":"USD","description":"Free IndexedDB wrapper library"},{"@type":"Offer","name":"Dexie Cloud Free","price":"0","priceCurrency":"USD","description":"Free tier with 3 production users and 100MB storage"},{"@type":"Offer","name":"Dexie Cloud Production","price":"0.12","priceCurrency":"USD","description":"Production tier starting at $0.12 per user per month"}],"featureList":["Offline-first database","IndexedDB wrapper","Real-time synchronization","Authentication system","Collaborative features","React integration","Vue.js support","Angular compatibility","Progressive Web App support"]}';
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={roboto.variable}>
+    <html lang="en" className={roboto.variable} suppressHydrationWarning>
       <head>
-        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Documentation Guide" />
+        <link
+          rel="alternate"
+          type="text/plain"
+          href="/llms.txt"
+          title="LLM Documentation Guide"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: structuredDataJson,
           }}
         />
+        {/* Applies the correct light/dark scheme before first paint to avoid a flash of the wrong theme. */}
+        <script dangerouslySetInnerHTML={{ __html: getColorModeScript() }} />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable}`}
+        suppressHydrationWarning
+      >
         <CookieConsentManager gaId="G-7W0YET4Q10">
           <ServiceWorkerRegistration />
           <OfflineStatusIndicator />
           <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
-              <Navbar />
-              {children}
-              <Footer />
+            <ThemeProvider
+              theme={theme}
+              defaultMode="system"
+              modeStorageKey="dexie-color-mode"
+              noSsr
+            >
+              <CssBaseline enableColorScheme />
+              <ThemeModeProvider>
+                <Navbar />
+                {children}
+                <Footer />
+              </ThemeModeProvider>
             </ThemeProvider>
           </AppRouterCacheProvider>
         </CookieConsentManager>
       </body>
     </html>
-  )
+  );
 }

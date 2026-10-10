@@ -27,11 +27,11 @@ const Footer = () => {
       <Box
         component="footer"
         sx={{
-          bgcolor: "#0a0a0a",
-          color: "#dee2e6",
+          bgcolor: "var(--dexie-surface-deep)",
+          color: "var(--dexie-text)",
           pt: 8,
           pb: 4,
-          borderTop: `1px solid ${alpha("#dee2e6", 0.1)}`,
+          borderTop: `1px solid ${alpha(theme.palette.text.primary, 0.1)}`,
           position: "relative",
           zIndex: 200, // Higher than sidebar's z-index (100)
         }}
@@ -55,7 +55,7 @@ const Footer = () => {
                 sx={{
                   fontWeight: 600,
                   mb: 3,
-                  color: "#ffffff",
+                  color: "var(--dexie-bright)",
                 }}
               >
                 Contact Us
@@ -64,7 +64,7 @@ const Footer = () => {
                 variant="body1"
                 sx={{
                   mb: 4,
-                  color: "#dee2e6",
+                  color: "var(--dexie-text)",
                   fontSize: "1.1rem",
                 }}
               >
@@ -77,7 +77,7 @@ const Footer = () => {
                 sx={{
                   fontWeight: 500,
                   mb: 2,
-                  color: "#ffffff",
+                  color: "var(--dexie-bright)",
                 }}
               >
                 Questions & Support
@@ -91,11 +91,11 @@ const Footer = () => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    color: "#dee2e6",
+                    color: "var(--dexie-text)",
                     textDecoration: "none",
                     mb: 1,
                     "&:hover": {
-                      color: "#ffffff",
+                      color: "var(--dexie-bright)",
                     },
                   }}
                 >
@@ -103,7 +103,7 @@ const Footer = () => {
                 </Link>
                 <Typography
                   variant="body2"
-                  sx={{ color: alpha("#dee2e6", 0.7), mb: 2, ml: 2 }}
+                  sx={{ color: alpha(theme.palette.text.primary, 0.7), mb: 2, ml: 2 }}
                 >
                   Fastest response for technical questions
                 </Typography>
@@ -115,11 +115,11 @@ const Footer = () => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    color: "#dee2e6",
+                    color: "var(--dexie-text)",
                     textDecoration: "none",
                     mb: 1,
                     "&:hover": {
-                      color: "#ffffff",
+                      color: "var(--dexie-bright)",
                     },
                   }}
                 >
@@ -127,7 +127,7 @@ const Footer = () => {
                 </Link>
                 <Typography
                   variant="body2"
-                  sx={{ color: alpha("#dee2e6", 0.7), mb: 2, ml: 2 }}
+                  sx={{ color: alpha(theme.palette.text.primary, 0.7), mb: 2, ml: 2 }}
                 >
                   Bug reports and feature requests
                 </Typography>
@@ -139,11 +139,11 @@ const Footer = () => {
                   sx={{
                     display: "flex",
                     alignItems: "center",
-                    color: "#dee2e6",
+                    color: "var(--dexie-text)",
                     textDecoration: "none",
                     mb: 1,
                     "&:hover": {
-                      color: "#ffffff",
+                      color: "var(--dexie-bright)",
                     },
                   }}
                 >
@@ -151,7 +151,7 @@ const Footer = () => {
                 </Link>
                 <Typography
                   variant="body2"
-                  sx={{ color: alpha("#dee2e6", 0.7), ml: 2 }}
+                  sx={{ color: alpha(theme.palette.text.primary, 0.7), ml: 2 }}
                 >
                   Community discussions
                 </Typography>
@@ -163,7 +163,7 @@ const Footer = () => {
                 sx={{
                   fontWeight: 500,
                   mb: 2,
-                  color: "#ffffff",
+                  color: "var(--dexie-bright)",
                 }}
               >
                 Location
@@ -171,13 +171,13 @@ const Footer = () => {
               <Box>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                   <LocationOn sx={{ mr: 1, fontSize: 20 }} />
-                  <Typography variant="body2" sx={{ color: "#dee2e6" }}>
+                  <Typography variant="body2" sx={{ color: "var(--dexie-text)" }}>
                     Störtloppsvägen 14, Hägersten, Stockholm
                   </Typography>
                 </Box>
                 <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
                   <LocationOn sx={{ mr: 1, fontSize: 20 }} />
-                  <Typography variant="body2" sx={{ color: "#dee2e6" }}>
+                  <Typography variant="body2" sx={{ color: "var(--dexie-text)" }}>
                     Oxtorget 4, Växjö
                   </Typography>
                 </Box>
@@ -191,7 +191,7 @@ const Footer = () => {
                 sx={{
                   fontWeight: 500,
                   mb: 3,
-                  color: "#ffffff",
+                  color: "var(--dexie-bright)",
                 }}
               >
                 Our Locations
@@ -224,11 +224,11 @@ const Footer = () => {
       {/* Bottom Footer */}
       <Box
         sx={{
-          bgcolor: "#000000",
-          color: "#dee2e6",
+          bgcolor: "var(--dexie-bg)",
+          color: "var(--dexie-text)",
           py: 3,
           pb: 6, // Extra bottom padding instead of margin-top on next section
-          borderTop: `1px solid ${alpha("#dee2e6", 0.1)}`,
+          borderTop: `1px solid ${alpha(theme.palette.text.primary, 0.1)}`,
           position: "relative",
           zIndex: 200, // Higher than sidebar's z-index (100)
         }}
@@ -248,7 +248,7 @@ const Footer = () => {
             <Typography
               variant="body2"
               sx={{
-                color: alpha("#dee2e6", 0.8),
+                color: alpha(theme.palette.text.primary, 0.8),
                 order: { xs: 3, lg: 1 },
                 width: { xs: "100%", lg: "auto" },
                 textAlign: { xs: "center", lg: "left" },
@@ -272,11 +272,11 @@ const Footer = () => {
                 target="_blank"
                 rel="nofollow noopener"
                 sx={{
-                  color: "#dee2e6",
+                  color: "var(--dexie-text)",
                   textDecoration: "none",
                   transition: "all 0.3s ease",
                   "&:hover": {
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     transform: "translateY(-2px)",
                   },
                 }}
@@ -287,11 +287,11 @@ const Footer = () => {
                 href="/blog"
                 rel="nofollow noopener"
                 sx={{
-                  color: "#dee2e6",
+                  color: "var(--dexie-text)",
                   textDecoration: "none",
                   transition: "all 0.3s ease",
                   "&:hover": {
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     transform: "translateY(-2px)",
                   },
                 }}
@@ -303,11 +303,11 @@ const Footer = () => {
                 target="_blank"
                 rel="nofollow noopener"
                 sx={{
-                  color: "#dee2e6",
+                  color: "var(--dexie-text)",
                   textDecoration: "none",
                   transition: "all 0.3s ease",
                   "&:hover": {
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     transform: "translateY(-2px)",
                   },
                 }}
@@ -319,11 +319,11 @@ const Footer = () => {
                 target="_blank"
                 rel="nofollow noopener"
                 sx={{
-                  color: "#dee2e6",
+                  color: "var(--dexie-text)",
                   textDecoration: "none",
                   transition: "all 0.3s ease",
                   "&:hover": {
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     transform: "translateY(-2px)",
                   },
                 }}
@@ -344,10 +344,10 @@ const Footer = () => {
               <Button
                 onClick={scrollToTop}
                 sx={{
-                  color: "#dee2e6",
+                  color: "var(--dexie-text)",
                   textTransform: "uppercase",
                   "&:hover": {
-                    color: "#ffffff",
+                    color: "var(--dexie-bright)",
                     backgroundColor: "transparent",
                   },
                 }}
@@ -362,7 +362,7 @@ const Footer = () => {
           <Box sx={{ textAlign: "center", mt: 3, mb: 1 }}>
             <Typography
               variant="body2"
-              sx={{ color: alpha("#dee2e6", 0.7), mb: 1.5 }}
+              sx={{ color: alpha(theme.palette.text.primary, 0.7), mb: 1.5 }}
             >
               Browser testing via
             </Typography>
@@ -388,7 +388,7 @@ const Footer = () => {
             <Typography
               variant="body2"
               sx={{
-                color: alpha("#dee2e6", 0.8),
+                color: alpha(theme.palette.text.primary, 0.8),
                 mb: 1,
               }}
             >
@@ -397,7 +397,7 @@ const Footer = () => {
             <Typography
               variant="caption"
               sx={{
-                color: alpha("#dee2e6", 0.6),
+                color: alpha(theme.palette.text.primary, 0.6),
               }}
             >
               Read{" "}
@@ -448,7 +448,7 @@ const Footer = () => {
             width: "100%",
             left: 0,
             top: 0,
-            backgroundColor: "#000000",
+            backgroundColor: "var(--dexie-bg)",
             clipPath:
               "polygon(1% 0%, 4% 100%, 9% 0%, 13% 100%, 19% 1%, 21% 100%, 26% 5%, 30% 100%, 36% 2%, 43% 100%, 50% 1%, 52% 100%, 61% 0%, 69% 94%, 70% 0%, 76% 100%, 81% 0%, 84% 100%, 91% 0%, 97% 100%, 99% 3%)",
           },
@@ -471,7 +471,7 @@ const Footer = () => {
           <Typography
             variant="body2"
             sx={{
-              color: alpha("#dee2e6", 0.9),
+              color: alpha(theme.palette.text.primary, 0.9),
               fontStyle: "italic",
               fontSize: "0.875rem",
               py: 2,

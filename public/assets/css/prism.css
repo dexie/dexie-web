@@ -109,9 +109,15 @@ pre[class*='language-'] code[class*='language-'] {
 .highlight-line {
   margin-left: -16px;
   margin-right: -16px;
-  background-color: rgba(55, 65, 81, 0.5); /* Set highlight bg color */
+  /* Fixed (not page-theme-relative) overlay: the code panel itself always
+     renders on its own dark background container (matches the Prism
+     "material-dark" theme) regardless of the site's light/dark mode, same
+     as GitHub/VS Code docs. This color must stay legible against that fixed
+     dark backdrop in both site color schemes, so it is intentionally NOT
+     theme-token-driven. */
+  background-color: rgba(255, 255, 255, 0.14); /* Set highlight bg color */
   border-left-width: 4px;
-  border-left-color: rgb(59, 130, 246); /* Set highlight accent border color */
+  border-left-color: rgb(96, 165, 250); /* Set highlight accent border color */
   border-left-style: solid;
 }
 
