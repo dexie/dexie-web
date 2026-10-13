@@ -861,8 +861,7 @@ const PricingWidget: React.FC<PricingWidgetProps> = ({ settings, sx }) => {
               border: "1px solid rgba(255, 158, 0, 0.2)",
             }}
           >
-            Prices are exclusive of VAT. VAT may be added depending on your
-            billing country.
+            Prices exclude VAT. Any applicable VAT will be calculated from your billing details and shown at checkout.
           </Typography>
         </Box>
 
