@@ -16,7 +16,7 @@ npm install dexie-cloud-addon@latest
 
 #### Create a cloud database to sync with
 
-Use [dexie-cloud](/cloud/docs/cli) (another package) to create a database in the cloud, so that dexie-cloud-addon will have a database URL to sync with. Dexie Cloud has a [forever free edition](/pricing) for 3 production users, unlimited devices and unlimited evaluation users.
+Use [dexie-cloud](/cloud/docs/cli) (another package) to create a database in the cloud, so that dexie-cloud-addon will have a database URL to sync with. Dexie Cloud has a [forever free edition](/pricing) with unlimited users, unlimited devices and generous storage/sync quotas.
 
 ```
 npx dexie-cloud create

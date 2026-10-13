@@ -146,7 +146,7 @@ const dexieCloudBenefits: BenefitItem[] = [
     className: "col-md-6 col-lg-4 d-flex align-items-stretch mb-sm-30",
     title: "Developer Experience",
     description:
-      "Start free with OTP login out-of-the-box, scale up as users grow; manage seats in Cloud Manager with transparent pricing.",
+      "Start free with OTP login out-of-the-box, scale up as users grow; manage your subscription in Cloud Manager with transparent pricing.",
     keyPoints: [
       "Free tier for getting started",
       "Built-in authentication",

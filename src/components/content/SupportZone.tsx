@@ -143,8 +143,8 @@ export default function SupportZone({
               fontStyle: "italic",
             }}
           >
-            All Dexie Cloud SaaS plans include Prod Support. The plans below are
-            for on-premises customers.
+            Every Dexie Cloud plan includes support built in. On-Premises
+            Enterprise licenses include a renewable annual support term.
           </Typography>
           <SupportPlansWidget
             plans={cloudSupportPlans}

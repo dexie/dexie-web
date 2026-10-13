@@ -126,7 +126,7 @@ export const DESCRIPTIONS = {
     "Complete Dexie Cloud documentation: real-time sync, authentication, access control, and collaborative features for offline-first applications. No backend required - start building with IndexedDB sync today.",
 
   PRICING:
-    "Dexie Cloud pricing: Start free with 3 users and 100MB storage. Production plans from $0.12/user/month. On-premises options available. No backend setup required for offline-first apps with real-time sync.",
+    "Dexie Cloud pricing: Start free with unlimited users and 1GB storage. Flat-rate plans for Indie, Pro, and Scale starting at $25/month with unlimited users and pay-as-you-grow overages. No seat caps.",
 
   CONTACT:
     "Get help with Dexie.js and Dexie Cloud. Technical support, sales inquiries, bug reports, and community support. Discord community, GitHub issues, and professional support available.",

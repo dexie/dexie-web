@@ -1,12 +1,12 @@
-import type { Metadata } from "next"
-import CallToActionWidget from "@/components/content/CallToActionWidget"
-import FAQWidget from "@/components/content/FAQWidget"
+import type { Metadata } from "next";
+import CallToActionWidget from "@/components/content/CallToActionWidget";
+import FAQWidget from "@/components/content/FAQWidget";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://dexie.org"),
   title: "Dexie Cloud Pricing - Free Offline-First Database with Sync Plans",
   description:
-    "Dexie Cloud pricing: Start free with 3 users and 100MB storage. Production plans from €0.12/user/month. On-premises options available. No backend setup required for offline-first apps with real-time sync.",
+    "Dexie Cloud pricing: Start free with unlimited users and 1GB storage. Flat-rate plans for Indie, Pro, and Scale starting at $25/month with unlimited users and pay-as-you-grow overages. No seat caps.",
   keywords: [
     "dexie cloud pricing",
     "offline database pricing",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Dexie Cloud Pricing - Start Free, Scale as Needed",
     description:
-      "Free tier: 3 users, 100MB storage. Production plans from €0.12/user/month. On-premises available. Perfect for offline-first applications.",
+      "Free tier: Unlimited users, 1GB storage. Flat-rate Indie/Pro/Scale plans from $25/month with unlimited users and pay-as-you-grow overages.",
     url: "https://dexie.org/pricing",
     images: [
       {
@@ -44,31 +44,31 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Dexie Cloud Pricing - Free Tier Available",
     description:
-      "Start free with 3 users. Production plans from €0.12/user/month. On-premises options for full control.",
+      "Start free with unlimited users and 1GB storage. Flat-rate plans starting at $25/month with unlimited users.",
     images: ["/assets/images/og-images/og-base.png"],
   },
   alternates: {
     canonical: "https://dexie.org/pricing",
   },
-}
+};
 import PricingWidget, {
   type PricingPlan,
-} from "@/components/content/PricingWidget"
-import { type SupportPlan } from "@/components/content/SupportPlansWidget"
-import SupportPlansWidget from "@/components/content/SupportPlansWidget"
-import { type OpenSourceSupportPlan } from "@/components/content/OpenSourceSupportWidget"
-import SupportZone from "@/components/content/SupportZone"
-import PricingStickyNav from "@/components/content/PricingStickyNav"
-import PreferredPartnersWidget from "@/components/content/PreferredPartnersWidget"
+} from "@/components/content/PricingWidget";
+import { type SupportPlan } from "@/components/content/SupportPlansWidget";
+import SupportPlansWidget from "@/components/content/SupportPlansWidget";
+import { type OpenSourceSupportPlan } from "@/components/content/OpenSourceSupportWidget";
+import SupportZone from "@/components/content/SupportZone";
+import PricingStickyNav from "@/components/content/PricingStickyNav";
+import PreferredPartnersWidget from "@/components/content/PreferredPartnersWidget";
 import PricingTableWidget, {
   type TableColumn,
   type TableRow,
-} from "@/components/content/PricingTableWidget"
+} from "@/components/content/PricingTableWidget";
 import StorageLimitsWidget, {
   type StorageLimit,
   type AdditionalStorage,
-} from "@/components/content/StorageLimitsWidget"
-import { Box, Divider } from "@mui/material"
+} from "@/components/content/StorageLimitsWidget";
+import { Box, Divider } from "@mui/material";
 
 // FAQ data
 const faqData = [
@@ -86,60 +86,42 @@ const faqData = [
   },
   {
     id: 3,
-    question: "Free",
+    question: "How does the Free Plan work?",
     answer:
-      "This edition is hosted and forever free. Let your app accept unlimited number of evaluation users and up to 3 production users. An end user's evaluation period will be paused on days when there are no sync requests from that user. After a user's evaluation period ends (30 active days), they can continue using your application offline, but data syncing will stop unless the user is upgraded to production. Upgrading a user can be done manually or programmatically. If more than 3 production seats are needed, existing databases can be upgraded to the Production edition.",
+      "The Free Plan is designed for passion projects, prototyping, and evaluation. It includes unlimited end users, 1 GB Postgres storage, and 5 GB Blob storage. Unlike paid plans, the Free plan has a hard limit on resources and does not support overages. If you approach these limits, we will send you warning emails so you can easily upgrade to Indie, Pro, or Scale to keep syncing without interruption. All database syncing features are identical across all plans.",
   },
   {
     id: 4,
-    question: "Production",
+    question: "Are there any hard limits on storage or Sync Units?",
     answer:
-      "This edition is hosted and starts at €3 per month for 25 seats. It works similarly to the Free edition but with more seats, storage and more generous API rate limits. Continue enjoying free evaluation users on top of the 100 production seats. You control which users occupy production seats via the Dexie Cloud Management app or REST API. Integrate this REST API with the web hooks of your payment gateway (e.g., Stripe, Paypal) to manage seats based on your subscription with customers. When the number of production end users reaches 100, you can manually purchase more seat-packs or let the subscription automatically upgrade or downgrade as needed.",
+      "Paid plans (Indie, Pro, and Scale) follow a 'Build Without Limits' philosophy with generous included quotas, no hard limits, and no automatic service shut-offs when you exceed them. Extra storage and Sync Units on paid plans are billed transparently as pay-as-you-grow overages (billed in your selected currency, EUR or USD). On the Free plan, overages are not supported, and database syncing will temporarily pause if included quotas are exceeded until you upgrade or free up space. Generous fair-use limits apply to network egress (Indie: 50 GB, Pro: 250 GB, Scale: 1 TB per month) and concurrent WebSocket connections (Free: 100, Indie: 1,000, Pro: 5,000, Scale: 20,000) to protect shared infrastructure — casual overages on these connections are never met with a hard cutoff. Paid plans also let you configure spend caps in your settings to avoid unexpected charges.",
   },
   {
     id: 5,
-    question: "Dexie Cloud Server Software",
+    question: "What is the On-Premises Enterprise license?",
     answer:
-      "Purchase the software (optionally with full source code and private Git access) and utilize it as you wish (modify source code or taylor it for your systems - anything except competing with us). Serve millions of users without additional fees. Host it on a cloud provider of your choice or your own hardware. The server is compatible with cloud platforms like Amazon AWS and Microsoft Azure. The package includes one year of chat- and email support and software updates. For continuous support, the yearly fee covers ongoing updates, chat- and email support.\n\nRead more… »",
+      "The On-Premises Enterprise license (€7,995 one-time) gives you full server source code access, unlimited databases and end users, and complete control to self-host on your own infrastructure or any cloud provider (AWS, Azure, etc.) — with zero recurring software licensing fees. It includes 1 year of Priority Support and software updates; renew annually for €1,495/yr to keep receiving updates and support.\n\nRead more… »",
   },
   {
     id: 6,
-    question: "End User Types",
+    question: "Are end-users unlimited on all plans?",
     answer:
-      "This section outlines the distinctions between Evaluation, Production, and Demo users as referenced in the pricing table. Dexie Cloud provides a security layer of authentication and access control directly between end-user and database. End users will authenticate directly with Dexie Cloud database but via a customizable authentication experience for the end user.",
+      "Yes, all plans (including the Free plan) include unlimited end users. There are no seat packs, no per-seat pricing, and no user limits. You only pay for the resources your application consumes (Postgres DB, Blob storage, and Sync Units).",
   },
   {
     id: 7,
-    question: "Evaluation Users",
-    answer:
-      "Evaluation users are free time-limited end user accounts for your app, that can be upgraded to production at any time. By default, Dexie Cloud allows anyone to authenticate (configurable). Unknown users do not occupy seats but receive an evaluation license for up to 30 active days. Evaluation accounts are paused on inactive days (configurable). After an evaluation period ends, the user can continue using the app but won't be able to sync data. You can indicate the user's evaluation status and prompt them to upgrade. Upgrade evaluation users to production via the Dexie Cloud Management app or REST API.",
-  },
-  {
-    id: 8,
-    question: "Production Users",
-    answer:
-      "A production user occupies one of the production seats. The Evaluation edition includes 3 free production seats, while the Production edition comes in 25-seat packs. Manage production seat occupancy via the Dexie Cloud Management app or REST API. Integrate this API with payment gateway web hooks to manage seats based on your customer subscriptions.",
-  },
-  {
-    id: 9,
-    question: "Demo Accounts",
-    answer:
-      "Demo accounts are for testing and demoing your app. They lack login credentials and are useful for showcasing data sharing. Like any other user account, demo accounts do not have access to any private data that hasn't been actively shared to it. Enable or disable demo accounts as needed. Demo accounts do not occupy seats and do not expire.\n\nFind more about Dexie Cloud and its features by visiting the Dexie Cloud Documentation.",
-  },
-  {
-    id: 10,
     question: "Customized Authentication",
     answer:
       "In all editions, it is possible to replace or customize end-user authentication. Dexie Cloud comes with OTP authentication and a default GUI that prompts the user for email and One-time password. There's no need to write any backend or even front-end code for this. However, customers may want to either customise the user interface, or integrate with an existing authentication solution instead of using the built-in OTP authentication from Dexie Cloud.",
   },
   {
-    id: 11,
+    id: 8,
     question: "Customizable Authentication",
     answer:
       "To customize the default GUI for our OTP authentication, configure {customLoginGui: true} and let a component use the db.cloud.userInteraction observable to display dialogs with your own look and feel. Customized authentication does not need a custom backend but can be served the way you prefer, and even from a static web site.",
   },
   {
-    id: 12,
+    id: 9,
     question: "Replaceable Authentication",
     answer: `To replace the default OTP authentication with your own authentication of choice,
       you'll need a backend-for-frontend (BFF) server side app to serve your client application.
@@ -149,239 +131,118 @@ const faqData = [
       on how it can be accomplished.`,
   },
   {
-    id: 13,
+    id: 10,
     question: "Can I upgrade or downgrade my plan?",
     answer:
       "Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, and billing adjustments are prorated.",
   },
   {
-    id: 14,
+    id: 11,
     question: "What happens to my data if I cancel?",
     answer:
       "Your data remains accessible for 30 days after cancellation. You can export your data or reactivate your account during this period. After 30 days, data is permanently deleted.",
   },
   {
-    id: 15,
-    question: "Is there a free trial for paid plans?",
+    id: 12,
+    question: "Is there a free trial?",
     answer:
-      "Yes, both Pro and Enterprise plans come with a 14-day free trial. No credit card required to start your trial.",
+      "No credit card or trial is needed to get started. Our Free plan is permanent and comes with unlimited end users and generous storage/sync quotas. You can start building today and upgrade to a paid tier (Indie, Pro, or Scale) when you need larger quotas.",
   },
   {
-    id: 16,
+    id: 13,
     question: "Do I need Dexie.js support if I use Dexie Cloud?",
     answer:
       "If you're a Dexie Cloud customer, your plan already includes support for the full stack including the Dexie.js client library. The standalone Dexie.js support plans are designed for teams who use the open-source library without Dexie Cloud.",
   },
   {
-    id: 17,
+    id: 14,
     question: "What if I only use the open-source Dexie.js library?",
     answer:
       "Many large companies build production applications on Dexie.js with their own backend and sync solutions. Our Dexie.js Professional Support plans give you direct access to the author and core team for architecture guidance, prioritized bug fixes, and peace of mind.",
   },
   {
-    id: 18,
+    id: 15,
     question: "Can I get a combined Cloud + Dexie.js support package?",
     answer:
       "Yes. Contact us at business@dexie.org to discuss a tailored package that covers both your Dexie Cloud deployment and broader Dexie.js usage across your organization.",
   },
   {
-    id: 19,
+    id: 16,
     question: "What does 'response time' mean in the support plans?",
     answer:
       "Response times indicate when you'll receive an initial substantive reply from the core team. Times apply during CET business hours (Mon–Fri, 9:00–17:00). Enterprise plans can include custom SLA hours.",
   },
-]
+  {
+    id: 17,
+    question: "What is a Sync Unit (SU)?",
+    answer:
+      `A Sync Unit (SU) is a simple way we measure the data you write to the cloud.
+      Each created, updated, or deleted database object (up to 10 KB in size) counts
+       as 1 SU. Larger objects count as multiple units (e.g., a 25 KB object = 3 SU).
 
-// Cloud pricing plans data
-const cloudPlans = [
-  {
-    id: "free",
-    title: "Free",
-    subtitle: "Perfect for passion projects & simple websites.",
-    price: "€0",
-    priceNote: "per month",
-    buttonText: "Start for Free",
-    buttonLink: {
-      url: "/docs/cloud/quickstart",
-      querystring: "",
-      title: "Start for Free",
-      target: "_self",
-    },
-    sectionTitle: "Get started with:",
-    features: [
-      { text: "3 production users" },
-      {
-        text: "50,000 evaluation users",
-        subtext: "With user management and authentication.",
-      },
-      { text: "Online authentication" },
-      { text: "10 databases" },
-      { text: "10 connections" },
-      { text: "Community support" },
-      { text: "100 MB storage" },
-      {
-        text: "Rate limits",
-        subtext: "20 requests per second.",
-      },
-    ],
+       To keep things fair and developer-friendly:
+       - Read-only syncs are 100% free: Simply connecting, polling, or loading data
+       consumes 0 SUs. You only pay for what you write.
+       - Collaborative features are free: Real-time Y.js awareness updates (like cursor tracking and online indicators) are completely free.
+       - Blobs and other large binary are offloaded to blob storage (See /docs/cloud/blob-offloading ) so they only consume the SU for the corresponding BlobRef.
+       The actual binary data is stored in blob storage and billed separately.`,
   },
   {
-    id: "pro",
-    title: "Pro",
-    subtitle: "For scalable production applications.",
-    price: "€0.12",
-    priceNote: "per user / month",
-    buttonText: "Buy Now",
-    buttonLink: {
-      url: "https://buy.stripe.com/14k9CEgSne5D1BS8ww",
-      querystring: "",
-      title: "Buy Now",
-      target: "_self",
-    },
-    isPopular: true,
-    badge: {
-      text: "Popular",
-      variant: "outlined" as const,
-      color: "#c77dff",
-      borderColor: "#c77dff",
-    },
-    sectionTitle: "Everything in the Free Plan, plus:",
-    features: [
-      { text: "Unlimited production users" },
-      { text: "Unlimited evaluation users" },
-      { text: "Unlimited databases" },
-      { text: "Email support" },
-      {
-        text: "Increased rate limits per user",
-      },
-      {
-        text: "Increased storage limits",
-        subtext: "See Storage Limits for details.",
-      },
-    ],
+    id: 18,
+    question: "What if my needs go beyond the Scale plan?",
+    answer:
+      `Founder's Circle offers white-glove, custom-tailored service —
+      custom storage and Sync Unit limits, a dedicated Slack channel
+      with the core team, and negotiable SLAs — for teams operating at
+      very large scale. Dexie Cloud can outgrow a single postgres capability and use
+      sharding built for high-scale workloads.
+
+      
+      If you need full data sovereignty or self-hosting
+      instead, our On-Premises Enterprise license may be a better fit.
+      Contact us to discuss your requirements.`,
   },
-  {
-    id: "business",
-    title: "Business",
-    subtitle: "When you need control over your data and infrastructure.",
-    price: "€3,495",
-    priceNote: "forever",
-    buttonText: "Buy now",
-    buttonLink: {
-      url: "https://buy.stripe.com/8wM8yAfOjf9HbcsfZ0",
-      querystring: "",
-      title: "Buy now",
-      target: "_self",
-    },
-    contactSalesText: "Need custom terms? Contact Sales",
-    contactSalesLink: "/contact",
-    sectionTitle: "Host everything yourself:",
-    features: [
-      {
-        text: "Install on your own server",
-        subtext: "Delivered as a Docker image.",
-      },
-      { text: "No limits or recurring costs" },
-      { text: "5 years of updates" },
-      { text: "1 year of limited support" },
-      { text: "Dedicated account manager" },
-    ],
-  },
-  {
-    id: "enterprise",
-    title: "Enterprise",
-    subtitle:
-      "When you need full control, source code and vendor independence.",
-    price: "€7,995",
-    priceNote: "forever",
-    buttonText: "Buy now",
-    buttonLink: {
-      url: "https://buy.stripe.com/cN21680Tp2mVeoE9AD",
-      querystring: "",
-      title: "Buy now",
-      target: "_self",
-    },
-    badge: {
-      text: "Bestseller",
-      variant: "outlined" as const,
-      color: "#c77dff",
-      borderColor: "#c77dff",
-    },
-    contactSalesText: "Need custom terms? Contact Sales",
-    contactSalesLink: "/contact",
-    sectionTitle: "Everything in Business, plus:",
-    features: [
-      {
-        text: "Full source code",
-        subtext: "Ten years of problem-solving—delivered to you on day one.",
-      },
-      {
-        text: "Vendor independence",
-        subtext:
-          "Modify, integrate, and maintain without external dependencies.",
-      },
-      { text: "1 year of full support" },
-      { text: "Priority support" },
-      {
-        text: "Future-proof investment",
-        subtext:
-          "Own your technology stack—no licensing fees, no vendor lock-in, ever.",
-      },
-    ],
-  },
-]
+];
+
+// Cloud pricing plans data (handled dynamically inside PricingWidget)
+const cloudPlans: PricingPlan[] = [];
 
 // On-premises plans (for future use)
-const onPremisesPlans: PricingPlan[] = []
+const onPremisesPlans: PricingPlan[] = [];
 
 // Support plans data
 const supportPlans: SupportPlan[] = [
   {
-    title: "Production",
+    title: "Dexie Cloud SaaS",
     price: "Included",
     description:
-      "This support option is included when subscribing to Dexie Cloud Production (SaaS) and includes email and chat support.",
-    features: ["Email support", "Chat support"],
-    ctaText: "Get started",
-    ctaHref: "/docs/cloud/quickstart",
-  },
-  {
-    title: "Business",
-    price: "€695 / year",
-    description:
-      "This support option is available for the On-Prem Business Edition. One year of Business Support is included when purchasing Dexie Cloud On-Prem Business.",
+      "Support is bundled into every Dexie Cloud SaaS plan — no separate purchase needed. The level of support scales with your plan.",
     features: [
-      "Chat support",
-      "Email support",
-      "Prioritized tickets",
-      "Software updates",
-      "Github issues",
+      "Free: Community support (GitHub/Stack Overflow)",
+      "Indie: Email support",
+      "Pro: Priority support (faster response)",
+      "Scale: Premium email support (AI-assisted + human review, 1 business day SLA target; incidents excluded)",
     ],
-    ctaText: "Contact us",
-    ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
+    ctaText: "View Cloud Plans",
+    ctaHref: "#cloud",
   },
   {
-    title: "Enterprise",
-    price: "€3,495 / year",
+    title: "On-Premises Enterprise",
+    price: "1 year included",
     description:
-      "Every customer is different and require different levels of support. With the Gold Support package, we can dedicate our support to your team, tailor SLAs and be available at the levels of customer's requirements.",
+      "Every On-Premises Enterprise license includes a full year of Priority Support and software updates. Renew annually to keep support and updates flowing.",
     highlighted: true,
-    badge: "Most popular",
+    badge: "Renewal",
     features: [
-      "SLA 16 business hours",
-      "Access to private GIT repo of Dexie Cloud Server for source code updates",
-      "Prioritized tickets",
-      "Private Github issues",
-      "Software updates",
-      "Chat support",
-      "Email support",
-      "Video meetings",
-      "Dedication",
+      "Priority support (chat & email)",
+      "Software updates for the license term",
+      "Access to private GitHub repo for source updates",
+      "Year 2+ renewal: €1,495/yr",
     ],
     ctaText: "Contact us",
     ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
   },
-]
+];
 
 // Dexie.js Open Source Support plans
 const openSourceSupportPlans: OpenSourceSupportPlan[] = [
@@ -439,7 +300,7 @@ const openSourceSupportPlans: OpenSourceSupportPlan[] = [
     ctaText: "Get a quote",
     ctaHref: "https://calendly.com/david-fahlander-awarica/30min",
   },
-]
+];
 
 // Professional Services data
 const professionalServices: SupportPlan[] = [
@@ -501,19 +362,19 @@ const professionalServices: SupportPlan[] = [
       "Ongoing development support",
     ],
   },
-]
+];
 
 // Preferred Partners data
 interface PreferredPartner {
-  name: string
-  description: string
-  website: string
-  logo?: string
-  services: string[]
+  name: string;
+  description: string;
+  website: string;
+  logo?: string;
+  services: string[];
   contact: {
-    email: string
-    phone?: string
-  }
+    email: string;
+    phone?: string;
+  };
 }
 
 const preferredPartners: PreferredPartner[] = [
@@ -534,199 +395,136 @@ const preferredPartners: PreferredPartner[] = [
       email: "info@zenta.se",
     },
   },
-]
+];
 
 // Detailed comparison table data
 const comparisonColumns: TableColumn[] = [
   { key: "feature", label: "Feature" },
-  { key: "free", label: "Free (SaaS)", align: "center" },
-  { key: "production", label: "Production (SaaS)", align: "center" },
-  { key: "onPrem", label: "On-prem Business / Enterprise", align: "center" },
-]
+  { key: "free", label: "Free Plan", align: "center" },
+  { key: "indie", label: "Indie Plan", align: "center" },
+  { key: "pro", label: "Pro Plan", align: "center" },
+  { key: "scale", label: "Scale Plan", align: "center" },
+];
 
 const comparisonRows: TableRow[] = [
   {
     feature: "Easy setup: npx dexie-cloud create",
     free: true,
-    production: true,
-    onPrem: "See docs",
+    indie: true,
+    pro: true,
+    scale: true,
   },
   {
-    feature: "All main features included",
+    feature: "All core database sync features included",
     free: true,
-    production: true,
-    onPrem: true,
+    indie: true,
+    pro: true,
+    scale: true,
   },
   {
-    feature: "Customizable authentication",
+    feature: "Customizable OTP authentication",
     free: true,
-    production: true,
-    onPrem: true,
+    indie: true,
+    pro: true,
+    scale: true,
   },
   {
-    feature: "Replaceable authentication",
+    feature: "Replaceable authentication (BFF)",
     free: true,
-    production: true,
-    onPrem: true,
-  },
-  {
-    feature: "Custom email templates",
-    free: false,
-    production: true,
-    onPrem: true,
-  },
-  {
-    feature: "Vertically scalable",
-    free: false,
-    production: true,
-    onPrem: true,
-  },
-  {
-    feature: "Horizontally scalable",
-    free: false,
-    production: true,
-    onPrem: true,
+    indie: true,
+    pro: true,
+    scale: true,
   },
   {
     feature: "Max Number of databases",
-    free: "Unlimited, free",
-    production: "Unlimited, free",
-    onPrem: "Unlimited",
+    free: "Unlimited",
+    indie: "Unlimited",
+    pro: "Unlimited",
+    scale: "Unlimited",
   },
   {
-    feature: "Evaluation users (your end users)",
-    free: "Unlimited, free",
-    production: "Unlimited, free",
-    onPrem: "Unlimited",
+    feature: "End users (your app's users)",
+    free: "Unlimited",
+    indie: "Unlimited",
+    pro: "Unlimited",
+    scale: "Unlimited",
   },
   {
-    feature: "Demo accounts (for showcasing app)",
-    free: "Unlimited, free",
-    production: "Unlimited, free",
-    onPrem: "Unlimited",
+    feature: "Included Postgres Storage (no hard limit, pay-as-you-grow)",
+    free: "1 GB (Hard Limit)",
+    indie: "10 GB",
+    pro: "50 GB",
+    scale: "200 GB",
   },
   {
-    feature: "Production users (your end users)",
-    free: "3 seats, free",
-    production: "€3/mo per 25 seats",
-    onPrem: "Unlimited",
+    feature: "Included Blob Storage (no hard limit, pay-as-you-grow)",
+    free: "5 GB (Hard Limit)",
+    indie: "25 GB",
+    pro: "100 GB",
+    scale: "500 GB",
   },
   {
-    feature: "Storage",
-    free: "100 MB",
-    production: "See storage limits",
-    onPrem: "Unlimited",
-  },
-  {
-    feature: "Simultaneous Client Connections",
-    free: "10",
-    production: "200 per 100 users",
-    onPrem: "Unlimited",
-  },
-  {
-    feature: "Sync rate-limits",
-    free: "50 per 5 mins per user",
-    production: "200 per 5 minutes per user",
-    onPrem: "Configurable",
-  },
-  {
-    feature: "Software updates (client)",
-    free: "✔ (via npm)",
-    production: "✔ (via npm)",
-    onPrem: "✔ (via npm)",
-  },
-  {
-    feature: "Software updates (server)",
-    free: "N/A",
-    production: "N/A",
-    onPrem: "✔ (via git, npm or download)",
-  },
-  {
-    feature: "Full source code",
-    free: false,
-    production: false,
-    onPrem: "On-Prem Gold",
-  },
-  {
-    feature: "Access to private Git repo",
-    free: false,
-    production: false,
-    onPrem: "On-Prem Gold",
+    feature: "Included Sync Units (SU) / mo (no hard limit, pay-as-you-grow)",
+    free: "1 Million (Hard Limit)",
+    indie: "5 Million",
+    pro: "25 Million",
+    scale: "100 Million",
   },
   {
     feature: "Support options",
-    free: "Github or Stackoverflow",
-    production: "Email / chat",
-    onPrem: "Silver- or Gold Support",
+    free: "Github/Stackoverflow",
+    indie: "Email Support",
+    pro: "Priority Support",
+    scale: "Premium email support (AI + human review, 1 business day SLA target)",
   },
-]
+];
 
 // Storage limits data
 const storageLimits: StorageLimit[] = [
   {
-    seats: "Free edition",
-    objectStorage: "25 MB",
-    blobStorage: "75 MB",
-    blobWrites: "1,000 / mo",
-  },
-  {
-    seats: "25",
+    plan: "Free Plan",
     objectStorage: "1 GB",
-    blobStorage: "20 GB",
-    blobWrites: "50,000 / mo",
+    blobStorage: "5 GB",
+    blobWrites: "1M SU / mo",
   },
   {
-    seats: "50",
-    objectStorage: "2 GB",
-    blobStorage: "40 GB",
-    blobWrites: "100,000 / mo",
+    plan: "Indie Plan",
+    objectStorage: "10 GB",
+    blobStorage: "25 GB",
+    blobWrites: "5M SU / mo",
   },
   {
-    seats: "75",
-    objectStorage: "3 GB",
-    blobStorage: "60 GB",
-    blobWrites: "150,000 / mo",
+    plan: "Pro Plan",
+    objectStorage: "50 GB",
+    blobStorage: "100 GB",
+    blobWrites: "25M SU / mo",
   },
   {
-    seats: "100",
-    objectStorage: "4 GB",
-    blobStorage: "80 GB",
-    blobWrites: "200,000 / mo",
-  },
-  { seats: "...", objectStorage: "...", blobStorage: "...", blobWrites: "..." },
-  {
-    seats: "1,000",
-    objectStorage: "20 GB",
-    blobStorage: "800 GB",
-    blobWrites: "2,000,000 / mo",
-  },
-  {
-    seats: "10,000",
+    plan: "Scale Plan",
     objectStorage: "200 GB",
-    blobStorage: "8 TB",
-    blobWrites: "20,000,000 / mo",
+    blobStorage: "500 GB",
+    blobWrites: "100M SU / mo",
   },
-  {
-    seats: "100,000",
-    objectStorage: "2 TB",
-    blobStorage: "80 TB",
-    blobWrites: "200,000,000 / mo",
-  },
-]
+];
 
 // Additional storage pricing
 const additionalStorageData: AdditionalStorage[] = [
   {
-    storageType: "Blob Storage",
-    storageCost: "€0.05 / extra GB / mo",
-    syncCosts: "€0.50 per 10,000 additional write operations",
+    storageType: "Postgres Database Storage (overage)",
+    storageCost: "€0.15 / $0.18 per extra GB / mo",
+    syncCosts: "€0.12 / $0.14 per extra GB / mo on Scale",
   },
   {
-    storageType: "Object Storage",
-    storageCost: "€2 / extra GB / mo",
-    syncCosts: "-",
+    storageType: "Blob Storage / Files (overage)",
+    storageCost: "€0.03 / $0.035 per extra GB / mo",
+    syncCosts: "€0.025 / $0.03 per extra GB / mo on Scale",
   },
-]
+  {
+    storageType: "Sync Units (overage per 1M SU)",
+    storageCost: "Indie: €4 / $4.5, Pro: €3 / $3.5",
+    syncCosts: "Scale: €2 / $2.5 per 1M",
+  },
+];
 
 export default function PricingPage() {
   return (
@@ -747,9 +545,9 @@ export default function PricingPage() {
             textColor: "#dee2e6",
             backgroundColor: "#000000",
             containerWidth: "big",
-            sectionTitle: "Cloud and on-premises with",
+            sectionTitle: "Build without limits.",
             sectionSubtitle:
-              "Fully managed cloud solution for seamless scaling and automatic hosting, or host everything yourself for full control over your backend and infrastructure.",
+              "Your app can grow to any size — the platform won't hold it back. No seat caps. Unlimited connections (soft fair-use guidelines apply). No 'contact sales to scale.' You grow, you pay for what you use, and we scale with you.",
             typewriterStrings: [
               "full backend control",
               "IndexedDB simplified",
@@ -775,7 +573,7 @@ export default function PricingPage() {
       <Box id="comparison">
         <PricingTableWidget
           title="Detailed Pricing Table"
-          subtitle="For more details, check out this blog post."
+          subtitle="For more details, check out this blog post. Need more than Scale offers? See Founder's Circle and On-Premises Enterprise above."
           columns={comparisonColumns}
           rows={comparisonRows}
           settings={{
@@ -797,6 +595,7 @@ export default function PricingPage() {
             textColor: "#dee2e6",
             backgroundColor: "#000000",
             containerWidth: "big",
+            additionalStorageDescription: "If more storage or sync throughput than what's included in the plan is required, a subscription can be extended with additional storage and sync operations (overages are billed in your selected currency, EUR or USD):",
           }}
         />
       </Box>
@@ -958,5 +757,5 @@ export default function PricingPage() {
         containerWidth="big"
       />
     </>
-  )
+  );
 }
