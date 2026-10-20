@@ -685,6 +685,7 @@ The query is optional and consists of a list of optional &amp;-separated key=val
 | `sort=evalDaysLeft`     | Sort by evalDaysLeft property         |
 | `sort=lastLogin`        | Sort by lastLogin property            |
 | `sort=userId`           | Sort by userId property               |
+| `sort=email`            | Sort by data.email, falling back to userId |
 | `sort=type`             | Sort by type property                 |
 | `sort=displayName`      | Sort by displayName property          |
 | `desc`                  | Sort descending                       |
@@ -698,6 +699,10 @@ The query is optional and consists of a list of optional &amp;-separated key=val
 | `sort=userId`            | Sort by userId                                               |
 | `desc=false`             | Sort ascending                                               |
 | `limit=1000`             | Max 1000 users in result (use pagingKey to get more results) |
+
+`sort=email` sorts by `data.email`. If the email is missing, `null`, or an empty string, the user's `userId` is used instead. `sort=displayName` sorts by `data.displayName`. Users with equal sort values are ordered by `userId` in the same direction.
+
+For example, use `GET /users?sort=email&limit=50` to list users in ascending email order, or add `&desc=true` for descending order. When `hasMore` is `true`, pass the returned `pagingKey` as a URL-encoded query parameter in the next request, keeping the same sorting, filters, and limit. Treat the paging key as opaque; email sorting uses the same email-or-userId fallback when generating it.
 
 **JSON Response Format:**
 
@@ -817,6 +822,8 @@ In all these samples, userId is the same as email. This is true when using the b
 #### Create users
 
 To create one or several users, do a POST request against /users endpoint with Content-Type: application/json.
+
+By default, `POST /users` is an upsert: an existing `userId` updates that user. To create users without updating existing accounts, use `POST /users?createOnly=true`. If any resolved user ID already exists, the request fails with HTTP **409 Conflict** instead of updating it. A concurrent insert of the same ID also returns 409. This option applies to the entire batch and also checks IDs resolved through `provisionByEmail`. Dexie Cloud Manager uses this option for Add User; editing users retains the default upsert behavior.
 
 **Required token scopes:** `ACCESS_DB`, `GLOBAL_READ`, `GLOBAL_WRITE` The JSON data must be an array of users. Each user in the array must at least have the "userId" and the "type" properties set. Optionally, supply the properties "validUntil", "evalDaysLeft", "deactivated" and "data" properties. This API is picky about unsupported properties and will fail if any unsupported or unauthorized property was present in the provided users. The only fuzzy part of a user is the data property that can contain arbritary sub properties.
 
