@@ -828,7 +828,7 @@ By default, `POST /users` is an upsert: an existing `userId` updates that user. 
 **Required token scopes:** `ACCESS_DB`, `GLOBAL_READ`, `GLOBAL_WRITE` The JSON data must be an array of users. Each user in the array must at least have the "userId" and the "type" properties set. Optionally, supply the properties "validUntil", "evalDaysLeft", "deactivated" and "data" properties. This API is picky about unsupported properties and will fail if any unsupported or unauthorized property was present in the provided users. The only fuzzy part of a user is the data property that can contain arbritary sub properties.
 
 ```http
-POST /users HTTP/1.1
+POST /users?createOnly=true HTTP/1.1
 Host: xxxx.dexie.cloud
 Authorization: Bearer XXX...
 Content-Type: application/json
